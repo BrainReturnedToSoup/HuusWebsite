@@ -13,3 +13,9 @@
     background-size: cover;
   }
 }
+
+.center-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

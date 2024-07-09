@@ -18,13 +18,11 @@ function RegularMenu() {
       {headerNavLinks.map((buttonData) => {
         return (
           <a
-            className="flex justify-items-center px-5 hover:bg-white"
+            className="center-text flex justify-items-center bg-black px-5 text-xl text-white transition-colors duration-300 ease-in-out hover:bg-white hover:text-black"
             key={buttonData.key}
             href={buttonData.route}
           >
-            <button className="text-xl hover:text-black" key={buttonData.key} >
-              {buttonData.name}
-            </button>
+            {buttonData.name}
           </a>
         );
       })}
