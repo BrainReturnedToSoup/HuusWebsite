@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./pages/root/root";
 import Services from "./pages/services/services";
 import Contact from "./pages/contact/contact";
+import Media from "./pages/media/media";
 import About from "./pages/about/about";
 import Error from "./pages/error/error";
 
@@ -24,6 +25,12 @@ const router = createBrowserRouter([
   {
     path: "/contact",
     element: <Contact />,
+    errorElement: <Error />,
+  },
+
+  {
+    path: "/media",
+    element: <Media />,
     errorElement: <Error />,
   },
 
