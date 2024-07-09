@@ -10,7 +10,7 @@ const store = configureStore({
 
 const selectors = {
   deviceWidth: () => {
-    return store.getState().deviceWidth.value;
+    return store.getState().deviceWidth.width;
   },
 };
 

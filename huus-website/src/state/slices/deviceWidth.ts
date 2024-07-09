@@ -1,15 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
+import getReponsiveSizeWidth from "../../lib/getResponsiveSize";
 
 const deviceWidthSlice = createSlice({
   name: "deviceWidth",
 
   initialState: {
-    value: window.innerWidth,
+    width: window.innerWidth,
+    responsiveSizeWidth: getReponsiveSizeWidth(window.innerWidth),
   },
 
   reducers: {
-    set: (state, action) => {
-      state.value = action.payload;
+    setScreenWidth: (state, action) => {
+      state.width = action.payload;
+    },
+
+    setResponsiveScreenSize: (state, action) => {
+      state.responsiveSizeWidth = action.payload;
     },
   },
 });

@@ -4,6 +4,7 @@
 
 import { store, selectors } from "../state/store";
 import deviceWidthSlice from "../state/slices/deviceWidth";
+import getReponsiveSizeWidth from "../lib/getResponsiveSize";
 
 function resizehandler() {
   const currDeviceWidth = window.innerWidth;
@@ -14,7 +15,18 @@ function resizehandler() {
 
   if (currDeviceWidth === storedDeviceWidth) return;
 
-  store.dispatch(deviceWidthSlice.actions.set(currDeviceWidth));
+  store.dispatch((dispatch) => {
+    //these are grouped together to alter the redux state in a translaction-like way.
+    //this can make sure that state is updated all at once, which reduces unnecessary
+    //react rerenders relvant to this particular context, and reduces the amount of garbage due
+    //to immutable state changes which creates clone data.
+
+    dispatch(deviceWidthSlice.actions.setScreenWidth(currDeviceWidth));
+
+    const responsiveSize = getReponsiveSizeWidth(currDeviceWidth);
+
+    dispatch(deviceWidthSlice.actions.setResponsiveScreenSize(responsiveSize));
+  });
 }
 
 window.addEventListener("resize", resizehandler);
