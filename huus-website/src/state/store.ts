@@ -1,5 +1,17 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from "@reduxjs/toolkit";
 
-export default configureStore({
-    reducer: {}
-})
+import deviceWidthSlice from "./slices/deviceWidth";
+
+const store = configureStore({
+  reducer: {
+    deviceWidth: deviceWidthSlice.reducer,
+  },
+});
+
+const selectors = {
+  deviceWidth: () => {
+    return store.getState().deviceWidth.value;
+  },
+};
+
+export { store, selectors };
