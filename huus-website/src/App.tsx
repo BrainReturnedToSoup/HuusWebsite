@@ -1,11 +1,11 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Root from "./pages/root/root";
-import Services from "./pages/services/services";
-import Contact from "./pages/contact/contact";
-import Media from "./pages/media/media";
-import About from "./pages/about/about";
-import Error from "./pages/error/error";
+import Root from "./pages/root/Root";
+import Services from "./pages/services/Services";
+import Contact from "./pages/contact/Contact";
+import Media from "./pages/media/Media";
+import About from "./pages/about/About";
+import Error from "./pages/error/Error";
 
 import "./App.css";
 

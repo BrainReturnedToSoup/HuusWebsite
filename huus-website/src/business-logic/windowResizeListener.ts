@@ -3,15 +3,15 @@
 //when necessary for responsive design.
 
 import { store, selectors } from "../state/store";
-import deviceWidthSlice from "../state/slices/deviceWidth";
+import deviceScreenSlice from "../state/slices/deviceWidth";
 import getReponsiveSizeWidth from "../lib/getResponsiveSize";
 
-function resizehandler() {
-  const currDeviceWidth = window.innerWidth;
+function resizehandler(): void {
+  const currDeviceWidth: number = window.innerWidth;
 
   //THIS DOES NOT CREATE A CLONE, ITS THE ACTUAL REFERENCE FOR WHAT IS SAVED IN STATE
   //DO NOT UPDATE THE RETURNED REFERENCES FOR STATE UPDATES. USE ACTION METHODS ON SLICES INSTEAD
-  const storedDeviceWidth = selectors.deviceWidth();
+  const storedDeviceWidth: number = selectors.deviceScreen.width();
 
   if (currDeviceWidth === storedDeviceWidth) return;
 
@@ -21,11 +21,11 @@ function resizehandler() {
     //react rerenders relvant to this particular context, and reduces the amount of garbage due
     //to immutable state changes which creates clone data.
 
-    dispatch(deviceWidthSlice.actions.setScreenWidth(currDeviceWidth));
+    dispatch(deviceScreenSlice.actions.setScreenWidth(currDeviceWidth));
 
-    const responsiveSize = getReponsiveSizeWidth(currDeviceWidth);
+    const responsiveSize: string = getReponsiveSizeWidth(currDeviceWidth);
 
-    dispatch(deviceWidthSlice.actions.setResponsiveScreenSize(responsiveSize));
+    dispatch(deviceScreenSlice.actions.setWidthRange(responsiveSize));
   });
 }
 

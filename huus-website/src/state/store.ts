@@ -1,17 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import deviceWidthSlice from "./slices/deviceWidth";
+import deviceScreenSlice from "./slices/deviceWidth";
 
 const store = configureStore({
   reducer: {
-    deviceWidth: deviceWidthSlice.reducer,
+    deviceScreen: deviceScreenSlice.reducer,
   },
 });
 
 const selectors = {
-  deviceWidth: () => {
-    return store.getState().deviceWidth.width;
+  deviceScreen: {
+    width: (): number => {
+      return store.getState().deviceScreen.width;
+    },
   },
 };
 
+export type RootState = ReturnType<typeof store.getState>;
 export { store, selectors };
