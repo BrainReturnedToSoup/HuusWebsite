@@ -9,19 +9,23 @@ const headerNavLinks = [
 ];
 
 function MobileMenu() {
-  return <div></div>;
+  return <div>mobile menu</div>;
 }
 
 function RegularMenu() {
   return (
-    <div>
+    <div className="flex justify-items-center">
       {headerNavLinks.map((buttonData) => {
         return (
-          <button key={buttonData.key} className="">
-            <a key={buttonData.key} href={buttonData.route}>
+          <a
+            className="flex justify-items-center px-5 hover:bg-white"
+            key={buttonData.key}
+            href={buttonData.route}
+          >
+            <button className="text-xl hover:text-black" key={buttonData.key} >
               {buttonData.name}
-            </a>
-          </button>
+            </button>
+          </a>
         );
       })}
     </div>
@@ -40,6 +44,8 @@ export default function Nav() {
   //mobile menu will be for devices that have a width less than 1200px,
   //so basically, portrait tablets and below
   return (
-    <nav>{deviceScreenWidth < 1200 ? <MobileMenu /> : <RegularMenu />}</nav>
+    <nav className="flex justify-center">
+      {deviceScreenWidth < 768 ? <MobileMenu /> : <RegularMenu />}
+    </nav>
   );
 }
