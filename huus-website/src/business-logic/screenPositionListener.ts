@@ -8,7 +8,7 @@ import { store, selectors } from "../state/store";
 import deviceScreenSlice from "../state/slices/deviceScreen";
 
 function positionHandler(): void {
-  const currScreenPosition: number = window.screenTop;
+  const currScreenPosition: number = Math.round(window.scrollY);
 
   //THIS DOES NOT CREATE A CLONE, ITS THE ACTUAL REFERENCE FOR WHAT IS SAVED IN STATE
   //DO NOT UPDATE THE RETURNED REFERENCES FOR STATE UPDATES. USE ACTION METHODS ON SLICES INSTEAD

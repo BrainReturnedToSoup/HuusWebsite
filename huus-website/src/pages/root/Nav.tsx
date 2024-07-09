@@ -1,5 +1,6 @@
-import { RootState } from "../../state/store";
 import { useSelector } from "react-redux";
+import { RootState } from "../../state/store";
+import { useState, useEffect } from "react";
 
 const headerNavLinks = [
   { name: "Services", route: "/services", key: 1 },
@@ -8,17 +9,35 @@ const headerNavLinks = [
   { name: "About", route: "/about", key: 4 },
 ];
 
-function MobileMenu() {
-  return <div>mobile menu</div>;
+const whiteBackground = "text-black hover:bg-black hover:text-white";
+const blackBackground = " text-white hover:bg-white hover:text-black";
+
+function MobileHamburgerMenu() {
+  return <div>mobile hamburger menu</div>;
 }
 
-function RegularMenu() {
+function RegularNavButtons() {
+  const screenPosition: number = useSelector(
+    (state: RootState) => state.deviceScreen.position,
+  );
+
+  const [buttonContrast, setButtonContrast] = useState(blackBackground);
+
+  useEffect(() => {
+    const newContrast =
+      screenPosition > 900 ? whiteBackground : blackBackground;
+
+    console.log("screen position: ", screenPosition);
+
+    setButtonContrast(newContrast);
+  }, [screenPosition]);
+
   return (
     <div className="flex justify-items-center">
       {headerNavLinks.map((buttonData) => {
         return (
           <a
-            className="center-text flex justify-items-center bg-black px-5 text-xl text-white transition-colors duration-300 ease-in-out hover:bg-white hover:text-black"
+            className={`center-text flex justify-items-center px-7 text-xl transition-colors duration-300 ease-in-out ${buttonContrast}`}
             key={buttonData.key}
             href={buttonData.route}
           >
@@ -35,7 +54,7 @@ export default function Nav() {
   //that keeps track of the current screen width to display specific components
   //based on the device width. Responsive design 101
 
-  const deviceScreenWidth: number = useSelector(
+  const screenWidth: number = useSelector(
     (state: RootState) => state.deviceScreen.width,
   );
 
@@ -43,7 +62,7 @@ export default function Nav() {
   //so basically, portrait tablets and below
   return (
     <nav className="flex justify-center">
-      {deviceScreenWidth < 768 ? <MobileMenu /> : <RegularMenu />}
+      {screenWidth < 768 ? <MobileHamburgerMenu /> : <RegularNavButtons />}
     </nav>
   );
 }
