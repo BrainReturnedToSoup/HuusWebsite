@@ -7,9 +7,19 @@ const headerNavLinks = [
   { name: "About", route: "/about", key: 4 },
 ];
 
+function MainNav() {
+  return <nav>
+    
+  </nav>
+}
+
 export default function Root() {
-  const isMobile = useMediaQuery({ minWidth: 600 }); //as per material design v3 specs
-  const isTablet = useMediaQuery({ minWidth: 840 });
+  //as per material design v3 specs
+  const isPortaitMobile = useMediaQuery({ maxWidth: 600 });
+  const isPortraitTablet = useMediaQuery({ maxWidth: 840 });
+  const isLandscape = useMediaQuery({ maxWidth: 1200 });
+  const isLandscapeLarge = useMediaQuery({ maxWidth: 1600 });
+  //everything else larger is considered XL landscape
 
   return (
     <>

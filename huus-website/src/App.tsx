@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+
 import Root from "./pages/root/root";
 import Services from "./pages/services/services";
 import Contact from "./pages/contact/contact";
@@ -42,7 +43,9 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+
+   return <RouterProvider router={router} />;
+
 }
 
 export default App;
