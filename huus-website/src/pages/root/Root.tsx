@@ -11,11 +11,13 @@ export default function Root() {
 
   return (
     <>
-      <header className="main-backdrop-image h-dvh">
-        <div className="fixed flex h-14 w-full justify-between justify-items-center px-6 sm:h-14 sm:px-10 lg:px-14 xl:px-20">
+      <header className="flex flex-col main-backdrop-image h-dvh w-full bg-black">
+        <div
+          className={`h-18 fixed flex w-full justify-between justify-items-center px-6 sm:h-14 sm:px-10 lg:px-14 xl:px-20 ${screenPosition > window.innerHeight - 25 ? "bg-white" : "bg-black bg-opacity-20"}`}
+        >
           <div className="flex justify-items-center">
             <p
-              className={`justify-self-center ${screenPosition > 900 ? "text-transparent" : "text-white"}`}
+              className={`justify-self-center ${screenPosition > window.innerHeight ? "text-transparent" : "text-white"}`}
             >
               logo goes here
             </p>
@@ -24,7 +26,7 @@ export default function Root() {
         </div>
         <Hero />
       </header>
-      <main className="h-[1000px] bg-white px-6 md:px-10 lg:px-14 xl:px-20"></main>
+      <main className="h-[2000px] bg-white px-6 md:px-10 lg:px-14 xl:px-20"></main>
       <footer className="px-6 sm:px-10 lg:px-14 xl:px-20"></footer>
     </>
   );

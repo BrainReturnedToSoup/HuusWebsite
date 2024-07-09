@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../state/store";
-import { useState, useEffect } from "react";
 
 const headerNavLinks = [
   { name: "Services", route: "/services", key: 1 },
@@ -21,23 +20,12 @@ function RegularNavButtons() {
     (state: RootState) => state.deviceScreen.position,
   );
 
-  const [buttonContrast, setButtonContrast] = useState(blackBackground);
-
-  useEffect(() => {
-    const newContrast =
-      screenPosition > 900 ? whiteBackground : blackBackground;
-
-    console.log("screen position: ", screenPosition);
-
-    setButtonContrast(newContrast);
-  }, [screenPosition]);
-
   return (
     <div className="flex justify-items-center">
       {headerNavLinks.map((buttonData) => {
         return (
           <a
-            className={`center-text flex justify-items-center px-9 text-xl transition-colors duration-300 ease-in-out ${buttonContrast}`}
+            className={`center-text flex justify-items-center px-9 text-xl transition-colors duration-300 ease-in-out ${screenPosition > window.innerHeight ? whiteBackground : blackBackground}`}
             key={buttonData.key}
             href={buttonData.route}
           >
