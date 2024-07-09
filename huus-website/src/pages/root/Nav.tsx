@@ -37,7 +37,7 @@ function RegularNavButtons() {
       {headerNavLinks.map((buttonData) => {
         return (
           <a
-            className={`center-text flex justify-items-center px-7 text-xl transition-colors duration-300 ease-in-out ${buttonContrast}`}
+            className={`center-text flex justify-items-center px-9 text-xl transition-colors duration-300 ease-in-out ${buttonContrast}`}
             key={buttonData.key}
             href={buttonData.route}
           >
