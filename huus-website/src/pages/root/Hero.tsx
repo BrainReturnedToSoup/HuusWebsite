@@ -36,14 +36,14 @@ function LearnMoreLink() {
 export default function Hero() {
   return (
     <div className="bg-red my-12 mt-14 flex h-full lg:px-14 xl:px-20">
-      <div className="mt-5 flex h-4/5 flex-col justify-center bg-black bg-opacity-20 md:p-3 py-6 transition-colors duration-300 ease-in-out lg:w-[635px] xl:bg-transparent">
+      <div className="mt-5 flex h-4/5 flex-col justify-center bg-black bg-opacity-20 py-6 transition-colors duration-300 ease-in-out md:p-3 lg:w-[635px] xl:bg-transparent">
         <div className="mb-6 bg-opacity-15 p-3 pl-12">
-          <h2 className="mb-4 text-5xl font-light text-white md:text-7xl">
-            No fads.
-          </h2>
           <h1 className="mb-4 text-5xl font-light text-white md:text-7xl">
-            No gimmicks.
+            No fads.
           </h1>
+          <h2 className="mb-4 text-5xl font-light text-white md:text-7xl">
+            No gimmicks.
+          </h2>
           <h3 className="text-5xl text-white md:text-7xl">Just science</h3>
         </div>
         <div className="flex flex-col p-3 pl-10">
