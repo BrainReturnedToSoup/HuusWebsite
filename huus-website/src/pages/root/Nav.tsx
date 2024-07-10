@@ -63,7 +63,7 @@ function MobileNavButtonMenu() {
       onClick={mobileMenuStateActions.openMenu}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
-      className={`flex aspect-square h-full items-center justify-center transition-colors duration-300 ease-in-out ${screenPosition < window.innerHeight ? "hover:bg-white" : "hover:bg-black"}`}
+      className={`flex aspect-square h-full w-20 items-center justify-center transition-colors duration-300 ease-in-out ${screenPosition < window.innerHeight ? "hover:bg-white" : "hover:bg-black"}`}
     >
       <img
         src={
