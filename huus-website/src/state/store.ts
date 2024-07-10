@@ -25,6 +25,10 @@ const selectors = {
     open: (): boolean => {
       return store.getState().mobileNavButtonMenu.open;
     },
+
+    toggleDisabled: (): boolean => {
+      return store.getState().mobileNavButtonMenu.toggleDisabled;
+    },
   },
 };
 
