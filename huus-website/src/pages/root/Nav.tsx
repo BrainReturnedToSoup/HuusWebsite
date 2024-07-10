@@ -5,6 +5,8 @@ import { useState } from "react";
 import hamburgerMenuWhite from "../../assets/hamburger-menu-white.svg";
 import hamburgerMenuBlack from "../../assets/hamburger-menu-black.svg";
 
+import mobileMenuStateActions from "../../business-logic/mobileMenu";
+
 const headerNavLinks = [
   { name: "Services", route: "/services", key: 1 },
   { name: "Contact", route: "/contact", key: 2 },
@@ -15,7 +17,32 @@ const headerNavLinks = [
 const whiteBackground = "text-black hover:bg-black hover:text-white";
 const blackBackground = " text-white hover:bg-white hover:text-black";
 
-function MenuNotSelected({ handler }) {
+// function MenuSelected({ handler }) {
+//   return (
+//     <div className="fixed h-dvh w-dvw bg-black">
+//       <div>
+//         <button onClick={handler} className="text-white">
+//           Close
+//         </button>
+//       </div>
+//       <div>
+//         {headerNavLinks.map((buttonData) => {
+//           return (
+//             <a
+//               className="text-white"
+//               key={buttonData.key}
+//               href={buttonData.route}
+//             >
+//               {buttonData.name}
+//             </a>
+//           );
+//         })}
+//       </div>
+//     </div>
+//   );
+// }
+
+function MobileNavButtonMenu() {
   const screenPosition: number = useSelector(
     (state: RootState) => state.deviceScreen.position,
   );
@@ -33,7 +60,7 @@ function MenuNotSelected({ handler }) {
   return (
     <button
       type="button"
-      onClick={handler}
+      onClick={mobileMenuStateActions.openMenu}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       className={`flex aspect-square h-full items-center justify-center transition-colors duration-300 ease-in-out ${screenPosition < window.innerHeight ? "hover:bg-white" : "hover:bg-black"}`}
@@ -54,50 +81,17 @@ function MenuNotSelected({ handler }) {
   );
 }
 
-function MenuSelected({ handler }) {
-  return (
-    <div>
-      <div>
-        <button onClick={handler}>Close</button>
-      </div>
-      <div>nav links go here</div>
-    </div>
-  );
-}
-
-function MobileHamburgerMenu() {
-  const [isSelected, setSelected] = useState(false);
-
-  function handleSelection() {
-    setSelected(true);
-  }
-
-  function handleEscape() {
-    setSelected(false);
-  }
-
-  return (
-    <div>
-      {isSelected ? (
-        <MenuSelected handler={handleEscape} />
-      ) : (
-        <MenuNotSelected handler={handleSelection} />
-      )}
-    </div>
-  );
-}
-
 function RegularNavButtons() {
   const screenPosition: number = useSelector(
     (state: RootState) => state.deviceScreen.position,
   );
 
   return (
-    <div className="flex justify-items-center">
+    <div className="flex justify-center">
       {headerNavLinks.map((buttonData) => {
         return (
           <a
-            className={`center-text flex justify-items-center px-9 text-xl transition-colors duration-300 ease-in-out ${screenPosition > window.innerHeight ? whiteBackground : blackBackground}`}
+            className={`center-text flex justify-items-center px-9 text-2xl transition-colors duration-300 ease-in-out ${screenPosition > window.innerHeight ? whiteBackground : blackBackground}`}
             key={buttonData.key}
             href={buttonData.route}
           >
@@ -122,7 +116,7 @@ export default function Nav() {
   //so basically, portrait tablets and below
   return (
     <nav className="flex justify-center">
-      {screenWidth < 768 ? <MobileHamburgerMenu /> : <RegularNavButtons />}
+      {screenWidth < 768 ? <MobileNavButtonMenu /> : <RegularNavButtons />}
     </nav>
   );
 }

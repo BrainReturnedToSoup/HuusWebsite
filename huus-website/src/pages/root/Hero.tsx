@@ -36,20 +36,21 @@ function LearnMoreLink() {
 export default function Hero() {
   return (
     <div className="bg-red my-12 mt-14 flex h-full lg:px-14 xl:px-20">
-      <div className="mt-5 flex h-3/4 flex-col justify-center bg-black bg-opacity-30 p-3 py-6 transition-colors duration-300 ease-in-out sm:h-3/5 md:h-4/5 lg:w-[700px] xl:bg-transparent">
+      <div className="mt-5 flex h-4/5 flex-col justify-center bg-black bg-opacity-20 p-3 py-6 transition-colors duration-300 ease-in-out lg:w-[635px] xl:bg-transparent">
         <div className="mb-6 bg-opacity-15 p-3 pl-12">
           <h2 className="mb-4 text-5xl font-light text-white md:text-7xl">
             No fads.
           </h2>
-          <h1 className="mb-6 text-5xl font-light text-white md:text-7xl">
+          <h1 className="mb-4 text-5xl font-light text-white md:text-7xl">
             No gimmicks.
           </h1>
-          <h3 className="mt-2 text-5xl text-white md:text-7xl">Just science</h3>
+          <h3 className="text-5xl text-white md:text-7xl">Just science</h3>
         </div>
-        <div className="flex flex-col bg-opacity-10 bg-opacity-15 p-3 pl-10">
+        <div className="flex flex-col p-3 pl-10">
           <p className="pl-2 text-white md:mb-2 md:text-xl">
-            Quality personal training and fitness consultation right at your
-            fingertips. Schedule your online or in-person appointment today.
+            Quality 1-on-1 personal training, fitness mentorship, and nutrition
+            consultation right at your fingertips. Schedule your online or
+            in-person appointment today.
           </p>
           <LearnMoreLink />
         </div>
