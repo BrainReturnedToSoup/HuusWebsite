@@ -13,14 +13,14 @@ export default function Root() {
     <>
       <header className="flex flex-col main-backdrop-image h-dvh w-full bg-black">
         <div
-          className={`h-18 fixed flex w-full justify-between justify-items-center px-6 sm:h-14 sm:px-10 lg:px-14 xl:px-20 ${screenPosition > window.innerHeight - 25 ? "bg-white" : "bg-black bg-opacity-20"}`}
+          className={`h-18 fixed flex w-full justify-between justify-items-center px-6 sm:h-14 sm:px-10 lg:px-14 xl:px-20 ${screenPosition > window.innerHeight - 25 ? "bg-white" : "bg-black bg-opacity-35"}`}
         >
           <div className="flex justify-items-center">
-            <p
+            <img
               className={`justify-self-center ${screenPosition > window.innerHeight ? "text-transparent" : "text-white"}`}
+              alt="site logo"
             >
-              logo goes here
-            </p>
+            </img>
           </div>
           <Nav />
         </div>
