@@ -1,5 +1,9 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../state/store";
+import { useState } from "react";
+
+import hamburgerMenuWhite from "../../assets/hamburger-menu-white.svg";
+import hamburgerMenuBlack from "../../assets/hamburger-menu-black.svg";
 
 const headerNavLinks = [
   { name: "Services", route: "/services", key: 1 },
@@ -11,8 +15,76 @@ const headerNavLinks = [
 const whiteBackground = "text-black hover:bg-black hover:text-white";
 const blackBackground = " text-white hover:bg-white hover:text-black";
 
+function MenuNotSelected({ handler }) {
+  const screenPosition: number = useSelector(
+    (state: RootState) => state.deviceScreen.position,
+  );
+
+  const [isHovered, setHoverState] = useState(false);
+
+  function handleEnter() {
+    setHoverState(true);
+  }
+
+  function handleLeave() {
+    setHoverState(false);
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={handler}
+      onMouseEnter={handleEnter}
+      onMouseLeave={handleLeave}
+      className={`flex aspect-square h-full items-center justify-center transition-colors duration-300 ease-in-out ${screenPosition < window.innerHeight ? "hover:bg-white" : "hover:bg-black"}`}
+    >
+      <img
+        src={
+          screenPosition < window.innerHeight
+            ? isHovered
+              ? hamburgerMenuBlack
+              : hamburgerMenuWhite
+            : isHovered
+              ? hamburgerMenuWhite
+              : hamburgerMenuBlack
+        }
+        className="w-14"
+      ></img>
+    </button>
+  );
+}
+
+function MenuSelected({ handler }) {
+  return (
+    <div>
+      <div>
+        <button onClick={handler}>Close</button>
+      </div>
+      <div>nav links go here</div>
+    </div>
+  );
+}
+
 function MobileHamburgerMenu() {
-  return <div>mobile hamburger menu</div>;
+  const [isSelected, setSelected] = useState(false);
+
+  function handleSelection() {
+    setSelected(true);
+  }
+
+  function handleEscape() {
+    setSelected(false);
+  }
+
+  return (
+    <div>
+      {isSelected ? (
+        <MenuSelected handler={handleEscape} />
+      ) : (
+        <MenuNotSelected handler={handleSelection} />
+      )}
+    </div>
+  );
 }
 
 function RegularNavButtons() {
