@@ -32,7 +32,7 @@ function MobileNavMenuButton() {
       onClick={mobileMenuStateActions.open}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
-      className={`flex aspect-square h-full w-20 items-center justify-center transition-colors duration-300 ease-in-out ${screenPosition < window.innerHeight ? "hover:bg-white" : "hover:bg-black"}`}
+      className={`w-18 flex aspect-square h-full items-center justify-center transition-colors duration-300 ease-in-out ${screenPosition < window.innerHeight ? "hover:bg-white" : "hover:bg-black"}`}
     >
       <img
         src={
@@ -44,7 +44,7 @@ function MobileNavMenuButton() {
               ? hamburgerMenuWhite
               : hamburgerMenuBlack
         }
-        className="w-14"
+        className="md:w-18 w-14"
       ></img>
     </button>
   );
@@ -60,7 +60,7 @@ function RegularNav() {
       {navLinks.map((linkData) => {
         return (
           <a
-            className={`center-text flex justify-items-center px-9 text-2xl transition-colors duration-300 ease-in-out ${screenPosition > window.innerHeight ? whiteBackground : blackBackground}`}
+            className={`center-text flex justify-items-center px-9 text-xl md:text-2xl transition-colors duration-300 ease-in-out ${screenPosition > window.innerHeight ? whiteBackground : blackBackground}`}
             key={linkData.key}
             href={linkData.route}
           >
@@ -84,8 +84,8 @@ export default function Nav() {
   //mobile menu will be for devices that have a width less than 1200px,
   //so basically, portrait tablets and below
   return (
-    <nav className="flex justify-center">
-      {screenWidth < minWidths.desktop ? (
+    <nav className="flex h-full justify-center">
+      {screenWidth <= minWidths.desktop ? (
         <MobileNavMenuButton />
       ) : (
         <RegularNav />
