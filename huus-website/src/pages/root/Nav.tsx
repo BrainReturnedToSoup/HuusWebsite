@@ -8,6 +8,8 @@ import mobileMenuStateActions from "../../business-logic/mobileNav";
 import navLinks from "../../enums/navLinks";
 import minWidths from "../../enums/responsiveScreenWidths";
 
+import "../../App.css";
+
 const whiteBackground = "text-black hover:bg-black hover:text-white";
 const blackBackground = " text-white hover:bg-white hover:text-black";
 
@@ -56,11 +58,13 @@ function RegularNav() {
   );
 
   return (
-    <div className="flex justify-center">
+    <div
+      className={`flex justify-center `}
+    >
       {navLinks.map((linkData) => {
         return (
           <a
-            className={`center-text flex justify-items-center px-9 text-xl md:text-2xl transition-colors duration-300 ease-in-out ${screenPosition > window.innerHeight ? whiteBackground : blackBackground}`}
+            className={`center-text lato-bold flex justify-items-center px-9 text-xl transition-colors duration-300 ease-in-out md:text-2xl ${screenPosition > window.innerHeight ? whiteBackground : blackBackground}`}
             key={linkData.key}
             href={linkData.route}
           >

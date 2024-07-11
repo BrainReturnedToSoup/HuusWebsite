@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import "../../App.css";
+
 import arrowRightBlack from "../../assets/arrow-right-black.svg";
 import arrowRightWhite from "../../assets/arrow-right-white.svg";
 
@@ -21,7 +23,9 @@ function LearnMoreLink() {
       className={`mr-8 mt-4 flex w-fit items-center self-end px-4 py-1 transition-colors duration-300 ease-in-out sm:mt-0 ${isHovered ? "bg-white" : ""}`}
       href="/about "
     >
-      <p className={`md:text-xl ${isHovered ? "text-black" : "text-white"}`}>
+      <p
+        className={`lato-bold md:text-xl ${isHovered ? "text-black" : "text-white"}`}
+      >
         Learn more
       </p>
       <img
@@ -36,18 +40,20 @@ function LearnMoreLink() {
 export default function Hero() {
   return (
     <div className="bg-red my-12 mt-14 flex h-full lg:px-14 xl:px-20">
-      <div className="mt-5 flex h-4/5 flex-col justify-center bg-black bg-opacity-20 md:p-3 py-6 transition-colors duration-300 ease-in-out lg:w-[635px] xl:bg-transparent">
+      <div className="mt-5 flex h-4/5 flex-col justify-center bg-black bg-opacity-20 py-6 transition-colors duration-300 ease-in-out md:p-3 lg:w-[635px] xl:bg-transparent">
         <div className="mb-6 bg-opacity-15 p-3 pl-12">
-          <h1 className="mb-4 text-5xl font-light text-white md:text-7xl">
+          <h1 className="lato-light mb-4 text-5xl text-white md:text-7xl">
             No fads.
           </h1>
-          <h2 className="mb-4 text-5xl font-light text-white md:text-7xl">
+          <h2 className="lato-light mb-4 text-5xl text-white md:text-7xl">
             No gimmicks.
           </h2>
-          <h3 className="text-5xl text-white md:text-7xl">Just science</h3>
+          <h3 className="lato-medium text-5xl text-white md:text-7xl">
+            Just science
+          </h3>
         </div>
         <div className="flex flex-col p-3 pl-10">
-          <p className="pl-2 text-white md:mb-2 md:text-xl">
+          <p className="mb-2 pl-2 text-white md:mb-6 md:text-xl leading-relaxed">
             Quality 1-on-1 personal training, fitness mentorship, and nutrition
             consultation right at your fingertips. Schedule your online or
             in-person appointment today.

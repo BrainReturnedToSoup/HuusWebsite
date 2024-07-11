@@ -2,11 +2,13 @@ import mobileMenuStateActions from "../../business-logic/mobileNav";
 import xWhite from "../../assets/x-white.svg";
 import navLinks from "../../enums/navLinks";
 
+import "../../App.css";
+
 function MobileNav() {
   return (
     <div className="fixed z-10 h-dvh w-full bg-black">
       <div className="flex items-center justify-between p-5 pl-10 pt-0">
-        <h1 className="flex items-center justify-center text-4xl font-normal text-white">
+        <h1 className="lato-medium flex items-center justify-center text-4xl text-white">
           Navigation
         </h1>
         <button
@@ -25,7 +27,7 @@ function MobileNav() {
         {navLinks.map((linkData) => {
           return (
             <a
-              className="mb-8 h-10 text-3xl font-light text-white"
+              className="lato-light mb-8 h-10 text-3xl text-white"
               key={linkData.key}
               href={linkData.route}
             >

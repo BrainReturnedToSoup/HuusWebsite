@@ -4,8 +4,7 @@ import { RootState } from "../../state/store";
 import Nav from "./Nav";
 import Hero from "./Hero";
 import MobileNav from "./MobileNav";
-
-const heroHeightBuffer = 25;
+import Features from "./Features";
 
 export default function Root() {
   const screenPosition: number = useSelector(
@@ -22,11 +21,11 @@ export default function Root() {
     <>
       <header className="main-backdrop-image flex h-dvh w-full flex-col bg-black">
         <div
-          className={`sm:h-18 fixed flex h-14 md:h-22 w-full justify-between justify-items-center px-6 sm:px-10 lg:px-14 xl:px-20 ${screenPosition > window.innerHeight - heroHeightBuffer ? "bg-white" : ""}`}
+          className={`sm:h-18 md:h-22 xl:px-20} fixed flex h-14 w-full justify-between justify-items-center bg-opacity-75 px-6 transition-colors duration-300 ease-in-out sm:px-10 lg:px-14 ${screenPosition > window.innerHeight && "bg-white"}`}
         >
           <div className="flex justify-items-center">
             <img
-              className={`justify-self-center ${screenPosition > window.innerHeight ? "text-transparent" : "text-white"}`}
+              className={`justify-self-center ${screenPosition > window.innerHeight ? "text-black" : "text-white"}`}
               alt="site logo"
             ></img>
           </div>
@@ -34,7 +33,9 @@ export default function Root() {
         </div>
         <Hero />
       </header>
-      <main className="h-[2000px] bg-white px-6 md:px-10 lg:px-14 xl:px-20"></main>
+      <main className="h-[2000px] bg-white px-6 md:px-10 lg:px-14 xl:px-20">
+        <Features />
+      </main>
       <footer className="px-6 sm:px-10 lg:px-14 xl:px-20"></footer>
     </>
   );
