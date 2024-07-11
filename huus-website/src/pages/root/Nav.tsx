@@ -57,15 +57,14 @@ function RegularNav() {
 
   return (
     <div className="flex justify-center">
-      {navLinks.map((buttonData) => {
+      {navLinks.map((linkData) => {
         return (
           <a
-            className={`center-text flex justify-items-center px-9 text-2xl transition-colors duration-300
-               ease-in-out ${screenPosition > window.innerHeight ? whiteBackground : blackBackground}`}
-            key={buttonData.key}
-            href={buttonData.route}
+            className={`center-text flex justify-items-center px-9 text-2xl transition-colors duration-300 ease-in-out ${screenPosition > window.innerHeight ? whiteBackground : blackBackground}`}
+            key={linkData.key}
+            href={linkData.route}
           >
-            {buttonData.name}
+            {linkData.name}
           </a>
         );
       })}

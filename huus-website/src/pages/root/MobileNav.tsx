@@ -5,7 +5,7 @@ import navLinks from "../../enums/navLinks";
 function MobileNav() {
   return (
     <div className="fixed z-10 h-dvh w-full bg-black">
-      <div className="flex items-center justify-between p-5 pt-0">
+      <div className="flex items-center justify-between p-5 pl-10 pt-0">
         <h1 className="flex items-center justify-center text-4xl font-normal text-white">
           Navigation
         </h1>
@@ -21,15 +21,15 @@ function MobileNav() {
           ></img>
         </button>
       </div>
-      <div className="flex flex-col">
-        {navLinks.map((buttonData) => {
+      <div className="flex flex-col p-5 pl-10">
+        {navLinks.map((linkData) => {
           return (
             <a
-              className="mb-3 text-3xl font-light text-white"
-              key={buttonData.key}
-              href={buttonData.route}
+              className="mb-8 h-10 text-3xl font-light text-white"
+              key={linkData.key}
+              href={linkData.route}
             >
-              {buttonData.name}
+              {linkData.name}
             </a>
           );
         })}
