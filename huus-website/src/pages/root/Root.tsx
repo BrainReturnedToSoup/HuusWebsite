@@ -5,6 +5,8 @@ import Nav from "./Nav";
 import Hero from "./Hero";
 import MobileNav from "./MobileNav";
 
+const heroHeightBuffer = 25;
+
 export default function Root() {
   const screenPosition: number = useSelector(
     (state: RootState) => state.deviceScreen.position,
@@ -20,7 +22,7 @@ export default function Root() {
     <>
       <header className="main-backdrop-image flex h-dvh w-full flex-col bg-black">
         <div
-          className={`h-18 fixed flex w-full justify-between justify-items-center px-6 sm:h-14 sm:px-10 lg:px-14 xl:px-20 ${screenPosition > window.innerHeight - 25 ? "bg-white" : ""}`}
+          className={`h-18 fixed flex w-full justify-between justify-items-center px-6 sm:h-14 sm:px-10 lg:px-14 xl:px-20 ${screenPosition > window.innerHeight - heroHeightBuffer ? "bg-white" : ""}`}
         >
           <div className="flex justify-items-center">
             <img

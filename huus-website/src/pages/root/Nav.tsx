@@ -6,6 +6,7 @@ import hamburgerMenuWhite from "../../assets/hamburger-menu-white.svg";
 import hamburgerMenuBlack from "../../assets/hamburger-menu-black.svg";
 import mobileMenuStateActions from "../../business-logic/mobileNav";
 import navLinks from "../../enums/navLinks";
+import minWidths from "../../enums/responsiveScreenWidths";
 
 const whiteBackground = "text-black hover:bg-black hover:text-white";
 const blackBackground = " text-white hover:bg-white hover:text-black";
@@ -59,7 +60,8 @@ function RegularNav() {
       {navLinks.map((buttonData) => {
         return (
           <a
-            className={`center-text flex justify-items-center px-9 text-2xl transition-colors duration-300 ease-in-out ${screenPosition > window.innerHeight ? whiteBackground : blackBackground}`}
+            className={`center-text flex justify-items-center px-9 text-2xl transition-colors duration-300
+               ease-in-out ${screenPosition > window.innerHeight ? whiteBackground : blackBackground}`}
             key={buttonData.key}
             href={buttonData.route}
           >
@@ -84,7 +86,11 @@ export default function Nav() {
   //so basically, portrait tablets and below
   return (
     <nav className="flex justify-center">
-      {screenWidth < 768 ? <MobileNavMenuButton /> : <RegularNav />}
+      {screenWidth < minWidths.desktop ? (
+        <MobileNavMenuButton />
+      ) : (
+        <RegularNav />
+      )}
     </nav>
   );
 }
