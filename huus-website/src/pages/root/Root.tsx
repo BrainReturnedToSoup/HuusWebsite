@@ -3,19 +3,19 @@ import { RootState } from "../../state/store";
 
 import Nav from "./Nav";
 import Hero from "./Hero";
-import MobileNavButtonMenu from "./MobileNavButtonMenu";
+import MobileNav from "./MobileNav";
 
 export default function Root() {
   const screenPosition: number = useSelector(
     (state: RootState) => state.deviceScreen.position,
   );
 
-  const mobileNavButtonsOpen: boolean = useSelector(
-    (state: RootState) => state.mobileNavButtonMenu.open,
+  const mobileNavOpen: boolean = useSelector(
+    (state: RootState) => state.mobileNav.open,
   );
 
-  return mobileNavButtonsOpen ? (
-    <MobileNavButtonMenu />
+  return mobileNavOpen ? (
+    <MobileNav />
   ) : (
     <>
       <header className="main-backdrop-image flex h-dvh w-full flex-col bg-black">

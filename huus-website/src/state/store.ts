@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import deviceScreenSlice from "./slices/deviceScreen";
-import mobileNavButtonMenuSlice from "./slices/mobileNavButtonMenu";
+import mobileNavSlice from "./slices/mobileNav";
 
 const store = configureStore({
   reducer: {
     deviceScreen: deviceScreenSlice.reducer,
-    mobileNavButtonMenu: mobileNavButtonMenuSlice.reducer,
+    mobileNav: mobileNavSlice.reducer,
   },
 });
 
@@ -21,13 +21,13 @@ const selectors = {
     },
   },
 
-  mobileNavButtonMenu: {
+  mobileNav: {
     open: (): boolean => {
-      return store.getState().mobileNavButtonMenu.open;
+      return store.getState().mobileNav.open;
     },
 
     toggleDisabled: (): boolean => {
-      return store.getState().mobileNavButtonMenu.toggleDisabled;
+      return store.getState().mobileNav.toggleDisabled;
     },
   },
 };

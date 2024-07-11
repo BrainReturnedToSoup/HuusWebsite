@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const mobileNavButtonMenuSlice = createSlice({
-  name: "mobileNavButtonMenu",
+const mobileNavSlice = createSlice({
+  name: "mobileNav",
 
   initialState: {
     open: false,
@@ -19,4 +19,4 @@ const mobileNavButtonMenuSlice = createSlice({
   },
 });
 
-export default mobileNavButtonMenuSlice;
+export default mobileNavSlice;
