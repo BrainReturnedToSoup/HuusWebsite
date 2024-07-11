@@ -29,7 +29,7 @@ function Feature({ title, desc, icon, index }: FeatureProps) {
 export default function Features() {
   return (
     <div className="flex h-dvh flex-col items-center pt-40">
-      <div className="mb-20 flex w-[1150px] flex-col items-center p-4">
+      <div className="mb-8 flex w-[1150px] flex-col items-center p-4">
         <h2 className="lato-medium mb-10 text-6xl">Get Fit with Confidence!</h2>
         <p className="lato-medium mb-4 text-center text-xl leading-loose lg:w-[850px]">
           We've all been there-feeling lost, unsure of technique, worried about
