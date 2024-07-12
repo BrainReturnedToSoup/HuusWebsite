@@ -1,3 +1,8 @@
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import servicesSlice from "../../state/slices/services";
+
 import "../../App.css";
 
 interface FeatureProps {
@@ -5,23 +10,80 @@ interface FeatureProps {
   desc: string;
   icon: string;
   index: number;
+  redirect: {
+    route: string;
+    positionY: number;
+  };
 }
 
 const featureList = [
-  { title: "", desc: "", icon: "", key: 1 },
-  { title: "", desc: "", icon: "", key: 2 },
-  { title: "", desc: "", icon: "", key: 3 },
+  {
+    title: "Example 1",
+    desc: "description 1",
+    icon: "",
+    redirect: {
+      route: "/services",
+      positionY: 0,
+    },
+    key: 1,
+  },
+
+  {
+    title: "Example 2",
+    desc: "description 2",
+    icon: "",
+    redirect: {
+      route: "/services",
+      positionY: 0,
+    },
+    key: 2,
+  },
+
+  {
+    title: "Example 3",
+    desc: "description 3",
+    icon: "",
+    redirect: {
+      route: "/services",
+      positionY: 0,
+    },
+    key: 3,
+  },
 ];
 
-function Feature({ title, desc, icon, index }: FeatureProps) {
+function Feature({ title, desc, icon, index, redirect }: FeatureProps) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  function redirectToPage(route: string, positionY: number): void {
+    //sets the position to move to on the page being routed to. This is for
+    //the 'learn more' links, which may point to a subsection of an existing page
+    //for more information.
+
+    dispatch(servicesSlice.actions.setPositionY(positionY));
+    navigate(route);
+  }
+
   return (
     <div
-      className={`h-full w-full border-gray-300 ${index !== 0 && index !== featureList.length - 1 && "border-l-2 border-r-2"}`}
+      className={`h-full w-full border-gray-300 bg-red-200 px-8 py-14 ${index !== 0 && index !== featureList.length - 1 && "border-l-2 border-r-2"}`}
     >
-      <div>
-        <h3></h3>
+      <div className="mb-5 w-full">
+        <img src={icon}></img>
+        <h3 className="text-3xl">{title}</h3>
       </div>
-      <p></p>
+      <p>{desc}</p>
+      <div>
+        <a
+          onClick={() => {
+            redirectToPage(redirect.route, redirect.positionY);
+          }}
+          id={`feature-${index}-redirect`}
+        >
+          <label htmlFor={`feature-${index}-redirect`}>Learn more</label>
+          <img></img>
+        </a>
+      </div>
     </div>
   );
 }
@@ -45,6 +107,7 @@ export default function Features() {
               title={feature.title}
               desc={feature.desc}
               icon={feature.icon}
+              redirect={feature.redirect}
               index={index}
             />
           );
