@@ -19,19 +19,21 @@ interface FeatureProps {
 
 const featureList = [
   {
-    title: "Example 1",
-    desc: "description 1",
+    title: "Training by certified professionals",
+    desc: `Learn from the experts. Our team of certified professionals deliver comprehensive training
+     programs designed to equip you with the skills and knowledge you need to succeed`,
+
     icon: "",
     redirect: {
-      route: "/services",
+      route: "/about",
       positionY: 0,
     },
     key: 1,
   },
 
   {
-    title: "Example 2",
-    desc: "description 2",
+    title: "Fitness and nutritional guidance",
+    desc: `Get a holistic approach to wellness. Our combined fitness and nutritional programs help you achieve your goals, inside and out. `,
     icon: "",
     redirect: {
       route: "/services",
@@ -41,8 +43,9 @@ const featureList = [
   },
 
   {
-    title: "Example 3",
-    desc: "description 3",
+    title: "Online options",
+    desc: `Train smarter, not harder. Choose from personalized 1-on-1 programs or affordable designed plans.
+     Perfect for busy schedules or existing gym-goers looking to elevate their workouts.`,
     icon: "",
     redirect: {
       route: "/services",
@@ -68,6 +71,8 @@ function Feature({ title, desc, icon, index, redirect }: FeatureProps) {
     navigate(route);
   }
 
+  //the goal of these handlers is to provide the necessary flags for interactivity
+  //of the feature boxes themselves, as well as the redirect link individually.
   const handle = {
     redirect: (event: React.SyntheticEvent<HTMLElement>): void => {
       event.stopPropagation();
@@ -79,46 +84,74 @@ function Feature({ title, desc, icon, index, redirect }: FeatureProps) {
       event: React.SyntheticEvent<HTMLElement>,
     ): void => {
       event.stopPropagation();
+
+      setBoxComponentHoveredState(true);
     },
 
     boxComponentMouseLeave: (
       event: React.SyntheticEvent<HTMLElement>,
     ): void => {
       event.stopPropagation();
+
+      setBoxComponentHoveredState(false);
+      setRedirectLinkHoveredState(false);
     },
 
     redirectLinkMouseEnter: (
       event: React.SyntheticEvent<HTMLElement>,
     ): void => {
       event.stopPropagation();
+
+      setBoxComponentHoveredState(false);
+      setRedirectLinkHoveredState(true);
     },
 
     redirectLinkMouseLeave: (
       event: React.SyntheticEvent<HTMLElement>,
     ): void => {
       event.stopPropagation();
+
+      setBoxComponentHoveredState(true);
+      setRedirectLinkHoveredState(false);
     },
   };
 
   return (
     <div
-      className={`h-full w-full border-white px-8 py-12 ${index !== 0 && index !== featureList.length - 1 && "border-l-2 border-r-2"}`}
+      className={`h-full w-full border-white px-8 py-12 transition-colors duration-300 hover:cursor-pointer ${index !== 0 && index !== featureList.length - 1 && "border-l-2 border-r-2"} ${isBoxComponentHovered && "bg-white"}`}
       onClick={handle.redirect}
+      onMouseEnter={handle.boxComponentMouseEnter}
+      onMouseLeave={handle.boxComponentMouseLeave}
     >
-      <div className="mb-5 w-full">
-        <img src={icon}></img>
-        <h3 className="lato-medium text-3xl text-white">{title}</h3>
+      <div className="h-5/6">
+        <div className="mb-5 w-full hover:cursor-pointer">
+          <img className="hover:cursor-pointer" src={icon}></img>
+          <h3
+            className={`lato-medium text-3xl transition-colors duration-300 hover:cursor-pointer ${isBoxComponentHovered ? "text-black" : "text-white"}`}
+          >
+            {title}
+          </h3>
+        </div>
+        <p
+          className={`lato-medium transition-colors duration-300 hover:cursor-pointer ${isBoxComponentHovered ? "text-black" : "text-white"}`}
+        >
+          {desc}
+        </p>
       </div>
-      <p className="lato-medium text-white">{desc}</p>
-      <div>
-        <a onClick={handle.redirect} id={`feature-${index}-redirect`}>
+      <div className="flex h-1/6 items-end justify-end">
+        <a
+          id={`feature-${index}-redirect`}
+          onMouseEnter={handle.redirectLinkMouseEnter}
+          onMouseLeave={handle.redirectLinkMouseLeave}
+          className={`px-3 py-1 transition-colors duration-300 hover:cursor-pointer ${isRedirectLinkHovered && "bg-white"}`}
+        >
           <label
             htmlFor={`feature-${index}-redirect`}
-            className="lato-medium text-white"
+            className={`lato-medium transition-colors duration-300 hover:cursor-pointer ${isBoxComponentHovered || isRedirectLinkHovered ? "text-black" : "text-white"}`}
           >
             Learn more
           </label>
-          <img></img>
+          <img className="hover:cursor-pointer"></img>
         </a>
       </div>
     </div>
