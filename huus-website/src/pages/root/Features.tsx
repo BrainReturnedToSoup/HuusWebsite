@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import servicesSlice from "../../state/slices/services";
 
 import "../../App.css";
+import { useState } from "react";
 
 interface FeatureProps {
   title: string;
@@ -52,6 +53,9 @@ const featureList = [
 ];
 
 function Feature({ title, desc, icon, index, redirect }: FeatureProps) {
+  const [isBoxComponentHovered, setBoxComponentHoveredState] = useState(false);
+  const [isRedirectLinkHovered, setRedirectLinkHoveredState] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -64,23 +68,56 @@ function Feature({ title, desc, icon, index, redirect }: FeatureProps) {
     navigate(route);
   }
 
+  const handle = {
+    redirect: (event: React.SyntheticEvent<HTMLElement>): void => {
+      event.stopPropagation();
+
+      redirectToPage(redirect.route, redirect.positionY);
+    },
+
+    boxComponentMouseEnter: (
+      event: React.SyntheticEvent<HTMLElement>,
+    ): void => {
+      event.stopPropagation();
+    },
+
+    boxComponentMouseLeave: (
+      event: React.SyntheticEvent<HTMLElement>,
+    ): void => {
+      event.stopPropagation();
+    },
+
+    redirectLinkMouseEnter: (
+      event: React.SyntheticEvent<HTMLElement>,
+    ): void => {
+      event.stopPropagation();
+    },
+
+    redirectLinkMouseLeave: (
+      event: React.SyntheticEvent<HTMLElement>,
+    ): void => {
+      event.stopPropagation();
+    },
+  };
+
   return (
     <div
-      className={`h-full w-full border-gray-300 bg-red-200 px-8 py-14 ${index !== 0 && index !== featureList.length - 1 && "border-l-2 border-r-2"}`}
+      className={`h-full w-full border-white px-8 py-12 ${index !== 0 && index !== featureList.length - 1 && "border-l-2 border-r-2"}`}
+      onClick={handle.redirect}
     >
       <div className="mb-5 w-full">
         <img src={icon}></img>
-        <h3 className="text-3xl">{title}</h3>
+        <h3 className="lato-medium text-3xl text-white">{title}</h3>
       </div>
-      <p>{desc}</p>
+      <p className="lato-medium text-white">{desc}</p>
       <div>
-        <a
-          onClick={() => {
-            redirectToPage(redirect.route, redirect.positionY);
-          }}
-          id={`feature-${index}-redirect`}
-        >
-          <label htmlFor={`feature-${index}-redirect`}>Learn more</label>
+        <a onClick={handle.redirect} id={`feature-${index}-redirect`}>
+          <label
+            htmlFor={`feature-${index}-redirect`}
+            className="lato-medium text-white"
+          >
+            Learn more
+          </label>
           <img></img>
         </a>
       </div>
@@ -90,8 +127,8 @@ function Feature({ title, desc, icon, index, redirect }: FeatureProps) {
 
 export default function Features() {
   return (
-    <div className="flex h-dvh flex-col items-center pt-40">
-      <div className="mb-8 flex w-[1150px] flex-col items-center p-4">
+    <div className="flex h-dvh flex-col items-center">
+      <div className="mb-8 flex w-[1150px] flex-col items-center p-4 px-6 pt-40 md:px-10 lg:px-14 xl:px-20">
         <h2 className="lato-medium mb-10 text-6xl">Get Fit with Confidence!</h2>
         <p className="lato-medium mb-4 text-center text-xl leading-loose lg:w-[850px]">
           We've all been there-feeling lost, unsure of technique, worried about
@@ -100,18 +137,20 @@ export default function Features() {
           results? Well you're in luck, that's exactly what we offer!
         </p>
       </div>
-      <div className="grid h-[400px] w-[1150px] grid-cols-3">
-        {featureList.map((feature, index) => {
-          return (
-            <Feature
-              title={feature.title}
-              desc={feature.desc}
-              icon={feature.icon}
-              redirect={feature.redirect}
-              index={index}
-            />
-          );
-        })}
+      <div className="flex h-[400px] w-full items-center justify-center bg-black px-6 py-4 md:px-10 lg:px-14 xl:px-20">
+        <div className="grid h-full w-[1150px] grid-cols-3 bg-transparent">
+          {featureList.map((feature, index) => {
+            return (
+              <Feature
+                title={feature.title}
+                desc={feature.desc}
+                icon={feature.icon}
+                redirect={feature.redirect}
+                index={index}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );

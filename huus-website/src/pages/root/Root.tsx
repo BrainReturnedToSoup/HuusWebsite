@@ -33,7 +33,7 @@ export default function Root() {
         </div>
         <Hero />
       </header>
-      <main className="h-[2000px] bg-white px-6 md:px-10 lg:px-14 xl:px-20">
+      <main className="h-[2000px] bg-white">
         <Features />
       </main>
       <footer className="px-6 sm:px-10 lg:px-14 xl:px-20"></footer>
