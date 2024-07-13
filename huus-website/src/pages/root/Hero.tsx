@@ -6,22 +6,22 @@ import arrowRightBlack from "../../assets/arrow-right-black.svg";
 import arrowRightWhite from "../../assets/arrow-right-white.svg";
 
 function LearnMoreLink() {
-  const [isHovered, setHoverState] = useState(false);
+  const [isHovered, setHoveredState] = useState(false);
 
-  function handleEnter() {
-    setHoverState(true);
+  function handleMouseEnter() {
+    setHoveredState(true);
   }
 
-  function handleLeave() {
-    setHoverState(false);
+  function handleMouseLeave() {
+    setHoveredState(false);
   }
 
   return (
     <a
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       className={`mr-8 mt-4 flex w-fit items-center self-end px-4 py-1 transition-colors duration-300 ease-in-out sm:mt-0 ${isHovered ? "bg-white" : ""}`}
-      href="/about "
+      href="/about"
     >
       <p
         className={`lato-bold md:text-xl ${isHovered ? "text-black" : "text-white"}`}

@@ -22,6 +22,10 @@
   align-items: center;
 }
 
+.pricing-offer-content-grid-rows {
+  grid-template-rows: .6fr .6fr .6fr 2fr 0.5fr;
+}
+
 .lato-thin {
   font-family: "Lato", sans-serif;
   font-weight: 100;
