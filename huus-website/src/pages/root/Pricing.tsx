@@ -77,14 +77,10 @@ function Offer({ title, desc, bullets, price, styling }: OfferProps) {
         >
           <div className="flex hover:cursor-pointer">
             <label
-              className={`lato-medium transition-colors duration-300 hover:cursor-pointer ${isHovered && "text-white"}`}
+              className={`lato-medium underline transition-colors duration-300 hover:cursor-pointer ${isHovered && "text-white"}`}
             >
-              Learn more
+              Details
             </label>
-            <img
-              className={`transition-colors duration-300 hover:cursor-pointer ${isHovered && "text-white"}`}
-              alt="arrow icon"
-            ></img>
           </div>
         </a>
       </div>
@@ -95,8 +91,15 @@ function Offer({ title, desc, bullets, price, styling }: OfferProps) {
 export default function Pricing() {
   return (
     <div className="flex h-dvh flex-col items-center">
-      <div className="mb-8 flex w-[1150px] flex-col items-center p-4 px-6 pt-40 md:px-10 lg:px-14 xl:px-20">
+      <div className="mb-10 flex w-[1150px] flex-col items-center p-4 px-6 pt-40 md:px-10 lg:px-14 xl:px-20">
         <h2 className="lato-bold mb-4 text-xl">Pricing</h2>
+        <h3 className="lato-medium mb-10 text-6xl">Get Fit with Confidence!</h3>
+        <p className="lato-medium text-center text-xl leading-loose lg:w-[850px]">
+          We've all been there-feeling lost, unsure of technique, worried about
+          being judged, and having trouble actually 'sticking with it'. But what
+          if getting fit could be fun, supportive, and guaranteed to bring
+          results? Well you're in luck, that's exactly what we offer!
+        </p>
       </div>
       <div className="flex h-[500px] w-full items-center justify-center py-4 md:px-10 lg:px-14 xl:px-20">
         <div

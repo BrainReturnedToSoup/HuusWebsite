@@ -6,6 +6,7 @@ import Hero from "./Hero";
 import MobileNav from "./MobileNav";
 import Features from "./Features";
 import Pricing from "./Pricing";
+import Faq from "./Faq";
 
 export default function Root() {
   const screenPosition: number = useSelector(
@@ -37,6 +38,7 @@ export default function Root() {
       <main className="h-[2000px] bg-white">
         <Features />
         <Pricing />
+        <Faq />
       </main>
       <footer className="px-6 sm:px-10 lg:px-14 xl:px-20"></footer>
     </>

@@ -1,10 +1,10 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 import servicesSlice from "../../state/slices/services";
 
 import "../../App.css";
-import { useState } from "react";
 
 interface FeatureProps {
   title: string;
@@ -143,15 +143,14 @@ function Feature({ title, desc, icon, index, redirect }: FeatureProps) {
           id={`feature-${index}-redirect`}
           onMouseEnter={handle.redirectLinkMouseEnter}
           onMouseLeave={handle.redirectLinkMouseLeave}
-          className={`px-3 py-1 transition-colors duration-300 hover:cursor-pointer ${isRedirectLinkHovered && "bg-white"}`}
+          className={`flex items-center justify-center px-3 py-1 transition-colors duration-300 hover:cursor-pointer ${isRedirectLinkHovered && "bg-white"}`}
         >
           <label
             htmlFor={`feature-${index}-redirect`}
-            className={`lato-medium transition-colors duration-300 hover:cursor-pointer ${isBoxComponentHovered || isRedirectLinkHovered ? "text-black" : "text-white"}`}
+            className={`lato-medium transition-colors duration-300 hover:cursor-pointer underline ${isBoxComponentHovered || isRedirectLinkHovered ? "text-black" : "text-white"}`}
           >
-            Learn more
+            Details
           </label>
-          <img className="hover:cursor-pointer"></img>
         </a>
       </div>
     </div>
