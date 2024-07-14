@@ -90,18 +90,18 @@ function Offer({ title, desc, bullets, price, styling }: OfferProps) {
 
 export default function Pricing() {
   return (
-    <div className="flex h-dvh flex-col items-center">
-      <div className="mb-10 flex w-[1150px] flex-col items-center p-4 px-6 pt-40 md:px-10 lg:px-14 xl:px-20">
-        <h2 className="lato-bold mb-4 text-xl">Pricing</h2>
+    <div className="flex h-[1050px] flex-col items-center">
+      <div className="mb-8 flex flex-col items-center p-4 px-6 pt-40 md:px-10 lg:w-[850px] lg:px-14 xl:px-20">
+        <h2 className="lato-bold mb-4 text-xl">Features</h2>
         <h3 className="lato-medium mb-10 text-6xl">Get Fit with Confidence!</h3>
-        <p className="lato-medium text-center text-xl leading-loose lg:w-[850px]">
+        <p className="lato-medium mb-4 w-full text-center text-xl leading-loose">
           We've all been there-feeling lost, unsure of technique, worried about
           being judged, and having trouble actually 'sticking with it'. But what
           if getting fit could be fun, supportive, and guaranteed to bring
           results? Well you're in luck, that's exactly what we offer!
         </p>
       </div>
-      <div className="flex h-[500px] w-full items-center justify-center py-4 md:px-10 lg:px-14 xl:px-20">
+      <div className="flex h-[550px] w-full items-center justify-center py-4 md:px-10 lg:px-14 xl:px-20">
         <div
           className={`grid-col grid h-full w-[1150px] grid-rows-1 grid-cols-${offers.length} gap-2`}
         >

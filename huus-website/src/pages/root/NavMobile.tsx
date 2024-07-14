@@ -4,11 +4,11 @@ import navLinks from "../../enums/navLinks";
 
 import "../../App.css";
 
-function MobileNav() {
+function NavMobile() {
   return (
     <div className="fixed z-10 h-dvh w-full bg-black">
-      <div className="flex items-center justify-between p-5 pl-10 pt-0">
-        <h1 className="lato-medium flex items-center justify-center text-4xl text-white">
+      <div className="flex items-center justify-between px-6 py-4 md:px-10 md:py-5">
+        <h1 className="lato-medium flex items-center justify-center text-4xl text-white md:text-6xl lg:text-7xl">
           Navigation
         </h1>
         <button
@@ -17,7 +17,7 @@ function MobileNav() {
           onClick={mobileMenuStateActions.close}
         >
           <img
-            className="aspect-square w-14 text-white"
+            className="aspect-square w-14 text-white md:w-28 lg:w-32"
             alt="Close menu"
             src={xWhite}
           ></img>
@@ -27,7 +27,7 @@ function MobileNav() {
         {navLinks.map((linkData) => {
           return (
             <a
-              className="lato-light mb-8 h-10 text-3xl text-white"
+              className="lato-light mb-8 h-10 text-3xl text-white md:mb-16 md:text-5xl lg:text-6xl"
               key={linkData.key}
               href={linkData.route}
             >
@@ -40,4 +40,4 @@ function MobileNav() {
   );
 }
 
-export default MobileNav;
+export default NavMobile;

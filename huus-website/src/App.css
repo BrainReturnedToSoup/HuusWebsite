@@ -22,8 +22,12 @@
   align-items: center;
 }
 
+.feature-container-grid-rows {
+  grid-template-rows: 1fr 6.5fr 1fr;
+}
+
 .pricing-offer-content-grid-rows {
-  grid-template-rows: .6fr .6fr .6fr 2fr 0.5fr;
+  grid-template-rows: 0.6fr 0.6fr 0.6fr 2fr 0.5fr;
 }
 
 .lato-thin {

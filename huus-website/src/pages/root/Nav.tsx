@@ -46,7 +46,7 @@ function MobileNavMenuButton() {
               ? hamburgerMenuWhite
               : hamburgerMenuBlack
         }
-        className="md:w-18 w-14"
+        className="w-full h-full aspect-square"
       ></img>
     </button>
   );

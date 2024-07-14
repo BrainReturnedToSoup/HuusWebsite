@@ -1,16 +1,30 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../state/store";
 
-import Nav from "./Nav";
 import Hero from "./Hero";
-import MobileNav from "./MobileNav";
+
+import Nav from "./Nav";
+import NavMobile from "./NavMobile";
+
 import Features from "./Features";
+import FeaturesMobile from "./FeaturesMobile";
+
 import Pricing from "./Pricing";
+import PricingMobile from "./PricingMobile";
+
 import Faq from "./Faq";
+import FaqMobile from "./FaqMobile";
+
+import CallToAction from "./CallToAction";
+import CallToActionMobile from "./CallToActionMobile";
 
 export default function Root() {
   const screenPosition: number = useSelector(
     (state: RootState) => state.deviceScreen.position,
+  );
+
+  const screenWidth: number = useSelector(
+    (state: RootState) => state.deviceScreen.width,
   );
 
   const mobileNavOpen: boolean = useSelector(
@@ -18,12 +32,12 @@ export default function Root() {
   );
 
   return mobileNavOpen ? (
-    <MobileNav />
+    <NavMobile />
   ) : (
     <>
       <header className="main-backdrop-image flex h-dvh w-full flex-col bg-black">
         <div
-          className={`sm:h-18 md:h-22 xl:px-20} fixed flex h-14 w-full justify-between justify-items-center bg-opacity-75 px-6 transition-colors duration-300 ease-in-out sm:px-10 lg:px-14 ${screenPosition > window.innerHeight && "bg-white"}`}
+          className={`sm:h-18 fixed flex h-14 w-full justify-between justify-items-center bg-opacity-75 px-6 transition-colors duration-300 ease-in-out sm:px-10 md:h-24 lg:px-14 xl:px-20 ${screenPosition > window.innerHeight && "bg-white"}`}
         >
           <div className="flex justify-items-center">
             <img
@@ -35,10 +49,22 @@ export default function Root() {
         </div>
         <Hero />
       </header>
-      <main className="h-[2000px] bg-white">
-        <Features />
-        <Pricing />
-        <Faq />
+      <main className="bg-white">
+        {screenWidth <= 1024 ? (
+          <>
+            <FeaturesMobile />
+            <PricingMobile />
+            <FaqMobile />
+            <CallToActionMobile />
+          </>
+        ) : (
+          <>
+            <Features />
+            <Pricing />
+            <Faq />
+            <CallToAction />
+          </>
+        )}
       </main>
       <footer className="px-6 sm:px-10 lg:px-14 xl:px-20"></footer>
     </>
