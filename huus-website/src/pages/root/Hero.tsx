@@ -24,7 +24,7 @@ function LearnMoreLink() {
       href="/about"
     >
       <p
-        className={`lato-bold md:text-xl lg:text-3xl ${isHovered ? "text-black" : "text-white"}`}
+        className={`lato-bold md:text-xl  ${isHovered ? "text-black" : "text-white"}`}
       >
         Learn more
       </p>
@@ -53,7 +53,7 @@ export default function Hero() {
           </h3>
         </div>
         <div className="flex flex-col p-3 pl-10">
-          <p className="mb-2 pl-2 leading-relaxed text-white md:mb-6 md:text-xl lg:text-2xl">
+          <p className="mb-2 pl-2 leading-relaxed text-white md:mb-6 md:text-xl ">
             Quality 1-on-1 personal training, fitness mentorship, and nutrition
             consultation right at your fingertips. Schedule your online or
             in-person appointment today.

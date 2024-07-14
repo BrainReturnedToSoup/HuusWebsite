@@ -16,15 +16,13 @@ const offers = [
     desc: "Description 1",
     bullets: ["bullet 1", " bullet 2", "bullet 3"],
     price: 3.99,
-    key: 0,
-    styling: { heightRatio: "5/6", marginBottom: "8" },
+    styling: { heightRatio: "full", marginBottom: "4" },
   },
   {
     title: "Example 2",
     desc: "Description 2",
     bullets: ["bullet 1", " bullet 2", "bullet 3"],
     price: 17.99,
-    key: 1,
     styling: { heightRatio: "full", marginBottom: "0" },
   },
   {
@@ -32,8 +30,7 @@ const offers = [
     desc: "Description 3",
     bullets: ["bullet 1", " bullet 2", "bullet 3"],
     price: 24.99,
-    key: 2,
-    styling: { heightRatio: "5/6", marginBottom: "8" },
+    styling: { heightRatio: "full", marginBottom: "4" },
   },
 ];
 
@@ -51,7 +48,7 @@ function Offer({ title, desc, bullets, price, styling }: OfferProps) {
   return (
     <div className="flex h-full w-full items-end justify-center">
       <div
-        className={`h-${styling.heightRatio} w-full mb-${styling.marginBottom} pricing-offer-content-grid-rows grid border-x-2 border-black`}
+        className={`w-full h-${styling.heightRatio} mb-${styling.marginBottom} pricing-offer-content-grid-rows grid border-x-2 border-black`}
       >
         <div className="flex items-center justify-start bg-black px-10">
           <h2 className={`lato-bold text-xl text-white`}>{title}</h2>
@@ -91,7 +88,7 @@ function Offer({ title, desc, bullets, price, styling }: OfferProps) {
 export default function Pricing() {
   return (
     <div className="flex h-[1050px] flex-col items-center">
-      <div className="mb-8 flex flex-col items-center p-4 px-6 pt-40 md:px-10 lg:w-[850px] lg:px-14 xl:px-20">
+      <div className="mb-8 flex flex-col items-center px-6 py-4 pt-40 md:px-10 lg:w-[850px] lg:px-14">
         <h2 className="lato-bold mb-4 text-xl">Features</h2>
         <h3 className="lato-medium mb-10 text-6xl">Get Fit with Confidence!</h3>
         <p className="lato-medium mb-4 w-full text-center text-xl leading-loose">
@@ -101,11 +98,11 @@ export default function Pricing() {
           results? Well you're in luck, that's exactly what we offer!
         </p>
       </div>
-      <div className="flex h-[550px] w-full items-center justify-center py-4 md:px-10 lg:px-14 xl:px-20">
+      <div className="flex h-[500px] w-full items-center justify-center py-4 lg:px-10">
         <div
-          className={`grid-col grid h-full w-[1150px] grid-rows-1 grid-cols-${offers.length} gap-2`}
+          className={`grid h-full grid-rows-1 md:w-[1024px] grid-cols-${offers.length} gap-2`}
         >
-          {offers.map((offer) => {
+          {offers.map((offer, index) => {
             return (
               <Offer
                 title={offer.title}
@@ -113,7 +110,7 @@ export default function Pricing() {
                 bullets={offer.bullets}
                 price={offer.price}
                 styling={offer.styling}
-                key={offer.key}
+                key={index}
               />
             );
           })}
