@@ -37,7 +37,7 @@ export default function Root() {
     <>
       <header className="main-backdrop-image flex h-dvh w-full flex-col bg-black">
         <div
-          className={`sm:h-18 fixed flex h-14 w-full justify-between justify-items-center bg-opacity-75 px-6 transition-colors duration-300 ease-in-out sm:px-10 md:h-24 lg:px-14 xl:px-20 ${screenPosition > window.innerHeight && "bg-white"}`}
+          className={`sm:h-18 fixed flex h-14 w-full justify-between justify-items-center bg-opacity-75 px-6 transition-colors duration-300 ease-in-out sm:px-10 md:h-16 lg:px-14 xl:px-20 ${screenPosition > window.innerHeight && "bg-white"}`}
         >
           <div className="flex justify-items-center">
             <img

@@ -1,3 +1,3 @@
 export default function PricingMobile () {
-    return <div></div>
+    return <div>Pricing Mobile</div>
 }

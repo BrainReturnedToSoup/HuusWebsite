@@ -8,6 +8,8 @@ function allowToggleDelayed(delayMs: number = 250): void {
 }
 
 function open(): void {
+  //THIS DOES NOT CREATE A CLONE, ITS THE ACTUAL REFERENCE FOR WHAT IS SAVED IN STATE
+  //DO NOT UPDATE THE RETURNED REFERENCES FOR STATE UPDATES. USE ACTION METHODS ON SLICES INSTEAD
   const toggleDisabled: boolean = selectors.mobileNav.toggleDisabled();
 
   if (toggleDisabled) return;
@@ -22,6 +24,8 @@ function open(): void {
 }
 
 function close(): void {
+  //THIS DOES NOT CREATE A CLONE, ITS THE ACTUAL REFERENCE FOR WHAT IS SAVED IN STATE
+  //DO NOT UPDATE THE RETURNED REFERENCES FOR STATE UPDATES. USE ACTION METHODS ON SLICES INSTEAD
   const toggleDisabled: boolean = selectors.mobileNav.toggleDisabled();
 
   if (toggleDisabled) return;

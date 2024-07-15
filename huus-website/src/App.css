@@ -26,6 +26,31 @@
   grid-template-rows: 1fr 6.5fr 1fr;
 }
 
+.feature-mobile-container-sm-grid {
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: repeat(8, 1fr);
+}
+
+.feature-mobile-container-sm-image-cell {
+  grid-row: 1/8;
+  grid-column: 1/2;
+}
+
+.feature-mobile-container-sm-heading-cell {
+  grid-row: 1/3;
+  grid-column: 2/3;
+}
+
+.feature-mobile-container-sm-desc-cell {
+  grid-row: 3/7;
+  grid-column: 2/3;
+}
+
+.feature-mobile-container-sm-redirect-cell {
+  grid-row: 7/8;
+  grid-column: 2/3;
+}
+
 .pricing-offer-content-grid-rows {
   grid-template-rows: 0.6fr 0.6fr 0.6fr 2fr 0.5fr;
 }

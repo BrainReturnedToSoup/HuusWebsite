@@ -148,7 +148,6 @@ function Feature({
           </h3>
         </div>
         <div
-          className={``}
           style={{
             backgroundImage: `url(${backgroundImageProp})`,
             backgroundPosition: "center",
@@ -187,7 +186,7 @@ function Feature({
 
 export default function Features() {
   return (
-    <div className="flex h-[1050px] flex-col items-center">
+    <div className="flex flex-col items-center">
       <div className="mb-8 flex w-[850px] flex-col items-center p-4 px-14 pt-40 md:px-10 xl:px-20">
         <h2 className="lato-bold mb-4 text-xl">Features</h2>
         <h3 className="lato-medium mb-10 text-6xl">Get Fit with Confidence!</h3>
@@ -198,7 +197,7 @@ export default function Features() {
           results? Well you're in luck, that's exactly what we offer!
         </p>
       </div>
-      <div className="flex w-full items-center justify-center bg-black px-6 py-4 md:px-10 lg:px-14 xl:px-20">
+      <div className="flex w-full  items-center justify-center bg-black px-6 py-4 md:px-10 lg:px-14 xl:px-20">
         <div className="grid h-full grid-cols-3 lg:w-[1150px]">
           {featureList.map((feature, index) => {
             return (

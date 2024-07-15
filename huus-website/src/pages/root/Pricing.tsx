@@ -87,7 +87,7 @@ function Offer({ title, desc, bullets, price, styling }: OfferProps) {
 
 export default function Pricing() {
   return (
-    <div className="flex h-[1050px] flex-col items-center">
+    <div className="flex pb-20 flex-col items-center">
       <div className="mb-8 flex flex-col items-center px-6 py-4 pt-40 md:px-10 lg:w-[850px] lg:px-14">
         <h2 className="lato-bold mb-4 text-xl">Features</h2>
         <h3 className="lato-medium mb-10 text-6xl">Get Fit with Confidence!</h3>
