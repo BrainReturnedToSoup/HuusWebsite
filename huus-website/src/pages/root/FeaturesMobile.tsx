@@ -1,8 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
-
-import { useState } from "react";
-
-import servicesSlice from "../../state/slices/services";
+import { useSelector } from "react-redux";
 
 import ptGeneric from "../../assets/personal-trainer-generic.jpg";
 import ptTeach from "../../assets/personal-trainer-teach.jpg";
@@ -87,37 +83,13 @@ function Feature({
   index,
   redirect,
 }: FeatureProps) {
-  //xs is for mobile phones, which the custom breakpoint is 470px in width.
-  //thus, larger mobile devices such as tables and laptops will feature a more custom grid configuration
-  //that utilizes there increased width.
-
   const screenWidth: number = useSelector(
     (state: RootState) => state.deviceScreen.width,
   );
 
-  //   .feature-mobile-container-sm-image-cell {
-  //     grid-row: 1/8;
-  //     grid-column: 1/2;
-  //   }
-
-  //   .feature-mobile-container-sm-heading-cell {
-  //     grid-row: 1/3;
-  //     grid-column: 2/3;
-  //   }
-
-  //   .feature-mobile-container-sm-desc-cell {
-  //     grid-row: 3/7;
-  //     grid-column: 2/3;
-  //   }
-
-  //   .feature-mobile-container-sm-redirect-cell {
-  //     grid-row: 7/8;
-  //     grid-column: 2/3;
-  //   }
-
   return (
     <a
-      className={`my-6 w-full flex-col ${screenWidth >= 640 ? "feature-mobile-container-sm-grid grid h-[300px] gap-x-4" : ""}`}
+      className={`my-6 w-full flex-col hover:cursor-pointer ${screenWidth >= 640 ? "feature-mobile-container-sm-grid grid h-[300px] gap-x-4" : ""}`}
       id={`feature-mobile-redirect-${index}`}
       href={redirect.route}
     >
