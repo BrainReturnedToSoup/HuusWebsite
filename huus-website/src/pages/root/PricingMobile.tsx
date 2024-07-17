@@ -3,14 +3,6 @@ import { RootState } from "../../state/store";
 
 import "../../App.css";
 
-interface OfferMobileDeviceProps {
-  title: string;
-  desc: string;
-  bullets: Array<string>;
-  price: number;
-  index: number;
-}
-
 interface OfferMobileProps {
   title: string;
   desc: string;
@@ -61,27 +53,44 @@ function OfferTablet({
   desc,
   bullets,
   price,
+  redirect,
   index,
-}: OfferMobileDeviceProps) {
+}: OfferMobileProps) {
   return (
-    <div>
-      <div>
-        <h2></h2>
+    <a
+      href={redirect.route}
+      id={`pricing-mobile-container-${index}`}
+      className="my-2 w-full"
+    >
+      <div className="pricing-mobile-tablet-container-grid grid h-full border-b-2 border-t-2 border-black">
+        <div className="pricing-mobile-tablet-black-subcontainer-grid grid aspect-square bg-black p-4">
+          <h2 className="lato-medium flex items-center justify-center text-3xl text-white lg:text-4xl">
+            {title}
+          </h2>
+          <h3 className="lato-bold flex items-center justify-center text-6xl text-white lg:text-7xl">
+            ${price}
+          </h3>
+          <p className="lato-medium p-2 text-center text-xl text-white lg:text-2xl">
+            {desc}
+          </p>
+        </div>
+        <div className="px-10 py-4">
+          <ul className="h-5/6 pl-4 text-xl lg:text-2xl">
+            {bullets.map((bullet) => {
+              return <li className="lato-medium my-2 list-disc">{bullet}</li>;
+            })}
+          </ul>
+          <div className="flex h-1/6 w-full items-center justify-end">
+            <label
+              htmlFor={`pricing-mobile-container-${index}`}
+              className="lato-medium text-xl underline lg:text-2xl"
+            >
+              Details
+            </label>
+          </div>
+        </div>
       </div>
-      <div>
-        <p></p>
-      </div>
-      <div>
-        <ul>
-          {bullets.map((bullet) => {
-            return <li></li>;
-          })}
-        </ul>
-      </div>
-      <div>
-        <label htmlFor={`pricing-mobile-container-${index}`}></label>
-      </div>
-    </div>
+    </a>
   );
 }
 
@@ -90,35 +99,42 @@ function OfferPhone({
   desc,
   bullets,
   price,
+  redirect,
   index,
-}: OfferMobileDeviceProps) {
+}: OfferMobileProps) {
   return (
-    <div className="pricing-mobile-phone-container-grid grid h-full border-2 border-black">
-      <div className="flex items-center justify-start bg-black px-8 py-2">
-        <h2 className="lato-medium text-3xl text-white">{title}</h2>
+    <a
+      className="my-4 aspect-square w-full"
+      id={`pricing-mobile-container-${index}`}
+      href={redirect.route}
+    >
+      <div className="pricing-mobile-phone-container-grid grid h-full border-2 border-black">
+        <div className="flex items-center justify-start bg-black px-8 py-2">
+          <h2 className="lato-medium text-3xl text-white">{title}</h2>
+        </div>
+        <div className="px-8 py-4">
+          <p className="lato-medium">{desc}</p>
+        </div>
+        <div className="flex items-center justify-start px-8 py-2">
+          <h3 className="lato-bold text-6xl">${price}</h3>
+        </div>
+        <div className="pb-2 pl-12 pr-4 pt-4">
+          <ul className="lato-medium list-disc text-xl">
+            {bullets.map((bullet) => {
+              return <li className="m-2">{bullet}</li>;
+            })}
+          </ul>
+        </div>
+        <div className="flex items-center justify-end py-4 pr-6">
+          <label
+            className="lato-medium text-xl underline hover:cursor-pointer"
+            htmlFor={`pricing-mobile-container-${index}`}
+          >
+            Details
+          </label>
+        </div>
       </div>
-      <div className="px-8 py-4">
-        <p className="text-sm">{desc}</p>
-      </div>
-      <div className="flex items-center justify-start px-8 py-2">
-        <h3 className="lato-bold text-6xl">${price}</h3>
-      </div>
-      <div className="pb-2 pl-12 pr-4 pt-4">
-        <ul className="lato-medium list-disc text-xl">
-          {bullets.map((bullet) => {
-            return <li className="m-2">{bullet}</li>;
-          })}
-        </ul>
-      </div>
-      <div className="flex items-center justify-end py-4 pr-6">
-        <label
-          className="lato-medium text-xl underline hover:cursor-pointer"
-          htmlFor={`pricing-mobile-container-${index}`}
-        >
-          Details
-        </label>
-      </div>
-    </div>
+    </a>
   );
 }
 
@@ -135,17 +151,14 @@ function Offer({
   );
 
   return (
-    <a
-      className="my-4 aspect-square w-full"
-      id={`pricing-mobile-container-${index}`}
-      href={redirect.route}
-    >
+    <>
       {screenWidth >= 640 ? (
         <OfferTablet
           title={title}
           desc={desc}
           bullets={bullets}
           price={price}
+          redirect={redirect}
           index={index}
         />
       ) : (
@@ -154,10 +167,11 @@ function Offer({
           desc={desc}
           bullets={bullets}
           price={price}
+          redirect={redirect}
           index={index}
         />
       )}
-    </a>
+    </>
   );
 }
 
@@ -176,7 +190,7 @@ export default function PricingMobile() {
           results? Well you're in luck, that's exactly what we offer!
         </p>
       </div>
-      <div className={`flex w-full flex-col items-center px-4 py-2`}>
+      <div className={`flex w-full flex-col items-center py-2`}>
         {offers.map((offer, index) => {
           return (
             <Offer

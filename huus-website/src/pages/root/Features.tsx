@@ -197,7 +197,7 @@ export default function Features() {
           results? Well you're in luck, that's exactly what we offer!
         </p>
       </div>
-      <div className="flex w-full  items-center justify-center bg-black px-6 py-4 md:px-10 lg:px-14 xl:px-20">
+      <div className="flex w-full items-center justify-center bg-black px-6 py-4 md:px-10 lg:px-14 xl:px-20">
         <div className="grid h-full grid-cols-3 lg:w-[1150px]">
           {featureList.map((feature, index) => {
             return (

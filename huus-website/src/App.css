@@ -65,8 +65,11 @@
 /*tablet*/
 
 .pricing-mobile-tablet-container-grid {
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
+  grid-template-columns: 2.8fr 5fr;
+}
+
+.pricing-mobile-tablet-black-subcontainer-grid {
+    grid-template-rows: 1fr 3fr 4fr;
 }
 
 .pricing-mobile-tablet-container-heading-cell {
