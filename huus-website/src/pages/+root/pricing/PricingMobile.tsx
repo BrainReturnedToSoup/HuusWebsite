@@ -48,15 +48,15 @@ function OfferTablet({
           </p>
         </div>
         <div className="px-10 py-4">
-          <ul className="h-5/6 pl-4 text-xl lg:text-2xl">
+          <ul className="h-2/3 pl-4 text-xl lg:text-2xl">
             {bullets.map((bullet) => {
               return <li className="lato-medium my-2 list-disc">{bullet}</li>;
             })}
           </ul>
-          <div className="flex h-1/6 w-full items-center justify-end">
+          <div className="flex h-1/3 w-full items-center justify-end">
             <label
               htmlFor={`pricing-mobile-container-${index}`}
-              className="lato-medium text-xl underline lg:text-2xl"
+              className="lato-medium text-xl underline lg:text-2xl hover:cursor-pointer"
             >
               Details
             </label>
