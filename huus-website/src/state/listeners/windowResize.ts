@@ -2,8 +2,8 @@
 //width changes. Includes custom throttling and filtering to only apply the change
 //when necessary for responsive design.
 
-import { store, selectors } from "../state/store";
-import deviceScreenSlice from "../state/slices/deviceScreen";
+import { store, selectors } from "../store";
+import deviceScreenSlice from "../slices/deviceScreen";
 
 function resizeHandler(): void {
   const currDeviceWidth: number = window.innerWidth;

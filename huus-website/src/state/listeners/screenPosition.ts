@@ -4,8 +4,8 @@
 //is something white, then change the button contrasts to be more friendly with the white backdrop.
 //this applies vice versa.
 
-import { store, selectors } from "../state/store";
-import deviceScreenSlice from "../state/slices/deviceScreen";
+import { store, selectors } from "../store";
+import deviceScreenSlice from "../slices/deviceScreen";
 
 function positionHandler(): void {
   const currScreenPosition: number = Math.round(window.scrollY);
