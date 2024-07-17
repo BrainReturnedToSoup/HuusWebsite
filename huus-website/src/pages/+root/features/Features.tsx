@@ -2,13 +2,15 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-import servicesSlice from "../../state/slices/services";
+import {
+  FEATURE_LIST,
+  SECTION_TITLE,
+  SECTION_DESC,
+} from "../../../enums/features";
 
-import ptGeneric from "../../assets/personal-trainer-generic.jpg";
-import ptTeach from "../../assets/personal-trainer-teach.jpg";
-import ptOnline from "../../assets/personal-trainer-online.jpg";
+import servicesSlice from "../../../state/slices/services";
 
-import "../../App.css";
+import "../../../App.css";
 
 interface FeatureProps {
   title: string;
@@ -22,46 +24,6 @@ interface FeatureProps {
   };
 }
 
-const featureList = [
-  {
-    title: "Hands-on training",
-    desc: `Learn from the experts. Our team of certified professionals deliver comprehensive training
-     programs designed to equip you with the skills and knowledge you need to succeed`,
-
-    backgroundImageProp: ptGeneric,
-    icon: "",
-    redirect: {
-      route: "/about",
-      positionY: 0,
-    },
-    key: 1,
-  },
-
-  {
-    title: "Expert guidance",
-    desc: `Get a holistic approach to wellness. Our combined fitness and nutritional programs help you achieve your goals, inside and out. `,
-    backgroundImageProp: ptTeach,
-    icon: "",
-    redirect: {
-      route: "/services",
-      positionY: 0,
-    },
-    key: 2,
-  },
-
-  {
-    title: "Online options",
-    desc: `Train smarter, not harder. Choose from personalized 1-on-1 programs or affordable designed plans.
-     Perfect for busy schedules or existing gym-goers looking to elevate their workouts.`,
-    backgroundImageProp: ptOnline,
-    icon: "",
-    redirect: {
-      route: "/services",
-      positionY: 0,
-    },
-    key: 3,
-  },
-];
 
 function Feature({
   title,
@@ -133,7 +95,7 @@ function Feature({
 
   return (
     <div
-      className={`h-full w-full border-white px-2 pt-4 transition-colors duration-300 hover:cursor-pointer ${index !== 0 && index !== featureList.length - 1 ? "border-l-2 border-r-2" : ""} ${isBoxComponentHovered ? "bg-white" : ""}`}
+      className={`h-full w-full border-white px-2 pt-4 transition-colors duration-300 hover:cursor-pointer ${index !== 0 && index !== FEATURE_LIST.length - 1 ? "border-l-2 border-r-2" : ""} ${isBoxComponentHovered ? "bg-white" : ""}`}
       onClick={handle.redirect}
       onMouseEnter={handle.boxComponentMouseEnter}
       onMouseLeave={handle.boxComponentMouseLeave}
@@ -189,17 +151,14 @@ export default function Features() {
     <div className="flex flex-col items-center">
       <div className="mb-8 flex w-[850px] flex-col items-center p-4 px-14 pt-40 md:px-10 xl:px-20">
         <h2 className="lato-bold mb-4 text-xl">Features</h2>
-        <h3 className="lato-medium mb-10 text-6xl">Get Fit with Confidence!</h3>
+        <h3 className="lato-medium mb-10 text-6xl">{SECTION_TITLE}</h3>
         <p className="lato-medium mb-4 w-full text-center text-xl leading-loose">
-          We've all been there-feeling lost, unsure of technique, worried about
-          being judged, and having trouble actually 'sticking with it'. But what
-          if getting fit could be fun, supportive, and guaranteed to bring
-          results? Well you're in luck, that's exactly what we offer!
+          {SECTION_DESC}
         </p>
       </div>
       <div className="flex w-full items-center justify-center bg-black px-6 py-4 md:px-10 lg:px-14 xl:px-20">
         <div className="grid h-full grid-cols-3 lg:w-[1150px]">
-          {featureList.map((feature, index) => {
+          {FEATURE_LIST.map((feature, index) => {
             return (
               <Feature
                 title={feature.title}

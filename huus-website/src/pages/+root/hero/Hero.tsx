@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import "../../App.css";
+import arrowRightBlack from "../../../assets/arrow-right-black.svg";
+import arrowRightWhite from "../../../assets/arrow-right-white.svg";
 
-import arrowRightBlack from "../../assets/arrow-right-black.svg";
-import arrowRightWhite from "../../assets/arrow-right-white.svg";
+import "../../../App.css";
 
 function LearnMoreLink() {
   const [isHovered, setHoveredState] = useState(false);
@@ -24,7 +24,7 @@ function LearnMoreLink() {
       href="/about"
     >
       <p
-        className={`lato-bold md:text-xl  ${isHovered ? "text-black" : "text-white"}`}
+        className={`lato-bold md:text-xl ${isHovered ? "text-black" : "text-white"}`}
       >
         Learn more
       </p>
@@ -39,7 +39,7 @@ function LearnMoreLink() {
 
 export default function Hero() {
   return (
-    <div className="bmy-12 mt-14 flex h-full lg:px-14 xl:px-20">
+    <div className="mt-14 flex h-full lg:px-14 xl:px-20">
       <div className="mt-5 flex h-4/5 flex-col justify-center bg-black bg-opacity-20 py-6 transition-colors duration-300 ease-in-out md:p-3 lg:w-[635px] xl:bg-transparent">
         <div className="mb-6 bg-opacity-15 p-3 pl-12">
           <h1 className="lato-light mb-4 text-5xl text-white md:text-7xl lg:text-8xl">
@@ -53,7 +53,7 @@ export default function Hero() {
           </h3>
         </div>
         <div className="flex flex-col p-3 pl-10">
-          <p className="mb-2 pl-2 leading-relaxed text-white md:mb-6 md:text-xl ">
+          <p className="mb-2 pl-2 leading-relaxed text-white md:mb-6 md:text-xl">
             Quality 1-on-1 personal training, fitness mentorship, and nutrition
             consultation right at your fingertips. Schedule your online or
             in-person appointment today.

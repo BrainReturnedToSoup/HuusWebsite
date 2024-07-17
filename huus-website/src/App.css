@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.main-backdrop-image {
+.header-backdrop-image {
   background-image: url("./assets/main-backdrop-image.jpg");
   background-repeat: no-repeat;
   background-position: center;

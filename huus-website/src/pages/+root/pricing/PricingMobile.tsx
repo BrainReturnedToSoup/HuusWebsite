@@ -1,7 +1,9 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../state/store";
+import { RootState } from "../../../state/store";
 
-import "../../App.css";
+import { OFFER_LIST, SECTION_TITLE, SECTION_DESC } from "../../../enums/pricing";
+
+import "../../../App.css";
 
 interface OfferMobileProps {
   title: string;
@@ -14,39 +16,6 @@ interface OfferMobileProps {
   };
   index: number;
 }
-
-const offers = [
-  {
-    title: "Example 1",
-    desc: "Description 1",
-    bullets: ["bullet 1", " bullet 2", "bullet 3"],
-    price: 3.99,
-    redirect: {
-      route: "/about",
-      positionY: 0,
-    },
-  },
-  {
-    title: "Example 2",
-    desc: "Description 2",
-    bullets: ["bullet 1", " bullet 2", "bullet 3"],
-    price: 17.99,
-    redirect: {
-      route: "/about",
-      positionY: 0,
-    },
-  },
-  {
-    title: "Example 3",
-    desc: "Description 3",
-    bullets: ["bullet 1", " bullet 2", "bullet 3"],
-    price: 24.99,
-    redirect: {
-      route: "/about",
-      positionY: 0,
-    },
-  },
-];
 
 function OfferTablet({
   title,
@@ -108,7 +77,7 @@ function OfferPhone({
       id={`pricing-mobile-container-${index}`}
       href={redirect.route}
     >
-      <div className="pricing-mobile-phone-container-grid grid h-full border-2 border-black">
+      <div className="pricing-mobile-phone-container-grid grid h-full border-y-2 border-black">
         <div className="flex items-center justify-start bg-black px-8 py-2">
           <h2 className="lato-medium text-3xl text-white">{title}</h2>
         </div>
@@ -181,17 +150,14 @@ export default function PricingMobile() {
       <div className="mb-6 flex flex-col items-center justify-center px-4 sm:px-12">
         <h2 className="lato-bold mb-2">Features</h2>
         <h3 className="lato-medium mb-6 text-center text-4xl">
-          Get Fit with Confidence!
+          {SECTION_TITLE}
         </h3>
         <p className="lato-medium mb-4 w-full text-center leading-loose sm:text-xl">
-          We've all been there-feeling lost, unsure of technique, worried about
-          being judged, and having trouble actually 'sticking with it'. But what
-          if getting fit could be fun, supportive, and guaranteed to bring
-          results? Well you're in luck, that's exactly what we offer!
+          {SECTION_DESC}
         </p>
       </div>
       <div className={`flex w-full flex-col items-center py-2`}>
-        {offers.map((offer, index) => {
+        {OFFER_LIST.map((offer, index) => {
           return (
             <Offer
               title={offer.title}

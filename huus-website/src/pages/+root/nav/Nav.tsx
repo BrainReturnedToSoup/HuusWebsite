@@ -1,14 +1,14 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../state/store";
+import { RootState } from "../../../state/store";
 import { useState } from "react";
 
-import hamburgerMenuWhite from "../../assets/hamburger-menu-white.svg";
-import hamburgerMenuBlack from "../../assets/hamburger-menu-black.svg";
-import mobileMenuStateActions from "../../business-logic/mobileNav";
-import navLinks from "../../enums/navLinks";
-import minWidths from "../../enums/responsiveScreenWidths";
+import hamburgerMenuWhite from "../../../assets/hamburger-menu-white.svg";
+import hamburgerMenuBlack from "../../../assets/hamburger-menu-black.svg";
+import mobileMenuStateActions from "../../../business-logic/mobileNav";
+import navLinks from "../../../enums/nav";
+import minWidths from "../../../enums/responsiveScreenWidths";
 
-import "../../App.css";
+import "../../../App.css";
 
 const whiteBackground = "text-black hover:bg-black hover:text-white";
 const blackBackground = " text-white hover:bg-white hover:text-black";
