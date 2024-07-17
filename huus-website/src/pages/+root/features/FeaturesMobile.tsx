@@ -1,64 +1,13 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../../state/store";
 
-import ptGeneric from "../../../assets/personal-trainer-generic.jpg";
-import ptTeach from "../../../assets/personal-trainer-teach.jpg";
-import ptOnline from "../../../assets/personal-trainer-online.jpg";
+import {
+  FEATURE_LIST,
+  SECTION_TITLE,
+  SECTION_DESC,
+} from "../../../enums/features";
 
 import "../../../App.css";
-
-interface FeatureProps {
-  title: string;
-  desc: string;
-  backgroundImageProp: string;
-  icon: string;
-  index: number;
-  redirect: {
-    route: string;
-    positionY: number;
-  };
-}
-
-const featureList = [
-  {
-    title: "Hands-on training",
-    desc: `Learn from the experts. Our team of certified professionals deliver comprehensive training
-     programs designed to equip you with the skills and knowledge you need to succeed`,
-
-    backgroundImageProp: ptGeneric,
-    icon: "",
-    redirect: {
-      route: "/about",
-      positionY: 0,
-    },
-    key: 1,
-  },
-
-  {
-    title: "Expert guidance",
-    desc: `Get a holistic approach to wellness. Our combined fitness and nutritional programs help you achieve your goals, inside and out. `,
-    backgroundImageProp: ptTeach,
-    icon: "",
-    redirect: {
-      route: "/services",
-      positionY: 0,
-    },
-    key: 2,
-  },
-
-  {
-    title: "Online options",
-    desc: `Train smarter, not harder. Choose from personalized 1-on-1 programs or affordable designed plans.
-     Perfect for busy schedules or existing gym-goers looking to elevate their workouts.`,
-    backgroundImageProp: ptOnline,
-    icon: "",
-    redirect: {
-      route: "/services",
-      positionY: 0,
-    },
-    key: 3,
-  },
-];
 
 interface FeatureProps {
   title: string;
@@ -148,17 +97,14 @@ export default function FeaturesMobile() {
       <div className="mb-6 flex flex-col items-center justify-center px-4 sm:px-12">
         <h2 className="lato-bold mb-2">Features</h2>
         <h3 className="lato-medium mb-6 text-center text-4xl">
-          Get Fit with Confidence!
+          {SECTION_TITLE}
         </h3>
         <p className="lato-medium mb-4 w-full text-center leading-loose sm:text-xl">
-          We've all been there-feeling lost, unsure of technique, worried about
-          being judged, and having trouble actually 'sticking with it'. But what
-          if getting fit could be fun, supportive, and guaranteed to bring
-          results? Well you're in luck, that's exactly what we offer!
+          {SECTION_DESC}
         </p>
       </div>
       <div className="flex w-full flex-col items-center bg-black px-4 py-2">
-        {featureList.map((feature, index) => {
+        {FEATURE_LIST.map((feature, index) => {
           return (
             <Feature
               title={feature.title}

@@ -5,8 +5,8 @@ import { useState } from "react";
 import hamburgerMenuWhite from "../../../assets/hamburger-menu-white.svg";
 import hamburgerMenuBlack from "../../../assets/hamburger-menu-black.svg";
 import mobileMenuStateActions from "../../../business-logic/mobileNav";
-import navLinks from "../../../enums/nav";
-import minWidths from "../../../enums/responsiveScreenWidths";
+import NAV_LINKS from "../../../enums/nav";
+import MIN_WIDTHS from "../../../enums/responsiveScreenWidths";
 
 import "../../../App.css";
 
@@ -61,7 +61,7 @@ function RegularNav() {
     <div
       className={`flex justify-center `}
     >
-      {navLinks.map((linkData) => {
+      {NAV_LINKS.map((linkData) => {
         return (
           <a
             className={`center-text lato-bold flex justify-items-center px-9 text-xl transition-colors duration-300 ease-in-out md:text-2xl ${screenPosition > window.innerHeight ? whiteBackground : blackBackground}`}
@@ -89,7 +89,7 @@ export default function Nav() {
   //so basically, portrait tablets and below
   return (
     <nav className="flex h-full justify-center">
-      {screenWidth <= minWidths.desktop ? (
+      {screenWidth <= MIN_WIDTHS.desktop ? (
         <MobileNavMenuButton />
       ) : (
         <RegularNav />

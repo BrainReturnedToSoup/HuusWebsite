@@ -9,6 +9,6 @@ function createImmutable<T>(arr: Array<T>): ReadonlyArray<Readonly<T>> {
   return Object.freeze(arr.map((obj) => Object.freeze(obj)));
 }
 
-const navLinks = createImmutable(navLinksMutable);
+const NAV_LINKS = createImmutable(navLinksMutable);
 
-export default navLinks;
+export default NAV_LINKS;

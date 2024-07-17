@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../state/store";
 
-import minWidths from "../../enums/responsiveScreenWidths";
+import MIN_WIDTHS from "../../enums/responsiveScreenWidths";
 
 import Hero from "./hero/Hero";
 
@@ -74,7 +74,7 @@ function RootPage() {
         <Hero />
       </header>
       <main>
-        {screenWidth <= minWidths.desktop ? (
+        {screenWidth <= MIN_WIDTHS.desktop ? (
           <ContentMobile />
         ) : (
           <ContentRegular />

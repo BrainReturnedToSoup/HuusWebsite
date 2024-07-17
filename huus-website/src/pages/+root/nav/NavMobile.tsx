@@ -1,6 +1,6 @@
 import mobileMenuStateActions from "../../../business-logic/mobileNav";
 import xWhite from "../../../assets/x-white.svg"
-import navLinks from "../../../enums/nav";
+import NAV_LINKS from "../../../enums/nav";
 
 import "../../../App.css";
 
@@ -24,7 +24,7 @@ function NavMobile() {
         </button>
       </div>
       <div className="flex flex-col p-5 pl-10">
-        {navLinks.map((linkData) => {
+        {NAV_LINKS.map((linkData) => {
           return (
             <a
               className="lato-light mb-8 h-10 text-3xl text-white md:mb-16 md:text-5xl lg:text-6xl"
