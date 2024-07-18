@@ -93,7 +93,7 @@ function Feature({
 
 export default function FeaturesMobile() {
   return (
-    <div className="mt-6 flex flex-col items-center">
+    <div className="mt-20 flex flex-col items-center">
       <div className="mb-6 flex flex-col items-center justify-center px-4 sm:px-12">
         <h2 className="lato-bold mb-2">Features</h2>
         <h3 className="lato-medium mb-6 text-center text-4xl">

@@ -56,7 +56,7 @@ function OfferTablet({
           <div className="flex h-1/3 w-full items-center justify-end">
             <label
               htmlFor={`pricing-mobile-container-${index}`}
-              className="lato-medium text-xl underline lg:text-2xl hover:cursor-pointer"
+              className="lato-medium text-xl underline hover:cursor-pointer lg:text-2xl"
             >
               Details
             </label>
