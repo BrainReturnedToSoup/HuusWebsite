@@ -1,14 +1,14 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../../state/store";
+import { RootState } from "../../../../state/store";
 import { useState } from "react";
 
-import hamburgerMenuWhite from "../../../assets/hamburger-menu-white.svg";
-import hamburgerMenuBlack from "../../../assets/hamburger-menu-black.svg";
-import mobileMenuStateActions from "../../../business-logic/mobileNav";
-import NAV_LINKS from "../../../enums/nav";
-import MIN_WIDTHS from "../../../enums/responsiveScreenWidths";
+import hamburgerMenuWhite from "../../../../assets/hamburger-menu-white.svg";
+import hamburgerMenuBlack from "../../../../assets/hamburger-menu-black.svg";
+import mobileMenuStateActions from "../../../../business-logic/mobileNav";
+import NAV_LINKS from "../../../../enums/nav";
+import MIN_WIDTHS from "../../../../enums/responsiveScreenWidths";
 
-import "../../../App.css";
+import "../../../../App.css";
 
 const whiteBackground = "text-black hover:bg-black hover:text-white";
 const blackBackground = " text-white hover:bg-white hover:text-black";
@@ -46,7 +46,7 @@ function MobileNavMenuButton() {
               ? hamburgerMenuWhite
               : hamburgerMenuBlack
         }
-        className="w-full h-full aspect-square"
+        className="aspect-square h-full w-full"
       ></img>
     </button>
   );
@@ -58,9 +58,7 @@ function RegularNav() {
   );
 
   return (
-    <div
-      className={`flex justify-center `}
-    >
+    <div className={`flex justify-center`}>
       {NAV_LINKS.map((linkData) => {
         return (
           <a
@@ -89,7 +87,7 @@ export default function Nav() {
   //so basically, portrait tablets and below
   return (
     <nav className="flex h-full justify-center">
-      {screenWidth <= MIN_WIDTHS.desktop ? (
+      {screenWidth <= MIN_WIDTHS.expanded ? (
         <MobileNavMenuButton />
       ) : (
         <RegularNav />

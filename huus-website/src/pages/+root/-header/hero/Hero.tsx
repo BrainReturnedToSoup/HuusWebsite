@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import arrowRightBlack from "../../../assets/arrow-right-black.svg";
-import arrowRightWhite from "../../../assets/arrow-right-white.svg";
+import arrowRightBlack from "../../../../assets/arrow-right-black.svg";
+import arrowRightWhite from "../../../../assets/arrow-right-white.svg";
 
-import "../../../App.css";
+import "../../../../App.css";
 
 function LearnMoreLink() {
   const [isHovered, setHoveredState] = useState(false);

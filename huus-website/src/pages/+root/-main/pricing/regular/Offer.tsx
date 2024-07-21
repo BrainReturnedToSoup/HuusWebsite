@@ -1,8 +1,6 @@
 import { useState } from "react";
 
-import { OFFER_LIST, SECTION_TITLE, SECTION_DESC } from "../../../enums/pricing";
-
-import "../../../App.css";
+import "../../../../../App.css";
 
 interface OfferProps {
   title: string;
@@ -15,7 +13,13 @@ interface OfferProps {
   };
 }
 
-function Offer({ title, desc, bullets, price, redirect }: OfferProps) {
+export default function Offer({
+  title,
+  desc,
+  bullets,
+  price,
+  redirect,
+}: OfferProps) {
   const [isHovered, setHoveredState] = useState(false);
 
   function handleMouseEnter() {
@@ -61,38 +65,6 @@ function Offer({ title, desc, bullets, price, redirect }: OfferProps) {
             </label>
           </div>
         </a>
-      </div>
-    </div>
-  );
-}
-
-export default function Pricing() {
-  return (
-    <div className="flex flex-col items-center pb-20">
-      <div className="mb-8 flex flex-col items-center px-6 py-4 pt-40 md:px-10 lg:w-[850px] lg:px-14">
-        <h2 className="lato-bold mb-4 text-xl">Features</h2>
-        <h3 className="lato-medium mb-10 text-6xl">{SECTION_TITLE}</h3>
-        <p className="lato-medium mb-4 w-full text-center text-xl leading-loose">
-          {SECTION_DESC}
-        </p>
-      </div>
-      <div className="flex h-[500px] w-full items-center justify-center py-4 lg:px-10">
-        <div
-          className={`grid h-full grid-rows-1 md:w-[1024px] grid-cols-${OFFER_LIST.length} gap-2`}
-        >
-          {OFFER_LIST.map((offer, index) => {
-            return (
-              <Offer
-                title={offer.title}
-                desc={offer.desc}
-                bullets={offer.bullets}
-                price={offer.price}
-                redirect={offer.redirect}
-                key={index}
-              />
-            );
-          })}
-        </div>
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
-import mobileMenuStateActions from "../../../business-logic/mobileNav";
-import xWhite from "../../../assets/x-white.svg"
-import NAV_LINKS from "../../../enums/nav";
+import mobileMenuStateActions from "../../../../business-logic/mobileNav";
+import xWhite from "../../../../assets/x-white.svg";
+import NAV_LINKS from "../../../../enums/nav";
 
-import "../../../App.css";
+import "../../../../App.css";
 
 function NavMobile() {
   return (

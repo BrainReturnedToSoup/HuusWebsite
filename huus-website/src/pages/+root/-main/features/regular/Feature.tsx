@@ -1,37 +1,30 @@
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import {
-  FEATURE_LIST,
-  SECTION_TITLE,
-  SECTION_DESC,
-} from "../../../enums/features";
+import servicesSlice from "../../../../../state/slices/services";
 
-import servicesSlice from "../../../state/slices/services";
-
-import "../../../App.css";
+import "../../../../../App.css";
 
 interface FeatureProps {
   title: string;
   desc: string;
   backgroundImageProp: string;
-  icon: string;
-  index: number;
   redirect: {
     route: string;
     positionY: number;
   };
+  index: number;
+  listLength: number;
 }
 
-
-function Feature({
+export default function Feature({
   title,
   desc,
   backgroundImageProp,
-  icon,
-  index,
   redirect,
+  index,
+  listLength,
 }: FeatureProps) {
   const [isBoxComponentHovered, setBoxComponentHoveredState] = useState(false);
   const [isRedirectLinkHovered, setRedirectLinkHoveredState] = useState(false);
@@ -95,14 +88,13 @@ function Feature({
 
   return (
     <div
-      className={`h-full w-full border-white px-2 pt-4 transition-colors duration-300 hover:cursor-pointer ${index !== 0 && index !== FEATURE_LIST.length - 1 ? "border-l-2 border-r-2" : ""} ${isBoxComponentHovered ? "bg-white" : ""}`}
+      className={`h-full w-full border-white px-2 pt-4 transition-colors duration-300 hover:cursor-pointer ${index !== 0 && index !== listLength - 1 ? "border-l-2 border-r-2" : ""} ${isBoxComponentHovered ? "bg-white" : ""}`}
       onClick={handle.redirect}
       onMouseEnter={handle.boxComponentMouseEnter}
       onMouseLeave={handle.boxComponentMouseLeave}
     >
       <div className="feature-container-grid-rows grid h-full w-full">
         <div className="flex px-2 pt-2 hover:cursor-pointer">
-          <img className="hover:cursor-pointer" src={icon}></img>
           <h3
             className={`lato-medium text-2xl transition-colors duration-300 hover:cursor-pointer ${isBoxComponentHovered ? "text-black" : "text-white"}`}
           >
@@ -140,37 +132,6 @@ function Feature({
               Details
             </label>
           </a>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default function Features() {
-  return (
-    <div className="flex flex-col items-center">
-      <div className="mb-8 flex w-[850px] flex-col items-center p-4 px-14 pt-40 md:px-10 xl:px-20">
-        <h2 className="lato-bold mb-4 text-xl">Features</h2>
-        <h3 className="lato-medium mb-10 text-6xl">{SECTION_TITLE}</h3>
-        <p className="lato-medium mb-4 w-full text-center text-xl leading-loose">
-          {SECTION_DESC}
-        </p>
-      </div>
-      <div className="flex w-full items-center justify-center bg-black px-6 py-4 md:px-10 lg:px-14 xl:px-20">
-        <div className="grid h-full grid-cols-3 lg:w-[1150px]">
-          {FEATURE_LIST.map((feature, index) => {
-            return (
-              <Feature
-                title={feature.title}
-                desc={feature.desc}
-                backgroundImageProp={feature.backgroundImageProp}
-                icon={feature.icon}
-                redirect={feature.redirect}
-                index={index}
-                key={index}
-              />
-            );
-          })}
         </div>
       </div>
     </div>
