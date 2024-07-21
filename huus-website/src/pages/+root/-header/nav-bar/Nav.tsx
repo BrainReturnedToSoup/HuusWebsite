@@ -5,7 +5,7 @@ import { useState } from "react";
 import hamburgerMenuWhite from "../../../../assets/hamburger-menu-white.svg";
 import hamburgerMenuBlack from "../../../../assets/hamburger-menu-black.svg";
 import mobileMenuStateActions from "../../../../business-logic/mobileNav";
-import NAV_LINKS from "../../../../enums/nav";
+import NAV_LINKS from "../../../../enums/pages/+root/-header/nav";
 import MIN_WIDTHS from "../../../../enums/responsiveScreenWidths";
 
 import "../../../../App.css";

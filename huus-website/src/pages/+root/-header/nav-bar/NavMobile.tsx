@@ -1,6 +1,6 @@
 import mobileMenuStateActions from "../../../../business-logic/mobileNav";
 import xWhite from "../../../../assets/x-white.svg";
-import NAV_LINKS from "../../../../enums/nav";
+import NAV_LINKS from "../../../../enums/pages/+root/-header/nav";
 
 import "../../../../App.css";
 

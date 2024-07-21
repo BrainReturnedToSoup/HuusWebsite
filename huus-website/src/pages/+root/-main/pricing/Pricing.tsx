@@ -8,7 +8,7 @@ import {
   OFFER_LIST,
   SECTION_TITLE,
   SECTION_DESC,
-} from "../../../../enums/pricing";
+} from "../../../../enums/pages/+root/-main/pricing";
 
 interface PricingProps {
   screenWidth: number;

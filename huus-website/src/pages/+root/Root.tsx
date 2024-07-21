@@ -4,7 +4,7 @@ import { RootState } from "../../state/store";
 import Header from "./-header/Header";
 import Main from "./-main/Main";
 import Footer from "./-footer/Footer";
-import NavMobile from "./-header/nav/NavMobile";
+import NavMobile from "./-header/nav-bar/NavMobile";
 
 import "../../App.css";
 

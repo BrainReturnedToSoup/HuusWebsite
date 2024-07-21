@@ -1,6 +1,6 @@
 import Offer from "./Offer";
 
-import { OFFER_LIST } from "../../../../../enums/pricing";
+import { OFFER_LIST } from "../../../../../enums/pages/+root/-main/pricing";
 
 interface TabletProps {
   offerList: typeof OFFER_LIST;

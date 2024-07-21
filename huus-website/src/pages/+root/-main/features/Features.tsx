@@ -6,7 +6,7 @@ import {
   FEATURE_LIST,
   SECTION_TITLE,
   SECTION_DESC,
-} from "../../../../enums/features";
+} from "../../../../enums/pages/+root/-main/features";
 
 import MIN_WIDTHS from "../../../../enums/responsiveScreenWidths";
 

@@ -1,4 +1,4 @@
-import { FEATURE_LIST } from "../../../../../enums/features";
+import { FEATURE_LIST } from "../../../../../enums/pages/+root/-main/features";
 
 import Feature from "./Feature";
 

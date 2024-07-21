@@ -1,6 +1,6 @@
-import ptGeneric from "../assets/personal-trainer-generic.jpg";
-import ptTeach from "../assets/personal-trainer-teach.jpg";
-import ptOnline from "../assets/personal-trainer-online.jpg";
+import ptGeneric from "../../../../assets/personal-trainer-generic.jpg";
+import ptTeach from "../../../../assets/personal-trainer-teach.jpg";
+import ptOnline from "../../../../assets/personal-trainer-online.jpg";
 
 export const FEATURE_LIST = Object.freeze([
   {
