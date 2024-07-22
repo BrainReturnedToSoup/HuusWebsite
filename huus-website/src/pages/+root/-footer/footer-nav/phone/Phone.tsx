@@ -8,7 +8,7 @@ interface PhoneProps {
 
 export default function Phone({ footerNavColumns }: PhoneProps) {
   return (
-    <div className="flex flex-wrap justify-center items-center">
+    <div className="flex flex-wrap justify-center items-center pt-4">
       {footerNavColumns.map((columnData) => (
         <NavColumn columnData={columnData} />
       ))}

@@ -5,8 +5,8 @@ interface SocialMediaLinkProps {
 
 export default function SocialMediaLink({ icon, link }: SocialMediaLinkProps) {
   return (
-    <a href={link}>
-      <img src={icon}></img>
+    <a href={link} className="w-full h-full">
+      <img src={icon} className="aspect-square h-[32px]"></img>
     </a>
   );
 }

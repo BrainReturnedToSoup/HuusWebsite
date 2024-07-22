@@ -7,7 +7,7 @@ interface LinkProps {
 
 function Link({ text, route }: LinkProps) {
   return (
-    <li className="mb-6 flex h-[36px] items-center justify-center px-2">
+    <li className="mb-4 flex h-[36px] items-center justify-center px-2">
       <a href={route}>{text}</a>
     </li>
   );
