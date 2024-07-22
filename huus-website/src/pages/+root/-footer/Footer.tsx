@@ -6,14 +6,15 @@ import FooterAside from "./footer-aside/FooterAside";
 import CopywriteSection from "./copywrite-section/CopywriteSection";
 
 import FOOTER_NAV_COLUMNS from "../../../enums/pages/+root/-footer/footer";
+import MIN_WIDTHS from "../../../enums/responsiveScreenWidths";
 
-export default function Footer() {
-  const screenWidth: number = useSelector(
-    (state: RootState) => state.deviceScreen.width,
-  );
+interface FooterSubtypeProps {
+  screenWidth: number;
+}
 
+function FooterRegular({ screenWidth }: FooterSubtypeProps) {
   return (
-    <footer className="h-[550px] w-full px-6 pt-16 sm:px-10 lg:px-14 xl:px-20">
+    <footer className="h-[550px] w-full px-14 pt-16">
       <div className="flex h-5/6 w-full border-t-2 border-black">
         <FooterAside screenWidth={screenWidth} />
         <FooterNav
@@ -23,5 +24,51 @@ export default function Footer() {
       </div>
       <CopywriteSection screenWidth={screenWidth} />
     </footer>
+  );
+}
+
+function FooterTablet({ screenWidth }: FooterSubtypeProps) {
+  return (
+    <footer className="w-full px-6 pt-16">
+      <FooterAside screenWidth={screenWidth} />
+      <FooterNav
+        screenWidth={screenWidth}
+        footerNavColumns={FOOTER_NAV_COLUMNS}
+      />
+      <CopywriteSection screenWidth={screenWidth} />
+    </footer>
+  );
+}
+
+function FooterPhone({ screenWidth }: FooterSubtypeProps) {
+  return (
+    <footer className="w-full px-6 pt-16">
+      <FooterAside screenWidth={screenWidth} />
+      <FooterNav
+        screenWidth={screenWidth}
+        footerNavColumns={FOOTER_NAV_COLUMNS}
+      />
+      <CopywriteSection screenWidth={screenWidth} />
+    </footer>
+  );
+}
+
+export default function Footer() {
+  const screenWidth: number = useSelector(
+    (state: RootState) => state.deviceScreen.width,
+  );
+
+  return (
+    <>
+      {screenWidth >= MIN_WIDTHS.large && (
+        <FooterRegular screenWidth={screenWidth} />
+      )}
+      {screenWidth >= MIN_WIDTHS.medium && screenWidth < MIN_WIDTHS.large && (
+        <FooterTablet screenWidth={screenWidth} />
+      )}
+      {screenWidth < MIN_WIDTHS.medium && (
+        <FooterPhone screenWidth={screenWidth} />
+      )}
+    </>
   );
 }

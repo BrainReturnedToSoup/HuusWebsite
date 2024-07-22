@@ -1,6 +1,6 @@
 const MIN_WIDTHS = Object.freeze({
   XLarge: 1600,
-  large: 1200,
+  large: 1024,
   expanded: 840,
   medium: 600,
 });

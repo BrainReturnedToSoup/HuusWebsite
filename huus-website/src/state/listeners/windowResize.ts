@@ -12,6 +12,9 @@ function resizeHandler(): void {
   //DO NOT UPDATE THE RETURNED REFERENCES FOR STATE UPDATES. USE ACTION METHODS ON SLICES INSTEAD
   const storedDeviceWidth: number = selectors.deviceScreen.width();
 
+  console.log(`stored device width: `, storedDeviceWidth);
+  console.log(`curr device width: `, currDeviceWidth);
+
   if (currDeviceWidth === storedDeviceWidth) return;
 
   store.dispatch(deviceScreenSlice.actions.setWidth(currDeviceWidth));

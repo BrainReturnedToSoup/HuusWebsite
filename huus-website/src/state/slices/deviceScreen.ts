@@ -4,7 +4,7 @@ const deviceScreenSlice = createSlice({
   name: "deviceScreen",
 
   initialState: {
-    width: window.innerWidth,
+    width: window.innerWidth, //ensures the starting value is the most up-to-date value
     position: window.screenTop,
   },
 

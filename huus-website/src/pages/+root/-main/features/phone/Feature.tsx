@@ -35,13 +35,13 @@ export default function Feature({
         </div>
       </div>
 
-      <div className={`mb-3 sm:p-3`}>
-        <p className="text-white sm:text-xl">{desc}</p>
+      <div className={`mb-3 p-4`}>
+        <p className="text-xl text-white">{desc}</p>
       </div>
       <div className={`flex items-center justify-end pr-6`}>
         <label
           htmlFor={`feature-mobile-redirect-${index}`}
-          className="text-white underline sm:text-xl"
+          className="text-xl text-white underline"
         >
           Details
         </label>

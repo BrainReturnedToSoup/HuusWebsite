@@ -11,9 +11,10 @@ interface FooterAsideProps {
 export default function FooterAside({ screenWidth }: FooterAsideProps) {
   return (
     <>
-      {screenWidth >= MIN_WIDTHS.expanded && <Regular />}
-      {screenWidth >= MIN_WIDTHS.medium &&
-        screenWidth < MIN_WIDTHS.expanded && <Tablet />}
+      {screenWidth >= MIN_WIDTHS.large && <Regular />}
+      {screenWidth >= MIN_WIDTHS.medium && screenWidth < MIN_WIDTHS.large && (
+        <Tablet />
+      )}
       {screenWidth < MIN_WIDTHS.medium && <Phone />}
     </>
   );

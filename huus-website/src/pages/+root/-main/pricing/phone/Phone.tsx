@@ -8,7 +8,7 @@ interface PhoneProps {
 
 export default function Phone({ offerList }: PhoneProps) {
   return (
-    <>
+    <div className="flex w-full flex-col">
       {offerList.map((offer, index) => {
         return (
           <Offer
@@ -22,6 +22,6 @@ export default function Phone({ offerList }: PhoneProps) {
           />
         );
       })}
-    </>
+    </div>
   );
 }

@@ -8,7 +8,7 @@ interface PhoneProps {
 
 export default function Phone({ featureList }: PhoneProps) {
   return (
-    <>
+    <div className="flex w-full flex-col bg-black py-2">
       {featureList.map((feature, index) => {
         return (
           <Feature
@@ -21,6 +21,6 @@ export default function Phone({ featureList }: PhoneProps) {
           />
         );
       })}
-    </>
+    </div>
   );
 }

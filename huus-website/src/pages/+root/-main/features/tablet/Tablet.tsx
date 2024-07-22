@@ -8,7 +8,7 @@ interface TabletProps {
 
 export default function Tablet({ featureList }: TabletProps) {
   return (
-    <>
+    <div className="bg-black flex flex-col py-2 items-center">
       {featureList.map((feature, index) => {
         return (
           <Feature
@@ -21,6 +21,6 @@ export default function Tablet({ featureList }: TabletProps) {
           />
         );
       })}
-    </>
+    </div>
   );
 }

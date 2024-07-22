@@ -16,13 +16,12 @@ export default function FooterNav({
 }: FooterNavProps) {
   return (
     <>
-      {screenWidth >= MIN_WIDTHS.expanded && (
+      {screenWidth >= MIN_WIDTHS.large && (
         <Regular footerNavColumns={footerNavColumns} />
       )}
-      {screenWidth >= MIN_WIDTHS.medium &&
-        screenWidth < MIN_WIDTHS.expanded && (
-          <Tablet footerNavColumns={footerNavColumns} />
-        )}
+      {screenWidth >= MIN_WIDTHS.medium && screenWidth < MIN_WIDTHS.large && (
+        <Tablet footerNavColumns={footerNavColumns} />
+      )}
       {screenWidth < MIN_WIDTHS.medium && (
         <Phone footerNavColumns={footerNavColumns} />
       )}

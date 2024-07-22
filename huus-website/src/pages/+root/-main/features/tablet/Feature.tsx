@@ -18,35 +18,29 @@ export default function Feature({
 }: FeatureProps) {
   return (
     <a
-      className={`feature-mobile-container-sm-grid my-6 grid h-[300px] w-full flex-col gap-x-4 hover:cursor-pointer`}
+      className={`my-2 flex w-full hover:cursor-pointer p-2`}
       id={`feature-mobile-redirect-${index}`}
       href={redirect.route}
     >
       <div
-        className="feature-mobile-container-sm-image-cell aspect-square h-full w-full"
+        className="aspect-square h-[275px]"
         style={{
           backgroundImage: `url(${backgroundImageProp})`,
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
       ></div>
-      <div className="feature-mobile-container-sm-heading-cell flex h-full w-full items-center p-3">
-        <h2 className="text-4xl text-white">{title}</h2>
-      </div>
-      <div
-        className={`feature-mobile-container-sm-desc-cell mb-3 h-full w-full sm:p-3`}
-      >
-        <p className="text-white sm:text-xl">{desc}</p>
-      </div>
-      <div
-        className={`feature-mobile-container-sm-redirect-cell flex h-full w-full items-center justify-end pr-6`}
-      >
-        <label
-          htmlFor={`feature-mobile-redirect-${index}`}
-          className="text-white underline sm:text-xl"
-        >
-          Details
-        </label>
+      <div className="flex flex-col p-4">
+        <h2 className="text-3xl text-white mb-2">{title}</h2>
+        <p className="text-xl text-white">{desc}</p>
+        <div className={`flex h-full w-full items-center justify-end pr-6`}>
+          <label
+            htmlFor={`feature-mobile-redirect-${index}`}
+            className="text-center text-xl text-white underline"
+          >
+            Details
+          </label>
+        </div>
       </div>
     </a>
   );
