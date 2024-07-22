@@ -9,7 +9,7 @@ export default function Phone() {
         Like what you see?
       </h2>
       <h3
-        className={`lato-bold mb-10 flex items-center justify-center py-1 pl-4 pr-2 text-center text-xl text-white hover:cursor-pointer`}
+        className={`lato-bold mb-4 flex items-center justify-center py-1 pl-4 pr-2 text-center text-xl text-white hover:cursor-pointer`}
       >
         Schedule a consultation today!
       </h3>

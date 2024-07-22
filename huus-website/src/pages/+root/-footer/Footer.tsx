@@ -29,7 +29,7 @@ function FooterRegular({ screenWidth }: FooterSubtypeProps) {
 
 function FooterTablet({ screenWidth }: FooterSubtypeProps) {
   return (
-    <footer className="w-full px-6 pt-16">
+    <footer className="w-full bg-black px-6 pt-16">
       <FooterAside screenWidth={screenWidth} />
       <FooterNav
         screenWidth={screenWidth}
@@ -42,7 +42,7 @@ function FooterTablet({ screenWidth }: FooterSubtypeProps) {
 
 function FooterPhone({ screenWidth }: FooterSubtypeProps) {
   return (
-    <footer className="w-full px-6 pt-16">
+    <footer className="w-full px-4 pt-12">
       <FooterAside screenWidth={screenWidth} />
       <FooterNav
         screenWidth={screenWidth}

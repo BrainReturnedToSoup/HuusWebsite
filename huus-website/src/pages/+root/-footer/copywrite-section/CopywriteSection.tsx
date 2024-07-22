@@ -1,6 +1,6 @@
 import Regular from "./regular/Regular";
-import Tablet from "../footer-aside/tablet/Tablet";
-import Phone from "../footer-aside/phone/Phone";
+import Tablet from "./tablet/Tablet";
+import Phone from "./phone/Phone";
 
 import MIN_WIDTHS from "../../../../enums/responsiveScreenWidths";
 
