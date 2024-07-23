@@ -24,7 +24,7 @@ export default function Tablet() {
           className="aspect-square h-[36px] hover:cursor-pointer"
         ></img>
       </a>
-      <p className="w-[675px] text-center text-xl leading-8 text-white">
+      <p className="text-center text-xl leading-8 text-white md:w-[675px]">
         Random description here Random description here Random description here
         Random description here Random description here Random description here
         Random description here Random description here Random description here

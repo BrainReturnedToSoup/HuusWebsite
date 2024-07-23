@@ -1,3 +1,5 @@
+import NavColumn from "./NavColumn";
+
 import FOOTER_NAV_COLUMNS from "../../../../../enums/pages/+root/-footer/footer";
 
 interface TabletProps {
@@ -5,5 +7,11 @@ interface TabletProps {
 }
 
 export default function Tablet({ footerNavColumns }: TabletProps) {
-  return <div>Footer nav - Tablet</div>;
+  return (
+    <div className="flex h-full w-2/3 pb-4 pt-8">
+      {footerNavColumns.map((column) => {
+        return <NavColumn title={column.title} links={column.links} />;
+      })}
+    </div>
+  );
 }

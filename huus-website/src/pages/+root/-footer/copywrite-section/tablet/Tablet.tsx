@@ -1,3 +1,10 @@
 export default function Tablet() {
-  return <div>Copywrite section - Tablet</div>;
+  return (
+    <div className="flex h-1/6 w-full items-center justify-center ">
+      <h3>
+        <span className="mr-1">&#169;</span>2024 Huus Fitness & Personal
+        Training, Inc. All rights reserved.
+      </h3>
+    </div>
+  );
 }

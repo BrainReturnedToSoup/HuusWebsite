@@ -14,27 +14,31 @@ interface FooterSubtypeProps {
 
 function FooterRegular({ screenWidth }: FooterSubtypeProps) {
   return (
-    <footer className="h-[550px] w-full px-14 pt-16">
-      <div className="flex h-5/6 w-full border-t-2 border-black">
-        <FooterAside screenWidth={screenWidth} />
-        <FooterNav
-          screenWidth={screenWidth}
-          footerNavColumns={FOOTER_NAV_COLUMNS}
-        />
+    <footer className="flex h-[550px] w-full items-center justify-center px-14 pt-16">
+      <div className="h-full w-[1024px]">
+        <div className="flex h-5/6 w-full border-t-2 border-black">
+          <FooterAside screenWidth={screenWidth} />
+          <FooterNav
+            screenWidth={screenWidth}
+            footerNavColumns={FOOTER_NAV_COLUMNS}
+          />
+        </div>
+        <CopywriteSection screenWidth={screenWidth} />
       </div>
-      <CopywriteSection screenWidth={screenWidth} />
     </footer>
   );
 }
 
 function FooterTablet({ screenWidth }: FooterSubtypeProps) {
   return (
-    <footer className="w-full bg-black px-6 pt-16">
-      <FooterAside screenWidth={screenWidth} />
-      <FooterNav
-        screenWidth={screenWidth}
-        footerNavColumns={FOOTER_NAV_COLUMNS}
-      />
+    <footer className="h-[550px] w-full px-4 pt-16">
+      <div className="flex h-5/6 w-full border-y-2 border-black">
+        <FooterAside screenWidth={screenWidth} />
+        <FooterNav
+          screenWidth={screenWidth}
+          footerNavColumns={FOOTER_NAV_COLUMNS}
+        />
+      </div>
       <CopywriteSection screenWidth={screenWidth} />
     </footer>
   );

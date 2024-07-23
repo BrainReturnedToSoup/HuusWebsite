@@ -1,4 +1,4 @@
-import { useState } from "react";
+import "../../../../../App.css";
 
 type Link = { text: string; redirect: { route: string; positionY: number } };
 
@@ -7,24 +7,9 @@ interface FooterNavLinkProps {
 }
 
 function NavLink({ link }: FooterNavLinkProps) {
-  const [isHovered, setHoveredState] = useState(false);
-
-  function handleMouseEnter() {
-    setHoveredState(true);
-  }
-
-  function handleMouseLeave() {
-    setHoveredState(false);
-  }
-
   return (
     <li className="mb-5">
-      <a
-        href={link.redirect.route}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className={`${isHovered ? "underline" : ""}`}
-      >
+      <a href={link.redirect.route} className={`lato-medium hover:underline`}>
         {link.text}
       </a>
     </li>
