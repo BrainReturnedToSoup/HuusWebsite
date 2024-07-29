@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
+import { RootState } from "../../../state/store";
 
 import NavBar from "./nav-bar/NavBar";
-import Hero from "./hero/Hero";
 
 export default function Header() {
   const screenWidth: number = useSelector(
@@ -9,9 +9,10 @@ export default function Header() {
   );
 
   return (
-    <header className="header-backdrop-image flex h-dvh w-full flex-col bg-black">
-      <NavBar />
-      <Hero />
+    <header className="header-backdrop-image h-[765px] bg-black">
+      <div className={`h-full bg-black bg-opacity-15 lg:px-20`}>
+        <NavBar screenWidth={screenWidth} />
+      </div>
     </header>
   );
 }

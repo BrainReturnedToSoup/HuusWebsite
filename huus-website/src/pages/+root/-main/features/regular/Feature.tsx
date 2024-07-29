@@ -1,8 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-
-import servicesSlice from "../../../../../state/slices/services";
 
 import "../../../../../App.css";
 
@@ -29,27 +25,9 @@ export default function Feature({
   const [isBoxComponentHovered, setBoxComponentHoveredState] = useState(false);
   const [isRedirectLinkHovered, setRedirectLinkHoveredState] = useState(false);
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  function redirectToPage(route: string, positionY: number): void {
-    //sets the position to move to on the page being routed to. This is for
-    //the 'learn more' links, which may point to a subsection of an existing page
-    //for more information.
-
-    dispatch(servicesSlice.actions.setPositionY(positionY));
-    navigate(route);
-  }
-
   //the goal of these handlers is to provide the necessary flags for interactivity
   //of the feature boxes themselves, as well as the redirect link individually.
   const handle = {
-    redirect: (event: React.SyntheticEvent<HTMLElement>): void => {
-      event.stopPropagation();
-
-      redirectToPage(redirect.route, redirect.positionY);
-    },
-
     boxComponentMouseEnter: (
       event: React.SyntheticEvent<HTMLElement>,
     ): void => {
@@ -87,11 +65,11 @@ export default function Feature({
   };
 
   return (
-    <div
+    <a
       className={`h-full w-full border-white px-2 pt-4 transition-colors duration-300 hover:cursor-pointer ${index !== 0 && index !== listLength - 1 ? "border-l-2 border-r-2" : ""} ${isBoxComponentHovered ? "bg-white" : ""}`}
-      onClick={handle.redirect}
       onMouseEnter={handle.boxComponentMouseEnter}
       onMouseLeave={handle.boxComponentMouseLeave}
+      href={redirect.route}
     >
       <div className="feature-container-grid-rows grid h-full w-full">
         <div className="flex px-2 pt-2 hover:cursor-pointer">
@@ -119,7 +97,7 @@ export default function Feature({
           </div>
         </div>
         <div className="flex items-end justify-end p-2">
-          <a
+          <button
             id={`feature-${index}-redirect`}
             onMouseEnter={handle.redirectLinkMouseEnter}
             onMouseLeave={handle.redirectLinkMouseLeave}
@@ -131,9 +109,9 @@ export default function Feature({
             >
               Details
             </label>
-          </a>
+          </button>
         </div>
       </div>
-    </div>
+    </a>
   );
 }

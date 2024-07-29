@@ -2,15 +2,11 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import deviceScreenSlice from "./slices/deviceScreen";
 import mobileNavSlice from "./slices/mobileNav";
-import pricingSlice from "./slices/pricing";
-import servicesSlice from "./slices/services";
 
 const store = configureStore({
   reducer: {
     deviceScreen: deviceScreenSlice.reducer,
     mobileNav: mobileNavSlice.reducer,
-    pricing: pricingSlice.reducer,
-    services: servicesSlice.reducer,
   },
 });
 
@@ -21,7 +17,7 @@ const selectors = {
     },
 
     position: (): number => {
-      return store.getState().deviceScreen.position;
+      return store.getState().deviceScreen.positionY;
     },
   },
 
@@ -32,18 +28,6 @@ const selectors = {
 
     toggleDisabled: (): boolean => {
       return store.getState().mobileNav.toggleDisabled;
-    },
-  },
-
-  pricing: {
-    positionY: (): number => {
-      return store.getState().pricing.positionY;
-    },
-  },
-
-  services: {
-    positionY: (): number => {
-      return store.getState().services.positionY;
     },
   },
 };

@@ -14,8 +14,9 @@ export default function CopywriteSection({
   return (
     <>
       {screenWidth >= MIN_WIDTHS.large && <Regular />}
-      {screenWidth >= MIN_WIDTHS.medium &&
-        screenWidth < MIN_WIDTHS.large && <Tablet />}
+      {screenWidth >= MIN_WIDTHS.medium && screenWidth < MIN_WIDTHS.large && (
+        <Tablet />
+      )}
       {screenWidth < MIN_WIDTHS.medium && <Phone />}
     </>
   );

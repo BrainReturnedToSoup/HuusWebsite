@@ -11,8 +11,6 @@ import { Provider } from "react-redux";
 //This state is used for responsive design across the website.
 import "./state/listeners/windowResize.ts";
 
-//initializes the link between the screen position and corres redux state similarly to above.
-import "./state/listeners/screenPosition.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

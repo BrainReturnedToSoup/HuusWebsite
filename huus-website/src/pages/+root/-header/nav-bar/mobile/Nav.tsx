@@ -1,10 +1,8 @@
-import mobileMenuStateActions from "../../../../business-logic/mobileNav";
-import xWhite from "../../../../assets/x-white.svg";
-import NAV_LINKS from "../../../../enums/pages/+root/-header/nav";
+import mobileNavStateActions from "../../../../../ui-effects/mobileNav";
+import xWhite from "../../../../../assets/x-white.svg";
+import { NAV_LINKS } from "../../../../../enums/pages/+root/-header/nav";
 
-import "../../../../App.css";
-
-function NavMobile() {
+export default function Nav() {
   return (
     <div className="fixed z-10 h-dvh w-full bg-black">
       <div className="flex items-center justify-between px-6 py-4 md:px-10 md:py-5">
@@ -14,7 +12,7 @@ function NavMobile() {
         <button
           className="flex aspect-square w-20 items-center justify-center"
           id="mobile-nav-exit"
-          onClick={mobileMenuStateActions.close}
+          onClick={mobileNavStateActions.close}
         >
           <img
             className="aspect-square w-14 text-white md:w-28 lg:w-32"
@@ -39,5 +37,3 @@ function NavMobile() {
     </div>
   );
 }
-
-export default NavMobile;

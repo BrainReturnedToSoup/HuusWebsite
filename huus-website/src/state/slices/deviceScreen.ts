@@ -5,7 +5,7 @@ const deviceScreenSlice = createSlice({
 
   initialState: {
     width: window.innerWidth, //ensures the starting value is the most up-to-date value
-    position: window.screenTop,
+    positionY: window.screenTop,
   },
 
   reducers: {
@@ -14,7 +14,7 @@ const deviceScreenSlice = createSlice({
     },
 
     setPosition: (state, action) => {
-      state.position = action.payload;
+      state.positionY = action.payload;
     },
   },
 });

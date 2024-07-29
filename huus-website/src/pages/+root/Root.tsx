@@ -4,7 +4,7 @@ import { RootState } from "../../state/store";
 import Header from "./-header/Header";
 import Main from "./-main/Main";
 import Footer from "./-footer/Footer";
-import NavMobile from "./-header/nav-bar/NavMobile";
+import Nav from "./-header/nav-bar/mobile/Nav";
 
 import "../../App.css";
 
@@ -14,7 +14,7 @@ export default function Root() {
   );
 
   return mobileNavOpen ? (
-    <NavMobile />
+    <Nav />
   ) : (
     <>
       <Header />
