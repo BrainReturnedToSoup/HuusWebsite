@@ -8,7 +8,7 @@ function Link({ linkInfo }: LinkProps) {
   return (
     <li className="mb-3 sm:mb-2">
       <a href={linkInfo.redirect.route} className="block px-2 hover:underline">
-        <p className="flex h-[48px] min-w-[48px] justify-center text-xl text-neutral-700 first-line:items-center sm:text-base md:h-fit md:w-fit md:p-2">
+        <p className="lato-medium flex h-[48px] min-w-[48px] justify-center text-xl text-neutral-700 first-line:items-center sm:text-base md:h-fit md:w-fit md:p-2">
           {linkInfo.text}
         </p>
       </a>
