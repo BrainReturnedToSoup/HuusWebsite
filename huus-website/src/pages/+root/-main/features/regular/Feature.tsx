@@ -107,7 +107,7 @@ export default function Feature({
               htmlFor={`feature-${index}-redirect`}
               className={`lato-medium underline transition-colors duration-300 hover:cursor-pointer ${isBoxComponentHovered || isRedirectLinkHovered ? "text-black" : "text-white"}`}
             >
-              Details
+              Learn more
             </label>
           </button>
         </div>

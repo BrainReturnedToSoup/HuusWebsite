@@ -1,23 +1,10 @@
-import Regular from "./regular/Regular";
-import Tablet from "./tablet/Tablet";
-import Phone from "./phone/Phone";
-
-import MIN_WIDTHS from "../../../../enums/responsiveScreenWidths";
-
-interface CopywriteSectionProps {
-  screenWidth: number;
-}
-
-export default function CopywriteSection({
-  screenWidth,
-}: CopywriteSectionProps) {
+export default function CopywriteSection() {
   return (
-    <>
-      {screenWidth >= MIN_WIDTHS.large && <Regular />}
-      {screenWidth >= MIN_WIDTHS.medium && screenWidth < MIN_WIDTHS.large && (
-        <Tablet />
-      )}
-      {screenWidth < MIN_WIDTHS.medium && <Phone />}
-    </>
+    <div className="flex min-h-[50px] w-full items-center justify-center p-2 text-neutral-700">
+      <h3 className="text-center">
+        Copyright <span className="mx-1">&copy;</span> 2024 - Huu's Personal
+        Training - All Rights Reserved.
+      </h3>
+    </div>
   );
 }

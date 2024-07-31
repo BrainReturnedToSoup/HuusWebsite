@@ -1,21 +1,35 @@
-import Regular from "./regular/Regular";
-import Tablet from "./tablet/Tablet";
-import Phone from "./phone/Phone";
+import { FOOTER_SOCIAL_MEDIA_LINKS } from "../../../../enums/pages/+root/-footer/footer";
 
-import MIN_WIDTHS from "../../../../enums/responsiveScreenWidths";
-
-interface FooterAsideProps {
-  screenWidth: number;
+interface SocialMediaLinkProps {
+  linkInfo: (typeof FOOTER_SOCIAL_MEDIA_LINKS)[0];
 }
 
-export default function FooterAside({ screenWidth }: FooterAsideProps) {
+function SocialMediaLink({ linkInfo }: SocialMediaLinkProps) {
   return (
-    <>
-      {screenWidth >= MIN_WIDTHS.large && <Regular />}
-      {screenWidth >= MIN_WIDTHS.medium && screenWidth < MIN_WIDTHS.large && (
-        <Tablet />
-      )}
-      {screenWidth < MIN_WIDTHS.medium && <Phone />}
-    </>
+    <a
+      className="mx-1 aspect-square h-[40px] items-center justify-center text-neutral-700 flex"
+      href={linkInfo.link}
+    >
+      <img
+        className="aspect-square h-[28px]"
+        alt={linkInfo.alt}
+        src={linkInfo.icon}
+      ></img>
+    </a>
+  );
+}
+
+export default function FooterAside() {
+  return (
+    <div className="flex min-h-[65px] w-full flex-wrap items-center justify-between border-b-2 border-neutral-300 px-4 py-2 sm:px-10">
+      <div>
+        <img alt="logo" className="text-neutral-700"></img>
+      </div>
+      <ul className="flex items-center justify-center text-gray-400">
+        {FOOTER_SOCIAL_MEDIA_LINKS.map((linkInfo, index) => (
+          <SocialMediaLink linkInfo={linkInfo} key={index} />
+        ))}
+      </ul>
+    </div>
   );
 }

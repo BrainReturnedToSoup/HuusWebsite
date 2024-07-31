@@ -38,7 +38,7 @@ export default function Feature({
             htmlFor={`feature-mobile-redirect-${index}`}
             className="text-center text-xl text-white underline"
           >
-            Details
+            Learn more
           </label>
         </div>
       </div>

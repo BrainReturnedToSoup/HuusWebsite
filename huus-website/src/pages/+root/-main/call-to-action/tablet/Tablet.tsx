@@ -4,7 +4,7 @@ import "../../../../../App.css";
 
 export default function Tablet() {
   return (
-    <div className="flex h-[500px] w-full flex-col items-center justify-center bg-black px-14 pb-16 xl:px-20">
+    <div className="flex w-full flex-col items-center justify-center bg-black px-14 py-12">
       <h2 className="mb-6 text-center text-6xl text-white">
         Like what you see?
       </h2>
