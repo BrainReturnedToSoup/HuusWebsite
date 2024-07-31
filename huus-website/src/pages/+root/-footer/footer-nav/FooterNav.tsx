@@ -26,7 +26,9 @@ function NavColumns({ navColumns }: NavColumnsProps) {
       {navColumns.map((column, index) => {
         return (
           <div className="flex flex-col items-center justify-center">
-            <h2 className="mb-6 text-2xl text-neutral-700">{column.title}</h2>
+            <h2 className="lato-bold mb-6 text-xl text-neutral-700">
+              {column.title}
+            </h2>
             <ul className="mx-6 mb-6 flex flex-col items-center justify-center md:mx-0">
               {column.links.map((linkInfo) => (
                 <Link linkInfo={linkInfo} key={index} />
