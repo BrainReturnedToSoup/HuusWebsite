@@ -1,21 +1,22 @@
-import Regular from "./regular/Regular";
-import Tablet from "./tablet/Tablet";
-import Phone from "./phone/Phone";
-
-import MIN_WIDTHS from "../../../../enums/responsiveScreenWidths";
-
-interface CallToActionProps {
-  screenWidth: number;
-}
-
-export default function CallToAction({ screenWidth }: CallToActionProps) {
+export default function CallToAction() {
   return (
-    <>
-      {screenWidth >= MIN_WIDTHS.large && <Regular />}
-      {screenWidth >= MIN_WIDTHS.medium && screenWidth < MIN_WIDTHS.large && (
-        <Tablet />
-      )}
-      {screenWidth < MIN_WIDTHS.medium && <Phone />}
-    </>
+    <div className="flex items-center justify-center bg-black py-12">
+      <div className="flex h-full max-w-[650px] flex-col items-center justify-center px-4">
+        <h2 className="lato-medium mb-3 text-center text-5xl text-white">
+          Like what you see?
+        </h2>
+        <a
+          className={`lato-medium mb-4 flex items-center justify-center px-4 py-1 text-xl text-white underline transition-colors duration-150 hover:cursor-pointer hover:bg-white hover:text-black`}
+        >
+          Schedule a consultation today!
+        </a>
+        <p className="lato-medium text-center leading-7 text-white">
+          Random description here Random description here Random description
+          here Random description here Random description here Random
+          description here Random description here Random description here
+          Random description here Random description here
+        </p>
+      </div>
+    </div>
   );
 }
