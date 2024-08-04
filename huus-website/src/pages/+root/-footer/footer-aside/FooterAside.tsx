@@ -7,7 +7,7 @@ interface SocialMediaLinkProps {
 function SocialMediaLink({ linkInfo }: SocialMediaLinkProps) {
   return (
     <a
-      className="mx-2 flex aspect-square h-[48px] items-center justify-center text-neutral-700 sm:mx-1"
+      className="mx-2 flex aspect-square min-h-[48px] min-w-[48px] items-center justify-center rounded-full border-2 border-transparent p-2 text-neutral-700 hover:border-neutral-200 sm:mx-1"
       href={linkInfo.link}
     >
       <img
