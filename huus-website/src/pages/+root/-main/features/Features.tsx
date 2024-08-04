@@ -36,13 +36,13 @@ function Feature({ feature }: FeatureProps) {
   return (
     <a
       href={feature.redirect.route}
-      className="mx-1 my-2 flex flex-col justify-between p-4 md:my-3 lg:my-0 lg:h-full lg:max-w-[350px]"
+      className={`mx-1 my-1 flex flex-col justify-between p-4 transition-colors duration-300 ease-in-out md:my-3 lg:my-0 lg:h-full lg:max-w-[350px] ${sectionHovered && !redirectButtonHovered ? "bg-white" : ""}`}
       onMouseEnter={handleSectionMouseEnter}
       onMouseLeave={handleSectionMouseLeave}
     >
       <div className="flex flex-col sm:flex-row lg:block">
         <div
-          className="mb-2 flex aspect-square min-w-[325px] flex-col bg-red-500 lg:min-w-fit"
+          className="mb-2 flex aspect-square min-w-[275px] flex-col bg-red-500 lg:min-w-fit"
           style={{
             backgroundImage: `url(${feature.backgroundImageProp})`,
             backgroundRepeat: "no-repeat",
@@ -55,14 +55,17 @@ function Feature({ feature }: FeatureProps) {
           </h1>
         </div>
         <div className="flex flex-col justify-between">
-          <p className="mb-2 p-2 text-xl leading-relaxed text-white sm:ml-4 md:p-4 lg:ml-0 lg:p-0 lg:text-base">
+          <p
+            className={`mb-2 p-2 text-xl leading-relaxed transition-colors duration-300 ease-in-out sm:ml-4 md:p-4 lg:ml-0 lg:p-0 lg:text-base ${sectionHovered && !redirectButtonHovered ? "text-black" : "text-white"}`}
+          >
             {feature.desc}
           </p>
+
           <div className="hidden items-end justify-end p-2 sm:flex lg:hidden">
             <button
               onMouseEnter={handleRedirectButtonMouseEnter}
               onMouseLeave={handleRedirectButtonMouseLeave}
-              className="text-xl text-white underline"
+              className={`p-2 text-xl underline transition-colors duration-300 ease-in-out ${sectionHovered || redirectButtonHovered ? "bg-white text-black" : "text-white"}`}
             >
               Learn more
             </button>
@@ -74,7 +77,7 @@ function Feature({ feature }: FeatureProps) {
         <button
           onMouseEnter={handleRedirectButtonMouseEnter}
           onMouseLeave={handleRedirectButtonMouseLeave}
-          className="text-xl text-white underline lg:text-base"
+          className={`px-2 py-1 text-xl underline transition-colors duration-300 ease-in-out lg:text-base ${sectionHovered || redirectButtonHovered ? "text-black" : "text-white"} ${redirectButtonHovered ? "bg-white" : ""}`}
         >
           Learn more
         </button>
@@ -86,7 +89,7 @@ function Feature({ feature }: FeatureProps) {
 export default function Features() {
   return (
     <div className="mb-8 flex flex-col items-center py-4">
-      <div className="mb-8 flex max-w-[760px] flex-col items-center px-4">
+      <div className="flex max-w-[760px] flex-col items-center px-4 py-8">
         <h3 className="lato-medium mb-6 w-full text-center text-4xl">
           {SECTION_TITLE}
         </h3>
@@ -94,7 +97,7 @@ export default function Features() {
           {SECTION_DESC}
         </p>
       </div>
-      <div className="flex w-full flex-col items-center justify-center bg-black px-1 lg:flex-row lg:items-start lg:px-4">
+      <div className="flex w-full flex-col items-center justify-center bg-black px-1 py-1 lg:flex-row lg:items-start lg:px-4 lg:py-2">
         {FEATURE_LIST.map((feature, index) => (
           <Feature feature={feature} key={index} />
         ))}
