@@ -39,7 +39,7 @@ function Feature({ feature }: FeatureProps) {
         href={feature.redirect.route}
         onMouseEnter={handleSectionMouseEnter}
         onMouseLeave={handleSectionMouseLeave}
-        className={`mx-1 my-1 flex flex-col items-center justify-between p-4 transition-colors duration-300 ease-in-out lg:my-0 lg:h-full lg:max-w-[350px] ${sectionHovered && !redirectButtonHovered ? "bg-white" : ""}`}
+        className={`mx-1 my-1 flex flex-col items-center justify-between px-4 py-3 transition-colors duration-300 ease-in-out lg:my-0 lg:h-full lg:max-w-[350px] ${sectionHovered && !redirectButtonHovered ? "bg-white" : ""}`}
       >
         <div className="flex flex-col sm:flex-row lg:block">
           <div
@@ -91,7 +91,7 @@ function Feature({ feature }: FeatureProps) {
 export default function Features() {
   return (
     <div className="mb-8 flex flex-col items-center py-4">
-      <div className="flex max-w-[760px] flex-col items-center px-4 py-8">
+      <div className="flex max-w-[760px] flex-col items-center px-4 py-10">
         <h3 className="lato-medium mb-6 w-full text-center text-4xl">
           {SECTION_TITLE}
         </h3>
