@@ -1,17 +1,20 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../../state/store";
-
 import NavBar from "./nav-bar/NavBar";
 
-export default function Header() {
-  const screenWidth: number = useSelector(
-    (state: RootState) => state.deviceScreen.width,
-  );
+import { NAV_BUTTONS } from "../../../enums/default/nav";
 
+interface HeaderProps {
+  backdropImageClass: string;
+  navButtons: typeof NAV_BUTTONS;
+}
+
+export default function DefaultHeader({
+  backdropImageClass,
+  navButtons,
+}: HeaderProps) {
   return (
-    <header className="header-backdrop-image h-[765px] bg-black">
-      <div className={`h-full bg-black bg-opacity-15 lg:px-20`}>
-        <NavBar screenWidth={screenWidth} />
+    <header className={`${backdropImageClass} h-[765px] bg-black`}>
+      <div className="h-full bg-black bg-opacity-15 lg:px-20">
+        <NavBar navButtons={navButtons} />
       </div>
     </header>
   );

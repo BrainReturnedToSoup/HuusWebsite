@@ -1,11 +1,12 @@
-import NavBar from "./nav-bar/NavBar";
+import { NAV_BUTTONS } from "../../../enums/default/nav";
+
+import DefaultHeader from "../../../components/default/header/DefaultHeader";
 
 export default function Header() {
   return (
-    <header className="h-[765px] bg-black">
-      <div className={`header-backdrop-image h-full lg:px-20`}>
-        <NavBar />
-      </div>
-    </header>
+    <DefaultHeader
+      backdropImageClass={"header-backdrop-image"}
+      navButtons={NAV_BUTTONS}
+    />
   );
 }
