@@ -1,12 +1,11 @@
-import MIN_WIDTHS from "../../../../enums/responsiveScreenWidths";
+export default function NavBar() {
+  return (
+    <div className="flex min-h-[50px] items-center justify-between bg-red-500 px-4 py-2">
+      <div> logo</div>
 
-import Regular from "./regular/Regular";
-import Mobile from "./mobile/Mobile";
+      <div className="hidden lg:block">regular nav</div>
 
-interface NavBarProps {
-  screenWidth: number;
-}
-
-export default function NavBar({ screenWidth }: NavBarProps) {
-  return <>{screenWidth >= MIN_WIDTHS.large ? <Regular /> : <Mobile />}</>;
+      <div className="lg:hidden">mobile nav button</div>
+    </div>
+  );
 }
