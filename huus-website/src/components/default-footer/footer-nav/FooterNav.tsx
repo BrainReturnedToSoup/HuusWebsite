@@ -1,4 +1,4 @@
-import { FOOTER_NAV_COLUMNS } from "../../../../enums/pages/+root/-footer/footer";
+import { FOOTER_NAV_COLUMNS } from "../../../enums/pages/+root/-footer/footer";
 
 interface LinkProps {
   linkInfo: (typeof FOOTER_NAV_COLUMNS)[0]["links"][0];
