@@ -1,4 +1,4 @@
-import { FOOTER_SOCIAL_MEDIA_LINKS } from "../../../enums/pages/+root/-footer/footer";
+import { FOOTER_SOCIAL_MEDIA_LINKS } from "../../../../enums/pages/+root/-footer/footer";
 
 interface SocialMediaLinkProps {
   linkInfo: (typeof FOOTER_SOCIAL_MEDIA_LINKS)[0];
