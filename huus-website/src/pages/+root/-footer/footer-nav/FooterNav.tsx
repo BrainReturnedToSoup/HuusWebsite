@@ -47,7 +47,7 @@ interface FooterNavProps {
 
 export default function FooterNav({ navColumns }: FooterNavProps) {
   return (
-    <div className="flex min-h-[185px] w-full flex-wrap justify-around border-b-2 border-neutral-300 px-2 pt-6 md:px-16">
+    <div className="flex min-h-[185px] w-full flex-wrap justify-around border-b-2 border-neutral-400 px-2 pt-6 md:px-16">
       <NavColumns navColumns={navColumns} />
     </div>
   );

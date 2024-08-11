@@ -7,11 +7,11 @@ interface SocialMediaLinkProps {
 function SocialMediaLink({ linkInfo }: SocialMediaLinkProps) {
   return (
     <a
-      className="mx-2 flex aspect-square min-h-[48px] min-w-[48px] items-center justify-center rounded-full border-2 border-transparent p-2 text-neutral-700 hover:border-neutral-200 sm:mx-1"
+      className="mx-2 flex aspect-square min-h-[48px] min-w-[48px] items-center justify-center rounded-full border-2 border-transparent p-2 text-neutral-700 hover:border-neutral-500 sm:mx-1"
       href={linkInfo.link}
     >
       <img
-        className="lato-medium aspect-square h-[40px] md:h-[36px]"
+        className="lato-medium aspect-square h-[40px] md:h-[32px]"
         alt={linkInfo.alt}
         src={linkInfo.icon}
       ></img>
@@ -21,7 +21,7 @@ function SocialMediaLink({ linkInfo }: SocialMediaLinkProps) {
 
 export default function FooterAside() {
   return (
-    <div className="flex min-h-[65px] w-full flex-wrap items-center justify-between border-b-2 border-neutral-300 px-4 py-2 sm:px-10">
+    <div className="flex w-full flex-wrap items-center justify-between border-b-2 border-neutral-400 px-4 py-1 sm:px-10">
       <div>
         <img alt="logo" className="text-neutral-700"></img>
       </div>
