@@ -1,6 +1,6 @@
 export default function CallToAction() {
   return (
-    <div className="flex items-center justify-center py-10 lg:py-20">
+    <div className="py-14 flex items-center justify-center lg:py-20">
       <div className="flex h-full max-w-[760px] flex-col items-center justify-center px-4">
         <h2 className="lato-medium mb-3 text-center text-4xl lg:text-5xl">
           Like what you see?

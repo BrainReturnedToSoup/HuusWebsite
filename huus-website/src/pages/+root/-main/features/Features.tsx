@@ -51,7 +51,7 @@ function Feature({ feature }: FeatureProps) {
               backgroundSize: "cover",
             }}
           >
-            <h1 className="flex w-full items-center justify-center bg-black bg-opacity-75 p-2 text-3xl text-white sm:text-2xl">
+            <h1 className="flex w-full items-center justify-center bg-black bg-opacity-75 p-4 text-3xl text-white sm:p-2 sm:text-2xl">
               {feature.title}
             </h1>
           </div>
@@ -91,7 +91,7 @@ function Feature({ feature }: FeatureProps) {
 export default function Features() {
   return (
     <div className="flex flex-col items-center py-4">
-      <div className="flex max-w-[760px] flex-col items-center px-4 py-10 lg:py-20">
+      <div className="flex max-w-[760px] flex-col items-center px-4 py-14 lg:py-20">
         <h3 className="lato-medium mb-6 w-full text-center text-4xl lg:text-5xl">
           {SECTION_TITLE}
         </h3>
