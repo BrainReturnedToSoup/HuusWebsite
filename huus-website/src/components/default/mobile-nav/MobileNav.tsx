@@ -14,7 +14,7 @@ export default function MobileNav({ navButtons }: MobileNavProps) {
       <div className="mb-12 flex items-center justify-between">
         <h1 className="lato-bold text-4xl text-white">Navigation</h1>
         <button type="button" onClick={mobileMenuStateActions.close}>
-          <img alt="Back" className="text-white" src={xWhite}></img>
+          <img alt="Back" className="text-white max-w-[64px]" src={xWhite}></img>
         </button>
       </div>
       <ul className="text-2xl text-white">
