@@ -59,7 +59,7 @@ function RegularNav({ navButtons }: NavBarProps) {
 
 export default function NavBar({ navButtons }: NavBarProps) {
   return (
-    <div className="flex h-[70px] items-center justify-between bg-black bg-opacity-15 px-4">
+    <div className="flex h-[70px] items-center justify-between bg-black bg-opacity-25 px-4 lg:px-24">
       <div className="flex h-full items-center justify-center">
         <img alt="site logo" className="text-white"></img>
       </div>

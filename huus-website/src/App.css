@@ -4,16 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
-.header-backdrop-image {
+.root-header-backdrop-image {
   background-image: url("./assets/main-backdrop-image.jpg");
   background-repeat: no-repeat;
   background-position: center;
-}
-
-@media screen and (max-width: 640px) {
-  .main-backdrop-image {
-    background-size: cover;
-  }
 }
 
 .center-text {
@@ -69,7 +63,7 @@
 }
 
 .pricing-mobile-tablet-black-subcontainer-grid {
-    grid-template-rows: 1fr 3fr 4fr;
+  grid-template-rows: 1fr 3fr 4fr;
 }
 
 .pricing-mobile-tablet-container-heading-cell {
