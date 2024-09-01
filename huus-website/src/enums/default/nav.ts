@@ -1,6 +1,6 @@
 const navButtonsMutable = [
-  { text: "Services", link: "/services" },
   { text: "About", link: "/about" },
+  { text: "Services", link: "/services" },
   { text: "Media", link: "/media" },
   { text: "Contact", link: "/contact" },
 ];

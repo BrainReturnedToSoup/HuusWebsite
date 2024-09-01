@@ -13,9 +13,7 @@ export default function DefaultHeader({
 }: HeaderProps) {
   return (
     <header className={`${backdropImageClass} h-[765px] bg-black`}>
-
         <NavBar navButtons={navButtons} />
-
     </header>
   );
 }
