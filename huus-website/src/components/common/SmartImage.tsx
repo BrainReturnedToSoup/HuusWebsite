@@ -77,7 +77,6 @@ export default function SmartImage({
         clearTimeout(initialTimeout); //in the case the original promise resolves, but after the setTimeout has executed.
         clearInterval(retryInterval); //in the case the original promise resolves, but after the retry interval was declared
 
-        setInitialFetching(false); //relevant largely to the first promise only, since this is a flag for rendering things like loading.
         setImageSrc(src);
       })
       .catch((code) => {
@@ -88,11 +87,11 @@ export default function SmartImage({
         //at this point, it means the fetch failed before the timeout executed, which means switching directly to the interval rather than
         //waiting for the timeout to fire.
         clearTimeout(initialTimeout);
-        setInitialFetching(false);
         setHasFailed(true);
         createRetryInterval();
       })
       .finally(() => {
+        setInitialFetching(false);
         setFetchPromise(null);
       });
 
