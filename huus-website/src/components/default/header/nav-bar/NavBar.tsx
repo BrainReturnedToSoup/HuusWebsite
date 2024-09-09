@@ -23,7 +23,7 @@ function NavMenuButton() {
       onClick={mobileMenuStateActions.open}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
-      className={`flex aspect-square w-16 items-center justify-center transition-colors duration-150 ease-in-out hover:bg-white`}
+      className={`z-20 flex aspect-square w-16 items-center justify-center transition-colors duration-150 ease-in-out hover:bg-white`}
     >
       <img
         src={isHovered ? hamburgerMenuBlack : hamburgerMenuWhite}
@@ -34,24 +34,32 @@ function NavMenuButton() {
   );
 }
 
+interface RegularNavBarButtonProps {
+  buttonInfo: (typeof NAV_BUTTONS)[0];
+}
+
+function RegularNavBarButton({ buttonInfo }: RegularNavBarButtonProps) {
+  return (
+    <li className="h-[50px]">
+      <a
+        href={buttonInfo.link}
+        className="flex h-full items-center justify-center px-5 py-2 text-xl text-white transition-colors duration-150 ease-in-out hover:bg-white hover:text-black"
+      >
+        {buttonInfo.text}
+      </a>
+    </li>
+  );
+}
+
 interface NavBarProps {
   navButtons: typeof NAV_BUTTONS;
 }
 
 function RegularNav({ navButtons }: NavBarProps) {
   return (
-    <ul className="flex h-full items-center justify-center">
-      {navButtons.map((button) => {
-        return (
-          <li className="h-[50px]">
-            <a
-              href={button.link}
-              className="flex h-full items-center justify-center px-5 py-2 text-xl text-white transition-colors duration-150 ease-in-out hover:bg-white hover:text-black"
-            >
-              {button.text}
-            </a>
-          </li>
-        );
+    <ul className="flex h-full items-center justify-center self-end">
+      {navButtons.map((buttonInfo, index) => {
+        return <RegularNavBarButton buttonInfo={buttonInfo} key={index} />;
       })}
     </ul>
   );
@@ -59,7 +67,7 @@ function RegularNav({ navButtons }: NavBarProps) {
 
 export default function NavBar({ navButtons }: NavBarProps) {
   return (
-    <div className="flex h-[70px] items-center justify-between bg-black bg-opacity-65 px-4 lg:px-24">
+    <div className="relative z-30 flex h-[70px] items-center justify-between bg-black bg-opacity-65 px-4 lg:px-24">
       <div className="flex h-full items-center justify-center">
         <img alt="site logo" className="text-white"></img>
       </div>

@@ -6,41 +6,51 @@ import SmartImage from "../../common/SmartImage";
 import { NAV_BUTTONS } from "../../../enums/default/nav";
 
 function FailedToLoadImage() {
-  return <div>
-    
-  </div>;
+  return (
+    <div>
+      <p>failed to load image</p>
+    </div>
+  );
 }
 
 function LoadingImage() {
-  return <div>
-
-  </div>;
+  return (
+    <div>
+      <p>loading</p>
+    </div>
+  );
 }
 
 interface HeaderProps {
-  backdropImageClass: string;
+  imageSrc: string;
+  imageAlt: string;
   navButtons: typeof NAV_BUTTONS;
 }
 
 export default function DefaultHeader({
-  backdropImageClass,
+  imageSrc,
+  imageAlt,
   navButtons,
 }: HeaderProps) {
   const [initialImageFetching, setInitialFetching] = useState(true);
   const [imageFetchFailed, setHasFailed] = useState(false);
 
   return (
-    <header className={`${backdropImageClass} h-[765px] bg-black`}>
+    //the entirety of the elements in the header have to be positioned either using relative or absolute properties
+    //to achieve proper layering behaviors when trying to stretch the image to be the same size as the header element itself.
+    <header className={`relative h-[765px] bg-black`}>
       <NavBar navButtons={navButtons} />
-      <SmartImage
-        url={""}
-        alt={""}
-        classString={""}
-        timeoutDelay={3000}
-        intervalDelay={5000}
-        setInitialFetching={setInitialFetching}
-        setHasFailed={setHasFailed}
-      />
+      <div className="absolute left-0 top-0 z-0 flex h-full w-full items-center justify-center">
+        <SmartImage
+          src={imageSrc} //source to image
+          alt={imageAlt}
+          classString={"h-full w-full object-cover z-10"} //will be injected 'as is'
+          timeoutDelay={3000}
+          intervalDelay={5000}
+          setInitialFetching={setInitialFetching}
+          setHasFailed={setHasFailed}
+        />
+      </div>
 
       {initialImageFetching ? <LoadingImage /> : null}
       {!initialImageFetching && imageFetchFailed ? <FailedToLoadImage /> : null}

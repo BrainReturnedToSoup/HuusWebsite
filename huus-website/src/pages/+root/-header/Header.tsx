@@ -1,5 +1,7 @@
 import DefaultHeader from "../../../components/default/header/DefaultHeader";
 
+import rootPageBackdropImage from "../../../assets/main-backdrop-image.jpg";
+
 const navButtons = [
   { text: "About", link: "/about" },
   { text: "Services", link: "/services" },
@@ -10,7 +12,8 @@ const navButtons = [
 export default function Header() {
   return (
     <DefaultHeader
-      backdropImageClass={"root-header-backdrop-image"}
+      imageSrc={rootPageBackdropImage}
+      imageAlt={""}
       navButtons={navButtons}
     />
   );

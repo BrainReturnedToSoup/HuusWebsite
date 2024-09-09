@@ -11,11 +11,12 @@ export default function loadImage(
 
     //event listeners
     img.onload = () => {
-      clearTimeout(timeout); 
+      clearTimeout(timeout);
       resolve(img.src);
-    }; 
+    };
 
-    img.onerror = () => {
+    img.onerror = (err) => {
+      console.error("loadImage error: ", err);
       clearTimeout(timeout);
       reject(1);
     };
