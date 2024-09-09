@@ -119,7 +119,7 @@ export default function SmartImage({
       initialTimeout = undefined;
       retryInterval = undefined;
     };
-  }, []);
+  },[]);
 
   return imageSrc ? (
     <img className={classString} src={imageSrc} alt={alt} />
