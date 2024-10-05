@@ -46,6 +46,7 @@ export default function SmartImage({
 
     function createRetryInterval() {
       retryInterval = setInterval(() => {
+        console.log("image interval executed");
         if (fetchPromise) return; //don't create a new promise until the old one is completed in some way
 
         const loadImagePromise = loadImage(src)
@@ -74,7 +75,10 @@ export default function SmartImage({
       //at this point, it means the original promise has not resolved nor rejected, but regardless, define the retry interval in the meantime.
       //The retry interval will take note of the pending original promise, and decide to create a new 'retry' request if such rejects.
       setInitialFetching(false);
+      setHasFailed(true);
+
       createRetryInterval();
+
       initialTimeout = undefined;
       // ^^^ necessary because the return of a timeout creation is a simple number representing the timeout ID. undefined is the only
       //other valid argument you can supply to clearTimeout
@@ -87,7 +91,9 @@ export default function SmartImage({
         //vvv IDEMPOTENT
         clearTimeout(initialTimeout); //in the case the original promise resolves, but after the setTimeout has executed.
         clearInterval(retryInterval); //in the case the original promise resolves, but after the retry interval was declared
+
         retryInterval = undefined; // prevent mem leak after clear just in case
+
         setImageSrc(src);
       })
       .catch((code) => {
@@ -98,12 +104,16 @@ export default function SmartImage({
         //at this point, it means the fetch failed before the timeout executed, which
         //means switching directly to the interval rather than waiting for the timeout to fire.
         clearTimeout(initialTimeout);
+
         setHasFailed(true);
+
         createRetryInterval();
       })
       .finally(() => {
         setInitialFetching(false);
+
         setFetchPromise(null);
+
         initialTimeout = undefined; // prevent mem leak after clear
       });
 
@@ -116,6 +126,7 @@ export default function SmartImage({
       //vvv IDEMPOTENT
       clearTimeout(initialTimeout);
       clearInterval(retryInterval);
+      
       initialTimeout = undefined;
       retryInterval = undefined;
     };
