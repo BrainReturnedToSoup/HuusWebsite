@@ -40,7 +40,7 @@ interface RegularNavBarButtonProps {
 
 function RegularNavBarButton({ buttonInfo }: RegularNavBarButtonProps) {
   return (
-    <li className="h-[50px]">
+    <li className="h-[55px]">
       <a
         href={buttonInfo.link}
         className="flex h-full items-center justify-center px-5 py-2 text-xl text-white transition-colors duration-150 ease-in-out hover:bg-white hover:text-black"
@@ -67,7 +67,7 @@ function RegularNav({ navButtons }: NavBarProps) {
 
 export default function NavBar({ navButtons }: NavBarProps) {
   return (
-    <div className="relative z-30 flex h-[70px] items-center justify-between bg-black bg-opacity-65 px-4 lg:px-24">
+    <div className="relative z-10 flex h-[85px] items-center justify-between bg-black bg-opacity-35 px-4 lg:px-24">
       <div className="flex h-full items-center justify-center">
         <img alt="site logo" className="text-white"></img>
       </div>
