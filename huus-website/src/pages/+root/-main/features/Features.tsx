@@ -21,11 +21,12 @@ function FeatureImage({ title, backgroundImage, imageAlt }: FeatureImageProps) {
   const [hasFailed, setHasFailed] = useState(false);
 
   return (
-    <div className="mb-2 flex aspect-square flex-col sm:min-w-[275px] lg:min-w-[330px]">
-      <h1 className="flex w-full items-center justify-center bg-black bg-opacity-75 p-4 text-3xl text-white sm:p-2 sm:text-2xl">
+    <div className="relative mb-2 flex aspect-square flex-col sm:min-w-[275px] lg:min-w-[330px]">
+      <h1 className="z-10 flex w-full items-center justify-center bg-black bg-opacity-75 p-4 text-3xl text-white sm:p-2 sm:text-2xl">
         {title}
       </h1>
-      {initialFetching && !hasFailed ? (
+
+      {initialFetching ? (
         <div className="text-white underline">fetching</div>
       ) : null}
 
@@ -34,18 +35,21 @@ function FeatureImage({ title, backgroundImage, imageAlt }: FeatureImageProps) {
       ) : null}
 
       {
-        // the smart image technically stays mounted no matter what, but will
+        // the smart image component below stays mounted regardless of success or failure, but will
         // return an empty fragment if either of the states above are valid
       }
-      <SmartImage
-        src={backgroundImage}
-        alt={imageAlt}
-        classString={""}
-        timeoutDelay={3000}
-        intervalDelay={6000}
-        setInitialFetching={setInitialFetching}
-        setHasFailed={setHasFailed}
-      />
+
+      <div className="absolute left-0 top-0 z-0 flex h-full w-full items-center justify-center">
+        <SmartImage
+          src={backgroundImage}
+          alt={imageAlt}
+          classString={"h-full w-full object-cover z-10"}
+          timeoutDelay={3000}
+          intervalDelay={6000}
+          setInitialFetching={setInitialFetching}
+          setHasFailed={setHasFailed}
+        />
+      </div>
     </div>
   );
 }

@@ -46,7 +46,6 @@ export default function SmartImage({
 
     function createRetryInterval() {
       retryInterval = setInterval(() => {
-        console.log("image interval executed");
         if (fetchPromise) return; //don't create a new promise until the old one is completed in some way
 
         const loadImagePromise = loadImage(src)
@@ -126,7 +125,7 @@ export default function SmartImage({
       //vvv IDEMPOTENT
       clearTimeout(initialTimeout);
       clearInterval(retryInterval);
-      
+
       initialTimeout = undefined;
       retryInterval = undefined;
     };
