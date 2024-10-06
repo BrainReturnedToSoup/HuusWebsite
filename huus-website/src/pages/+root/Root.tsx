@@ -8,8 +8,6 @@ import MobileNav from "../../components/default/mobile-nav/MobileNav";
 
 import mobileMenuStateActions from "../../ui-effects/mobileNav";
 
-import "../../App.css";
-
 import { NAV_BUTTONS } from "../../enums/default/nav";
 
 export default function Root() {
