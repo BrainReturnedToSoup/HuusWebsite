@@ -1,4 +1,6 @@
-function PricingBox({ price, redirectContact, quantifier}) {
+import { useState } from "react";
+
+function PricingBox({ price, quantifier, hovered }) {
   return (
     <div className="flex min-w-[350px] flex-col items-center justify-center border-l-2 border-neutral-300">
       <div className="px-4">
@@ -7,23 +9,24 @@ function PricingBox({ price, redirectContact, quantifier}) {
           <h2 className="lato-bold pl-2 pt-1 text-sm">{quantifier}</h2>
         </div>
       </div>
-      <button
-        onClick={() => {
-          // needs to set contact state first, and then redirect to the contact page
-          redirectContact(); // should already be binded to change the redux state for contact form as per the parent.
-
-          // invoke the react router hook to redirect to the contact page.
-        }}
-      ></button>
     </div>
   );
 }
 
-function ServiceRow({ title, keywords, description, price, quantifier, redirectContact }) {
+function ServiceRow({
+  title,
+  keywords,
+  description,
+  price,
+  quantifier,
+  redirectContact,
+}) {
+  const [enquireHovered, setEnquireHovered] = useState(false);
+
   return (
     <div className="my-8 flex py-6">
       <div className="mr-4 flex grow flex-col justify-center p-4">
-        <h1 className="lato-bold mb-3 text-3xl">{title}</h1>
+        <h1 className="lato-bold mb-3 text-2xl">{title}</h1>
         <div className="mb-5 flex items-center">
           {keywords.map((word, index) => {
             let classString = "px-2 text-sm lato-bold";
@@ -35,29 +38,64 @@ function ServiceRow({ title, keywords, description, price, quantifier, redirectC
             return <h2 className={classString}>{word}</h2>;
           })}
         </div>
-        <p className="lato-medium leading-relaxed">{description}</p>
+        <p className="lato-medium mb-4 leading-relaxed">{description}</p>
+        <button
+          onMouseOver={() => {
+            setEnquireHovered(true);
+          }}
+          onMouseLeave={() => {
+            setEnquireHovered(false);
+          }}
+          onClick={redirectContact}
+          className="lato-bold w-fit px-4 py-2 underline"
+        >
+          Enquire
+        </button>
       </div>
-      <PricingBox price={price} redirectContact={redirectContact} quantifier={quantifier} />
+      <PricingBox
+        price={price}
+        quantifier={quantifier}
+        hovered={enquireHovered}
+      />
     </div>
   );
 }
 
 // bundles of the above options that are cheaper, but require some commitment.
 function Bundles() {
-  return <div></div>;
+  return (
+    <div className="w-full py-14">
+      <h1 className="lato-bold text-center text-2xl underline">Bundles</h1>
+      <ServiceRow
+        title={"Random Bundle"}
+        keywords={["Intermediate", "End-to-end", "Commitment"]}
+        description={`Lorem ipsum odor amet, consectetuer adipiscing elit. Est ultricies
+              parturient facilisis viverra, in senectus posuere. Donec sem
+              sollicitudin malesuada torquent nostra pulvinar. Venenatis vehicula
+              class libero duis sapien sit. Adipiscing massa gravida neque habitant
+              nisl egestas nec.`}
+        price={"$159.99"}
+        quantifier={"Per bundle"}
+        redirectContact={() => {}}
+      />
+    </div>
+  );
 }
 
-export default function Services() {
+function Base() {
   return (
-    <div className="w-full py-4">
+    <div className="w-full border-b-2 border-neutral-300 py-14">
+      <h1 className="lato-bold text-center text-2xl underline">
+        Base services
+      </h1>
       <ServiceRow
         title={"Random Service"}
         keywords={["Beginner", "Zero-commitment"]}
         description={`Lorem ipsum odor amet, consectetuer adipiscing elit. Est ultricies
-          parturient facilisis viverra, in senectus posuere. Donec sem
-          sollicitudin malesuada torquent nostra pulvinar. Venenatis vehicula
-          class libero duis sapien sit. Adipiscing massa gravida neque habitant
-          nisl egestas nec.`}
+              parturient facilisis viverra, in senectus posuere. Donec sem
+              sollicitudin malesuada torquent nostra pulvinar. Venenatis vehicula
+              class libero duis sapien sit. Adipiscing massa gravida neque habitant
+              nisl egestas nec.`}
         price={"$24.99"}
         quantifier={"Per session"}
         redirectContact={() => {}}
@@ -66,10 +104,10 @@ export default function Services() {
         title={"Random Service"}
         keywords={["Beginner", "Zero-commitment"]}
         description={`Lorem ipsum odor amet, consectetuer adipiscing elit. Est ultricies
-          parturient facilisis viverra, in senectus posuere. Donec sem
-          sollicitudin malesuada torquent nostra pulvinar. Venenatis vehicula
-          class libero duis sapien sit. Adipiscing massa gravida neque habitant
-          nisl egestas nec.`}
+              parturient facilisis viverra, in senectus posuere. Donec sem
+              sollicitudin malesuada torquent nostra pulvinar. Venenatis vehicula
+              class libero duis sapien sit. Adipiscing massa gravida neque habitant
+              nisl egestas nec.`}
         price={"$24.99"}
         quantifier={"Per session"}
         redirectContact={() => {}}
@@ -78,14 +116,23 @@ export default function Services() {
         title={"Random Service"}
         keywords={["Beginner", "Zero-commitment"]}
         description={`Lorem ipsum odor amet, consectetuer adipiscing elit. Est ultricies
-          parturient facilisis viverra, in senectus posuere. Donec sem
-          sollicitudin malesuada torquent nostra pulvinar. Venenatis vehicula
-          class libero duis sapien sit. Adipiscing massa gravida neque habitant
-          nisl egestas nec.`}
+              parturient facilisis viverra, in senectus posuere. Donec sem
+              sollicitudin malesuada torquent nostra pulvinar. Venenatis vehicula
+              class libero duis sapien sit. Adipiscing massa gravida neque habitant
+              nisl egestas nec.`}
         price={"$24.99"}
         quantifier={"Per session"}
         redirectContact={() => {}}
       />
     </div>
+  );
+}
+
+export default function Services() {
+  return (
+    <>
+      <Bundles />
+      <Base />
+    </>
   );
 }

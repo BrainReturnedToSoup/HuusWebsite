@@ -2,7 +2,7 @@ export default function Details() {
   return (
     <div className="flex flex-col items-center justify-center pt-14">
       <h1 className="lato-bold mb-4 text-2xl">About me</h1>
-      <p className="lato-medium text-xl leading-loose">
+      <p className="lato-medium leading-loose">
         Lorem ipsum odor amet, consectetuer adipiscing elit. Malesuada conubia
         justo eleifend lacus purus. Phasellus pulvinar mus habitant luctus
         finibus litora. Non lectus fermentum molestie purus metus sollicitudin;
