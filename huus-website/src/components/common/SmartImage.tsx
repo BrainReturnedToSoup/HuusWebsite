@@ -19,9 +19,9 @@ interface SmartImageProps {
 
 //Basically the state transitions as follows:
 // step 1   : initial promise for fetching the image is sent, as well as initializing the initial timeout to execute based on the supplied delay
-// step 2 a : if the initial promise resolves, then the returned image source is supplied to the imageSrc state for display, as well as context 
+// step 2 a : if the initial promise resolves, then the returned image source is supplied to the imageSrc state for display, as well as context
 //            memorization across component refreshes. Any timeouts or intervals creates are cleared and set to undefined.
-// step 2 b : if either the initial promise instantly rejects, or if the timeout executes while the initial promise is still pending, this 
+// step 2 b : if either the initial promise instantly rejects, or if the timeout executes while the initial promise is still pending, this
 //            sets up the interval that will essentially 'poll' to see if it needs to create another retry promise or not.
 // step 3   : The polling thus creates retry promises, and does so without making redundant promises, all until the image fetch resolves.
 
@@ -129,7 +129,7 @@ export default function SmartImage({
       initialTimeout = undefined;
       retryInterval = undefined;
     };
-  },[]);
+  }, []);
 
   return imageSrc ? (
     <img className={classString} src={imageSrc} alt={alt} />
