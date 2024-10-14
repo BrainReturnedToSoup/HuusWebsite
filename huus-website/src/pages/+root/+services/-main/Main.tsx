@@ -1,5 +1,6 @@
-import Preface from "./Preface";
-import ServiceRows from "./ServiceRows";
+import Preface from "./preface/Preface";
+import ServiceRows from "./serviceRows/ServiceRows";
+import CallToAction from "./call-to-action/CallToAction";
 
 export default function Main() {
   return (
@@ -7,6 +8,7 @@ export default function Main() {
       <div className="max-w-[875px] grow px-4 py-14">
         <Preface />
         <ServiceRows />
+        <CallToAction />
       </div>
     </main>
   );

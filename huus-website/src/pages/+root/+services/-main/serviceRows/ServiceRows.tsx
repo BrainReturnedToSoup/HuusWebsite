@@ -206,39 +206,11 @@ function Base() {
   );
 }
 
-function Custom() {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <div className="flex w-full items-center justify-center py-8 mt-6">
-      <div className="flex max-w-[760px] flex-col items-center justify-center">
-        <h1 className="lato-bold mb-8 text-center text-4xl">
-          Not finding what you are looking for?
-        </h1>
-        <p className="lato-medium mb-10 text-center text-xl leading-loose">
-          Feel free to reach out, <span className="lato-bold underline">free of charge</span>, if you are unsure about your specific needs or perhaps
-          have unique constraints. 
-        </p>
-        <button
-          onMouseOver={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-          className={`lato-bold w-fit text-2xl self-center border-b-2 border-t-2 px-2 py-1 transition-colors duration-150 ease-in-out ${
-            hovered ? "border-white text-white bg-black" : "border-neutral-300"
-          }`}
-        >
-          Contact me
-        </button>
-      </div>
-    </div>
-  );
-}
-
 export default function Services() {
   return (
     <>
       <Bundles />
       <Base />
-      <Custom />
     </>
   );
 }

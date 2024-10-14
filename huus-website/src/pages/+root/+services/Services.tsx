@@ -11,8 +11,10 @@ import mobileMenuStateActions from "../../../ui-effects/mobileNav";
 import { NAV_BUTTONS } from "../../../enums/default/nav";
 
 export default function Services() {
-  //this is for ensuring state is properly reset if redirecting from a
-  //link in a mobile nav from a different page in this same SPA.
+  // this is for ensuring state is properly reset if redirecting from a
+  // link in a mobile nav from a different page in this same SPA.
+  // You do this prior to any state binding to prevent rerender stutters
+  // on redirect.
   mobileMenuStateActions.close();
 
   const mobileNavOpen: boolean = useSelector(
