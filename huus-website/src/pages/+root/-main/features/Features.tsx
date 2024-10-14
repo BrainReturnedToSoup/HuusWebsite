@@ -1,10 +1,6 @@
 import { useState } from "react";
 
-import {
-  FEATURE_LIST,
-  SECTION_TITLE,
-  SECTION_DESC,
-} from "../../../../enums/pages/+root/-main/features";
+import { FEATURE_LIST } from "../../../../enums/pages/+root/-main/features";
 
 import SmartImage from "../../../../components/common/SmartImage";
 
@@ -138,20 +134,10 @@ function Feature({ feature }: FeatureProps) {
 
 export default function Features() {
   return (
-    <div className="flex flex-col items-center py-4">
-      <div className="flex max-w-[760px] flex-col items-center px-4 py-14 lg:py-20">
-        <h3 className="lato-medium mb-6 w-full text-center text-4xl lg:text-5xl">
-          {SECTION_TITLE}
-        </h3>
-        <p className="lato-medium w-full text-center text-xl leading-loose">
-          {SECTION_DESC}
-        </p>
-      </div>
-      <div className="flex w-full flex-col items-center justify-center bg-black px-1 py-1 lg:flex-row lg:items-stretch lg:px-4 lg:py-2">
-        {FEATURE_LIST.map((feature, index) => (
-          <Feature feature={feature} key={index} />
-        ))}
-      </div>
+    <div className="flex w-full flex-col items-center justify-center bg-black px-1 py-1 lg:flex-row lg:items-stretch lg:px-4 lg:py-2">
+      {FEATURE_LIST.map((feature, index) => (
+        <Feature feature={feature} key={index} />
+      ))}
     </div>
   );
 }

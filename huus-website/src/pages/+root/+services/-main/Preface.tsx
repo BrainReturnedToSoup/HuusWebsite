@@ -1,7 +1,7 @@
 export default function Preface() {
   return (
     <div className="w-full border-b-2 border-neutral-300 py-10">
-      <h1 className="lato-bold mb-5 flex items-center justify-center text-4xl">
+      <h1 className="lato-bold mb-5 flex items-center justify-center text-4xl leading-loose">
         Affordable, Convenient, Effective!
       </h1>
       <p className="lato-medium min-h-[150px] text-center leading-loose text-xl">
