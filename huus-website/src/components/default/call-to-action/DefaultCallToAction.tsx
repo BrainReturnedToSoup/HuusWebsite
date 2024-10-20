@@ -18,8 +18,10 @@ export default function DefaultCallToAction({
   return (
     <div className="flex items-center justify-center py-14 lg:py-20">
       <div className="flex h-full max-w-[760px] flex-col items-center justify-center px-4">
-        <h1 className="lato-bold mb-6 text-center text-4xl">{title}</h1>
-        <p className="lato-medium mb-12 text-center text-xl leading-loose">
+        <h1 className="lato-bold mb-6 text-pretty text-center text-4xl">
+          {title}
+        </h1>
+        <p className="lato-medium mb-12 text-pretty text-center text-xl leading-loose">
           {desc}
         </p>
         <button

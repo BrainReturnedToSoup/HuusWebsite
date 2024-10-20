@@ -1,6 +1,6 @@
 import DefaultPreface from "../../../../../components/default/preface/DefaultPreface";
 
-const title = "Affordable, Convenient, Effective! this";
+const title = "Affordable, Convenient, Effective!";
 const desc = `Lorem ipsum odor amet, consectetuer adipiscing elit. Vestibulum
         suspendisse faucibus sociosqu ultrices tincidunt maecenas ullamcorper
         proin. Diam metus nec neque magna eros. Facilisi varius suscipit feugiat
