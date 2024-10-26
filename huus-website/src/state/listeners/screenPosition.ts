@@ -7,19 +7,19 @@
 import { store, selectors } from "../store";
 import deviceScreenSlice from "../slices/deviceScreen";
 
+type SubscriberCallback = (pos: number) => void;
+
 class ScreenPositionListener {
   #eventListenerAppended: boolean = false;
 
-  #subscribers = {};
+  #subscribers = new Map<string, SubscriberCallback>();
 
   constructor() {
     this.subscribe("position-y-redux", this.#savePositionYToRedux);
   }
 
   #publisher() {
-    for (const subscriber in this.#subscribers) {
-      this.#subscribers[subscriber](window.scrollY);
-    }
+    this.#subscribers.forEach((callback) => callback(window.scrollY));
   }
 
   #savePositionYToRedux(): void {
@@ -34,16 +34,16 @@ class ScreenPositionListener {
     store.dispatch(deviceScreenSlice.actions.setPosition(currScreenPosition));
   }
 
-  subscribe(label: string, entrypointFunc) {
-    if (label in this.#subscribers) throw new Error(); //STILL NEED TO ADD CUSTOM ERROR
+  subscribe(label: string, entrypointFunc: SubscriberCallback) {
+    if (this.#subscribers.has(label)) throw new Error(); //STILL NEED TO ADD CUSTOM ERROR
 
-    this.#subscribers[label] = entrypointFunc;
+    this.#subscribers.set(label, entrypointFunc);
   }
 
   unsubscribe(label: string) {
-    if (!(label in this.#subscribers)) throw new Error(); //STILL NEED TO ADD CUSTOM ERROR
+    if (!(this.#subscribers.has(label))) throw new Error(); //STILL NEED TO ADD CUSTOM ERROR
 
-    delete this.#subscribers[label];
+    this.#subscribers.delete(label);
   }
 
   initListener() {
