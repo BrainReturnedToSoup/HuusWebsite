@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../state/store";
+import { RootState } from "../../state/react-redux-impl/store";
 
 import Header from "./-header/Header";
 import Main from "./-main/Main";

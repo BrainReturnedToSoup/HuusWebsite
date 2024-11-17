@@ -1,13 +1,15 @@
 import { useSelector } from "react-redux";
 
-
-import handleContactFormSubmission_binded from "../../../../../services/contact-form/handleContactFormSubmission";
+import handleContactFormSubmission from "../../../../../services/contact-form/handleContactFormSubmission";
 import clearContactForm_binded from "../../../../../services/contact-form/clearContactForm";
 
 function YourEmail() {
   return (
     <div className="mb-6 flex flex-col">
-      <label htmlFor="contact-form-your-email" className="lato-bold mb-2">
+      <label
+        htmlFor="contact-form-your-email"
+        className="lato-bold mb-2 text-sm"
+      >
         *Your Email
       </label>
       <input
@@ -23,8 +25,11 @@ function YourEmail() {
 function GeneralLocation() {
   return (
     <div className="mb-6 flex flex-col">
-      <label htmlFor="contact-form-general-location" className="lato-bold mb-2">
-        *General Location
+      <label
+        htmlFor="contact-form-general-location"
+        className="lato-bold mb-2 text-sm"
+      >
+        *Your General Location
       </label>
       <input
         id="contact-form-general-location"
@@ -39,7 +44,10 @@ function GeneralLocation() {
 function ServiceSelection() {
   return (
     <div className="mb-6 flex flex-col">
-      <label htmlFor="contact-form-selected-service" className="lato-bold mb-2">
+      <label
+        htmlFor="contact-form-selected-service"
+        className="lato-bold mb-2 text-sm"
+      >
         *Selected Service
       </label>
       <select
@@ -66,7 +74,7 @@ function ServiceSelection() {
 function Message() {
   return (
     <div className="mb-6 flex flex-col">
-      <label htmlFor="contact-form-message" className="lato-bold mb-2">
+      <label htmlFor="contact-form-message" className="lato-bold mb-2 text-sm">
         *Message
       </label>
       <textarea
@@ -116,8 +124,8 @@ export default function ContactForm() {
   return (
     <div className="flex w-full max-w-[760px] items-center justify-center">
       <form
-        className="w-full border-x-2 border-neutral-300 p-4 text-xl"
-        onSubmit={handleContactFormSubmission_binded}
+        className="w-full border-2 border-neutral-300 p-4 text-xl"
+        onSubmit={handleContactFormSubmission}
       >
         <Notes />
         <GeneralFormSubmissionEM />
@@ -131,12 +139,10 @@ export default function ContactForm() {
   );
 }
 
-// will use 'SmtpJS' to handle sending messages to a target email.
-// This includes using 'elasticemail.com' to create an SMTP server for handling
-// the emailing. The reason for this, is because this strategy will allow
-// defining the http request to an email server without storing unencrypted credentials on the
-// front end client. This wouldn't be a specific issue otherwise, if there was a true back-end webserver,
-// but in this case this is just a front-end deployed on github pages.
+// will use 'emailjs' in order to send emails via the client without a backend.
+// it has a free tier for 200 requests per month, and it also has CAPTCHA mechanisms.
+// Also, it should be safe to hard-code the raw API keys in the front-end.
+// https://www.emailjs.com/docs/faq/is-it-okay-to-expose-my-public-key/
 
 //
 //  fields:

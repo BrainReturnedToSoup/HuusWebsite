@@ -1,5 +1,5 @@
-import { store, selectors } from "../state/store";
-import mobileNavSlice from "../state/slices/mobileNav";
+import { store, selectors } from "../state/react-redux-impl/store";
+import mobileNavSlice from "../state/react-redux-impl/slices/mobileNav";
 
 function allowToggleDelayed(delayMs: number = 250): void {
   setTimeout(() => {
