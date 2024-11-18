@@ -34,4 +34,7 @@ export interface ContactFormRepositoryInterface {
 
   getInputsDisabled(): boolean;
   setInputsDisabled(isDisabled: boolean): void;
+
+  getSubmitId(): string;
+  setSubmitId(uuid: string): void;
 }

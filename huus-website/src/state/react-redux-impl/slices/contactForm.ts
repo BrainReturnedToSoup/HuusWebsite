@@ -25,6 +25,7 @@ const contactFormSlice = createSlice({
     global_submitSucceeded: false as boolean,
     global_errorMessage: "" as string,
     global_inputsDisabled: false as boolean,
+    global_submitId: crypto.randomUUID() as string,
   },
 
   reducers: {
@@ -92,6 +93,32 @@ const contactFormSlice = createSlice({
 
       state.global_inputsDisabled = action.payload;
     },
+
+    global_setSubmitId: (state, action): void => {
+      if (typeof action.payload !== "string") {
+        throw new Error(
+          "'contactForm' reducer 'global_setSubmitId' given a payload with a type '" +
+            typeof action.payload +
+            "'. Shoud be of type 'string'",
+        );
+      }
+
+      // UUID pattern
+      const pattern = new RegExp(
+        "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      );
+
+      if (!pattern.test(action.payload)) {
+        throw new Error(
+          "'contactForm' reducer 'global_setSubmitId' given a payload not matching in pattern to a UUID. " +
+            "Received '" +
+            action.payload +
+            "'. (Single quotes are not part of the value)",
+        );
+      }
+
+      state.global_submitId = action.payload;
+    },
   },
 });
 
@@ -135,6 +162,9 @@ const selectors = {
   },
   global_inputsDisabled: (store: AppStore): boolean => {
     return store.getState().contactForm.global_inputsDisabled;
+  },
+  global_submitId: (store: AppStore): string => {
+    return store.getState().contactForm.global_submitId;
   },
 };
 

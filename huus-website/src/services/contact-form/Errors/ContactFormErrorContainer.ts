@@ -1,5 +1,4 @@
-import { Logger } from "../../../lib/createFetchWithTimeout";
-
+type Logger = (message: string) => void;
 type ErrorId = string | number;
 type ErrorLambda = () => void;
 
@@ -9,25 +8,40 @@ class LambdaExecutionError extends Error {}
 // attempting to submit a form. It's supplied lambdas to eventually execute in the case
 // of encountering an error.
 class ContactFormErrorContainer {
-  #instantiationId: string | null = null;
+  #instantiationId: string;
+  #submitId: string;
   #logger: Logger | null = null;
 
   #existingErrors: Map<ErrorId, ErrorLambda> = new Map<ErrorId, ErrorLambda>();
   #errorsCommitted: boolean = false;
 
-  constructor(logger: Logger | null, instantiationId: string) {
-    if (typeof instantiationId !== "string")
+  constructor(
+    logger: Logger | null,
+    instantiationId: string,
+    submitId: string,
+  ) {
+    if (typeof instantiationId !== "string") {
       throw new Error(
         "ContactFormErrorContainer:failed to instantiate 'ContactFormErrorContainer':'instantiationId' supplied is not of type 'string'. Instead '" +
           typeof instantiationId +
           "'.",
       ); // TRUE EXCEPTION, APP BREAKING IF TRUE, DON'T CATCH AND HANDLE, FIX UR CODE
+    }
+
+    if (typeof submitId !== "string") {
+      throw new Error(
+        "ContactFormErrorContainer:failed to instantiate 'ContactFormErrorContainer':'submitId' supplied is not of type 'string'. Instead '" +
+          typeof submitId +
+          "'.",
+      ); // TRUE EXCEPTION, APP BREAKING IF TRUE, DON'T CATCH AND HANDLE, FIX UR CODE
+    }
 
     if (logger) {
       this.#logger = logger;
     }
 
     this.#instantiationId = instantiationId;
+    this.#submitId = submitId;
   }
 
   addError(id: ErrorId, lambda: ErrorLambda): boolean {
@@ -63,30 +77,32 @@ class ContactFormErrorContainer {
     let currId: ErrorId | null = null;
 
     try {
-      for (const [ErrorId, ErrorLambda] of this.#existingErrors) {
-        currId = ErrorId;
+      for (const [errorId, errorLambda] of this.#existingErrors) {
+        currId = errorId;
 
         if (this.#logger)
           this.#logger(
-            `ContactFormErrorContainer: Error Lambda "${ErrorId}" created"`,
+            `ContactFormErrorContainer:instantiationId=${this.#instantiationId} submitId=${this.#submitId}:error lambda errorLambdaId="${errorId}" created"`,
           );
 
-        ErrorLambda();
+        errorLambda();
       }
     } catch (error) {
       // use this catch pattern because you can basically throw any object in JS, but I want to deal with
       // only Error and child instances.
       if (error instanceof Error) {
-        throw new LambdaExecutionError(
-          `ContactFormErrorContainer: error executing an error lambda : Error Lambda ID "${currId}" : EmailJS send ID "${this.#instantiationId}" : error message "${error.message}"`,
-        );
+        const message = `ContactFormErrorContainer:instantiationId=${this.#instantiationId} submitId=${this.#submitId}:error executing an error lambda:errorLambdaId=${currId}:error message '${error.message}'`;
+
+        if (this.#logger) this.#logger(message);
+
+        throw new LambdaExecutionError(message);
       } else {
         console.error(
-          `Error caught within "executeAllErrorLambdas" was not of a type "Error" : "${typeof error}"`,
+          `ContactFormErrorContainer:instantiationId=${this.#instantiationId} submitId=${this.#submitId}:error caught within "executeAllErrorLambdas" was not of a type "Error":"${typeof error}"`,
         );
       }
     }
   }
 }
 
-export { ContactFormErrorContainer as ContactFormErrors };
+export { ContactFormErrorContainer };

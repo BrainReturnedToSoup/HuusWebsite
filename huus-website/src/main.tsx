@@ -11,13 +11,6 @@ import { Provider } from "react-redux";
 //This state is used for responsive design across the website.
 import "./state/listeners/windowWidthResize.ts";
 
-// initializing the emailjs object globally, since it uses static fields.
-// This file executes before all other files. It's safe to keep the public key
-// in the repo, because the only calls you can make are based on what is defined
-// as templates in your EmailJS account.
-import emailjs from "@emailjs/browser";
-emailjs.init({ publicKey: "l4CUCpWmX95rBeGgX" });
-
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
