@@ -6,22 +6,24 @@ import Main from "./-main/Main";
 import Footer from "./-footer/Footer";
 import MobileNav from "../../components/default/mobile-nav/MobileNav";
 
-import mobileMenuStateActions from "../../ui-effects/mobileNav";
+import { mobileNavOpenCloseService } from "../../services/mobile-nav/mobileNavOpenClose";
 
 import { NAV_BUTTONS } from "../../enums/default/nav";
 
 export default function Root() {
-  //this is for ensuring state is properly reset if redirecting from a 
+  //this is for ensuring state is properly reset if redirecting from a
   //link in a mobile nav from a different page in this same SPA.
-  mobileMenuStateActions.close(); 
-  
+  mobileNavOpenCloseService.close();
 
   const mobileNavOpen: boolean = useSelector(
-    (state: RootState) => state.mobileNav.open,
+    (state: RootState) => state.mobileNav.isOpen,
   );
 
   return mobileNavOpen ? (
-    <MobileNav navButtons={NAV_BUTTONS} />
+    <MobileNav
+      navButtons={NAV_BUTTONS}
+      mobileNavOpenCloseService={mobileNavOpenCloseService}
+    />
   ) : (
     <>
       <Header />

@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
-import handleContactFormSubmission from "../../../../../services/contact-form/handleContactFormSubmission";
-import clearContactForm_binded from "../../../../../services/contact-form/clearContactForm";
+import handleContactFormSubmission from "../../../../../services/contact-form/contactFormSubmission/contactFormSummisionImpl";
+import clearContactForm_binded from "../../../../../services/contact-form/contactFormClearing";
 
 function YourEmail() {
   return (

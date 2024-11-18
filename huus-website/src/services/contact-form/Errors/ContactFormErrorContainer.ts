@@ -8,27 +8,37 @@ class LambdaExecutionError extends Error {}
 // the idea is that this object instance encapsulates all of the errors detected when
 // attempting to submit a form. It's supplied lambdas to eventually execute in the case
 // of encountering an error.
-export default class ContactFormErrors {
-  #sendId: string | null = null;
+class ContactFormErrorContainer {
+  #instantiationId: string | null = null;
   #logger: Logger | null = null;
 
   #existingErrors: Map<ErrorId, ErrorLambda> = new Map<ErrorId, ErrorLambda>();
   #errorsCommitted: boolean = false;
 
-  constructor(logger: Logger | null, sendId: string) {
+  constructor(logger: Logger | null, instantiationId: string) {
+    if (typeof instantiationId !== "string")
+      throw new Error(
+        "ContactFormErrorContainer:failed to instantiate 'ContactFormErrorContainer':'instantiationId' supplied is not of type 'string'. Instead '" +
+          typeof instantiationId +
+          "'.",
+      ); // TRUE EXCEPTION, APP BREAKING IF TRUE, DON'T CATCH AND HANDLE, FIX UR CODE
+
     if (logger) {
       this.#logger = logger;
     }
 
-    if (typeof sendId !== "string") throw new Error(""); // TRUE EXCEPTION, APP BREAKING IF TRUE, DON'T CATCH AND HANDLE, FIX UR CODE
-
-    this.#sendId = sendId;
+    this.#instantiationId = instantiationId;
   }
 
   addError(id: ErrorId, lambda: ErrorLambda): boolean {
-    if (this.#existingErrors.has(id)) throw new Error(""); // TRUE EXCEPTION, APP BREAKING IF TRUE, DON'T CATCH AND HANDLE, FIX UR CODE
-
     if (this.#errorsCommitted === true) return false;
+
+    if (this.#existingErrors.has(id))
+      throw new Error(
+        "ContactFormErrorContainer:failed to add an error lambda for execution:it appears the lambda '" +
+          id +
+          "' already exists on this container.",
+      ); // TRUE EXCEPTION, APP BREAKING IF TRUE, DON'T CATCH AND HANDLE, FIX UR CODE
 
     this.#existingErrors.set(id, lambda);
 
@@ -58,7 +68,7 @@ export default class ContactFormErrors {
 
         if (this.#logger)
           this.#logger(
-            `Error Lambda "${ErrorId}" for the send "${this.#sendId}"`,
+            `ContactFormErrorContainer: Error Lambda "${ErrorId}" created"`,
           );
 
         ErrorLambda();
@@ -68,7 +78,7 @@ export default class ContactFormErrors {
       // only Error and child instances.
       if (error instanceof Error) {
         throw new LambdaExecutionError(
-          `ContactFormErrors : error executing an error lambda : Error Lambda ID "${currId}" : EmailJS send ID "${this.#sendId}" : error message "${error.message}"`,
+          `ContactFormErrorContainer: error executing an error lambda : Error Lambda ID "${currId}" : EmailJS send ID "${this.#instantiationId}" : error message "${error.message}"`,
         );
       } else {
         console.error(
@@ -78,3 +88,5 @@ export default class ContactFormErrors {
     }
   }
 }
+
+export { ContactFormErrorContainer as ContactFormErrors };

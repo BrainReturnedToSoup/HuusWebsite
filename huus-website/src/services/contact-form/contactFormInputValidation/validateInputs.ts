@@ -7,7 +7,7 @@ import {
   generalLocationValidator,
   serviceSelectionValidator,
   messageInputValidator,
-} from "../../lib/contact-form-input-validation/contactFormInputValidation";
+} from "../../../lib/contact-form-input-validation/contactFormInputValidation";
 
 
 

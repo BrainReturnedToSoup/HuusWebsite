@@ -8,19 +8,27 @@ import {
   emailJS_createBindedSend,
   emailJS_createSendWithTimeout,
   BindedSend,
-} from "../../lib/emailJs/emailJsHelpers";
+} from "../../../lib/emailJs/emailJsHelpers";
 
 // application-specific instantiations.
 import {
   store as applicationStore,
   selectors as applicationSelectors,
-} from "../../state/react-redux-impl/store";
-import contactFormSlice from "../../state/react-redux-impl/slices/contactForm";
+} from "../../../state/react-redux-impl/store";
+import contactFormSlice from "../../../state/react-redux-impl/slices/contactForm";
 
 // context-specific helpers and constructs
-import { validateInputs } from "./validateInputs";
+import { validateInputs } from "../contactFormInputValidation/validateInputs";
 import { onSuccess, onFailure } from "./helpers/handlerOutcomes";
 import ContactFormErrors from "./helpers/ContactFormErrors";
+import { ContactFormSubmissionServiceInterface } from "./contactFormSubmissionInterface";
+import { ContactFormRepositoryInterface } from "../../../state/repositories/contact-form/ContactFormInterface";
+import { SendEmailAPIInterface } from "../../../APIs/send-email/sendEmailInterface";
+import {
+  EmailJSOptions,
+  sendEmail_emailJs,
+} from "../../../APIs/send-email/emailJS/sendEmail_emailJS";
+import { contactFormRepositoryImpl } from "../../../state/repositories/contact-form/ContactFormImpl";
 
 // make the API call using the supplied binded fetch, and
 // handles a success or a failure by reflecting such into the corresponding
@@ -44,8 +52,6 @@ async function contactFormSubmissionHandler(
       const emailJsRes = await bindedSend(sendId); // POTENTIAL ERROR SOURCE
       // add logic for checking response status and adding error messages to 'contactFormErrors'
       // as pre-bound lambdas that effectively just apply state for execution to the closed redux store and slice.
-
-
     } catch (error) {
       // use this catch pattern because you can basically throw any object in JS, but I want to deal with
       // only Error and child instances.
@@ -74,7 +80,7 @@ async function contactFormSubmissionHandler(
   }
 }
 
-export default function handleContactFormSubmission(): void {
+function handleContactFormSubmission(): void {
   const sendWithTimeout = emailJS_createSendWithTimeout(
     emailJs.send, // actual send method reference
     console.error, // logger
@@ -98,3 +104,41 @@ export default function handleContactFormSubmission(): void {
     // send ID generation
   );
 }
+
+// what i am transitioning to vvv
+class ContactFormSubmissionService<A, P>
+  implements ContactFormSubmissionServiceInterface
+{
+  #contactFormRepository: ContactFormRepositoryInterface;
+  #contactFormInputValidators: 
+  #sendEmailAPI: SendEmailAPIInterface<A, P>;
+
+  constructor(
+    contactFormRepository: ContactFormRepositoryInterface,
+    sendEmailAPI: SendEmailAPIInterface<A, P>,
+  ) {
+    this.#contactFormRepository = contactFormRepository;
+    this.#sendEmailAPI = sendEmailAPI;
+  }
+
+  #onSuccess() {
+    // 
+  }
+
+  #onFailure() {
+
+  }
+
+  submitContactForm(): void {
+    //
+  }
+}
+
+const singletonForAppUse = new ContactFormSubmissionService<
+  EmailJSOptions,
+  void
+>(contactFormRepositoryImpl, sendEmail_emailJs);
+
+const contactFormSubmissionService = singletonForAppUse;
+
+export { ContactFormSubmissionService, contactFormSubmissionService };
