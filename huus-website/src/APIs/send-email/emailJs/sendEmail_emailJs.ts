@@ -1,7 +1,7 @@
 import { Options as EmailJSOptions } from "@emailjs/browser/es/types/Options";
 import emailJs from "@emailjs/browser";
 
-import { SendEmailAPIInterface } from "../sendEmailInterface";
+import { EmailSendReturn, SendEmailAPIInterface } from "../sendEmailInterface";
 import { EmailJsRequestTimedOutError } from "./errors/emailJsRequestTimeout";
 
 emailJs.init({
@@ -10,20 +10,16 @@ emailJs.init({
 
 type EmailJs = typeof emailJs;
 
-export type EmailJsSend = {
+export type EmailJsArgs = {
   serviceID: string;
   templateID: string;
   templateParams: Record<string, unknown>;
   options: EmailJSOptions;
 };
 
-export type EmailJsResponse = { status: number; message: string };
+export type Logger = (message: string) => void;
 
-export type Logger = (message: string) => unknown;
-
-class SendEmail_EmailJs
-  implements SendEmailAPIInterface<EmailJsSend, EmailJsResponse>
-{
+class SendEmail_EmailJs implements SendEmailAPIInterface<EmailJsArgs> {
   #emailJs: EmailJs;
   #logger: Logger | null;
 
@@ -33,16 +29,18 @@ class SendEmail_EmailJs
   }
 
   sendWithTimeout(
-    args: EmailJsSend,
+    args: EmailJsArgs,
     timeoutMs: number,
+    instantiationId: string,
     submitId: string,
-  ): Promise<EmailJsResponse> {
+  ): Promise<EmailSendReturn> {
     return new Promise((resolve, reject) => {
       // return a promise instead, so that the working apps aren't worrying about email JS concerns directly
       // and also it makes it easier to make a setTimeout closure.
 
       const timeout = setTimeout(() => {
-        const message = `SendEmail_EmailJs:sendWithTimeout:submitId=${submitId}:timed out after ${timeoutMs}ms`;
+        const message = `SendEmail_EmailJs:sendWithTimeout
+        :instantiationId=${instantiationId}:submitId=${submitId}:timed out after ${timeoutMs}ms`;
 
         if (this.#logger) this.#logger(message);
 
@@ -53,7 +51,8 @@ class SendEmail_EmailJs
 
       if (this.#logger)
         this.#logger(
-          `SendEmail_EmailJs:sendWithTimeout:submitId=${submitId}:started at ${started}`,
+          `SendEmail_EmailJs:sendWithTimeout
+          :instantiationId=${instantiationId}:submitId=${submitId}:started at ${started}`,
         );
 
       this.#emailJs
@@ -71,7 +70,7 @@ class SendEmail_EmailJs
 
             if (this.#logger)
               this.#logger(
-                `SendEmail_EmailJs:sendWithTimeout:submitId=${submitId}
+                `SendEmail_EmailJs:sendWithTimeout:instantiationId=${instantiationId}:submitId=${submitId}
                 :request complete in ${ended.getMilliseconds() - started.getMilliseconds()}ms
                 :status=${res.status}:message=${res.text}`,
               );
@@ -85,7 +84,8 @@ class SendEmail_EmailJs
 
             if (this.#logger)
               this.#logger(
-                `SendEmail_EmailJs:sendWithTimeout:submitId=${submitId}:request failed in ${ended.getMilliseconds() - started.getMilliseconds()}ms`,
+                `SendEmail_EmailJs:sendWithTimeout:instantiationId=${instantiationId}:submitId=${submitId}
+                :request failed in ${ended.getMilliseconds() - started.getMilliseconds()}ms`,
               );
 
             reject(error);
@@ -94,7 +94,11 @@ class SendEmail_EmailJs
     });
   }
 
-  send(args: EmailJsSend, submitId: string): Promise<EmailJsResponse> {
+  send(
+    args: EmailJsArgs,
+    instantiationId: string,
+    submitId: string,
+  ): Promise<EmailSendReturn> {
     return new Promise((resolve, reject) => {
       // return a promise instead, so that the working apps aren't worrying about email JS concerns directly
 
@@ -102,7 +106,7 @@ class SendEmail_EmailJs
 
       if (this.#logger)
         this.#logger(
-          `SendEmail_EmailJs:send:submitId=${submitId}:started at ${started}`,
+          `SendEmail_EmailJs:send:instantiationId=${instantiationId}:submitId=${submitId}:started at ${started}`,
         );
 
       this.#emailJs
@@ -118,7 +122,7 @@ class SendEmail_EmailJs
 
             if (this.#logger)
               this.#logger(
-                `SendEmail_EmailJs:send:submitId=${submitId}
+                `SendEmail_EmailJs:send:instantiationId=${instantiationId}:submitId=${submitId}
                 :request complete in ${ended.getMilliseconds() - started.getMilliseconds()}ms
                 :status=${res.status}:message=${res.text}`,
               );
@@ -130,7 +134,8 @@ class SendEmail_EmailJs
 
             if (this.#logger)
               this.#logger(
-                `SendEmail_EmailJs:send:submitId=${submitId}:request failed in ${ended.getMilliseconds() - started.getMilliseconds()}`,
+                `SendEmail_EmailJs:send:instantiationId=${instantiationId}:submitId=${submitId}
+                :request failed in ${ended.getMilliseconds() - started.getMilliseconds()}`,
               );
 
             reject(error);

@@ -1,6 +1,12 @@
 export interface ContactFormRepositoryInterface {
   /* per form field flags for the contact form */
 
+  getFirstName(): string;
+  setFirstName(firstName: string): void;
+
+  getLastName(): string;
+  setLastName(lastName: string): void;
+
   getEmail(): string;
   setEmail(email: string): void;
   getEmailError(): string;

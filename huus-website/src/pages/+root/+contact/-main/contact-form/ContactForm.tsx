@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-import handleContactFormSubmission from "../../../../../services/contact-form/contactFormSubmission/contactFormSummisionImpl";
+import handleContactFormSubmission from "../../../../../services/contact-form/contactFormSubmission/contactFormSubmissionService_Impl";
 import clearContactForm_binded from "../../../../../services/contact-form/contactFormClearing";
 
 function YourEmail() {
@@ -121,11 +121,15 @@ function ClearAndSubmitButtons() {
 }
 
 export default function ContactForm() {
+  const contactFormState = useSelector((state) => state.contactForm.)
+  
+
+
   return (
     <div className="flex w-full max-w-[760px] items-center justify-center">
       <form
         className="w-full border-2 border-neutral-300 p-4 text-xl"
-        onSubmit={handleContactFormSubmission}
+        onSubmit={someFunc}
       >
         <Notes />
         <GeneralFormSubmissionEM />

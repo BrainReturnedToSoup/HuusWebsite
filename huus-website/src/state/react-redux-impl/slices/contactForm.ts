@@ -8,6 +8,9 @@ const contactFormSlice = createSlice({
     // per form field. Can't use nested objects, because that messes with how
     // redux perceives state changes.
 
+    firstName: "" as string,
+    lastName: "" as string,
+
     yourEmail_input: "" as string,
     yourEmail_errorMessage: "" as string,
 
@@ -29,6 +32,13 @@ const contactFormSlice = createSlice({
   },
 
   reducers: {
+    firstName: (state, action): void => {
+      state.firstName = String(action.payload);
+    },
+    lastName: (state, action): void => {
+      state.lastName = String(action.payload);
+    },
+
     yourEmail_setInput: (state, action): void => {
       state.yourEmail_input = String(action.payload);
     },
@@ -123,6 +133,13 @@ const contactFormSlice = createSlice({
 });
 
 const selectors = {
+  firstName: (store: AppStore): string => {
+    return store.getState().contactForm.firstName;
+  },
+  lastName: (store: AppStore): string => {
+    return store.getState().contactForm.lastName;
+  },
+
   yourEmail_input: (store: AppStore): string => {
     return store.getState().contactForm.yourEmail_input;
   },

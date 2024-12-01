@@ -22,6 +22,22 @@ class ContactFormRepositoryImpl implements ContactFormRepositoryInterface {
     this.#actions = actions;
   }
 
+  getFirstName(): string {
+    return this.#selectors.firstName(this.#store);
+  }
+
+  setFirstName(firstName: string): void {
+    this.#store.dispatch(this.#actions.firstName(firstName));
+  }
+
+  getLastName(): string {
+    return this.#selectors.lastName(this.#store);
+  }
+
+  setLastName(lastName: string): void {
+    this.#store.dispatch(this.#actions.lastName(lastName));
+  }
+
   getEmail(): string {
     return this.#selectors.yourEmail_input(this.#store);
   }
