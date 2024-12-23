@@ -1,4 +1,4 @@
-import DefaultHeader from "../../../../components/default/header/DefaultHeader"
+import DefaultHeader from "../../../../components/common/header/DefaultHeader"
 
 const navButtons = [
     { text: "Home", link: "/" },

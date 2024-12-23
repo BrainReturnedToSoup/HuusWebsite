@@ -2,10 +2,12 @@ import { Options as EmailJSOptions } from "@emailjs/browser/es/types/Options";
 import emailJs from "@emailjs/browser";
 
 import { EmailSendReturn, SendEmailAPIInterface } from "../sendEmailInterface";
-import { EmailJsRequestTimedOutError } from "./errors/emailJsRequestTimeout";
+import { EmailJsRequestTimedOutError } from "./_errors/emailJsRequestTimeout";
+
+import { EmailJsConfig_Enum } from "./Config_Enum";
 
 emailJs.init({
-  publicKey: "l4CUCpWmX95rBeGgX",
+  publicKey: EmailJsConfig_Enum.PUBLIC_KEY,
 });
 
 type EmailJs = typeof emailJs;

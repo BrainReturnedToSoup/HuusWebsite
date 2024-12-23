@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { FEATURE_LIST } from "../../../../enums/pages/+root/-main/features";
 
-import SmartImage from "../../../../components/common/SmartImage";
+import SmartImage from "../../../../components/util/SmartImage";
 
 import "../../../../App.css";
 

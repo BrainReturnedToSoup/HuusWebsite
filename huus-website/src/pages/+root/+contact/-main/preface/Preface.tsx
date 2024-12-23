@@ -1,4 +1,4 @@
-import DefaultPreface from "../../../../../components/default/preface/DefaultPreface";
+import DefaultPreface from "../../../../../components/common/preface/DefaultPreface";
 
 const title = "Send me an email!";
 

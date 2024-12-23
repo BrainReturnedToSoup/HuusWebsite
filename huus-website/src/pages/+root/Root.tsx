@@ -1,28 +1,28 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../state/react-redux-impl/store";
+import { AppStoreRootState } from "../../state/react-redux/store";
 
 import Header from "./-header/Header";
 import Main from "./-main/Main";
 import Footer from "./-footer/Footer";
-import MobileNav from "../../components/default/mobile-nav/MobileNav";
+import MobileNav from "../../components/common/mobile-nav/MobileNav";
 
-import { mobileNavOpenCloseService } from "../../services/mobile-nav/mobileNavOpenClose";
-
-import { NAV_BUTTONS } from "../../enums/default/nav";
+import { mobileNavSetLinksService } from "../../services/mobile-nav/set-links/MobileNavSetLinksService_Singleton";
+import { mobileNavOpenCloseService } from "../../services/mobile-nav/open-close/MobileNavOpenCloseService_Singleton";
+import { LINK_SET_ID } from "../../services/mobile-nav/set-links/MobileNavSetLinksService_Enums";
 
 export default function Root() {
   //this is for ensuring state is properly reset if redirecting from a
   //link in a mobile nav from a different page in this same SPA.
-  mobileNavOpenCloseService.close();
 
   const mobileNavOpen: boolean = useSelector(
-    (state: RootState) => state.mobileNav.isOpen,
+    (state: AppStoreRootState) => state.mobileNav.isOpen,
   );
 
   return mobileNavOpen ? (
     <MobileNav
-      navButtons={NAV_BUTTONS}
+      mobileNavSetLinksService={mobileNavSetLinksService}
       mobileNavOpenCloseService={mobileNavOpenCloseService}
+      linkSetId={LINK_SET_ID.ROOT} // if on the 'root' page
     />
   ) : (
     <>

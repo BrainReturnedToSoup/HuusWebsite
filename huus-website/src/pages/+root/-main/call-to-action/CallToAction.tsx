@@ -1,4 +1,4 @@
-import DefaultCallToAction from "../../../../components/default/call-to-action/DefaultCallToAction";
+import DefaultCallToAction from "../../../../components/common/call-to-action/DefaultCallToAction";
 
 const title = `Like what you see? Let's talk!`;
 

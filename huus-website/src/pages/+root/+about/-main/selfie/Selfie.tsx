@@ -1,4 +1,4 @@
-import SmartImage from "../../../../../components/common/SmartImage";
+import SmartImage from "../../../../../components/util/SmartImage";
 
 import dummyImage from "../../../../../assets/personal-trainer-generic.jpg";
 

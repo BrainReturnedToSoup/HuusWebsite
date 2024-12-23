@@ -3,7 +3,7 @@ import {
   SECTION_DESC,
 } from "../../../../enums/pages/+root/-main/features";
 
-import DefaultPreface from "../../../../components/default/preface/DefaultPreface";
+import DefaultPreface from "../../../../components/common/preface/DefaultPreface";
 
 export default function Preface() {
   return <DefaultPreface title={SECTION_TITLE} desc={SECTION_DESC} />;
