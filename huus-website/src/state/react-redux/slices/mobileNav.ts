@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { AppStore } from "../store";
-import { LinkSet } from "../../repositories/mobile-nav/MobileNavRepository_Interface";
+
+import { MobileNavLinkSet } from "../../../services/mobile-nav/set-links/MobileNavSetLinksService_Interface";
 
 const mobileNavSlice = createSlice({
   name: "mobileNav",
@@ -9,7 +11,7 @@ const mobileNavSlice = createSlice({
     isOpen: false as boolean,
     isToggleDisabled: false as boolean,
 
-    linkSet: null as LinkSet | null,
+    linkSet: null as MobileNavLinkSet | null,
   },
 
   reducers: {
@@ -52,7 +54,7 @@ const selectors = {
     return store.getState().mobileNav.isToggleDisabled;
   },
 
-  linkSet: (store: AppStore): LinkSet | null => {
+  linkSet: (store: AppStore): MobileNavLinkSet | null => {
     return store.getState().mobileNav.linkSet;
   },
 };

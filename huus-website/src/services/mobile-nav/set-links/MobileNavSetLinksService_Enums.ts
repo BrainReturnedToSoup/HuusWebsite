@@ -1,4 +1,4 @@
-export enum LINK_SET_ID {
+export enum MOBILE_NAV_LINK_SET_ID {
   ROOT = "ROOT",
   ABOUT = "ABOUT",
   CONTACT = "CONTACT",
@@ -7,7 +7,7 @@ export enum LINK_SET_ID {
   SERVICES = "SERVICES",
 }
 
-export enum LINK_ID {
+export enum MOBILE_NAV_LINK_ID {
   TO_ROOT = "TO_ROOT",
   TO_ABOUT = "TO_ABOUT",
   TO_CONTACT = "TO_CONTACT",
@@ -16,11 +16,11 @@ export enum LINK_ID {
   TO_SERVICES = "TO_SERVICES",
 }
 
-export const LINKS = {
-  [LINK_ID.TO_ROOT]: "/",
-  [LINK_ID.TO_ABOUT]: "/about",
-  [LINK_ID.TO_CONTACT]: "/contact",
-  [LINK_ID.TO_LEGAL]: "/legal",
-  [LINK_ID.TO_MEDIA]: "/media",
-  [LINK_ID.TO_SERVICES]: "/services",
+export const LINK_ROUTES = {
+  [MOBILE_NAV_LINK_ID.TO_ROOT]: "/",
+  [MOBILE_NAV_LINK_ID.TO_ABOUT]: "/about",
+  [MOBILE_NAV_LINK_ID.TO_CONTACT]: "/contact",
+  [MOBILE_NAV_LINK_ID.TO_LEGAL]: "/legal",
+  [MOBILE_NAV_LINK_ID.TO_MEDIA]: "/media",
+  [MOBILE_NAV_LINK_ID.TO_SERVICES]: "/services",
 };

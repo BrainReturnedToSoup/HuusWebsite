@@ -1,1 +1,1 @@
-export class LinkSetDoesNotExist_Error extends Error {}
+export class MobileNavLinkSetDoesNotExist_Error extends Error {}

@@ -6,17 +6,19 @@ import { MobileNavOpenCloseService_Interface } from "../../../services/mobile-na
 
 import {
   MobileNavSetLinksService_Interface,
-  LinkSetId,
+  MobileNavLinkSetId,
 } from "../../../services/mobile-nav/set-links/MobileNavSetLinksService_Interface";
 
-import { LinkSet } from "../../../state/repositories/mobile-nav/MobileNavRepository_Interface";
+import { MobileNavLinkSet } from "../../../state/repositories/mobile-nav/MobileNavRepository_Interface";
+
+import { LINK_TEXT_MAPPING } from "./LinkTextMapping_Enum";
 
 import xWhiteSVG from "../../../assets/x-white.svg";
 
 interface MobileNavProps_Interface {
   mobileNavOpenCloseService: MobileNavOpenCloseService_Interface;
   mobileNavSetLinksService: MobileNavSetLinksService_Interface;
-  linkSetId: LinkSetId;
+  linkSetId: MobileNavLinkSetId;
 }
 
 export default function MobileNav({
@@ -28,11 +30,15 @@ export default function MobileNav({
   mobileNavSetLinksService.applyLinkSet(linkSetId);
   mobileNavOpenCloseService.close();
 
-  const mobileNavLinksSet: LinkSet | null = useSelector(
+  const isOpen: boolean = useSelector(
+    (state: AppStoreRootState) => state.mobileNav.isOpen,
+  );
+
+  const mobileNavLinksSet: MobileNavLinkSet | null = useSelector(
     (state: AppStoreRootState) => state.mobileNav.linkSet,
   );
 
-  return (
+  return isOpen ? (
     <div className="h-dvh bg-black p-6 sm:p-10">
       <div className="mb-12 flex items-center justify-between">
         <h1 className="lato-bold text-4xl text-white">Navigation</h1>
@@ -51,11 +57,18 @@ export default function MobileNav({
 
           mobileNavLinksSet
             ? Object.entries(mobileNavLinksSet).map(([key, val]) => {
-                return <></>;
+                return (
+                  <li>
+                    {
+                      // local mapping from the enums module in the same namespace
+                    }
+                    <a href={val}>{LINK_TEXT_MAPPING[key]}</a>
+                  </li>
+                );
               })
             : null
         }
       </ul>
     </div>
-  );
+  ) : null;
 }

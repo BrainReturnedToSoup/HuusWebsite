@@ -1,8 +1,15 @@
-import { LinkSet } from "../../../state/repositories/mobile-nav/MobileNavRepository_Interface";
+// have all of the relevant types in the service interface, which APIs and repositories then import
+// and use for typing. This keeps the services at the top of the dependency tree
 
-export type LinkSetId = string | number;
+export type MobileNavLink = string;
 
-export type LinkSets = Record<LinkSetId, LinkSet>;
+export type MobileNavLinkId = string;
+
+export type MobileNavLinkSet = Record<MobileNavLinkId, MobileNavLink>;
+
+export type MobileNavLinkSetId = string | number;
+
+export type MobileNavLinkSets = Record<MobileNavLinkSetId, MobileNavLinkSet>;
 
 /*
     should be something like:
@@ -17,5 +24,5 @@ export type LinkSets = Record<LinkSetId, LinkSet>;
 */
 
 export interface MobileNavSetLinksService_Interface {
-  applyLinkSet(linkSetId: LinkSetId): void; // should be defined via schemas injected into the constructor. FUTURE ME FIGURE IT OUT
+  applyLinkSet(linkSetId: MobileNavLinkSetId): void; // should be defined via schemas injected into the constructor. FUTURE ME FIGURE IT OUT
 }

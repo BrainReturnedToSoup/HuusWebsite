@@ -1,8 +1,4 @@
-export type Link = string;
-
-export type LinkId = string;
-
-export type LinkSet = Record<LinkId, Link>;
+import { MobileNavLinkSet } from "../../../services/mobile-nav/set-links/MobileNavSetLinksService_Interface";
 
 export interface MobileNavRepository_Interface {
   getIsOpen(): boolean;
@@ -11,6 +7,6 @@ export interface MobileNavRepository_Interface {
   getIsToggleDisabled(): boolean;
   setIsToggleDisabled(isDisabled: boolean): void;
 
-  getLinkSet(): LinkSet | null;
-  setLinkSet(linkSet: LinkSet): void;
+  getLinkSet(): MobileNavLinkSet | null;
+  setLinkSet(linkSet: MobileNavLinkSet): void;
 }

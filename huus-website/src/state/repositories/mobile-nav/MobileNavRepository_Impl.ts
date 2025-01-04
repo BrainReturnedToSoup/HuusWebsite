@@ -1,10 +1,11 @@
+import { AppStore } from "../../react-redux/store";
+
 import {
   MobileNavSliceSelectors,
   MobileNavSliceActions,
 } from "../../react-redux/slices/mobileNav";
-import { AppStore } from "../../react-redux/store";
 
-import { LinkSet } from "./MobileNavRepository_Interface";
+import { MobileNavLinkSet } from "../../../services/mobile-nav/set-links/MobileNavSetLinksService_Interface";
 
 import { MobileNavRepository_Interface } from "./MobileNavRepository_Interface";
 
@@ -39,12 +40,12 @@ class MobileNavRepository_Impl implements MobileNavRepository_Interface {
     this.#store.dispatch(this.#actions.setToggleDisabledState(isDisabled));
   }
 
-  getLinkSet(): LinkSet | null {
+  getLinkSet(): MobileNavLinkSet | null {
     return this.#selectors.linkSet(this.#store);
   }
 
-  setLinkSet(links: LinkSet): void {
-    this.#store.dispatch(this.#actions.setLinkSet(links));
+  setLinkSet(linkSet: MobileNavLinkSet): void {
+    this.#store.dispatch(this.#actions.setLinkSet(linkSet));
   }
 }
 

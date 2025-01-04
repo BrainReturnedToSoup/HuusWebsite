@@ -1,13 +1,11 @@
-import {
-  LinkSet,
-  MobileNavRepository_Interface,
-} from "../../../state/repositories/mobile-nav/MobileNavRepository_Interface";
+import { MobileNavRepository_Interface } from "../../../state/repositories/mobile-nav/MobileNavRepository_Interface";
 
-import { LinkSetDoesNotExist_Error } from "./_errors/LinkSetIdDoesNotExist_Error";
+import { MobileNavLinkSetDoesNotExist_Error } from "./_errors/LinkSetIdDoesNotExist_Error";
 
 import {
-  LinkSets,
-  LinkSetId,
+  MobileNavLinkSet,
+  MobileNavLinkSets,
+  MobileNavLinkSetId,
   MobileNavSetLinksService_Interface,
 } from "./MobileNavSetLinksService_Interface";
 
@@ -15,29 +13,29 @@ class MobileNavSetLinksService_Impl
   implements MobileNavSetLinksService_Interface
 {
   #mobileNavRespository: MobileNavRepository_Interface;
-  #linkSets: LinkSets;
+  #linkSets: MobileNavLinkSets;
 
   constructor(
     mobileNavRepository: MobileNavRepository_Interface,
-    linkSets: LinkSets,
+    linkSets: MobileNavLinkSets,
   ) {
     this.#mobileNavRespository = mobileNavRepository;
     this.#linkSets = linkSets;
   }
 
-  applyLinkSet(linkSetId: LinkSetId): void {
+  applyLinkSet(linkSetId: MobileNavLinkSetId): void {
     // based on the link set ID, apply the schema to the repository on the proper member(s)
     // should be efficient since the schema is an object, which is technically a hash map
 
     if (!(linkSetId in this.#linkSets)) {
-      const err = new LinkSetDoesNotExist_Error();
+      const err = new MobileNavLinkSetDoesNotExist_Error();
 
-      // add meta data before throwing
+      // add meta data and log before throwing
 
       throw err;
     }
 
-    const linkSet: LinkSet = this.#linkSets[linkSetId];
+    const linkSet: MobileNavLinkSet = this.#linkSets[linkSetId];
 
     this.#mobileNavRespository.setLinkSet(linkSet);
   }

@@ -3,19 +3,21 @@ import { configureStore } from "@reduxjs/toolkit";
 import { appWindowSlice } from "./slices/app-window/appWindow";
 import { mobileNavSlice } from "./slices/mobileNav";
 import { contactFormSlice } from "./slices/contactForm";
+import { footerSlice } from "./slices/footer";
 
-const store = configureStore({
+const appStore = configureStore({
   reducer: {
     appWindow: appWindowSlice.reducer,
     mobileNav: mobileNavSlice.reducer,
     contactForm: contactFormSlice.reducer,
+    footer: footerSlice.reducer,
   },
 });
 
-export type AppStore = typeof store;
+export type AppStore = typeof appStore;
 
-export type AppStoreUnsubscribe = ReturnType<typeof store.subscribe>;
+export type AppStoreUnsubscribe = ReturnType<typeof appStore.subscribe>;
 
-export type AppStoreRootState = ReturnType<typeof store.getState>;
+export type AppStoreRootState = ReturnType<typeof appStore.getState>;
 
-export { store };
+export { appStore };

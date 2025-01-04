@@ -10,6 +10,9 @@ class MobileNavOpenCloseService_Impl
     this.#mobileNavRepository = mobileNavRepository;
   }
 
+  // the reason that the states are pulled and checked first, is because 
+  // under the hood, setting even a matching value to redux will cause a state change and
+  // rerender. Thus, pulling state for a read doesn't cause a rerender, but setting new values does.
   open(): void {
     const isOpen: boolean = this.#mobileNavRepository.getIsOpen();
 

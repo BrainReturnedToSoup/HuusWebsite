@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 
-import { store } from "./state/react-redux/store.ts";
+import { appStore } from "./state/react-redux/store.ts";
 import { Provider } from "react-redux";
 
 //initializes the link between the window size and the corresponding
@@ -13,7 +13,7 @@ import "./state/listeners/app-window/width-resize/windowWidthResize.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={appStore}>
       <App />
     </Provider>
   </React.StrictMode>,
