@@ -1,7 +1,7 @@
 import { ContactFormSubmissionService_Impl } from "./FormSubmissionService_Impl";
 
 // dependencies
-import { contactFormRepository } from "../../../state/repositories/contact-form/ContactFormRepository_Singleton";
+import { contactFormRepository } from "../../mobile/navigation/state/repositories/contact-form/ContactFormRepository_Singleton";
 import { contactFormOnSubmitConstraintValidationService } from "../form-field-constraint-validation/on-submit/OnSubmitConstraintValidationService_Singleton";
 
 import {

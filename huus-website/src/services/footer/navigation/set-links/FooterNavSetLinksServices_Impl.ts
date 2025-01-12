@@ -1,11 +1,12 @@
 import { FooterRepository_Interface } from "../../../../state/repositories/footer/FooterRepository_Interface";
 
+import { FooterNavSetLinksService_Interface } from "./FooterNavSetLinksService_Interface";
+
 import {
-  FooterNavLinkSet,
-  FooterNavSetLinksService_Interface,
-  FooterNavLinkSetId,
-  FooterNavLinkSets,
-} from "./FooterNavSetLinksService_Interface";
+  FooterNavLinksSets,
+  FooterNavLinksSetId,
+  FooterNavLinksSet,
+} from "../../../../domain-types/navigation/footer/links/Link_Types";
 
 import { FooterNavLinkSetDoesNotExist_Error } from "./_errors/LinkSetDoesNotExist_Error";
 
@@ -13,17 +14,17 @@ class FooterNavSetLinksServices_Impl
   implements FooterNavSetLinksService_Interface
 {
   #footerRepository: FooterRepository_Interface;
-  #linkSets: FooterNavLinkSets;
+  #linkSets: FooterNavLinksSets;
 
   constructor(
     footerRepository: FooterRepository_Interface,
-    linkSets: FooterNavLinkSets,
+    linkSets: FooterNavLinksSets,
   ) {
     this.#footerRepository = footerRepository;
     this.#linkSets = linkSets;
   }
 
-  applyLinkSet(linkSetId: FooterNavLinkSetId): void {
+  apply(linkSetId: FooterNavLinksSetId): void {
     if (!(linkSetId in this.#linkSets)) {
       const err = new FooterNavLinkSetDoesNotExist_Error();
 
@@ -32,7 +33,7 @@ class FooterNavSetLinksServices_Impl
       throw err;
     }
 
-    const linkSet: FooterNavLinkSet = this.#linkSets[linkSetId];
+    const linkSet: FooterNavLinksSet = this.#linkSets[linkSetId];
 
     this.#footerRepository.setNavLinkSet(linkSet);
   }

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 
-import { AppStoreRootState } from "../../../state/react-redux/store";
+import { AppStoreRootState } from "../../../services/mobile/navigation/state/react-redux/store";
 
 import { MobileNavLinkSet } from "../../../services/mobile/navigation/set-links/MobileNavSetLinksService_Interface";
 

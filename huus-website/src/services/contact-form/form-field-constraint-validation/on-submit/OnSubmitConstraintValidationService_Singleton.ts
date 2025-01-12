@@ -10,7 +10,7 @@ import { ConstraintViolationLabels_Enum } from "../../_errors/contraint-violatio
 import { ConstraintViolationContainer_Interface } from "../../_errors/contraint-violation/ConstraintViolationContainer_Interface";
 
 // dependencies
-import { contactFormRepository } from "../../../../state/repositories/contact-form/ContactFormRepository_Singleton";
+import { contactFormRepository } from "../../../mobile/navigation/state/repositories/contact-form/ContactFormRepository_Singleton";
 import { contactFormConstraintValidationService } from "../core/ConstraintValidationService_Singleton";
 
 const contactFormOnSubmitConstraintValidationService =

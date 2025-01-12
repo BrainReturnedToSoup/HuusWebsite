@@ -1,4 +1,4 @@
-import { MobileNavOpenCloseService_Interface } from "../../../services/mobile/open-close/MobileNavOpenCloseService_Interface";
+import { MobileNavOpenCloseService_Interface } from "../../../services/mobile/navigation/open-close/MobileNavOpenCloseService_Interface";
 
 import {
   MobileNavSetLinksService_Interface,

@@ -4,7 +4,7 @@ import {
 } from "./OnSubmitConstraintValidationService_Interface";
 import { ConstraintViolationContainer_Interface } from "../../_errors/contraint-violation/ConstraintViolationContainer_Interface";
 import { ContactFormConstraintValidationService_Interface } from "../core/ConstraintValidationService_Interface";
-import { ContactFormRepository_Interface } from "../../../../state/repositories/contact-form/ContactFormRepository_Interface";
+import { ContactFormRepository_Interface } from "../../../mobile/navigation/state/repositories/contact-form/ContactFormRepository_Interface";
 import { ConstraintViolationLabels_Enum } from "../../_errors/contraint-violation/ContraintViolationLabels_Enum";
 
 class ContactFormOnSubmitConstraintValidationService_Impl<

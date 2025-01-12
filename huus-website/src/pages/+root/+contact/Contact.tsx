@@ -5,7 +5,7 @@ import MobileNav from "../../../components/common/mobile-nav/MobileNav_Component
 
 import { MOBILE_NAV_LINK_SET_ID } from "../../../services/mobile/navigation/set-links/MobileNavSetLinksService_Enums";
 import { mobileNavSetLinksService } from "../../../services/mobile/navigation/set-links/MobileNavSetLinksService_Singleton";
-import { mobileNavOpenCloseService } from "../../../services/mobile/open-close/MobileNavOpenCloseService_Singleton";
+import { mobileNavOpenCloseService } from "../../../services/mobile/navigation/open-close/MobileNavOpenCloseService_Singleton";
 
 export default function Contact() {
   <>

@@ -1,5 +1,5 @@
 import { ContactFormResetService_Interface } from "./FormResetService_Interface";
-import { ContactFormRepository_Interface } from "../../../state/repositories/contact-form/ContactFormRepository_Interface";
+import { ContactFormRepository_Interface } from "../../mobile/navigation/state/repositories/contact-form/ContactFormRepository_Interface";
 
 class ContactFormResetService_Impl
   implements ContactFormResetService_Interface

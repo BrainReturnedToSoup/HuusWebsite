@@ -5,7 +5,7 @@ import {
   FooterSliceSelectors,
 } from "../../react-redux/slices/footer";
 
-import { FooterNavLinkSet } from "../../../services/footer/navigation/set-links/FooterNavSetLinksService_Interface";
+import { FooterNavLinksSet } from "../../../domain-types/navigation/footer/links/Link_Types";
 
 import { FooterRepository_Interface } from "./FooterRepository_Interface";
 
@@ -24,12 +24,12 @@ class FooterRepository_Impl implements FooterRepository_Interface {
     this.#actions = actions;
   }
 
-  getNavLinkSet(): FooterNavLinkSet | null {
-    return this.#selectors.navLinkSet(this.#store);
+  getNavLinkSet(): FooterNavLinksSet | null {
+    return this.#selectors.navLinksSet(this.#store);
   }
 
-  setNavLinkSet(linkSet: FooterNavLinkSet): void {
-    this.#store.dispatch(this.#actions.setNavLinkSet(linkSet));
+  setNavLinkSet(linkSet: FooterNavLinksSet): void {
+    this.#store.dispatch(this.#actions.setNavLinksSet(linkSet));
   }
 }
 

@@ -1,8 +1,8 @@
 import { MobileNavSetLinksService_Impl } from "./MobileNavSetLinksService_Impl";
 
-import { mobileNavRepository } from "../../../../state/repositories/mobile-nav/MobileNavRepository_Singleton";
-
 import { MobileNavLinksSets } from "../../../../domain-types/navigation/mobile/links/Link_Types";
+
+import { mobileNavRepository } from "../../../../state/repositories/mobile-nav/MobileNavRepository_Singleton";
 
 const MOBILE_NAV_LINK_ID = {
   TO_ROOT: "TO_ROOT",

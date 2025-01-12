@@ -1,24 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { AppStore } from "../store";
-import { FooterNavLinkSet } from "../../../services/footer/navigation/set-links/FooterNavSetLinksService_Interface";
+
+import { FooterNavLinksSet } from "../../../domain-types/navigation/footer/links/Link_Types";
 
 const footerSlice = createSlice({
   name: "footer",
 
   initialState: {
-    navLinkSet: null as FooterNavLinkSet | null,
+    navLinksSet: null as FooterNavLinksSet | null,
   },
 
   reducers: {
-    setNavLinkSet: (state, action): void => {
-      state.navLinkSet = action.payload;
+    setNavLinksSet: (state, action): void => {
+      state.navLinksSet = action.payload;
     },
   },
 });
 
 const selectors = {
-  navLinkSet: (store: AppStore): FooterNavLinkSet | null => {
-    return store.getState().footer.navLinkSet;
+  navLinksSet: (store: AppStore): FooterNavLinksSet | null => {
+    return store.getState().footer.navLinksSet;
   },
 };
 
