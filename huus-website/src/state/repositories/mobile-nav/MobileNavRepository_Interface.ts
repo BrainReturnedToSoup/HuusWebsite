@@ -1,4 +1,6 @@
-import { MobileNavLinkSet } from "../../../services/mobile-nav/set-links/MobileNavSetLinksService_Interface";
+import { MobileNavLinksSet } from "../../../domain-types/navigation/mobile/links/Link_Types";
+
+// hard coupled to the concerns of the service, so the methods are
 
 export interface MobileNavRepository_Interface {
   getIsOpen(): boolean;
@@ -7,6 +9,6 @@ export interface MobileNavRepository_Interface {
   getIsToggleDisabled(): boolean;
   setIsToggleDisabled(isDisabled: boolean): void;
 
-  getLinkSet(): MobileNavLinkSet | null;
-  setLinkSet(linkSet: MobileNavLinkSet): void;
+  getLinksSet(): MobileNavLinksSet | null;
+  setLinksSet(linkSet: MobileNavLinksSet): void;
 }

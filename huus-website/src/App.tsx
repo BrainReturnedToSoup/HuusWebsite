@@ -6,7 +6,7 @@ import Contact from "./pages/+root/+contact/Contact";
 import Media from "./pages/+root/+media/Media";
 import About from "./pages/+root/+about/About";
 
-import Error from "./pages/error/Error";
+import Error from "./pages/+error/Error";
 
 import "./App.css";
 

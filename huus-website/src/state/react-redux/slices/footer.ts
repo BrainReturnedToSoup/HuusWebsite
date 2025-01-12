@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppStore } from "../store";
-import { FooterNavLinkSet } from "../../../services/footer/nav/set-links/FooterNavSetLinksService_Interface";
+import { FooterNavLinkSet } from "../../../services/footer/navigation/set-links/FooterNavSetLinksService_Interface";
 
 const footerSlice = createSlice({
   name: "footer",

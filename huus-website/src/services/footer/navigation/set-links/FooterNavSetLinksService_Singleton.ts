@@ -4,13 +4,14 @@ import { FooterNavSetLinksServices_Impl } from "./FooterNavSetLinksServices_Impl
 import { FooterNavLinkSets } from "./FooterNavSetLinksService_Interface";
 
 // link setup is basically just a list of different links
-const footerNavLinkSets: FooterNavLinkSets = {
+const linkSets: FooterNavLinkSets = {
   // ... to be added
+  
 };
 
 const footerNavSetLinksService = new FooterNavSetLinksServices_Impl(
   footerRepository,
-  footerNavLinkSets,
+  linkSets,
 );
 
-export { footerNavSetLinksService, footerNavLinkSets };
+export { footerNavSetLinksService, linkSets };

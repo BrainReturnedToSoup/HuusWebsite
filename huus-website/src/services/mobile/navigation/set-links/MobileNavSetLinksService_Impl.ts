@@ -1,33 +1,34 @@
-import { MobileNavRepository_Interface } from "../../../state/repositories/mobile-nav/MobileNavRepository_Interface";
+import { MobileNavSetLinksService_Interface } from "./MobileNavSetLinksService_Interface";
+
+import { MobileNavRepository_Interface } from "../../../../state/repositories/mobile-nav/MobileNavRepository_Interface";
 
 import { MobileNavLinkSetDoesNotExist_Error } from "./_errors/LinkSetIdDoesNotExist_Error";
 
 import {
-  MobileNavLinkSet,
-  MobileNavLinkSets,
-  MobileNavLinkSetId,
-  MobileNavSetLinksService_Interface,
-} from "./MobileNavSetLinksService_Interface";
+  MobileNavLinksSet,
+  MobileNavLinksSets,
+  MobileNavLinksSetId,
+} from "../../../../domain-types/navigation/mobile/links/Link_Types";
 
 class MobileNavSetLinksService_Impl
   implements MobileNavSetLinksService_Interface
 {
   #mobileNavRespository: MobileNavRepository_Interface;
-  #linkSets: MobileNavLinkSets;
+  #linksSets: MobileNavLinksSets;
 
   constructor(
     mobileNavRepository: MobileNavRepository_Interface,
-    linkSets: MobileNavLinkSets,
+    linksSets: MobileNavLinksSets,
   ) {
     this.#mobileNavRespository = mobileNavRepository;
-    this.#linkSets = linkSets;
+    this.#linksSets = linksSets;
   }
 
-  applyLinkSet(linkSetId: MobileNavLinkSetId): void {
+  apply(linksSetId: MobileNavLinksSetId): void {
     // based on the link set ID, apply the schema to the repository on the proper member(s)
     // should be efficient since the schema is an object, which is technically a hash map
 
-    if (!(linkSetId in this.#linkSets)) {
+    if (!(linksSetId in this.#linksSets)) {
       const err = new MobileNavLinkSetDoesNotExist_Error();
 
       // add meta data and log before throwing
@@ -35,9 +36,9 @@ class MobileNavSetLinksService_Impl
       throw err;
     }
 
-    const linkSet: MobileNavLinkSet = this.#linkSets[linkSetId];
+    const linkSet: MobileNavLinksSet = this.#linksSets[linksSetId];
 
-    this.#mobileNavRespository.setLinkSet(linkSet);
+    this.#mobileNavRespository.setLinksSet(linkSet);
   }
 }
 

@@ -1,4 +1,4 @@
-import { FooterNavLinkSet } from "../../../services/footer/nav/set-links/FooterNavSetLinksService_Interface";
+import { FooterNavLinkSet } from "../../../services/footer/navigation/set-links/FooterNavSetLinksService_Interface";
 
 export interface FooterRepository_Interface {
   getNavLinkSet(): FooterNavLinkSet | null;
