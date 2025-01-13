@@ -1,6 +1,6 @@
 import { FooterNavSetLinksServices_Impl } from "./FooterNavSetLinksServices_Impl";
 
-import { FooterNavLinksSets } from "../../../../domain-types/navigation/footer/links/Link_Types";
+import { FooterNavLinksSets } from "../../../../domain-types/navigation/footer/links/Link_DomainTypes";
 
 import { footerRepository } from "../../../../state/repositories/footer/FooterRepository_Singleton";
 

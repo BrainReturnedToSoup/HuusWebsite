@@ -1,14 +1,19 @@
 import {
-  ConstraintValidation_Lambda,
-  ContactFormConstraintValidationService_Interface,
-} from "./ConstraintValidationService_Interface";
+  Email,
+  GeneralLocation,
+  Message,
+  ServiceSelection,
+} from "../../../../domain-types/contact-form/ContactForm_DomainTypes";
 
-type Logger = (message: string) => void;
+import { ContactFormConstraintValidationService_Interface } from "./ConstraintValidationService_Interface";
 
 // LET ERRORS THROW TO TOP. ERRORS IN THIS SCOPE MEAN SOME BAD CODE ALTOGETHER.
 
 // will be responsible for either directly invoking some type of state change to
 // the repository, or adding a lambda to be executed later.
+
+export type ConstraintValidation_Lambda = (input: string) => boolean;
+
 class ContactFormConstraintValidationService_Impl
   implements ContactFormConstraintValidationService_Interface
 {
@@ -17,25 +22,22 @@ class ContactFormConstraintValidationService_Impl
   #validateServiceSelectionLambda: ConstraintValidation_Lambda;
   #validateMessage: ConstraintValidation_Lambda;
 
-  #logger: Logger | null;
+  // add logger
 
   constructor(
     validateEmailLambda: ConstraintValidation_Lambda,
     validateGeneralLocationLambda: ConstraintValidation_Lambda,
     validateServiceSelectionLambda: ConstraintValidation_Lambda,
     validateMessage: ConstraintValidation_Lambda,
-    logger: Logger | null,
   ) {
     this.#validateEmailLambda = validateEmailLambda;
     this.#validateGeneralLocationLambda = validateGeneralLocationLambda;
     this.#validateServiceSelectionLambda = validateServiceSelectionLambda;
     this.#validateMessage = validateMessage;
-
-    this.#logger = logger;
   }
 
   validateEmail(
-    input: string,
+    input: Email,
     instantiationId: string,
     submitId: string,
   ): boolean {
@@ -49,7 +51,7 @@ class ContactFormConstraintValidationService_Impl
   }
 
   validateGeneralLocation(
-    input: string,
+    input: GeneralLocation,
     instantiationId: string,
     submitId: string,
   ): boolean {
@@ -63,7 +65,7 @@ class ContactFormConstraintValidationService_Impl
   }
 
   validateServiceSelection(
-    input: string,
+    input: ServiceSelection,
     instantiationId: string,
     submitId: string,
   ): boolean {
@@ -77,7 +79,7 @@ class ContactFormConstraintValidationService_Impl
   }
 
   validateMessage(
-    input: string,
+    input: Message,
     instantiationId: string,
     submitId: string,
   ): boolean {
@@ -90,9 +92,5 @@ class ContactFormConstraintValidationService_Impl
     return isValid;
   }
 }
-
-/* 
-  NEED TO ADD LOGGING 
-*/
 
 export { ContactFormConstraintValidationService_Impl };

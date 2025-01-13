@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { AppStore } from "../store";
 
-import { MobileNavLinksSet } from "../../../domain-types/navigation/mobile/links/Link_Types";
+import { MobileNavLinksSet } from "../../../domain-types/navigation/mobile/links/Link_DomainTypes";
 
 const mobileNavSlice = createSlice({
   name: "mobileNav",
@@ -15,31 +15,15 @@ const mobileNavSlice = createSlice({
   },
 
   reducers: {
-    setOpenState: (state, action): void => {
-      if (typeof action.payload !== "boolean") {
-        throw new Error(
-          "'mobileNav' reducer 'setOpenState' given a payload with a type '" +
-            typeof action.payload +
-            "'. Shoud be of type 'boolean'",
-        );
-      }
-
+    isOpen: (state, action): void => {
       state.isOpen = action.payload;
     },
 
-    setToggleDisabledState: (state, action): void => {
-      if (typeof action.payload !== "boolean") {
-        throw new Error(
-          "'mobileNav' reducer 'setToggleDisabledState' given a payload with a type '" +
-            typeof action.payload +
-            "'. Shoud be of type 'boolean'",
-        );
-      }
-
+    isToggleDisabled: (state, action): void => {
       state.isToggleDisabled = action.payload;
     },
 
-    setLinks: (state, action): void => {
+    links: (state, action): void => {
       state.links = action.payload;
     },
   },

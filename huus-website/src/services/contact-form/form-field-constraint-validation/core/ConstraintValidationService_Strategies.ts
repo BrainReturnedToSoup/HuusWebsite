@@ -1,4 +1,4 @@
-import { ConstraintValidation_Lambda } from "./ConstraintValidationService_Interface";
+import { ConstraintValidation_Lambda } from "./ConstraintValidationService_Impl";
 
 const validateEmail: ConstraintValidation_Lambda = (input: string): boolean => {
   // RFC 5322 compliant

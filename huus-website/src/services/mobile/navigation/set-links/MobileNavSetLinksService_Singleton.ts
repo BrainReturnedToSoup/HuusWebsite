@@ -1,6 +1,6 @@
 import { MobileNavSetLinksService_Impl } from "./MobileNavSetLinksService_Impl";
 
-import { MobileNavLinksSets } from "../../../../domain-types/navigation/mobile/links/Link_Types";
+import { MobileNavLinksSets } from "../../../../domain-types/navigation/mobile/links/Link_DomainTypes";
 
 import { mobileNavRepository } from "../../../../state/repositories/mobile-nav/MobileNavRepository_Singleton";
 

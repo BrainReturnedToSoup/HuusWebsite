@@ -1,46 +1,60 @@
+import {
+  Email,
+  EmailError,
+  FirstName,
+  FormErrorMessage,
+  GeneralLocation,
+  GeneralLocationError,
+  InputsDisabled,
+  LastName,
+  Message,
+  MessageError,
+  ServiceSelection,
+  ServiceSelectionError,
+  SubmitId,
+  SubmitIsPending,
+  SubmitSucceeded,
+} from "../../../domain-types/contact-form/ContactForm_DomainTypes";
+
 export interface ContactFormRepository_Interface {
-  /* per form field flags for the contact form */
+  getFirstName(): FirstName;
+  setFirstName(firstName: FirstName): void;
 
-  getFirstName(): string;
-  setFirstName(firstName: string): void;
+  getLastName(): LastName;
+  setLastName(lastName: LastName): void;
 
-  getLastName(): string;
-  setLastName(lastName: string): void;
+  getEmail(): Email;
+  setEmail(email: Email): void;
+  getEmailError(): EmailError;
+  setEmailError(errorMessage: EmailError): void;
 
-  getEmail(): string;
-  setEmail(email: string): void;
-  getEmailError(): string;
-  setEmailError(errorMessage: string): void;
+  getGeneralLocation(): GeneralLocation;
+  setGeneralLocation(location: GeneralLocation): void;
+  getGeneralLocationError(): GeneralLocationError;
+  setGeneralLocationError(errorMessage: GeneralLocationError): void;
 
-  getGeneralLocation(): string;
-  setGeneralLocation(location: string): void;
-  getGeneralLocationError(): string;
-  setGeneralLocationError(errorMessage: string): void;
+  getServiceSelection(): ServiceSelection;
+  setServiceSelecation(selection: ServiceSelection): void;
+  getServiceSelectionError(): ServiceSelectionError;
+  setServiceSelectionError(errorMessage: ServiceSelectionError): void;
 
-  getServiceSelection(): string;
-  setServiceSelecation(selection: string): void;
-  getServiceSelectionError(): string;
-  setServiceSelectionError(errorMessage: string): void;
+  getMessage(): Message;
+  setMessage(message: Message): void;
+  getMessageError(): MessageError;
+  setMessageError(messageError: MessageError): void;
 
-  getMessage(): string;
-  setMessage(message: string): void;
-  getMessageError(): string;
-  setMessageError(errorMessage: string): void;
+  submitIsPending(): SubmitIsPending;
+  setPendingSubmit(submitIsPending: SubmitIsPending): void;
 
-  /* Global flags for the contact form */
+  getSubmitSucceeded(): SubmitSucceeded;
+  setSubmitSucceeded(submitSucceeded: SubmitSucceeded): void;
 
-  getPendingSubmit(): boolean;
-  setPendingSubmit(isPending: boolean): void;
+  getFormErrorMessage(): FormErrorMessage;
+  setFormErrorMessage(formErrorMessage: FormErrorMessage): void;
 
-  getSubmitSucceeded(): boolean;
-  setSubmitSucceeded(hasSucceeded: boolean): void;
+  getInputsDisabled(): InputsDisabled;
+  setInputsDisabled(inputsDisabled: InputsDisabled): void;
 
-  getErrorMessage(): string;
-  setErrorMessage(errorMessage: string): void;
-
-  getInputsDisabled(): boolean;
-  setInputsDisabled(isDisabled: boolean): void;
-
-  getSubmitId(): string;
-  setSubmitId(uuid: string): void;
+  getSubmitId(): SubmitId;
+  setSubmitId(id: SubmitId): void;
 }

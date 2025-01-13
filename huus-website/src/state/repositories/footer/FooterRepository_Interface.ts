@@ -1,4 +1,4 @@
-import { FooterNavLinksSet } from "../../../domain-types/navigation/footer/links/Link_Types";
+import { FooterNavLinksSet } from "../../../domain-types/navigation/footer/links/Link_DomainTypes";
 
 export interface FooterRepository_Interface {
   getNavLinkSet(): FooterNavLinksSet | null;

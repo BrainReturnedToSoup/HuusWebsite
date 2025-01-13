@@ -1,11 +1,15 @@
-import {
-  ContactFormOnSubmitConstraintValidationService_Interface,
-  OnSubmitConstraintValidation_Lambda,
-} from "./OnSubmitConstraintValidationService_Interface";
+import { ContactFormOnSubmitConstraintValidationService_Interface } from "./OnSubmitConstraintValidationService_Interface";
+
 import { ConstraintViolationContainer_Interface } from "../../_errors/contraint-violation/ConstraintViolationContainer_Interface";
+
 import { ContactFormConstraintValidationService_Interface } from "../core/ConstraintValidationService_Interface";
-import { ContactFormRepository_Interface } from "../../../mobile/navigation/state/repositories/contact-form/ContactFormRepository_Interface";
-import { ConstraintViolationLabels_Enum } from "../../_errors/contraint-violation/ContraintViolationLabels_Enum";
+
+import { ContactFormRepository_Interface } from "../../../../state/repositories/contact-form/ContactFormRepository_Interface";
+
+export type OnSubmitConstraintValidation_Lambda<T> = (
+  isValid: boolean,
+  container: T,
+) => void;
 
 class ContactFormOnSubmitConstraintValidationService_Impl<
   T extends ConstraintViolationContainer_Interface<E>,
@@ -113,44 +117,4 @@ class ContactFormOnSubmitConstraintValidationService_Impl<
   }
 }
 
-// these lambdas are largely for adding specific enumerations
-// to the supplied container basically. Can't otherwise configure that
-// upon instantiation without a strategy.
-
-// Also, since this is done via a strategy, its fairly easy to extend such
-// for more complex violation conditions, perhaps even removing certain violations
-// in the case another one supercedes it
-
-const onSubmitValidateEmail: OnSubmitConstraintValidation_Lambda<
-  ConstraintViolationContainer_Interface<ConstraintViolationLabels_Enum>
-> = (isValid, container): void => {
-  if (!isValid) container.addViolation(ConstraintViolationLabels_Enum.EMAIL);
-};
-
-const onSubmitValidateGeneralLocation: OnSubmitConstraintValidation_Lambda<
-  ConstraintViolationContainer_Interface<ConstraintViolationLabels_Enum>
-> = (isValid, container): void => {
-  if (!isValid)
-    container.addViolation(ConstraintViolationLabels_Enum.GENERAL_LOCATION);
-};
-
-const onSubmitValidateServiceSelection: OnSubmitConstraintValidation_Lambda<
-  ConstraintViolationContainer_Interface<ConstraintViolationLabels_Enum>
-> = (isValid, container): void => {
-  if (!isValid)
-    container.addViolation(ConstraintViolationLabels_Enum.SERVICE_SELECTION);
-};
-
-const onSubmitValidateMessage: OnSubmitConstraintValidation_Lambda<
-  ConstraintViolationContainer_Interface<ConstraintViolationLabels_Enum>
-> = (isValid, container): void => {
-  if (!isValid) container.addViolation(ConstraintViolationLabels_Enum.MESSAGE);
-};
-
-export {
-  ContactFormOnSubmitConstraintValidationService_Impl,
-  onSubmitValidateEmail,
-  onSubmitValidateGeneralLocation,
-  onSubmitValidateServiceSelection,
-  onSubmitValidateMessage,
-};
+export { ContactFormOnSubmitConstraintValidationService_Impl };

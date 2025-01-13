@@ -6,7 +6,7 @@ import {
   FooterNavLinksSets,
   FooterNavLinksSetId,
   FooterNavLinksSet,
-} from "../../../../domain-types/navigation/footer/links/Link_Types";
+} from "../../../../domain-types/navigation/footer/links/Link_DomainTypes";
 
 import { FooterNavLinkSetDoesNotExist_Error } from "./_errors/LinkSetDoesNotExist_Error";
 

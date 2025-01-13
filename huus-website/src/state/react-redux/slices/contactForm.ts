@@ -1,3 +1,21 @@
+import {
+  Email,
+  EmailError,
+  FirstName,
+  FormErrorMessage,
+  GeneralLocation,
+  GeneralLocationError,
+  InputsDisabled,
+  LastName,
+  Message,
+  MessageError,
+  ServiceSelection,
+  ServiceSelectionError,
+  SubmitId,
+  SubmitIsPending,
+  SubmitSucceeded,
+} from "../../../domain-types/contact-form/ContactForm_DomainTypes";
+
 import { createSlice } from "@reduxjs/toolkit";
 import { AppStore } from "../store";
 
@@ -8,27 +26,27 @@ const contactFormSlice = createSlice({
     // per form field. Can't use nested objects, because that messes with how
     // redux perceives state changes.
 
-    firstName: "" as string,
-    lastName: "" as string,
+    firstName: "" as FirstName,
+    lastName: "" as LastName,
 
-    yourEmail_input: "" as string,
-    yourEmail_errorMessage: "" as string,
+    email: "" as Email,
+    emailError: "" as EmailError,
 
-    generalLocation_input: "" as string,
-    generalLocation_errorMessage: "" as string,
+    generalLocation: "" as GeneralLocation,
+    generalLocationError: "" as GeneralLocationError,
 
-    serviceSelection_input: "" as string,
-    serviceSelection_errorMessage: "" as string,
+    serviceSelection: "" as ServiceSelection,
+    serviceSelectionError: "" as ServiceSelectionError,
 
-    message_input: "" as string,
-    message_errorMessage: "" as string,
+    message: "" as Message,
+    messageError: "" as MessageError,
 
     // top-level state of the form.
-    global_pendingSubmit: false as boolean,
-    global_submitSucceeded: false as boolean,
-    global_errorMessage: "" as string,
-    global_inputsDisabled: false as boolean,
-    global_submitId: crypto.randomUUID() as string,
+    submitIsPending: false as SubmitIsPending,
+    submitSucceeded: false as SubmitSucceeded,
+    formErrorMessage: "" as FormErrorMessage,
+    inputsDisabled: false as InputsDisabled,
+    submitId: crypto.randomUUID() as SubmitId,
   },
 
   reducers: {
@@ -39,95 +57,49 @@ const contactFormSlice = createSlice({
       state.lastName = String(action.payload);
     },
 
-    yourEmail_setInput: (state, action): void => {
-      state.yourEmail_input = String(action.payload);
+    email: (state, action): void => {
+      state.email = String(action.payload);
     },
-    yourEmail_setErrorMessage: (state, action): void => {
-      state.yourEmail_errorMessage = String(action.payload);
-    },
-
-    generalLocation_setInput: (state, action): void => {
-      state.generalLocation_input = String(action.payload);
-    },
-    generalLocation_setErrorMessage: (state, action): void => {
-      state.generalLocation_errorMessage = String(action.payload);
+    emailError: (state, action): void => {
+      state.emailError = String(action.payload);
     },
 
-    serviceSelection_setInput: (state, action): void => {
-      state.serviceSelection_input = String(action.payload);
+    generalLocation: (state, action): void => {
+      state.generalLocation = String(action.payload);
     },
-    serviceSelection_setErrorMessage: (state, action): void => {
-      state.serviceSelection_errorMessage = String(action.payload);
-    },
-
-    message_setInput: (state, action): void => {
-      state.message_input = String(action.payload);
-    },
-    message_setErrorMessage: (state, action): void => {
-      state.message_errorMessage = String(action.payload);
+    generalLocationError: (state, action): void => {
+      state.generalLocationError = String(action.payload);
     },
 
-    global_setPendingSubmit: (state, action): void => {
-      if (typeof action.payload !== "boolean") {
-        throw new Error(
-          "'contactForm' reducer 'global_setPendingSubmit' given a payload with a type '" +
-            typeof action.payload +
-            "'. Shoud be of type 'boolean'",
-        );
-      }
-
-      state.global_pendingSubmit = action.payload;
+    serviceSelection: (state, action): void => {
+      state.serviceSelection = String(action.payload);
     },
-    global_setSubmitSucceeded: (state, action): void => {
-      if (typeof action.payload !== "boolean") {
-        throw new Error(
-          "'contactForm' reducer 'global_setSubmitSucceeded' given a payload with a type '" +
-            typeof action.payload +
-            "'. Shoud be of type 'boolean'",
-        );
-      }
-
-      state.global_submitSucceeded = action.payload;
-    },
-    global_setErrorMessage: (state, action): void => {
-      state.global_errorMessage = String(action.payload);
-    },
-    global_setInputsDisabled: (state, action): void => {
-      if (typeof action.payload !== "boolean") {
-        throw new Error(
-          "'contactForm' reducer 'global_setInputsDisabled' given a payload with a type '" +
-            typeof action.payload +
-            "'. Shoud be of type 'boolean'",
-        );
-      }
-
-      state.global_inputsDisabled = action.payload;
+    serviceSelectionError: (state, action): void => {
+      state.serviceSelectionError = String(action.payload);
     },
 
-    global_setSubmitId: (state, action): void => {
-      if (typeof action.payload !== "string") {
-        throw new Error(
-          "'contactForm' reducer 'global_setSubmitId' given a payload with a type '" +
-            typeof action.payload +
-            "'. Shoud be of type 'string'",
-        );
-      }
+    message: (state, action): void => {
+      state.message = String(action.payload);
+    },
+    messageError: (state, action): void => {
+      state.messageError = String(action.payload);
+    },
 
-      // UUID pattern
-      const pattern = new RegExp(
-        "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
-      );
+    submitIsPending: (state, action): void => {
+      state.submitIsPending = action.payload;
+    },
+    submitSucceeded: (state, action): void => {
+      state.submitSucceeded = action.payload;
+    },
+    formErrorMessage: (state, action): void => {
+      state.formErrorMessage = String(action.payload);
+    },
+    inputsDisabled: (state, action): void => {
+      state.inputsDisabled = action.payload;
+    },
 
-      if (!pattern.test(action.payload)) {
-        throw new Error(
-          "'contactForm' reducer 'global_setSubmitId' given a payload not matching in pattern to a UUID. " +
-            "Received '" +
-            action.payload +
-            "'. (Single quotes are not part of the value)",
-        );
-      }
-
-      state.global_submitId = action.payload;
+    submitId: (state, action): void => {
+      state.submitId = action.payload;
     },
   },
 });
@@ -140,48 +112,48 @@ const selectors = {
     return store.getState().contactForm.lastName;
   },
 
-  yourEmail_input: (store: AppStore): string => {
-    return store.getState().contactForm.yourEmail_input;
+  email: (store: AppStore): string => {
+    return store.getState().contactForm.email;
   },
-  yourEmail_errorMessage: (store: AppStore): string => {
-    return store.getState().contactForm.yourEmail_errorMessage;
-  },
-
-  generalLocation_input: (store: AppStore): string => {
-    return store.getState().contactForm.generalLocation_input;
-  },
-  generalLocation_errorMessage: (store: AppStore): string => {
-    return store.getState().contactForm.generalLocation_errorMessage;
+  emailError: (store: AppStore): string => {
+    return store.getState().contactForm.emailError;
   },
 
-  serviceSelection_input: (store: AppStore): string => {
-    return store.getState().contactForm.serviceSelection_input;
+  generalLocation: (store: AppStore): string => {
+    return store.getState().contactForm.generalLocation;
   },
-  serviceSelection_errorMessage: (store: AppStore): string => {
-    return store.getState().contactForm.serviceSelection_errorMessage;
-  },
-
-  message_input: (store: AppStore): string => {
-    return store.getState().contactForm.message_input;
-  },
-  message_errorMessage: (store: AppStore): string => {
-    return store.getState().contactForm.message_errorMessage;
+  generalLocationError: (store: AppStore): string => {
+    return store.getState().contactForm.generalLocationError;
   },
 
-  global_pendingSubmit: (store: AppStore): boolean => {
-    return store.getState().contactForm.global_pendingSubmit;
+  serviceSelection: (store: AppStore): string => {
+    return store.getState().contactForm.serviceSelection;
   },
-  global_submitSucceeded: (store: AppStore): boolean => {
-    return store.getState().contactForm.global_submitSucceeded;
+  serviceSelectionError: (store: AppStore): string => {
+    return store.getState().contactForm.serviceSelectionError;
   },
-  global_errorMessage: (store: AppStore): string => {
-    return store.getState().contactForm.global_errorMessage;
+
+  message: (store: AppStore): string => {
+    return store.getState().contactForm.message;
   },
-  global_inputsDisabled: (store: AppStore): boolean => {
-    return store.getState().contactForm.global_inputsDisabled;
+  messageError: (store: AppStore): string => {
+    return store.getState().contactForm.messageError;
   },
-  global_submitId: (store: AppStore): string => {
-    return store.getState().contactForm.global_submitId;
+
+  submitIsPending: (store: AppStore): boolean => {
+    return store.getState().contactForm.submitIsPending;
+  },
+  submitSucceeded: (store: AppStore): boolean => {
+    return store.getState().contactForm.submitSucceeded;
+  },
+  formErrorMessage: (store: AppStore): string => {
+    return store.getState().contactForm.formErrorMessage;
+  },
+  inputsDisabled: (store: AppStore): boolean => {
+    return store.getState().contactForm.inputsDisabled;
+  },
+  submitId: (store: AppStore): string => {
+    return store.getState().contactForm.submitId;
   },
 };
 

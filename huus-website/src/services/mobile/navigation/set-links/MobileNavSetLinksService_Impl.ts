@@ -8,7 +8,7 @@ import {
   MobileNavLinksSet,
   MobileNavLinksSets,
   MobileNavLinksSetId,
-} from "../../../../domain-types/navigation/mobile/links/Link_Types";
+} from "../../../../domain-types/navigation/mobile/links/Link_DomainTypes";
 
 class MobileNavSetLinksService_Impl
   implements MobileNavSetLinksService_Interface

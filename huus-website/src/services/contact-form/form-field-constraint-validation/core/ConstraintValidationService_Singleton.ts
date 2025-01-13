@@ -13,7 +13,6 @@ const contactFormConstraintValidationService =
     validateGeneralLocation,
     validateServiceSelection,
     validateMessage,
-    null,
   );
 
 export { contactFormConstraintValidationService };

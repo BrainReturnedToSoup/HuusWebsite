@@ -1,4 +1,4 @@
-import { MobileNavLinksSet } from "../../../domain-types/navigation/mobile/links/Link_Types";
+import { MobileNavLinksSet } from "../../../domain-types/navigation/mobile/links/Link_DomainTypes";
 
 // hard coupled to the concerns of the service, so the methods are
 

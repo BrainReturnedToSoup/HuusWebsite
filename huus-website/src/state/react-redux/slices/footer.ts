@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { AppStore } from "../store";
 
-import { FooterNavLinksSet } from "../../../domain-types/navigation/footer/links/Link_Types";
+import { FooterNavLinksSet } from "../../../domain-types/navigation/footer/links/Link_DomainTypes";
 
 const footerSlice = createSlice({
   name: "footer",
@@ -12,7 +12,7 @@ const footerSlice = createSlice({
   },
 
   reducers: {
-    setNavLinksSet: (state, action): void => {
+    navLinksSet: (state, action): void => {
       state.navLinksSet = action.payload;
     },
   },

@@ -14,8 +14,3 @@ export interface ContactFormOnSubmitConstraintValidationService_Interface<
 > {
   validateInputs(container: T, instantiationId: string, submitId: string): void;
 }
-
-export type OnSubmitConstraintValidation_Lambda<T> = (
-  isValid: boolean,
-  container: T,
-) => void;
