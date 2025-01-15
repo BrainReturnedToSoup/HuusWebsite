@@ -7,10 +7,8 @@ export interface MobileNavRepository_Interface {
   setIsOpen(isOpen: boolean): void;
 
   getIsToggleDisabled(): boolean;
-  setIsToggleDisabled(isDisabled: boolean): void;
+  setIsToggleDisabled(isToggleDisabled: boolean): void;
 
   getLinksSet(): MobileNavLinksSet | null;
   setLinksSet(linksSet: MobileNavLinksSet): void;
 }
-
-

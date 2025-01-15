@@ -4,12 +4,17 @@ import { AppStore } from "../store";
 
 import { MobileNavLinksSet } from "../../../domain-types/navigation/mobile/links/Links_DomainTypes";
 
+import {
+  IsOpen,
+  IsToggleDisabled,
+} from "../../../domain-types/navigation/mobile/open-close/OpenClose_DomainTypes";
+
 const mobileNavSlice = createSlice({
   name: "mobileNav",
 
   initialState: {
-    isOpen: false as boolean,
-    isToggleDisabled: false as boolean,
+    isOpen: false as IsOpen,
+    isToggleDisabled: false as IsToggleDisabled,
 
     linksSet: null as MobileNavLinksSet | null,
   },

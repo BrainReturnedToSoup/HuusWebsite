@@ -12,6 +12,7 @@ import { Logger_Interface } from "../../../logging/Logger_Interface";
 import { Log_Interface } from "../../../logging/Log_Interface";
 
 import { MobileNavRepositoryLogKeys_Enum } from "./MobileNavRepository_Enum";
+import { IsOpen, IsToggleDisabled } from "../../../domain-types/navigation/mobile/open-close/OpenClose_DomainTypes";
 
 export interface InstanceMetaData {
   instanceId: string;
@@ -41,8 +42,8 @@ class MobileNavRepository_Impl implements MobileNavRepository_Interface {
     this.#actions = actions;
   }
 
-  getIsOpen(): boolean {
-    const isOpen: boolean = this.#selectors.isOpen(this.#store);
+  getIsOpen(): IsOpen {
+    const isOpen: IsOpen = this.#selectors.isOpen(this.#store);
 
     this.#logger
       .createNewLog()
@@ -58,7 +59,7 @@ class MobileNavRepository_Impl implements MobileNavRepository_Interface {
     return isOpen;
   }
 
-  setIsOpen(isOpen: boolean): void {
+  setIsOpen(isOpen: IsOpen): void {
     this.#store.dispatch(this.#actions.isOpen(isOpen));
 
     this.#logger
@@ -68,12 +69,15 @@ class MobileNavRepository_Impl implements MobileNavRepository_Interface {
         this.#instanceMetaData.instanceId,
       )
       .addAttribute(MobileNavRepositoryLogKeys_Enum.INVOKED_SETTER, "setIsOpen")
-      .addAttribute(MobileNavRepositoryLogKeys_Enum.RECEIVED_ARGS, `isOpen:${isOpen}`)
+      .addAttribute(
+        MobileNavRepositoryLogKeys_Enum.RECEIVED_ARGS,
+        `isOpen:${isOpen}`,
+      )
       .addAttribute(MobileNavRepositoryLogKeys_Enum.SET_VALUE, isOpen)
       .commit();
   }
 
-  getIsToggleDisabled(): boolean {
+  getIsToggleDisabled(): IsToggleDisabled {
     const isToggleDisabled = this.#selectors.isToggleDisabled(this.#store);
 
     this.#logger
@@ -86,14 +90,20 @@ class MobileNavRepository_Impl implements MobileNavRepository_Interface {
         MobileNavRepositoryLogKeys_Enum.INVOKED_GETTER,
         "getIsToggleDisabled",
       )
-      .addAttribute(MobileNavRepositoryLogKeys_Enum.OBSERVED_VALUE, isToggleDisabled)
-      .addAttribute(MobileNavRepositoryLogKeys_Enum.RETURNED_VALUE, isToggleDisabled)
+      .addAttribute(
+        MobileNavRepositoryLogKeys_Enum.OBSERVED_VALUE,
+        isToggleDisabled,
+      )
+      .addAttribute(
+        MobileNavRepositoryLogKeys_Enum.RETURNED_VALUE,
+        isToggleDisabled,
+      )
       .commit();
 
     return isToggleDisabled;
   }
 
-  setIsToggleDisabled(isDisabled: boolean): void {
+  setIsToggleDisabled(isDisabled: IsToggleDisabled): void {
     this.#store.dispatch(this.#actions.isToggleDisabled(isDisabled));
 
     this.#logger
@@ -125,9 +135,18 @@ class MobileNavRepository_Impl implements MobileNavRepository_Interface {
         MobileNavRepositoryLogKeys_Enum.INSTANCE_ID,
         this.#instanceMetaData.instanceId,
       )
-      .addAttribute(MobileNavRepositoryLogKeys_Enum.INVOKED_GETTER, "getLinksSet")
-      .addAttribute(MobileNavRepositoryLogKeys_Enum.OBSERVED_VALUE, mobileNavLinkSet)
-      .addAttribute(MobileNavRepositoryLogKeys_Enum.RETURNED_VALUE, mobileNavLinkSet)
+      .addAttribute(
+        MobileNavRepositoryLogKeys_Enum.INVOKED_GETTER,
+        "getLinksSet",
+      )
+      .addAttribute(
+        MobileNavRepositoryLogKeys_Enum.OBSERVED_VALUE,
+        mobileNavLinkSet,
+      )
+      .addAttribute(
+        MobileNavRepositoryLogKeys_Enum.RETURNED_VALUE,
+        mobileNavLinkSet,
+      )
       .commit();
 
     return mobileNavLinkSet;
@@ -142,7 +161,10 @@ class MobileNavRepository_Impl implements MobileNavRepository_Interface {
         MobileNavRepositoryLogKeys_Enum.INSTANCE_ID,
         this.#instanceMetaData.instanceId,
       )
-      .addAttribute(MobileNavRepositoryLogKeys_Enum.INVOKED_SETTER, "setLinksSet")
+      .addAttribute(
+        MobileNavRepositoryLogKeys_Enum.INVOKED_SETTER,
+        "setLinksSet",
+      )
       .addAttribute(
         MobileNavRepositoryLogKeys_Enum.RECEIVED_ARGS,
         `linksSet:${linksSet}`,
