@@ -42,8 +42,8 @@ class AppWindowWidthResizeListener_Impl
   /* event handler that binds to the given repository */
 
   #eventHandler_Repository({
-    width,
-    width_lastChangeSource,
+    viewPortWidth: width,
+    viewPortWidth_lastChangeSource: width_lastChangeSource,
   }: AppWindowSliceState): void {
     // need to add an event change source ID that is stored in the redux as well
     // this way any circular events are exited on the backswing when reading the
@@ -67,7 +67,7 @@ class AppWindowWidthResizeListener_Impl
 
     const id: StateChangeSubscriberId = crypto.randomUUID();
 
-    this.#appWindowRepository.subscribeToStateChange(
+    this.#appWindowRepository.subscribeToRepositoryStateChange(
       id,
       this.#eventHandler_Repository,
     );
@@ -87,7 +87,7 @@ class AppWindowWidthResizeListener_Impl
     const id: StateChangeSubscriberId =
       this.#appWindowRepositoryStateSubscriptionId;
 
-    this.#appWindowRepository.unsubscribeFromState(id);
+    this.#appWindowRepository.unsubscribeFromRepositoryStateChange(id);
 
     this.#appWindowRepositoryStateSubscriptionId = null;
   }
@@ -97,7 +97,7 @@ class AppWindowWidthResizeListener_Impl
   #eventHandler_Window(): void {
     const newWidth = window.innerWidth;
 
-    this.#appWindowRepository.setWidth(
+    this.#appWindowRepository.setViewPortWidth(
       newWidth,
       AppWindowChangeSources.LISTENER,
     ); // add setter source eventually like an ID

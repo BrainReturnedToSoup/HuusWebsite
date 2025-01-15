@@ -2,7 +2,7 @@ import {
   Email,
   EmailError,
   FirstName,
-  FormErrorMessage,
+  FormError,
   GeneralLocation,
   GeneralLocationError,
   InputsDisabled,
@@ -26,31 +26,31 @@ export interface ContactFormRepository_Interface {
   getEmail(): Email;
   setEmail(email: Email): void;
   getEmailError(): EmailError;
-  setEmailError(errorMessage: EmailError): void;
+  setEmailError(emailError: EmailError): void;
 
   getGeneralLocation(): GeneralLocation;
-  setGeneralLocation(location: GeneralLocation): void;
+  setGeneralLocation(generalLocation: GeneralLocation): void;
   getGeneralLocationError(): GeneralLocationError;
   setGeneralLocationError(errorMessage: GeneralLocationError): void;
 
   getServiceSelection(): ServiceSelection;
-  setServiceSelecation(selection: ServiceSelection): void;
+  setServiceSelection(serviceSelection: ServiceSelection): void;
   getServiceSelectionError(): ServiceSelectionError;
-  setServiceSelectionError(errorMessage: ServiceSelectionError): void;
+  setServiceSelectionError(serviceSelectionError: ServiceSelectionError): void;
 
   getMessage(): Message;
   setMessage(message: Message): void;
   getMessageError(): MessageError;
   setMessageError(messageError: MessageError): void;
 
-  submitIsPending(): SubmitIsPending;
-  setPendingSubmit(submitIsPending: SubmitIsPending): void;
+  getSubmitIsPending(): SubmitIsPending;
+  setSubmitIsPending(submitIsPending: SubmitIsPending): void;
 
   getSubmitSucceeded(): SubmitSucceeded;
   setSubmitSucceeded(submitSucceeded: SubmitSucceeded): void;
 
-  getFormErrorMessage(): FormErrorMessage;
-  setFormErrorMessage(formErrorMessage: FormErrorMessage): void;
+  getFormError(): FormError;
+  setFormError(formError: FormError): void;
 
   getInputsDisabled(): InputsDisabled;
   setInputsDisabled(inputsDisabled: InputsDisabled): void;

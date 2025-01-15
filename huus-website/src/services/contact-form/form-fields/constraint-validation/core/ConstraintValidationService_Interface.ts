@@ -7,7 +7,7 @@ import {
   GeneralLocation,
   Message,
   ServiceSelection,
-} from "../../../../domain-types/contact-form/ContactForm_DomainTypes";
+} from "../../../../../domain-types/contact-form/ContactForm_DomainTypes";
 
 // these do the actual pattern checking and the like, but its unopinionated in the actual internal impl
 // you can use regex or comparators or whatever
@@ -37,4 +37,3 @@ export interface ContactFormConstraintValidationService_Interface {
     submitId: string,
   ): boolean;
 }
-

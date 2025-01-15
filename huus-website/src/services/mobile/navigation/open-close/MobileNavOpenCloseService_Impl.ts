@@ -1,3 +1,5 @@
+import { Log_Interface } from "../../../../logging/Log_Interface";
+import { Logger_Interface } from "../../../../logging/Logger_Interface";
 import { MobileNavRepository_Interface } from "../../../../state/repositories/mobile-nav/MobileNavRepository_Interface";
 
 import { MobileNavOpenCloseService_Interface } from "./MobileNavOpenCloseService_Interface";
@@ -6,9 +8,14 @@ class MobileNavOpenCloseService_Impl
   implements MobileNavOpenCloseService_Interface
 {
   #mobileNavRepository: MobileNavRepository_Interface;
+  #logger: Logger_Interface<Log_Interface>;
 
-  constructor(mobileNavRepository: MobileNavRepository_Interface) {
+  constructor(
+    mobileNavRepository: MobileNavRepository_Interface,
+    logger: Logger_Interface<Log_Interface>,
+  ) {
     this.#mobileNavRepository = mobileNavRepository;
+    this.#logger = logger;
   }
 
   // the reason that the states are pulled and checked first, is because

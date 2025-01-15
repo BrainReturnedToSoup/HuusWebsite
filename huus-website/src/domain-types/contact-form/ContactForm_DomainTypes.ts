@@ -43,9 +43,9 @@ export type SubmitIsPending = boolean;
 export type SubmitSucceeded = boolean;
 
 /*
-    -form general error message box
+    -form general error, but could be extended beyond being a string
 */
-export type FormErrorMessage = string;
+export type FormError = string;
 
 /*
     -form state flag for both form fields and submission button

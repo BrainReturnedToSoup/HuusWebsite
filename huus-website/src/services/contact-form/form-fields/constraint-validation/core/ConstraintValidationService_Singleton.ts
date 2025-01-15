@@ -1,3 +1,4 @@
+import { defaultLogger } from "../../../../../logging/default/DefaultLogger_Singleton";
 import { ContactFormConstraintValidationService_Impl } from "./ConstraintValidationService_Impl";
 
 import {
@@ -13,6 +14,7 @@ const contactFormConstraintValidationService =
     validateGeneralLocation,
     validateServiceSelection,
     validateMessage,
+    defaultLogger,
   );
 
 export { contactFormConstraintValidationService };

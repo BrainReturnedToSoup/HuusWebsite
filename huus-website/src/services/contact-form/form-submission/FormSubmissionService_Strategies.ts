@@ -9,7 +9,7 @@ import {
 import { EmailJsArgs } from "../../../APIs/send-email/emailJs/sendEmail_emailJs";
 import { EmailJsConfig_Enum } from "../../../APIs/send-email/emailJs/Config_Enum";
 
-import { ConstraintViolationLabels_Enum } from "../_errors/contraint-violation/ContraintViolationLabels_Enum";
+import { ConstraintViolationLabels_Enum } from "../form-fields/constraint-validation/_util/contraint-violation/ContraintViolationLabels_Enum";
 
 const requestArgsBuilder: RequestArgsBuilder_Lambda<EmailJsArgs> = (
   contactFormRepository,
@@ -55,7 +55,7 @@ const onRequestStatusNotOk: OnRequestStatusNotOk_Lambda = (
 
   // eventually add a log that includes the two IDs along with the request status
 
-  contactFormRepository.setErrorMessage("");
+  contactFormRepository.setFormError("");
 };
 
 const onRequestErrorCaught: OnRequestErrorCaught_Lambda = (
@@ -69,7 +69,7 @@ const onRequestErrorCaught: OnRequestErrorCaught_Lambda = (
 
   // eventually add a log that includes the two IDs along with the error and its data
 
-  contactFormRepository.setErrorMessage("");
+  contactFormRepository.setFormError("");
 };
 
 const onSuccess: OnSuccess_Lambda = (
@@ -87,7 +87,7 @@ const onSuccess: OnSuccess_Lambda = (
 
   // eventually add a log that includse the two IDs along with the error and its data
 
-  contactFormRepository.setPendingSubmit(false);
+  contactFormRepository.setSubmitIsPending(false);
   contactFormRepository.setInputsDisabled(false);
 };
 

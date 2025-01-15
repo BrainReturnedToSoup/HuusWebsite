@@ -3,7 +3,9 @@ import {
   GeneralLocation,
   Message,
   ServiceSelection,
-} from "../../../../domain-types/contact-form/ContactForm_DomainTypes";
+} from "../../../../../domain-types/contact-form/ContactForm_DomainTypes";
+import { Log_Interface } from "../../../../../logging/Log_Interface";
+import { Logger_Interface } from "../../../../../logging/Logger_Interface";
 
 import { ContactFormConstraintValidationService_Interface } from "./ConstraintValidationService_Interface";
 
@@ -22,18 +24,21 @@ class ContactFormConstraintValidationService_Impl
   #validateServiceSelectionLambda: ConstraintValidation_Lambda;
   #validateMessage: ConstraintValidation_Lambda;
 
-  // add logger
+  #logger: Logger_Interface<Log_Interface>;
 
   constructor(
     validateEmailLambda: ConstraintValidation_Lambda,
     validateGeneralLocationLambda: ConstraintValidation_Lambda,
     validateServiceSelectionLambda: ConstraintValidation_Lambda,
     validateMessage: ConstraintValidation_Lambda,
+    logger: Logger_Interface<Log_Interface>,
   ) {
     this.#validateEmailLambda = validateEmailLambda;
     this.#validateGeneralLocationLambda = validateGeneralLocationLambda;
     this.#validateServiceSelectionLambda = validateServiceSelectionLambda;
     this.#validateMessage = validateMessage;
+
+    this.#logger = logger;
   }
 
   validateEmail(

@@ -1,7 +1,7 @@
 import { OnSubmitConstraintValidation_Lambda } from "./OnSubmitConstraintValidationService_Impl";
 
-import { ConstraintViolationContainer_Interface } from "../../_errors/contraint-violation/ConstraintViolationContainer_Interface";
-import { ConstraintViolationLabels_Enum } from "../../_errors/contraint-violation/ContraintViolationLabels_Enum";
+import { ConstraintViolationContainer_Interface } from "../_util/contraint-violation/ConstraintViolationContainer_Interface";
+import { ConstraintViolationLabels_Enum } from "../_util/contraint-violation/ContraintViolationLabels_Enum";
 
 // these lambdas are largely for adding specific enumerations
 // to the supplied container basically. Can't otherwise configure that

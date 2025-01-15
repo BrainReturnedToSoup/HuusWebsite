@@ -2,9 +2,9 @@ import { MobileNavOpenCloseService_Interface } from "../../../services/mobile/na
 
 import {
   MobileNavSetLinksService_Interface,
-  MobileNavLinkSetId,
-  MobileNavLinkTextMapping,
 } from "../../../services/mobile/navigation/set-links/MobileNavSetLinksService_Interface";
+
+import { MobileNavLinksSetId } from "../../../domain-types/navigation/mobile/links/Links_DomainTypes";
 
 // paired to use a generic string key so that enumerations can be switched out as it pertains to using keys
 // to evaluate the mapped link text
@@ -12,7 +12,7 @@ import {
 export interface MobileNavProps_Interface {
   mobileNavOpenCloseService: MobileNavOpenCloseService_Interface;
   mobileNavSetLinksService: MobileNavSetLinksService_Interface;
-  linkSetId: MobileNavLinkSetId;
-  linkTextMapping: MobileNavLinkTextMapping;
+  linkSetId: MobileNavLinksSetId;
+
   // add logger as prop eventually
 }

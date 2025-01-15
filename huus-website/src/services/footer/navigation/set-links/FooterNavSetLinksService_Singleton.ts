@@ -1,8 +1,9 @@
 import { FooterNavSetLinksServices_Impl } from "./FooterNavSetLinksServices_Impl";
 
-import { FooterNavLinksSets } from "../../../../domain-types/navigation/footer/links/Link_DomainTypes";
+import { FooterNavLinksSets } from "../../../../domain-types/navigation/footer/links/Links_DomainTypes";
 
 import { footerRepository } from "../../../../state/repositories/footer/FooterRepository_Singleton";
+import { defaultLogger } from "../../../../logging/default/DefaultLogger_Singleton";
 
 const FOOTER_NAV_LINK_ID = {
   TO_ROOT: "TO_ROOT",
@@ -188,6 +189,7 @@ const FOOTER_NAV_LINKS_SETS: FooterNavLinksSets = {
 const footerNavSetLinksService = new FooterNavSetLinksServices_Impl(
   footerRepository,
   FOOTER_NAV_LINKS_SETS,
+  defaultLogger,
 );
 
 export { footerNavSetLinksService, FOOTER_NAV_LINKS_SETS };

@@ -1,5 +1,5 @@
-import { ContactFormRepository_Interface } from "../../mobile/navigation/state/repositories/contact-form/ContactFormRepository_Interface";
-import { ConstraintViolationContainer_Interface } from "../_errors/contraint-violation/ConstraintViolationContainer_Interface";
+import { ContactFormRepository_Interface } from "../../../state/repositories/contact-form/ContactFormRepository_Interface";
+import { ConstraintViolationContainer_Interface } from "../form-fields/constraint-validation/_util/contraint-violation/ConstraintViolationContainer_Interface";
 
 // this service is meant to encapsulate *all* of the logic and
 // side-effects associated with submitting the contact form (i.e. constraint validation, API reqs, state updates)

@@ -42,8 +42,8 @@ class AppWindowPositionYChange_Impl
   /* event handler that binds to the given repository */
 
   #eventHandler_Repository({
-    positionY,
-    positionY_lastChangeSource,
+    viewPortPositionY: positionY,
+    viewPortPositionY_lastChangeSource: positionY_lastChangeSource,
   }: AppWindowSliceState): void {
     // need to add an event change source ID that is stored in the redux as well
     // this way any circular events are exited on the backswing when reading the
@@ -67,7 +67,7 @@ class AppWindowPositionYChange_Impl
 
     const id: StateChangeSubscriberId = crypto.randomUUID();
 
-    this.#appWindowRepository.subscribeToStateChange(
+    this.#appWindowRepository.subscribeToRepositoryStateChange(
       id,
       this.#eventHandler_Repository,
     );
@@ -87,7 +87,7 @@ class AppWindowPositionYChange_Impl
     const id: StateChangeSubscriberId =
       this.#appWindowRepositoryStateSubscriptionId;
 
-    this.#appWindowRepository.unsubscribeFromState(id);
+    this.#appWindowRepository.unsubscribeFromRepositoryStateChange(id);
 
     this.#appWindowRepositoryStateSubscriptionId = null;
   }
@@ -97,7 +97,7 @@ class AppWindowPositionYChange_Impl
   #eventHandler_Window(): void {
     const newPositionY: number = window.screenTop;
 
-    this.#appWindowRepository.setPositionY(
+    this.#appWindowRepository.setViewPortPositionY(
       newPositionY,
       AppWindowChangeSources.LISTENER,
     ); // add setter source eventually like an ID

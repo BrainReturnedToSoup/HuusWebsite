@@ -2,7 +2,7 @@ import {
   Email,
   EmailError,
   FirstName,
-  FormErrorMessage,
+  FormError,
   GeneralLocation,
   GeneralLocationError,
   InputsDisabled,
@@ -25,7 +25,6 @@ const contactFormSlice = createSlice({
   initialState: {
     // per form field. Can't use nested objects, because that messes with how
     // redux perceives state changes.
-
     firstName: "" as FirstName,
     lastName: "" as LastName,
 
@@ -44,7 +43,7 @@ const contactFormSlice = createSlice({
     // top-level state of the form.
     submitIsPending: false as SubmitIsPending,
     submitSucceeded: false as SubmitSucceeded,
-    formErrorMessage: "" as FormErrorMessage,
+    formError: "" as FormError,
     inputsDisabled: false as InputsDisabled,
     submitId: crypto.randomUUID() as SubmitId,
   },
@@ -91,8 +90,8 @@ const contactFormSlice = createSlice({
     submitSucceeded: (state, action): void => {
       state.submitSucceeded = action.payload;
     },
-    formErrorMessage: (state, action): void => {
-      state.formErrorMessage = String(action.payload);
+    formError: (state, action): void => {
+      state.formError = String(action.payload);
     },
     inputsDisabled: (state, action): void => {
       state.inputsDisabled = action.payload;
@@ -146,8 +145,8 @@ const selectors = {
   submitSucceeded: (store: AppStore): boolean => {
     return store.getState().contactForm.submitSucceeded;
   },
-  formErrorMessage: (store: AppStore): string => {
-    return store.getState().contactForm.formErrorMessage;
+  formError: (store: AppStore): string => {
+    return store.getState().contactForm.formError;
   },
   inputsDisabled: (store: AppStore): boolean => {
     return store.getState().contactForm.inputsDisabled;

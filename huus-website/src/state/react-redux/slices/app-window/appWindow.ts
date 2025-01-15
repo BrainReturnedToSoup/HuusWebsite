@@ -1,13 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppStore } from "../../store";
 import { AppWindowChangeSources } from "./appWindow_Enum";
+import {
+  ViewPortPositionY,
+  ViewPortWidth,
+} from "../../../../domain-types/app-window/AppWIndow_DomainTypes";
 
 const initialState = {
-  width: window.innerWidth as number,
-  width_lastChangeSource: AppWindowChangeSources.NONE as AppWindowChangeSources,
+  viewPortWidth: window.innerWidth as ViewPortWidth,
+  viewPortWidth_lastChangeSource:
+    AppWindowChangeSources.NONE as AppWindowChangeSources,
 
-  positionY: window.screenTop as number,
-  positionY_lastChangeSource:
+  viewPortPositionY: window.screenTop as ViewPortPositionY,
+  viewPortPositionY_lastChangeSource:
     AppWindowChangeSources.NONE as AppWindowChangeSources,
 };
 
@@ -17,69 +22,31 @@ const appWindowSlice = createSlice({
   initialState: initialState,
 
   reducers: {
-    setWidth: (state, action): void => {
-      if (typeof action.payload !== "number") {
-        throw new Error(
-          "'appWindow' reducer 'setWidth' given a payload with a type '" +
-            typeof action.payload +
-            "'. Shoud be of type 'number'",
-        );
-      }
-
-      state.width = action.payload;
+    setViewPortWidth: (state, action): void => {
+      state.viewPortWidth = action.payload;
     },
 
-    setWidth_lastChangeSource: (state, action): void => {
-      if (!(action.payload in AppWindowChangeSources)) {
-        throw new Error(
-          "'appWindow' reducer 'setWidth_lastChangeSource' given a payload not matching what exists in 'AppWindowChangeSources'. " +
-            "Received '" +
-            action.payload +
-            "' out of '" +
-            Object.values(AppWindowChangeSources) +
-            "'.",
-        );
-      }
-
-      state.width_lastChangeSource = action.payload;
+    setViewPortWidth_lastChangeSource: (state, action): void => {
+      state.viewPortWidth_lastChangeSource = action.payload;
     },
 
-    setPositionY: (state, action): void => {
-      if (typeof action.payload !== "number") {
-        throw new Error(
-          "'appWindow' reducer 'setPositionY' given a payload with a type '" +
-            typeof action.payload +
-            "'. Shoud be of type 'number'",
-        );
-      }
-
-      state.positionY = action.payload;
+    setViewPortPositionY: (state, action): void => {
+      state.viewPortPositionY = action.payload;
     },
 
-    setPositionY_lastChangeSource: (state, action): void => {
-      if (!(action.payload in AppWindowChangeSources)) {
-        throw new Error(
-          "'appWindow' reducer 'setPositionY_lastChangeSource' given a payload not matching what exists in 'AppWindowChangeSources'. " +
-            "Received '" +
-            action.payload +
-            "' out of '" +
-            Object.values(AppWindowChangeSources) +
-            "'.",
-        );
-      }
-
-      state.positionY_lastChangeSource = action.payload;
+    setViewPortPositionY_lastChangeSource: (state, action): void => {
+      state.viewPortPositionY_lastChangeSource = action.payload;
     },
   },
 });
 
 const selectors = {
-  width: (store: AppStore): number => {
-    return store.getState().appWindow.width;
+  viewPortWidth: (store: AppStore): number => {
+    return store.getState().appWindow.viewPortWidth;
   },
 
-  positionY: (store: AppStore): number => {
-    return store.getState().appWindow.positionY;
+  viewPortPositionY: (store: AppStore): number => {
+    return store.getState().appWindow.viewPortPositionY;
   },
 };
 

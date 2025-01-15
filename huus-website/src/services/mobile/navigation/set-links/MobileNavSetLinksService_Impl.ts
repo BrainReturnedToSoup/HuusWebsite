@@ -8,20 +8,25 @@ import {
   MobileNavLinksSet,
   MobileNavLinksSets,
   MobileNavLinksSetId,
-} from "../../../../domain-types/navigation/mobile/links/Link_DomainTypes";
+} from "../../../../domain-types/navigation/mobile/links/Links_DomainTypes";
+import { Logger_Interface } from "../../../../logging/Logger_Interface";
+import { Log_Interface } from "../../../../logging/Log_Interface";
 
 class MobileNavSetLinksService_Impl
   implements MobileNavSetLinksService_Interface
 {
   #mobileNavRespository: MobileNavRepository_Interface;
   #linksSets: MobileNavLinksSets;
+  #logger: Logger_Interface<Log_Interface>;
 
   constructor(
     mobileNavRepository: MobileNavRepository_Interface,
     linksSets: MobileNavLinksSets,
+    logger: Logger_Interface<Log_Interface>,
   ) {
     this.#mobileNavRespository = mobileNavRepository;
     this.#linksSets = linksSets;
+    this.#logger = logger;
   }
 
   apply(linksSetId: MobileNavLinksSetId): void {

@@ -6,22 +6,27 @@ import {
   FooterNavLinksSets,
   FooterNavLinksSetId,
   FooterNavLinksSet,
-} from "../../../../domain-types/navigation/footer/links/Link_DomainTypes";
+} from "../../../../domain-types/navigation/footer/links/Links_DomainTypes";
 
 import { FooterNavLinkSetDoesNotExist_Error } from "./_errors/LinkSetDoesNotExist_Error";
+import { Logger_Interface } from "../../../../logging/Logger_Interface";
+import { Log_Interface } from "../../../../logging/Log_Interface";
 
 class FooterNavSetLinksServices_Impl
   implements FooterNavSetLinksService_Interface
 {
   #footerRepository: FooterRepository_Interface;
   #linkSets: FooterNavLinksSets;
+  #logger: Logger_Interface<Log_Interface>;
 
   constructor(
     footerRepository: FooterRepository_Interface,
     linkSets: FooterNavLinksSets,
+    logger: Logger_Interface<Log_Interface>,
   ) {
     this.#footerRepository = footerRepository;
     this.#linkSets = linkSets;
+    this.#logger = logger;
   }
 
   apply(linkSetId: FooterNavLinksSetId): void {
@@ -35,7 +40,7 @@ class FooterNavSetLinksServices_Impl
 
     const linkSet: FooterNavLinksSet = this.#linkSets[linkSetId];
 
-    this.#footerRepository.setNavLinkSet(linkSet);
+    this.#footerRepository.setNavLinksSet(linkSet);
   }
 }
 

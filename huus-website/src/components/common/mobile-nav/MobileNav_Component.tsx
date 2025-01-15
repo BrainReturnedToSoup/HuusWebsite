@@ -1,10 +1,9 @@
 import { useSelector } from "react-redux";
 
-import { AppStoreRootState } from "../../../services/mobile/navigation/state/react-redux/store";
-
-import { MobileNavLinkSet } from "../../../services/mobile/navigation/set-links/MobileNavSetLinksService_Interface";
+import { AppStoreRootState } from "../../../state/react-redux/store";
 
 import { MobileNavProps_Interface } from "./MobileNav_Interface";
+import { MobileNavLinksSet } from "../../../domain-types/navigation/mobile/links/Links_DomainTypes";
 
 import xWhiteSVG from "../../../assets/x-white.svg";
 
@@ -13,7 +12,6 @@ export default function MobileNav({
   mobileNavSetLinksService,
 
   linkSetId,
-  linkTextMapping,
   // add logger as prop eventually
 }: MobileNavProps_Interface) {
   // these invocations below happen synchronously as per react component lifecycles.
@@ -24,18 +22,15 @@ export default function MobileNav({
 
   // add logging here that includes the above id
 
-  mobileNavSetLinksService.apply(
-    linkSetId,
-    preComponentMount_invocationId,
-  );
+  mobileNavSetLinksService.apply(linkSetId);
   mobileNavOpenCloseService.close(preComponentMount_invocationId);
 
   const isOpen: boolean = useSelector(
     (state: AppStoreRootState) => state.mobileNav.isOpen,
   );
 
-  const mobileNavLinksSet: MobileNavLinkSet | null = useSelector(
-    (state: AppStoreRootState) => state.mobileNav.links,
+  const mobileNavLinksSet: MobileNavLinksSet | null = useSelector(
+    (state: AppStoreRootState) => state.mobileNav.linksSet,
   );
 
   return isOpen ? (
@@ -69,9 +64,7 @@ export default function MobileNav({
             ? Object.entries(mobileNavLinksSet).map(([key, val]) => {
                 // local mapping from the enums module in the same namespace
                 return (
-                  <li>
-                    <a href={val}>{linkTextMapping[key]}</a>
-                  </li>
+                  // add logic for mapping the link set to actual links here
                 );
               })
             : null

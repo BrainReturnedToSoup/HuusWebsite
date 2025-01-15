@@ -1,10 +1,12 @@
 import { ContactFormOnSubmitConstraintValidationService_Interface } from "./OnSubmitConstraintValidationService_Interface";
 
-import { ConstraintViolationContainer_Interface } from "../../_errors/contraint-violation/ConstraintViolationContainer_Interface";
+import { ConstraintViolationContainer_Interface } from "../_util/contraint-violation/ConstraintViolationContainer_Interface";
 
 import { ContactFormConstraintValidationService_Interface } from "../core/ConstraintValidationService_Interface";
 
-import { ContactFormRepository_Interface } from "../../../../state/repositories/contact-form/ContactFormRepository_Interface";
+import { ContactFormRepository_Interface } from "../../../../../state/repositories/contact-form/ContactFormRepository_Interface";
+import { Logger_Interface } from "../../../../../logging/Logger_Interface";
+import { Log_Interface } from "../../../../../logging/Log_Interface";
 
 export type OnSubmitConstraintValidation_Lambda<T> = (
   isValid: boolean,
@@ -20,12 +22,12 @@ class ContactFormOnSubmitConstraintValidationService_Impl<
   #contactFormRepository: ContactFormRepository_Interface;
   #inputValidationService: ContactFormConstraintValidationService_Interface;
 
-  // logger to be added*
-
   #validateEmailLambda: OnSubmitConstraintValidation_Lambda<T>;
   #validateGeneralLocationLamda: OnSubmitConstraintValidation_Lambda<T>;
   #validateServiceSelectionLambda: OnSubmitConstraintValidation_Lambda<T>;
   #validateMessageLambda: OnSubmitConstraintValidation_Lambda<T>;
+
+  #logger: Logger_Interface<Log_Interface>;
 
   constructor(
     contactFormRepository: ContactFormRepository_Interface,
@@ -35,6 +37,8 @@ class ContactFormOnSubmitConstraintValidationService_Impl<
     validateGeneralLocationLambda: OnSubmitConstraintValidation_Lambda<T>,
     validateServiceSelectionLambda: OnSubmitConstraintValidation_Lambda<T>,
     validateMessageLambda: OnSubmitConstraintValidation_Lambda<T>,
+
+    logger: Logger_Interface<Log_Interface>,
   ) {
     this.#contactFormRepository = contactFormRepository;
     this.#inputValidationService = inputValidationService;
@@ -43,6 +47,8 @@ class ContactFormOnSubmitConstraintValidationService_Impl<
     this.#validateGeneralLocationLamda = validateGeneralLocationLambda;
     this.#validateServiceSelectionLambda = validateServiceSelectionLambda;
     this.#validateMessageLambda = validateMessageLambda;
+
+    this.#logger = logger;
   }
 
   //add method per specific input validation as a decorator and application to the container.

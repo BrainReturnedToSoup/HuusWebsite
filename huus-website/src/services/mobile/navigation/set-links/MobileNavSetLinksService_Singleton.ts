@@ -1,8 +1,9 @@
 import { MobileNavSetLinksService_Impl } from "./MobileNavSetLinksService_Impl";
 
-import { MobileNavLinksSets } from "../../../../domain-types/navigation/mobile/links/Link_DomainTypes";
+import { MobileNavLinksSets } from "../../../../domain-types/navigation/mobile/links/Links_DomainTypes";
 
 import { mobileNavRepository } from "../../../../state/repositories/mobile-nav/MobileNavRepository_Singleton";
+import { defaultLogger } from "../../../../logging/default/DefaultLogger_Singleton";
 
 const MOBILE_NAV_LINK_ID = {
   TO_ROOT: "TO_ROOT",
@@ -191,6 +192,7 @@ const MOBILE_NAV_LINK_SETS: MobileNavLinksSets = {
 const mobileNavSetLinksService = new MobileNavSetLinksService_Impl(
   mobileNavRepository,
   MOBILE_NAV_LINK_SETS,
+  defaultLogger,
 );
 
 export { mobileNavSetLinksService, MOBILE_NAV_LINK_SETS };

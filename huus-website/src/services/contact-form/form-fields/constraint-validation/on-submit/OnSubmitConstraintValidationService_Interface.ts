@@ -6,7 +6,7 @@
   to state as an additional method.
 */
 
-import { ConstraintViolationContainer_Interface } from "../../_errors/contraint-violation/ConstraintViolationContainer_Interface";
+import { ConstraintViolationContainer_Interface } from "../_util/contraint-violation/ConstraintViolationContainer_Interface";
 
 export interface ContactFormOnSubmitConstraintValidationService_Interface<
   T extends ConstraintViolationContainer_Interface<E>,

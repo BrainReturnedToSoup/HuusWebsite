@@ -8,12 +8,14 @@ import {
 } from "./FormSubmissionService_Interface";
 
 import { SendEmailAPIInterface } from "../../../APIs/send-email/sendEmailInterface";
-import { ContactFormRepository_Interface } from "../../mobile/navigation/state/repositories/contact-form/ContactFormRepository_Interface";
-import { ContactFormOnSubmitConstraintValidationService_Interface } from "../form-field-constraint-validation/on-submit/OnSubmitConstraintValidationService_Interface";
+import { ContactFormRepository_Interface } from "../../../state/repositories/contact-form/ContactFormRepository_Interface";
+import { ContactFormOnSubmitConstraintValidationService_Interface } from "../form-fields/constraint-validation/on-submit/OnSubmitConstraintValidationService_Interface";
 
-import { ConstraintViolationContainer_Interface } from "../_errors/contraint-violation/ConstraintViolationContainer_Interface";
-import { ConstraintViolationContainer_Impl } from "../_errors/contraint-violation/ConstraintViolationContainer_Impl";
-import { ConstraintViolationLabels_Enum } from "../_errors/contraint-violation/ContraintViolationLabels_Enum";
+import { ConstraintViolationContainer_Interface } from "../form-fields/constraint-validation/_util/contraint-violation/ConstraintViolationContainer_Interface";
+import { ConstraintViolationContainer_Impl } from "../form-fields/constraint-validation/_util/contraint-violation/ConstraintViolationContainer_Impl";
+import { ConstraintViolationLabels_Enum } from "../form-fields/constraint-validation/_util/contraint-violation/ContraintViolationLabels_Enum";
+import { Logger_Interface } from "../../../logging/Logger_Interface";
+import { Log_Interface } from "../../../logging/Log_Interface";
 
 // make the API call using the supplied binded fetch, and
 // handles a success or a failure by reflecting such into the corresponding
@@ -52,6 +54,8 @@ class ContactFormSubmissionService_Impl<A>
   #onRequestErrorCaught: OnRequestErrorCaught_Lambda;
   #onSuccess: OnSuccess_Lambda;
 
+  #logger: Logger_Interface<Log_Interface>;
+
   constructor(
     contactFormRepository: ContactFormRepository_Interface,
 
@@ -68,6 +72,8 @@ class ContactFormSubmissionService_Impl<A>
     onRequestStatusNotOk: OnRequestStatusNotOk_Lambda,
     onRequestErrorCaught: OnRequestErrorCaught_Lambda,
     onSuccess: OnSuccess_Lambda,
+
+    logger: Logger_Interface<Log_Interface>,
   ) {
     this.#contactFormRepository = contactFormRepository;
     this.#onSubmitConstraintValidationService =
@@ -81,6 +87,8 @@ class ContactFormSubmissionService_Impl<A>
 
     this.#onSuccess = onSuccess;
     this.#onConstraintViolation = onConstraintViolation;
+
+    this.#logger = logger;
   }
 
   #constraintValidateFormFields(
@@ -161,13 +169,13 @@ class ContactFormSubmissionService_Impl<A>
     // TO BE CHANGED **** need to add the supplying of the two IDs above
     // so that the repository can log changes as it pertains to the top level
     // invocation source.
-    if (this.#contactFormRepository.getPendingSubmit()) return; // if a submit is already pending, then early return
+    if (this.#contactFormRepository.getSubmitIsPending()) return; // if a submit is already pending, then early return
 
     // TO BE CHANGED **** need to add the supplying of the two IDs above
     // so that the repository can log changes as it pertains to the top level
     // invocation source.
     this.#contactFormRepository.setInputsDisabled(true);
-    this.#contactFormRepository.setPendingSubmit(true);
+    this.#contactFormRepository.setSubmitIsPending(true);
 
     const cvContainer =
       new ConstraintViolationContainer_Impl<ConstraintViolationLabels_Enum>(

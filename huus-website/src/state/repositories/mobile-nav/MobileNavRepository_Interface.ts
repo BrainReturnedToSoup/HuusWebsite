@@ -1,4 +1,4 @@
-import { MobileNavLinksSet } from "../../../domain-types/navigation/mobile/links/Link_DomainTypes";
+import { MobileNavLinksSet } from "../../../domain-types/navigation/mobile/links/Links_DomainTypes";
 
 // hard coupled to the concerns of the service, so the methods are
 
@@ -10,5 +10,7 @@ export interface MobileNavRepository_Interface {
   setIsToggleDisabled(isDisabled: boolean): void;
 
   getLinksSet(): MobileNavLinksSet | null;
-  setLinksSet(linkSet: MobileNavLinksSet): void;
+  setLinksSet(linksSet: MobileNavLinksSet): void;
 }
+
+
