@@ -11,22 +11,33 @@ import {
 } from "../../../../domain-types/navigation/mobile/links/Links_DomainTypes";
 import { Logger_Interface } from "../../../../logging/Logger_Interface";
 import { Log_Interface } from "../../../../logging/Log_Interface";
+import { MobileNavSetLinksServiceLogKeys_Enum } from "./MobileNavSetLinksService_Enum";
+
+export interface InstanceMetaData {
+  instanceId: string;
+}
 
 class MobileNavSetLinksService_Impl
   implements MobileNavSetLinksService_Interface
 {
-  #mobileNavRespository: MobileNavRepository_Interface;
-  #linksSets: MobileNavLinksSets;
+  #instanceMetaData: InstanceMetaData;
   #logger: Logger_Interface<Log_Interface>;
 
+  #mobileNavRespository: MobileNavRepository_Interface;
+  #linksSets: MobileNavLinksSets;
+
   constructor(
+    instanceMetaData: InstanceMetaData,
+    logger: Logger_Interface<Log_Interface>,
+
     mobileNavRepository: MobileNavRepository_Interface,
     linksSets: MobileNavLinksSets,
-    logger: Logger_Interface<Log_Interface>,
   ) {
+    this.#instanceMetaData = instanceMetaData;
+    this.#logger = logger;
+
     this.#mobileNavRespository = mobileNavRepository;
     this.#linksSets = linksSets;
-    this.#logger = logger;
   }
 
   apply(linksSetId: MobileNavLinksSetId): void {
@@ -41,9 +52,29 @@ class MobileNavSetLinksService_Impl
       throw err;
     }
 
-    const linkSet: MobileNavLinksSet = this.#linksSets[linksSetId];
+    const linksSet: MobileNavLinksSet = this.#linksSets[linksSetId];
 
-    this.#mobileNavRespository.setLinksSet(linkSet);
+    this.#logger
+      .createNewLog()
+      .addAttribute(
+        MobileNavSetLinksServiceLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(
+        MobileNavSetLinksServiceLogKeys_Enum.INVOKED_PUBLIC_METHOD,
+        "apply",
+      )
+      .addAttribute(
+        MobileNavSetLinksServiceLogKeys_Enum.RECEIVED_ARGS,
+        `linksSetId:${linksSetId}`,
+      )
+      .addAttribute(
+        MobileNavSetLinksServiceLogKeys_Enum.LINKS_SET_CHOSEN,
+        linksSet,
+      )
+      .commit();
+
+    this.#mobileNavRespository.setLinksSet(linksSet);
   }
 }
 

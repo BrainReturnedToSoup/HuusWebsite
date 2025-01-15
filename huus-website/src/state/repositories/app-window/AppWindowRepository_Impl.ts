@@ -18,7 +18,7 @@ import { Log_Interface } from "../../../logging/Log_Interface";
 import {
   ViewPortWidth,
   ViewPortPositionY,
-} from "../../../domain-types/app-window/AppWIndow_DomainTypes";
+} from "../../../domain-types/app-window/AppWindow_DomainTypes";
 import { AppWindowRepositoryLogKeys_Enum } from "./AppWindowRepository_Enum";
 
 export interface InstanceMetaData {

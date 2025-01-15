@@ -1,8 +1,12 @@
-import { MobileNavSetLinksService_Impl } from "./MobileNavSetLinksService_Impl";
+import {
+  InstanceMetaData,
+  MobileNavSetLinksService_Impl,
+} from "./MobileNavSetLinksService_Impl";
 
 import { MobileNavLinksSets } from "../../../../domain-types/navigation/mobile/links/Links_DomainTypes";
 
 import { mobileNavRepository } from "../../../../state/repositories/mobile-nav/MobileNavRepository_Singleton";
+
 import { defaultLogger } from "../../../../logging/default/DefaultLogger_Singleton";
 
 const MOBILE_NAV_LINK_ID = {
@@ -189,10 +193,16 @@ const MOBILE_NAV_LINK_SETS: MobileNavLinksSets = {
   },
 } as const;
 
+const instanceMetaData: InstanceMetaData = {
+  instanceId: "MOBILE-NAV-SET-LINKS-SERVICE-DEFAULT",
+};
+
 const mobileNavSetLinksService = new MobileNavSetLinksService_Impl(
+  instanceMetaData,
+  defaultLogger,
+
   mobileNavRepository,
   MOBILE_NAV_LINK_SETS,
-  defaultLogger,
 );
 
 export { mobileNavSetLinksService, MOBILE_NAV_LINK_SETS };
