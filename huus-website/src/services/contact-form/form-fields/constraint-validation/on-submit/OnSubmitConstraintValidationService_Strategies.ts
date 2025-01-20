@@ -1,7 +1,8 @@
-import { OnSubmitConstraintValidation_Lambda } from "./OnSubmitConstraintValidationService_Impl";
+import { OnSubmitConstraintValidationServiceLogKeys_Enum } from "./OnSubmitConstraintValidationService_Enum";
+import { OnSubmitConstraintValidation_Lambda } from "./OnSubmitConstraintValidationService_Interface";
 
-import { ConstraintViolationContainer_Interface } from "../_util/contraint-violation/ConstraintViolationContainer_Interface";
-import { ConstraintViolationLabels_Enum } from "../_util/contraint-violation/ContraintViolationLabels_Enum";
+import { ConstraintViolationContainer_Interface } from "./_util/contraint-violation/ConstraintViolationContainer_Interface";
+import { OnSubmitConstraintViolationLabels_Enum } from "./_util/contraint-violation/ContraintViolationLabels_Enum";
 
 // these lambdas are largely for adding specific enumerations
 // to the supplied container basically. Can't otherwise configure that
@@ -12,45 +13,115 @@ import { ConstraintViolationLabels_Enum } from "../_util/contraint-violation/Con
 // in the case another one supercedes it. You can also test in isolation this way.
 
 const onSubmitValidateEmail: OnSubmitConstraintValidation_Lambda<
-  ConstraintViolationContainer_Interface<ConstraintViolationLabels_Enum>
-> = (isValid, container): void => {
-  // logging here?
+  ConstraintViolationContainer_Interface<OnSubmitConstraintViolationLabels_Enum>
+> = (
+  logger,
+  invocationId,
 
-  if (!isValid) container.addViolation(ConstraintViolationLabels_Enum.EMAIL);
+  isValid,
+  container,
+): void => {
+  if (!isValid) {
+    const violation = OnSubmitConstraintViolationLabels_Enum.EMAIL;
 
-  // logging here?
+    logger
+      .createNewLog()
+      .addAttribute(
+        OnSubmitConstraintValidationServiceLogKeys_Enum.INVOCATION_ID,
+        invocationId,
+      )
+      .addAttribute(
+        OnSubmitConstraintValidationServiceLogKeys_Enum.CONSTRAINT_VIOLATION_ADDED,
+        violation,
+      )
+      .commit();
+
+    container.addViolation(violation);
+  }
 };
 
 const onSubmitValidateGeneralLocation: OnSubmitConstraintValidation_Lambda<
-  ConstraintViolationContainer_Interface<ConstraintViolationLabels_Enum>
-> = (isValid, container): void => {
-  // logging here?
+  ConstraintViolationContainer_Interface<OnSubmitConstraintViolationLabels_Enum>
+> = (
+  logger,
+  invocationId,
 
-  if (!isValid)
-    container.addViolation(ConstraintViolationLabels_Enum.GENERAL_LOCATION);
+  isValid,
+  container,
+): void => {
+  if (!isValid) {
+    const violation = OnSubmitConstraintViolationLabels_Enum.GENERAL_LOCATION;
 
-  // logging here?
+    logger
+      .createNewLog()
+      .addAttribute(
+        OnSubmitConstraintValidationServiceLogKeys_Enum.INVOCATION_ID,
+        invocationId,
+      )
+      .addAttribute(
+        OnSubmitConstraintValidationServiceLogKeys_Enum.CONSTRAINT_VIOLATION_ADDED,
+        violation,
+      )
+      .commit();
+
+    container.addViolation(violation);
+  }
 };
 
 const onSubmitValidateServiceSelection: OnSubmitConstraintValidation_Lambda<
-  ConstraintViolationContainer_Interface<ConstraintViolationLabels_Enum>
-> = (isValid, container): void => {
-  // logging here?
+  ConstraintViolationContainer_Interface<OnSubmitConstraintViolationLabels_Enum>
+> = (
+  logger,
+  invocationId,
 
-  if (!isValid)
-    container.addViolation(ConstraintViolationLabels_Enum.SERVICE_SELECTION);
+  isValid,
+  container,
+): void => {
+  if (!isValid) {
+    const violation = OnSubmitConstraintViolationLabels_Enum.SERVICE_SELECTION;
 
-  // logging here?
+    logger
+      .createNewLog()
+      .addAttribute(
+        OnSubmitConstraintValidationServiceLogKeys_Enum.INVOCATION_ID,
+        invocationId,
+      )
+      .addAttribute(
+        OnSubmitConstraintValidationServiceLogKeys_Enum.CONSTRAINT_VIOLATION_ADDED,
+        violation,
+      )
+      .commit();
+
+    container.addViolation(violation);
+  }
 };
 
 const onSubmitValidateMessage: OnSubmitConstraintValidation_Lambda<
-  ConstraintViolationContainer_Interface<ConstraintViolationLabels_Enum>
-> = (isValid, container): void => {
-  // logging here?
+  ConstraintViolationContainer_Interface<OnSubmitConstraintViolationLabels_Enum>
+> = (
+  logger,
+  invocationId,
 
-  if (!isValid) container.addViolation(ConstraintViolationLabels_Enum.MESSAGE);
+  isValid,
+  container,
+): void => {
+  if (!isValid) {
+    const violation = OnSubmitConstraintViolationLabels_Enum.MESSAGE;
 
-  // logging here?
+    logger
+      .createNewLog()
+      .addAttribute(
+        OnSubmitConstraintValidationServiceLogKeys_Enum.INVOCATION_ID,
+        invocationId,
+      )
+      .addAttribute(
+        OnSubmitConstraintValidationServiceLogKeys_Enum.CONSTRAINT_VIOLATION_ADDED,
+        violation,
+      )
+      .commit();
+
+    container.addViolation(violation);
+  }
 };
 
 export {

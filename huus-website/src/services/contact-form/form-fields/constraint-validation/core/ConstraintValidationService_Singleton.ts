@@ -1,5 +1,8 @@
 import { defaultLogger } from "../../../../../logging/default/DefaultLogger_Singleton";
-import { ContactFormConstraintValidationService_Impl } from "./ConstraintValidationService_Impl";
+import {
+  ContactFormConstraintValidationService_Impl,
+  InstanceMetaData,
+} from "./ConstraintValidationService_Impl";
 
 import {
   validateEmail,
@@ -8,13 +11,19 @@ import {
   validateMessage,
 } from "./ConstraintValidationService_Strategies";
 
+const instanceMetaData: InstanceMetaData = {
+  instanceId: "CONTACT-FORM-CONSTRAINT-VALIDATION-SERVICE-DEFAULT",
+} as const;
+
 const contactFormConstraintValidationService =
   new ContactFormConstraintValidationService_Impl(
+    instanceMetaData,
+    defaultLogger,
+
     validateEmail,
     validateGeneralLocation,
     validateServiceSelection,
     validateMessage,
-    defaultLogger,
   );
 
-export { contactFormConstraintValidationService };
+export { contactFormConstraintValidationService, instanceMetaData };

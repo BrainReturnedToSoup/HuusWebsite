@@ -9,7 +9,7 @@ import { ToggleTimeoutTimeInMs } from "./MobileNavOpenCloseService_Interface";
 
 const instanceMetaData: InstanceMetaData = {
   instanceId: "MOBILE-NAV-OPEN-CLOSE-SERVICE-DEFAULT",
-};
+} as const;
 
 const toggleTimeoutTimeInMs: ToggleTimeoutTimeInMs = 300;
 
@@ -21,4 +21,4 @@ const mobileNavOpenCloseService = new MobileNavOpenCloseService_Impl(
   toggleTimeoutTimeInMs,
 );
 
-export { mobileNavOpenCloseService };
+export { mobileNavOpenCloseService, instanceMetaData };

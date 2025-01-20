@@ -25,4 +25,4 @@ const footerRepository = new FooterRepository_Impl(
   footerSliceActions,
 );
 
-export { footerRepository };
+export { footerRepository, instanceMetaData };

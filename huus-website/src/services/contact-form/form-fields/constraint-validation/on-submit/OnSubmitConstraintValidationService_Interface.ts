@@ -1,3 +1,9 @@
+import { Logger_Interface } from "../../../../../logging/Logger_Interface";
+import { Log_Interface } from "../../../../../logging/Log_Interface";
+import { InvocationId } from "../../../../../logging/Logging_types";
+
+import { ConstraintViolationContainer_Interface } from "./_util/contraint-violation/ConstraintViolationContainer_Interface";
+
 /*
   This differs from the regular input validation, ideally wrapping around such. The premise is that this 
   just fills a container of constraint violations that are taking place. This allows a higher level application
@@ -6,11 +12,21 @@
   to state as an additional method.
 */
 
-import { ConstraintViolationContainer_Interface } from "../_util/contraint-violation/ConstraintViolationContainer_Interface";
-
 export interface ContactFormOnSubmitConstraintValidationService_Interface<
   T extends ConstraintViolationContainer_Interface<E>,
   E,
 > {
-  validateInputs(container: T, instantiationId: string, submitId: string): void;
+  validateInputs(
+    invocationId: InvocationId,
+
+    container: T,
+  ): void;
 }
+
+export type OnSubmitConstraintValidation_Lambda<T> = (
+  logger: Logger_Interface<Log_Interface>,
+  invocationId: InvocationId,
+
+  isValid: boolean,
+  container: T,
+) => void;

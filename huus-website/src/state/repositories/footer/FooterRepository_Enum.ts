@@ -1,6 +1,8 @@
 export enum FooterRepositoryLogKeys_Enum {
   INSTANCE_ID = "instance-id",
 
+  INVOCATION_ID = "invocation-id",
+
   INVOKED_GETTER = "invoked-getter",
 
   OBSERVED_VALUE = "observed-value",

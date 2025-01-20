@@ -10,7 +10,7 @@ import { defaultLogger } from "../../../logging/default/DefaultLogger_Singleton"
 
 const instanceMetaData: InstanceMetaData = {
   instanceId: "CONTACT-FORM-REPOSITORY-DEFAULT",
-};
+} as const;
 
 const contactFormRepository = new ContactFormRepository_Impl(
   instanceMetaData,
@@ -21,4 +21,4 @@ const contactFormRepository = new ContactFormRepository_Impl(
   contactFormSliceActions,
 );
 
-export { contactFormRepository };
+export { contactFormRepository, instanceMetaData };

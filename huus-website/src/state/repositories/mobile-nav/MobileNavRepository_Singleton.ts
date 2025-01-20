@@ -20,4 +20,4 @@ const mobileNavRepository = new MobileNavRepository_Impl(
   mobileNavSliceActions,
 );
 
-export { mobileNavRepository };
+export { mobileNavRepository, instanceMetaData };

@@ -12,7 +12,12 @@ import { Logger_Interface } from "../../../logging/Logger_Interface";
 import { Log_Interface } from "../../../logging/Log_Interface";
 
 import { MobileNavRepositoryLogKeys_Enum } from "./MobileNavRepository_Enum";
-import { IsOpen, IsToggleDisabled } from "../../../domain-types/navigation/mobile/open-close/OpenClose_DomainTypes";
+import {
+  IsOpen,
+  IsToggleDisabled,
+} from "../../../domain-types/navigation/mobile/open-close/OpenClose_DomainTypes";
+
+import { InvocationId } from "../../../logging/Logging_types";
 
 export interface InstanceMetaData {
   instanceId: string;
@@ -42,135 +47,140 @@ class MobileNavRepository_Impl implements MobileNavRepository_Interface {
     this.#actions = actions;
   }
 
-  getIsOpen(): IsOpen {
-    const isOpen: IsOpen = this.#selectors.isOpen(this.#store);
+  #loggingHelperForGetters(
+    invocationId: InvocationId,
 
-    this.#logger
+    methodName: string,
+    observedValue: any,
+    returnedValue: any,
+  ): Log_Interface {
+    return this.#logger
       .createNewLog()
       .addAttribute(
         MobileNavRepositoryLogKeys_Enum.INSTANCE_ID,
         this.#instanceMetaData.instanceId,
       )
-      .addAttribute(MobileNavRepositoryLogKeys_Enum.INVOKED_GETTER, "getIsOpen")
-      .addAttribute(MobileNavRepositoryLogKeys_Enum.OBSERVED_VALUE, isOpen)
-      .addAttribute(MobileNavRepositoryLogKeys_Enum.RETURNED_VALUE, isOpen)
-      .commit();
+      .addAttribute(MobileNavRepositoryLogKeys_Enum.INVOCATION_ID, invocationId)
+      .addAttribute(MobileNavRepositoryLogKeys_Enum.INVOKED_GETTER, methodName)
+      .addAttribute(
+        MobileNavRepositoryLogKeys_Enum.OBSERVED_VALUE,
+        observedValue,
+      )
+      .addAttribute(
+        MobileNavRepositoryLogKeys_Enum.RETURNED_VALUE,
+        returnedValue,
+      );
+  }
+
+  #loggingHelperForSetters(
+    invocationId: InvocationId,
+
+    methodName: string,
+    receivedArgs: string,
+    setValue: any,
+  ): Log_Interface {
+    return this.#logger
+      .createNewLog()
+      .addAttribute(
+        MobileNavRepositoryLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(MobileNavRepositoryLogKeys_Enum.INVOCATION_ID, invocationId)
+      .addAttribute(MobileNavRepositoryLogKeys_Enum.INVOKED_SETTER, methodName)
+      .addAttribute(MobileNavRepositoryLogKeys_Enum.RECEIVED_ARGS, receivedArgs)
+      .addAttribute(MobileNavRepositoryLogKeys_Enum.SET_VALUE, setValue);
+  }
+
+  getIsOpen(invocationId: InvocationId): IsOpen {
+    const isOpen: IsOpen = this.#selectors.isOpen(this.#store);
+
+    this.#loggingHelperForGetters(
+      invocationId,
+
+      "getIsOpen",
+      isOpen,
+      isOpen,
+    ).commit();
 
     return isOpen;
   }
 
-  setIsOpen(isOpen: IsOpen): void {
+  setIsOpen(
+    invocationId: InvocationId,
+
+    isOpen: IsOpen,
+  ): void {
     this.#store.dispatch(this.#actions.isOpen(isOpen));
 
-    this.#logger
-      .createNewLog()
-      .addAttribute(
-        MobileNavRepositoryLogKeys_Enum.INSTANCE_ID,
-        this.#instanceMetaData.instanceId,
-      )
-      .addAttribute(MobileNavRepositoryLogKeys_Enum.INVOKED_SETTER, "setIsOpen")
-      .addAttribute(
-        MobileNavRepositoryLogKeys_Enum.RECEIVED_ARGS,
-        `isOpen:${isOpen}`,
-      )
-      .addAttribute(MobileNavRepositoryLogKeys_Enum.SET_VALUE, isOpen)
-      .commit();
+    this.#loggingHelperForSetters(
+      invocationId,
+
+      "setIsOpen",
+      `isOpen:${isOpen}`,
+      isOpen,
+    ).commit();
   }
 
-  getIsToggleDisabled(): IsToggleDisabled {
+  getIsToggleDisabled(invocationId: InvocationId): IsToggleDisabled {
     const isToggleDisabled = this.#selectors.isToggleDisabled(this.#store);
 
-    this.#logger
-      .createNewLog()
-      .addAttribute(
-        MobileNavRepositoryLogKeys_Enum.INSTANCE_ID,
-        this.#instanceMetaData.instanceId,
-      )
-      .addAttribute(
-        MobileNavRepositoryLogKeys_Enum.INVOKED_GETTER,
-        "getIsToggleDisabled",
-      )
-      .addAttribute(
-        MobileNavRepositoryLogKeys_Enum.OBSERVED_VALUE,
-        isToggleDisabled,
-      )
-      .addAttribute(
-        MobileNavRepositoryLogKeys_Enum.RETURNED_VALUE,
-        isToggleDisabled,
-      )
-      .commit();
+    this.#loggingHelperForGetters(
+      invocationId,
+
+      "getIsToggleDisabled",
+      isToggleDisabled,
+      isToggleDisabled,
+    ).commit();
 
     return isToggleDisabled;
   }
 
-  setIsToggleDisabled(isDisabled: IsToggleDisabled): void {
+  setIsToggleDisabled(
+    invocationId: InvocationId,
+
+    isDisabled: IsToggleDisabled,
+  ): void {
     this.#store.dispatch(this.#actions.isToggleDisabled(isDisabled));
 
-    this.#logger
-      .createNewLog()
-      .addAttribute(
-        MobileNavRepositoryLogKeys_Enum.INSTANCE_ID,
-        this.#instanceMetaData.instanceId,
-      )
-      .addAttribute(
-        MobileNavRepositoryLogKeys_Enum.INVOKED_SETTER,
-        "setIsToggleDisabled",
-      )
-      .addAttribute(
-        MobileNavRepositoryLogKeys_Enum.RECEIVED_ARGS,
-        `isDisabled:${isDisabled}`,
-      )
-      .addAttribute(MobileNavRepositoryLogKeys_Enum.SET_VALUE, isDisabled)
-      .commit();
+    this.#loggingHelperForSetters(
+      invocationId,
+
+      "setIsToggleDisabled",
+      `isDisabled:${isDisabled}`,
+      isDisabled,
+    ).commit();
   }
 
-  getLinksSet(): MobileNavLinksSet | null {
+  getLinksSet(invocationId: InvocationId): MobileNavLinksSet | null {
     const mobileNavLinkSet: MobileNavLinksSet | null = this.#selectors.linksSet(
       this.#store,
     );
 
-    this.#logger
-      .createNewLog()
-      .addAttribute(
-        MobileNavRepositoryLogKeys_Enum.INSTANCE_ID,
-        this.#instanceMetaData.instanceId,
-      )
-      .addAttribute(
-        MobileNavRepositoryLogKeys_Enum.INVOKED_GETTER,
-        "getLinksSet",
-      )
-      .addAttribute(
-        MobileNavRepositoryLogKeys_Enum.OBSERVED_VALUE,
-        mobileNavLinkSet,
-      )
-      .addAttribute(
-        MobileNavRepositoryLogKeys_Enum.RETURNED_VALUE,
-        mobileNavLinkSet,
-      )
-      .commit();
+    this.#loggingHelperForGetters(
+      invocationId,
+
+      "getLinksSet",
+      mobileNavLinkSet,
+      mobileNavLinkSet,
+    ).commit();
 
     return mobileNavLinkSet;
   }
 
-  setLinksSet(linksSet: MobileNavLinksSet): void {
+  setLinksSet(
+    invocationId: InvocationId,
+
+    linksSet: MobileNavLinksSet,
+  ): void {
     this.#store.dispatch(this.#actions.linksSet(linksSet));
 
-    this.#logger
-      .createNewLog()
-      .addAttribute(
-        MobileNavRepositoryLogKeys_Enum.INSTANCE_ID,
-        this.#instanceMetaData.instanceId,
-      )
-      .addAttribute(
-        MobileNavRepositoryLogKeys_Enum.INVOKED_SETTER,
-        "setLinksSet",
-      )
-      .addAttribute(
-        MobileNavRepositoryLogKeys_Enum.RECEIVED_ARGS,
-        `linksSet:${linksSet}`,
-      )
-      .addAttribute(MobileNavRepositoryLogKeys_Enum.SET_VALUE, linksSet)
-      .commit();
+    this.#loggingHelperForSetters(
+      invocationId,
+
+      "setLinksSet",
+      `linksSet:${linksSet}`,
+      linksSet,
+    ).commit();
   }
 }
 

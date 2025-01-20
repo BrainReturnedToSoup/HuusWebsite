@@ -3,21 +3,33 @@ import { ContactFormRepository_Interface } from "../../../state/repositories/con
 import { Logger_Interface } from "../../../logging/Logger_Interface";
 import { Log_Interface } from "../../../logging/Log_Interface";
 
+export interface InstanceMetaData {
+  instanceId: string;
+}
+
 class ContactFormResetService_Impl
   implements ContactFormResetService_Interface
 {
-  #contactFormRepository: ContactFormRepository_Interface;
+  #instanceMetaData: InstanceMetaData;
   #logger: Logger_Interface<Log_Interface>;
 
+  #contactFormRepository: ContactFormRepository_Interface;
+
   constructor(
-    contactFormRepository: ContactFormRepository_Interface,
+    instanceMetaData: InstanceMetaData,
     logger: Logger_Interface<Log_Interface>,
+
+    contactFormRepository: ContactFormRepository_Interface,
   ) {
-    this.#contactFormRepository = contactFormRepository;
+    this.#instanceMetaData = instanceMetaData;
     this.#logger = logger;
+
+    this.#contactFormRepository = contactFormRepository;
   }
 
-  resetForm(): void {}
+  resetForm(): void {
+    // still need to implement
+  }
 }
 
 export { ContactFormResetService_Impl };

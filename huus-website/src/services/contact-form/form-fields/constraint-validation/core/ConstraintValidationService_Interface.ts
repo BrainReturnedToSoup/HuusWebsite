@@ -9,31 +9,33 @@ import {
   ServiceSelection,
 } from "../../../../../domain-types/contact-form/ContactForm_DomainTypes";
 
+import { InvocationId } from "../../../../../logging/Logging_types";
+
 // these do the actual pattern checking and the like, but its unopinionated in the actual internal impl
 // you can use regex or comparators or whatever
 
 export interface ContactFormConstraintValidationService_Interface {
   validateEmail(
+    invocationId: InvocationId,
+
     input: Email,
-    instantiationId: string,
-    submitId: string,
   ): boolean;
 
   validateGeneralLocation(
+    invocationId: InvocationId,
+
     input: GeneralLocation,
-    instantiationId: string,
-    submitId: string,
   ): boolean;
 
   validateServiceSelection(
+    invocationId: InvocationId,
+
     input: ServiceSelection,
-    instantiationId: string,
-    submitId: string,
   ): boolean;
 
   validateMessage(
+    invocationId: InvocationId,
+
     input: Message,
-    instantiationId: string,
-    submitId: string,
   ): boolean;
 }

@@ -1,4 +1,7 @@
-import { FooterNavSetLinksServices_Impl } from "./FooterNavSetLinksServices_Impl";
+import {
+  FooterNavSetLinksServices_Impl,
+  InstanceMetaData,
+} from "./FooterNavSetLinksServices_Impl";
 
 import { FooterNavLinksSets } from "../../../../domain-types/navigation/footer/links/Links_DomainTypes";
 
@@ -186,10 +189,24 @@ const FOOTER_NAV_LINKS_SETS: FooterNavLinksSets = {
   },
 } as const;
 
+const instanceMetaData: InstanceMetaData = {
+  instanceId: "FOOTER-NAV-SET-LINKS-SERVICE-DEFAULT",
+} as const;
+
 const footerNavSetLinksService = new FooterNavSetLinksServices_Impl(
+  instanceMetaData,
+  defaultLogger,
+
   footerRepository,
   FOOTER_NAV_LINKS_SETS,
-  defaultLogger,
 );
 
-export { footerNavSetLinksService, FOOTER_NAV_LINKS_SETS };
+export {
+  footerNavSetLinksService,
+  instanceMetaData,
+  FOOTER_NAV_LINKS_SETS,
+  FOOTER_NAV_LINKS_SET_ID,
+  FOOTER_NAV_LINK_ID,
+  FOOTER_NAV_LINK_TEXT,
+  FOOTER_NAV_LINK_ROUTES,
+};

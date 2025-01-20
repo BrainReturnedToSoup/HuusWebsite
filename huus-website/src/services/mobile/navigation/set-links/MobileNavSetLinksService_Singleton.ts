@@ -195,7 +195,7 @@ const MOBILE_NAV_LINK_SETS: MobileNavLinksSets = {
 
 const instanceMetaData: InstanceMetaData = {
   instanceId: "MOBILE-NAV-SET-LINKS-SERVICE-DEFAULT",
-};
+} as const;
 
 const mobileNavSetLinksService = new MobileNavSetLinksService_Impl(
   instanceMetaData,
@@ -205,4 +205,12 @@ const mobileNavSetLinksService = new MobileNavSetLinksService_Impl(
   MOBILE_NAV_LINK_SETS,
 );
 
-export { mobileNavSetLinksService, MOBILE_NAV_LINK_SETS };
+export {
+  mobileNavSetLinksService,
+  instanceMetaData,
+  MOBILE_NAV_LINK_SETS,
+  MOBILE_NAV_LINK_SET_ID,
+  MOBILE_NAV_LINK_ID,
+  MOBILE_NAV_LINK_TEXT,
+  MOBILE_NAV_LINK_ROUTES,
+};

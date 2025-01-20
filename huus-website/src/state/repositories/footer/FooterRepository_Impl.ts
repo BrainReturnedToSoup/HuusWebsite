@@ -11,6 +11,7 @@ import { FooterRepository_Interface } from "./FooterRepository_Interface";
 import { Logger_Interface } from "../../../logging/Logger_Interface";
 import { Log_Interface } from "../../../logging/Log_Interface";
 import { FooterRepositoryLogKeys_Enum } from "./FooterRepository_Enum";
+import { InvocationId } from "../../../logging/Logging_types";
 
 export interface InstanceMetaData {
   instanceId: string;
@@ -40,7 +41,7 @@ class FooterRepository_Impl implements FooterRepository_Interface {
     this.#actions = actions;
   }
 
-  getNavLinksSet(): FooterNavLinksSet | null {
+  getNavLinksSet(invocationId: InvocationId): FooterNavLinksSet | null {
     const footerNavLinksSet: FooterNavLinksSet | null =
       this.#selectors.navLinksSet(this.#store);
 
@@ -50,15 +51,29 @@ class FooterRepository_Impl implements FooterRepository_Interface {
         FooterRepositoryLogKeys_Enum.INSTANCE_ID,
         this.#instanceMetaData.instanceId,
       )
-      .addAttribute(FooterRepositoryLogKeys_Enum.INVOKED_GETTER, "getNavLinksSet")
-      .addAttribute(FooterRepositoryLogKeys_Enum.OBSERVED_VALUE, footerNavLinksSet)
-      .addAttribute(FooterRepositoryLogKeys_Enum.RETURNED_VALUE, footerNavLinksSet)
+      .addAttribute(FooterRepositoryLogKeys_Enum.INVOCATION_ID, invocationId)
+      .addAttribute(
+        FooterRepositoryLogKeys_Enum.INVOKED_GETTER,
+        "getNavLinksSet",
+      )
+      .addAttribute(
+        FooterRepositoryLogKeys_Enum.OBSERVED_VALUE,
+        footerNavLinksSet,
+      )
+      .addAttribute(
+        FooterRepositoryLogKeys_Enum.RETURNED_VALUE,
+        footerNavLinksSet,
+      )
       .commit();
 
     return footerNavLinksSet;
   }
 
-  setNavLinksSet(linksSet: FooterNavLinksSet): void {
+  setNavLinksSet(
+    invocationId: InvocationId,
+
+    linksSet: FooterNavLinksSet,
+  ): void {
     this.#store.dispatch(this.#actions.navLinksSet(linksSet));
 
     this.#logger
@@ -67,8 +82,15 @@ class FooterRepository_Impl implements FooterRepository_Interface {
         FooterRepositoryLogKeys_Enum.INSTANCE_ID,
         this.#instanceMetaData.instanceId,
       )
-      .addAttribute(FooterRepositoryLogKeys_Enum.INVOKED_SETTER, "setNavLinksSet")
-      .addAttribute(FooterRepositoryLogKeys_Enum.RECEIVED_ARGS, `linksSet:${linksSet}`)
+      .addAttribute(FooterRepositoryLogKeys_Enum.INVOCATION_ID, invocationId)
+      .addAttribute(
+        FooterRepositoryLogKeys_Enum.INVOKED_SETTER,
+        "setNavLinksSet",
+      )
+      .addAttribute(
+        FooterRepositoryLogKeys_Enum.RECEIVED_ARGS,
+        `linksSet:${linksSet}`,
+      )
       .addAttribute(FooterRepositoryLogKeys_Enum.SET_VALUE, linksSet)
       .commit();
   }

@@ -1,3 +1,5 @@
+import { InvocationId } from "../../../logging/Logging_types";
+
 import {
   Email,
   EmailError,
@@ -17,44 +19,100 @@ import {
 } from "../../../domain-types/contact-form/ContactForm_DomainTypes";
 
 export interface ContactFormRepository_Interface {
-  getFirstName(): FirstName;
-  setFirstName(firstName: FirstName): void;
+  getFirstName(invocationId: InvocationId): FirstName;
+  setFirstName(
+    invocationId: InvocationId,
 
-  getLastName(): LastName;
-  setLastName(lastName: LastName): void;
+    firstName: FirstName,
+  ): void;
 
-  getEmail(): Email;
-  setEmail(email: Email): void;
-  getEmailError(): EmailError;
-  setEmailError(emailError: EmailError): void;
+  getLastName(invocationId: InvocationId): LastName;
+  setLastName(invocationId: InvocationId, lastName: LastName): void;
 
-  getGeneralLocation(): GeneralLocation;
-  setGeneralLocation(generalLocation: GeneralLocation): void;
-  getGeneralLocationError(): GeneralLocationError;
-  setGeneralLocationError(errorMessage: GeneralLocationError): void;
+  getEmail(invocationId: InvocationId): Email;
+  setEmail(
+    invocationId: InvocationId,
 
-  getServiceSelection(): ServiceSelection;
-  setServiceSelection(serviceSelection: ServiceSelection): void;
-  getServiceSelectionError(): ServiceSelectionError;
-  setServiceSelectionError(serviceSelectionError: ServiceSelectionError): void;
+    email: Email,
+  ): void;
+  getEmailError(invocationId: InvocationId): EmailError;
+  setEmailError(
+    invocationId: InvocationId,
 
-  getMessage(): Message;
-  setMessage(message: Message): void;
-  getMessageError(): MessageError;
-  setMessageError(messageError: MessageError): void;
+    emailError: EmailError,
+  ): void;
 
-  getSubmitIsPending(): SubmitIsPending;
-  setSubmitIsPending(submitIsPending: SubmitIsPending): void;
+  getGeneralLocation(invocationId: InvocationId): GeneralLocation;
+  setGeneralLocation(
+    invocationId: InvocationId,
 
-  getSubmitSucceeded(): SubmitSucceeded;
-  setSubmitSucceeded(submitSucceeded: SubmitSucceeded): void;
+    generalLocation: GeneralLocation,
+  ): void;
+  getGeneralLocationError(invocationId: InvocationId): GeneralLocationError;
+  setGeneralLocationError(
+    invocationId: InvocationId,
 
-  getFormError(): FormError;
-  setFormError(formError: FormError): void;
+    errorMessage: GeneralLocationError,
+  ): void;
 
-  getInputsDisabled(): InputsDisabled;
-  setInputsDisabled(inputsDisabled: InputsDisabled): void;
+  getServiceSelection(invocationId: InvocationId): ServiceSelection;
+  setServiceSelection(
+    invocationId: InvocationId,
 
-  getSubmitId(): SubmitId;
-  setSubmitId(id: SubmitId): void;
+    serviceSelection: ServiceSelection,
+  ): void;
+  getServiceSelectionError(invocationId: InvocationId): ServiceSelectionError;
+  setServiceSelectionError(
+    invocationId: InvocationId,
+
+    serviceSelectionError: ServiceSelectionError,
+  ): void;
+
+  getMessage(invocationId: InvocationId): Message;
+  setMessage(
+    invocationId: InvocationId,
+
+    message: Message,
+  ): void;
+  getMessageError(invocationId: InvocationId): MessageError;
+  setMessageError(
+    invocationId: InvocationId,
+
+    messageError: MessageError,
+  ): void;
+
+  getSubmitIsPending(invocationId: InvocationId): SubmitIsPending;
+  setSubmitIsPending(
+    invocationId: InvocationId,
+
+    submitIsPending: SubmitIsPending,
+  ): void;
+
+  getSubmitSucceeded(invocationId: InvocationId): SubmitSucceeded;
+  setSubmitSucceeded(
+    invocationId: InvocationId,
+
+    submitSucceeded: SubmitSucceeded,
+  ): void;
+
+  getFormError(invocationId: InvocationId): FormError;
+  setFormError(
+    invocationId: InvocationId,
+
+    formError: FormError,
+  ): void;
+
+  getInputsDisabled(invocationId: InvocationId): InputsDisabled;
+  setInputsDisabled(
+    invocationId: InvocationId,
+
+    inputsDisabled: InputsDisabled,
+  ): void;
+
+  getSubmitId(invocationId: InvocationId): SubmitId;
+  setSubmitId(
+    invocationId: InvocationId,
+
+    submitId: SubmitId,
+  ): void;
 }

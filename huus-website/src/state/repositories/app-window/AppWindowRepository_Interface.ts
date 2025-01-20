@@ -1,3 +1,4 @@
+import { InvocationId } from "../../../logging/Logging_types";
 import { AppWindowSliceState } from "../../react-redux/slices/app-window/appWindow";
 import { AppWindowChangeSources } from "../../react-redux/slices/app-window/appWindow_Enum";
 
@@ -8,21 +9,32 @@ export type StateChangeSubscriber_Lambda = (
 ) => void;
 
 export interface AppWindowRepository_Interface {
-  getViewPortWidth(): number;
-  setViewPortWidth(width: number, changeSource: AppWindowChangeSources): void;
+  getViewPortWidth(invocationId: InvocationId): number;
+  setViewPortWidth(
+    invocationId: InvocationId,
 
-  getViewPortPositionY(): number;
+    width: number,
+    changeSource: AppWindowChangeSources,
+  ): void;
+
+  getViewPortPositionY(invocationId: InvocationId): number;
   setViewPortPositionY(
+    invocationId: InvocationId,
+
     positionY: number,
     changeSource: AppWindowChangeSources,
   ): void;
 
   subscribeToRepositoryStateChange(
+    invocationid: InvocationId,
+
     subscriberId: StateChangeSubscriberId,
     callback: StateChangeSubscriber_Lambda,
   ): void;
 
   unsubscribeFromRepositoryStateChange(
+    invocationId: InvocationId,
+
     subscriberId: StateChangeSubscriberId,
   ): void;
 }

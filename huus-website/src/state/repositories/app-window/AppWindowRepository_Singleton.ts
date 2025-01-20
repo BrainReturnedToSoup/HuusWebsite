@@ -10,7 +10,7 @@ import { defaultLogger } from "../../../logging/default/DefaultLogger_Singleton"
 
 const instanceMetaData: InstanceMetaData = {
   instanceId: "APP-WINDOW-REPOSITORY-DEFAULT",
-};
+} as const;
 
 const appWindowRepository = new AppWindowRepository_Impl(
   instanceMetaData,
@@ -21,4 +21,4 @@ const appWindowRepository = new AppWindowRepository_Impl(
   appWindowSliceActions,
 );
 
-export { appWindowRepository };
+export { appWindowRepository, instanceMetaData };

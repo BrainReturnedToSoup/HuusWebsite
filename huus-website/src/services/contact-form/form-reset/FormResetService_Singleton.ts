@@ -1,12 +1,21 @@
-import { ContactFormResetService_Impl } from "./FormResetService_Impl";
+import {
+  ContactFormResetService_Impl,
+  InstanceMetaData,
+} from "./FormResetService_Impl";
 
 // dependencies
 import { contactFormRepository } from "../../../state/repositories/contact-form/ContactFormRepository_Singleton";
 import { defaultLogger } from "../../../logging/default/DefaultLogger_Singleton";
 
+const instanceMetaData: InstanceMetaData = {
+  instanceId: "CONTACT-FORM-RESET-SERVICE-DEFAULT",
+} as const;
+
 const contactFormResetService = new ContactFormResetService_Impl(
-  contactFormRepository,
+  instanceMetaData,
   defaultLogger,
+
+  contactFormRepository,
 );
 
-export { contactFormResetService };
+export { contactFormResetService, instanceMetaData };

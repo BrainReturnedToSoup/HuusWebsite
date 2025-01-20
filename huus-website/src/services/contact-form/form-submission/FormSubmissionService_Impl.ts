@@ -1,5 +1,5 @@
 import {
-  RequestArgsBuilder_Lambda,
+  RequestArgsFactory_Lambda,
   ContactFormSubmissionService_Interface,
   OnRequestStatusNotOk_Lambda,
   OnRequestErrorCaught_Lambda,
@@ -11,11 +11,18 @@ import { SendEmailAPIInterface } from "../../../APIs/send-email/sendEmailInterfa
 import { ContactFormRepository_Interface } from "../../../state/repositories/contact-form/ContactFormRepository_Interface";
 import { ContactFormOnSubmitConstraintValidationService_Interface } from "../form-fields/constraint-validation/on-submit/OnSubmitConstraintValidationService_Interface";
 
-import { ConstraintViolationContainer_Interface } from "../form-fields/constraint-validation/_util/contraint-violation/ConstraintViolationContainer_Interface";
-import { ConstraintViolationContainer_Impl } from "../form-fields/constraint-validation/_util/contraint-violation/ConstraintViolationContainer_Impl";
-import { ConstraintViolationLabels_Enum } from "../form-fields/constraint-validation/_util/contraint-violation/ContraintViolationLabels_Enum";
+import { ConstraintViolationContainer_Interface } from "../form-fields/constraint-validation/on-submit/_util/contraint-violation/ConstraintViolationContainer_Interface";
+import { ConstraintViolationContainer_Impl } from "../form-fields/constraint-validation/on-submit/_util/contraint-violation/ConstraintViolationContainer_Impl";
+import { OnSubmitConstraintViolationLabels_Enum } from "../form-fields/constraint-validation/on-submit/_util/contraint-violation/ContraintViolationLabels_Enum";
 import { Logger_Interface } from "../../../logging/Logger_Interface";
 import { Log_Interface } from "../../../logging/Log_Interface";
+import { InvocationId } from "../../../logging/Logging_types";
+import {
+  SubmitId,
+  SubmitIsPending,
+} from "../../../domain-types/contact-form/ContactForm_DomainTypes";
+
+import { FormSubmissionServiceLogKeys_Enum } from "./FormSubmissionService_Enum";
 
 // make the API call using the supplied binded fetch, and
 // handles a success or a failure by reflecting such into the corresponding
@@ -32,136 +39,190 @@ import { Log_Interface } from "../../../logging/Log_Interface";
   so no point to make them generics
 */
 
+export interface InstanceMetaData {
+  instanceId: string;
+}
+
 class ContactFormSubmissionService_Impl<A>
   implements ContactFormSubmissionService_Interface
 {
+  #instanceMetaData: InstanceMetaData;
+  #logger: Logger_Interface<Log_Interface>;
+
   #contactFormRepository: ContactFormRepository_Interface;
 
   // for validating the form fields by add a flag to a container for each field with a violation, but not immediately
   // propagating or 'commiting' those errors just yet. This container will be available for use by the corresponding strategy lambda
   #onSubmitConstraintValidationService: ContactFormOnSubmitConstraintValidationService_Interface<
-    ConstraintViolationContainer_Interface<ConstraintViolationLabels_Enum>, // the specific violation container to use
-    ConstraintViolationLabels_Enum // the specific keywords to use within the given violation container
+    ConstraintViolationContainer_Interface<OnSubmitConstraintViolationLabels_Enum>, // the specific violation container to use
+    OnSubmitConstraintViolationLabels_Enum // the specific keywords to use within the given violation container
   >;
 
   #sendEmailAPI: SendEmailAPIInterface<A>;
 
   // strategy lambdas for each stage in the lifecycle of 'submitContactForm'
-  // these members are organized from top to bottom in the order they should execute it *if they happen*
-  #onConstraintViolation: OnConstraintViolation_Lambda<ConstraintViolationLabels_Enum>;
-  #requestArgsBuilder: RequestArgsBuilder_Lambda<A>;
+  // these members are organized from top to bottom in the order they should execute (if applicable of course)
+  #onConstraintViolation: OnConstraintViolation_Lambda<OnSubmitConstraintViolationLabels_Enum>;
+  #requestArgsFactory: RequestArgsFactory_Lambda<A>;
   #onRequestStatusNotOk: OnRequestStatusNotOk_Lambda;
   #onRequestErrorCaught: OnRequestErrorCaught_Lambda;
   #onSuccess: OnSuccess_Lambda;
 
-  #logger: Logger_Interface<Log_Interface>;
-
   constructor(
+    instanceMetaData: InstanceMetaData,
+    logger: Logger_Interface<Log_Interface>,
+
     contactFormRepository: ContactFormRepository_Interface,
-
     onSubmitConstraintValidationService: ContactFormOnSubmitConstraintValidationService_Interface<
-      ConstraintViolationContainer_Interface<ConstraintViolationLabels_Enum>,
-      ConstraintViolationLabels_Enum
+      ConstraintViolationContainer_Interface<OnSubmitConstraintViolationLabels_Enum>,
+      OnSubmitConstraintViolationLabels_Enum
     >,
-
     sendEmailAPI: SendEmailAPIInterface<A>,
 
-    // organized in order of possibly happening
-    onConstraintViolation: OnConstraintViolation_Lambda<ConstraintViolationLabels_Enum>,
-    requestArgsBuilder: RequestArgsBuilder_Lambda<A>,
+    onConstraintViolation: OnConstraintViolation_Lambda<OnSubmitConstraintViolationLabels_Enum>,
+    requestArgsFactory: RequestArgsFactory_Lambda<A>,
     onRequestStatusNotOk: OnRequestStatusNotOk_Lambda,
     onRequestErrorCaught: OnRequestErrorCaught_Lambda,
     onSuccess: OnSuccess_Lambda,
-
-    logger: Logger_Interface<Log_Interface>,
   ) {
+    this.#instanceMetaData = instanceMetaData;
+    this.#logger = logger;
+
     this.#contactFormRepository = contactFormRepository;
     this.#onSubmitConstraintValidationService =
       onSubmitConstraintValidationService;
-
     this.#sendEmailAPI = sendEmailAPI;
 
-    this.#requestArgsBuilder = requestArgsBuilder;
+    this.#onConstraintViolation = onConstraintViolation;
+    this.#requestArgsFactory = requestArgsFactory;
     this.#onRequestStatusNotOk = onRequestStatusNotOk;
     this.#onRequestErrorCaught = onRequestErrorCaught;
-
     this.#onSuccess = onSuccess;
-    this.#onConstraintViolation = onConstraintViolation;
-
-    this.#logger = logger;
   }
 
   #constraintValidateFormFields(
-    cvContainer: ConstraintViolationContainer_Interface<ConstraintViolationLabels_Enum>,
-    instantiationId: string,
-    submitId: string,
+    invocationId: InvocationId,
+
+    cvContainer: ConstraintViolationContainer_Interface<OnSubmitConstraintViolationLabels_Enum>,
   ): void {
     // run though all of the validator methods, which add lambdas automatically
-    // to the supplied error container.
+    // to the supplied error container. The constraint validation service has its own copy of the reference to the same underlying repository.
     this.#onSubmitConstraintValidationService.validateInputs(
+      invocationId,
+
       cvContainer,
-      instantiationId,
-      submitId,
     );
   }
 
-  async #makeRequest(
-    instantiationId: string,
-    submitId: string,
+  // returns a boolean for early return in the main public method this is invoked within. The lambdas are invoked as
+  // origin, so this allows early returns in this way.
+  #makeRequest(
+    invocationId: InvocationId,
+    submitId: SubmitId,
   ): Promise<boolean> {
-    let requestSuccessful: boolean = true;
+    // get the args from the the repository to match the schema as defined in the generic
+    const args: A = this.#requestArgsFactory(
+      this.#logger,
+      invocationId,
 
-    try {
-      // get the args from the the repository to match the schema as defined in the generic
-      const args = this.#requestArgsBuilder(this.#contactFormRepository);
+      submitId,
+      this.#contactFormRepository,
+    );
 
-      const res = await this.#sendEmailAPI.sendWithTimeout(
-        args,
-        3000,
-        instantiationId,
-        submitId,
-      );
+    // using the more traditional fluent pattern here, because it allows me to apply a logging pattern right after the promise is technically created, but before it's
+    // returned from this particular method.
+    const res = this.#sendEmailAPI
+      .sendWithTimeout(args, 3000, invocationId, submitId)
+      .then((res) => {
+        if (res.status != 200) {
+          this.#onRequestStatusNotOk(
+            this.#logger,
+            invocationId,
+            submitId,
 
-      if (res.status != 200) {
-        // if not 200 OK then add an error lambda
-        this.#onRequestStatusNotOk(
-          res.status,
-          this.#contactFormRepository,
-          instantiationId,
+            res.status,
+            this.#contactFormRepository,
+          );
+
+          return false;
+        }
+
+        return true;
+      })
+      .catch((error) => {
+        if (!(error instanceof Error)) {
+          throw new Error(
+            "Error thrown by form submission request is not an object extending from 'Error'.",
+          );
+        }
+
+        this.#onRequestErrorCaught(
+          this.#logger,
+          invocationId,
+
           submitId,
+          error,
+          this.#contactFormRepository,
         );
 
-        requestSuccessful = false;
-      }
-    } catch (error) {
-      if (!(error instanceof Error)) throw new Error();
+        return false;
+      });
 
-      this.#onRequestErrorCaught(
-        error,
-        this.#contactFormRepository,
-        instantiationId,
-        submitId,
-      );
+    this.#logger
+      .createNewLog()
+      .addAttribute(
+        FormSubmissionServiceLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(
+        FormSubmissionServiceLogKeys_Enum.INVOCATION_ID,
+        invocationId,
+      )
+      .addAttribute(FormSubmissionServiceLogKeys_Enum.SUBMIT_ID, submitId)
+      .addAttribute(
+        FormSubmissionServiceLogKeys_Enum.INVOKED_PRIVATE_METHOD,
+        "makeRequest",
+      )
+      .commit();
 
-      requestSuccessful = false;
-    }
-
-    return requestSuccessful;
+    return res;
   }
 
-  async submitContactForm(): Promise<void> {
+  async submitForm(invocationId: InvocationId): Promise<void> {
     // using an ID already in the repository, because this ID only changes if a previous submission
     // succeeds. For event sourcing and idempotent handling.
-    const instantiationId = crypto.randomUUID(); // ID for each execution of 'submitContactForm' basically, which 'submitId'
+    // ID for each execution of 'submitContactForm' basically, which 'submitId'
     // stays the same in the case of some type of error
 
     // since the submitId stays the same when there is an error, its saved into the repository for potential cross
-    // execution reuse, but may be changed upon success.
+    // execution reuse, but may be changed upon success of a given request. This allows requests to be associated with unique and semantic actions made by
+    // the user, which means more resilience when it comes to actions as they travel across the network.
 
-    // TO BE CHANGED **** need to add the supplying the instantiation ID above
-    // so that the repository can log changes as it pertains to the top level
-    // invocation source.
-    const submitId = this.#contactFormRepository.getSubmitId(); // to handle submission idempotently up stream
+    const submitId = this.#contactFormRepository.getSubmitId(invocationId); // to handle submission idempotently up stream
+
+    const submitIsPending: SubmitIsPending =
+      this.#contactFormRepository.getSubmitIsPending(invocationId);
+
+    this.#logger
+      .createNewLog()
+      .addAttribute(
+        FormSubmissionServiceLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(
+        FormSubmissionServiceLogKeys_Enum.INVOCATION_ID,
+        invocationId,
+      )
+      .addAttribute(FormSubmissionServiceLogKeys_Enum.SUBMIT_ID, submitId)
+      .addAttribute(
+        FormSubmissionServiceLogKeys_Enum.INVOKED_PUBLIC_METHOD,
+        "submitContactForm",
+      )
+      .addAttribute(
+        FormSubmissionServiceLogKeys_Enum.IS_SUBMIT_PENDING,
+        submitIsPending,
+      )
+      .commit();
 
     // stage redux so that the form is disabled and in a pending state, not just
     // the async side of things.
@@ -169,50 +230,90 @@ class ContactFormSubmissionService_Impl<A>
     // TO BE CHANGED **** need to add the supplying of the two IDs above
     // so that the repository can log changes as it pertains to the top level
     // invocation source.
-    if (this.#contactFormRepository.getSubmitIsPending()) return; // if a submit is already pending, then early return
+    if (submitIsPending) return; // if a submit is already pending, then early return
 
     // TO BE CHANGED **** need to add the supplying of the two IDs above
     // so that the repository can log changes as it pertains to the top level
     // invocation source.
-    this.#contactFormRepository.setInputsDisabled(true);
-    this.#contactFormRepository.setSubmitIsPending(true);
+    this.#contactFormRepository.setInputsDisabled(invocationId, true);
+    this.#contactFormRepository.setSubmitIsPending(invocationId, true);
 
     const cvContainer =
-      new ConstraintViolationContainer_Impl<ConstraintViolationLabels_Enum>(
-        instantiationId,
+      new ConstraintViolationContainer_Impl<OnSubmitConstraintViolationLabels_Enum>(
+        invocationId,
         submitId,
       );
 
-    this.#constraintValidateFormFields(cvContainer, instantiationId, submitId);
+    this.#constraintValidateFormFields(
+      invocationId,
 
-    if (!cvContainer.hasNoViolations()) {
+      cvContainer,
+    );
+
+    const hasNoViolations: boolean = cvContainer.hasNoViolations();
+
+    this.#logger
+      .createNewLog()
+      .addAttribute(
+        FormSubmissionServiceLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(FormSubmissionServiceLogKeys_Enum.SUBMIT_ID, submitId)
+      .addAttribute(
+        FormSubmissionServiceLogKeys_Enum.INVOKED_PUBLIC_METHOD,
+        "submitContactForm",
+      )
+      .addAttribute(
+        FormSubmissionServiceLogKeys_Enum.HAS_NO_CONSTRAINTS_VIOLATED,
+        hasNoViolations,
+      )
+      .commit();
+
+    if (!hasNoViolations) {
       this.#onConstraintViolation(
+        this.#logger,
+        invocationId,
+        submitId,
+
         cvContainer,
         this.#contactFormRepository,
-        instantiationId,
-        submitId,
       );
 
       return;
     }
 
-    const requestSuccessful: boolean = await this.#makeRequest(
-      instantiationId,
+    const requestIsSuccessful: boolean = await this.#makeRequest(
+      invocationId,
       submitId,
     );
 
-    if (!requestSuccessful) return; // error handled internally through strategy pattern
+    this.#logger
+      .createNewLog()
+      .addAttribute(
+        FormSubmissionServiceLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(FormSubmissionServiceLogKeys_Enum.SUBMIT_ID, submitId)
+      .addAttribute(
+        FormSubmissionServiceLogKeys_Enum.INVOKED_PUBLIC_METHOD,
+        "submitContactForm",
+      )
+      .addAttribute(
+        FormSubmissionServiceLogKeys_Enum.REQUEST_SUCCESSFUL,
+        requestIsSuccessful,
+      )
+      .commit();
 
-    // leave the re-enabling of the form up to the lambda
-    this.#onSuccess(this.#contactFormRepository, instantiationId, submitId);
+    if (!requestIsSuccessful) return; // issues with request handled internally already, so early exit
+
+    this.#onSuccess(
+      this.#logger,
+      invocationId,
+      submitId,
+
+      this.#contactFormRepository,
+    ); // leave the re-enabling of the form up to the lambda
   }
 }
-
-/*
-
-  EVENTUALLY SUPPLY THE LOGGER IN THE CLASS INSTANCE TO EACH LAMBDA SO THEY CAN
-  IMPLEMENT LOGGING WHEREVER. THEY HAVE ALL OF THE CONTEXT TO DO SO.
-
-*/
 
 export { ContactFormSubmissionService_Impl };

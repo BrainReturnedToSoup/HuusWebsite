@@ -4,4 +4,6 @@ export interface ConstraintViolationContainer_Interface<T> {
   hasNoViolations(): boolean;
 
   containsViolation(viocation: T): boolean;
+
+  toString(): string;
 }

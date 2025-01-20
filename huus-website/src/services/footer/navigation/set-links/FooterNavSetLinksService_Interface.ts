@@ -1,5 +1,10 @@
 import { FooterNavLinksSetId } from "../../../../domain-types/navigation/footer/links/Links_DomainTypes";
+import { InvocationId } from "../../../../logging/Logging_types";
 
 export interface FooterNavSetLinksService_Interface {
-  apply(linkSetId: FooterNavLinksSetId): void; // should be defined via schemas injected into the constructor. FUTURE ME FIGURE IT OUT
+  applyLinksSet(
+    invocationId: InvocationId,
+
+    linksSetId: FooterNavLinksSetId,
+  ): void; // should be defined via schemas injected into the constructor. FUTURE ME FIGURE IT OUT
 }

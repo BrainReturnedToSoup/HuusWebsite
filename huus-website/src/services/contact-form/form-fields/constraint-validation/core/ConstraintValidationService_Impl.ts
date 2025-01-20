@@ -4,8 +4,12 @@ import {
   Message,
   ServiceSelection,
 } from "../../../../../domain-types/contact-form/ContactForm_DomainTypes";
+
 import { Log_Interface } from "../../../../../logging/Log_Interface";
 import { Logger_Interface } from "../../../../../logging/Logger_Interface";
+
+import { InvocationId } from "../../../../../logging/Logging_types";
+import { ConstraintValidationServiceLogKeys_Enum } from "./ConstraintValidationService_Enum";
 
 import { ContactFormConstraintValidationService_Interface } from "./ConstraintValidationService_Interface";
 
@@ -14,85 +18,144 @@ import { ContactFormConstraintValidationService_Interface } from "./ConstraintVa
 // will be responsible for either directly invoking some type of state change to
 // the repository, or adding a lambda to be executed later.
 
-export type ConstraintValidation_Lambda = (input: string) => boolean;
+export type ConstraintValidation_Lambda = (
+  logger: Logger_Interface<Log_Interface>,
+  invocationId: InvocationId,
+
+  input: string,
+) => boolean;
+
+export interface InstanceMetaData {
+  instanceId: string;
+}
 
 class ContactFormConstraintValidationService_Impl
   implements ContactFormConstraintValidationService_Interface
 {
+  #instanceMetaData: InstanceMetaData;
+  #logger: Logger_Interface<Log_Interface>;
+
   #validateEmailLambda: ConstraintValidation_Lambda;
   #validateGeneralLocationLambda: ConstraintValidation_Lambda;
   #validateServiceSelectionLambda: ConstraintValidation_Lambda;
   #validateMessage: ConstraintValidation_Lambda;
 
-  #logger: Logger_Interface<Log_Interface>;
-
   constructor(
+    instanceMetaData: InstanceMetaData,
+    logger: Logger_Interface<Log_Interface>,
+
     validateEmailLambda: ConstraintValidation_Lambda,
     validateGeneralLocationLambda: ConstraintValidation_Lambda,
     validateServiceSelectionLambda: ConstraintValidation_Lambda,
     validateMessage: ConstraintValidation_Lambda,
-    logger: Logger_Interface<Log_Interface>,
   ) {
+    this.#instanceMetaData = instanceMetaData;
+    this.#logger = logger;
+
     this.#validateEmailLambda = validateEmailLambda;
     this.#validateGeneralLocationLambda = validateGeneralLocationLambda;
     this.#validateServiceSelectionLambda = validateServiceSelectionLambda;
     this.#validateMessage = validateMessage;
+  }
 
-    this.#logger = logger;
+  // simple helper to reduce repetition on certain logging patterns considered more standard in the
+  // given impl. Does not commit the log though, so to let the source of the log have final control on commit.
+  // This allows the point of origin to add additional attributes if necessary.
+  #loggingHelper(
+    invocationId: InvocationId,
+    
+    invokedPublicMethod: string,
+    isValid: boolean,
+  ): Log_Interface {
+    return this.#logger
+      .createNewLog()
+      .addAttribute(
+        ConstraintValidationServiceLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(
+        ConstraintValidationServiceLogKeys_Enum.INVOCATION_ID,
+        invocationId,
+      )
+      .addAttribute(
+        ConstraintValidationServiceLogKeys_Enum.INVOKED_PUBLIC_METHOD,
+        invokedPublicMethod,
+      )
+      .addAttribute(ConstraintValidationServiceLogKeys_Enum.IS_VALID, isValid);
   }
 
   validateEmail(
+    invocationId: InvocationId,
+
     input: Email,
-    instantiationId: string,
-    submitId: string,
   ): boolean {
-    // prior logging ?
+    const isValid = this.#validateEmailLambda(
+      this.#logger,
+      invocationId,
 
-    const isValid = this.#validateEmailLambda(input);
+      input,
+    );
 
-    // after logging ?
+    this.#loggingHelper(invocationId, "validateEmail", isValid).commit();
 
     return isValid;
   }
 
   validateGeneralLocation(
+    invocationId: InvocationId,
+
     input: GeneralLocation,
-    instantiationId: string,
-    submitId: string,
   ): boolean {
-    // prior logging ?
+    const isValid = this.#validateGeneralLocationLambda(
+      this.#logger,
+      invocationId,
 
-    const isValid = this.#validateGeneralLocationLambda(input);
+      input,
+    );
 
-    // after logging ?
+    this.#loggingHelper(
+      invocationId,
+      "validateGeneralLocation",
+      isValid,
+    ).commit();
 
     return isValid;
   }
 
   validateServiceSelection(
+    invocationId: InvocationId,
+
     input: ServiceSelection,
-    instantiationId: string,
-    submitId: string,
   ): boolean {
-    // prior logging ?
+    const isValid = this.#validateServiceSelectionLambda(
+      this.#logger,
+      invocationId,
 
-    const isValid = this.#validateServiceSelectionLambda(input);
+      input,
+    );
 
-    // after logging ?
+    this.#loggingHelper(
+      invocationId,
+      "validateServiceSelection",
+      isValid,
+    ).commit();
 
     return isValid;
   }
 
   validateMessage(
+    invocationId: InvocationId,
+
     input: Message,
-    instantiationId: string,
-    submitId: string,
   ): boolean {
-    // prior logging ?
+    const isValid = this.#validateMessage(
+      this.#logger,
+      invocationId,
 
-    const isValid = this.#validateMessage(input);
+      input,
+    );
 
-    // after logging ?
+    this.#loggingHelper(invocationId, "validateMessage", isValid).commit();
 
     return isValid;
   }

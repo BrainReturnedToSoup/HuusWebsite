@@ -16,6 +16,7 @@ import {
   IsOpen,
   IsToggleDisabled,
 } from "../../../../domain-types/navigation/mobile/open-close/OpenClose_DomainTypes";
+import { InvocationId } from "../../../../logging/Logging_types";
 
 export interface InstanceMetaData {
   instanceId: string;
@@ -44,10 +45,10 @@ class MobileNavOpenCloseService_Impl
     this.#toggleTimeoutTimeInMs = toggleTimeoutTimeInMs;
   }
 
-  open(): void {
-    const isOpen: IsOpen = this.#mobileNavRepository.getIsOpen();
+  open(invocationId: InvocationId): void {
+    const isOpen: IsOpen = this.#mobileNavRepository.getIsOpen(invocationId);
     const isToggleDisabled: IsToggleDisabled =
-      this.#mobileNavRepository.getIsToggleDisabled();
+      this.#mobileNavRepository.getIsToggleDisabled(invocationId);
 
     const targetEndState: IsOpen = false;
 
@@ -57,6 +58,10 @@ class MobileNavOpenCloseService_Impl
       .addAttribute(
         MobileNavOpenCloseServiceLogKeys_Enum.INSTANCE_ID,
         this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(
+        MobileNavOpenCloseServiceLogKeys_Enum.INVOCATION_ID,
+        invocationId,
       )
       .addAttribute(
         MobileNavOpenCloseServiceLogKeys_Enum.INVOKED_PUBLIC_METHOD,
@@ -70,11 +75,24 @@ class MobileNavOpenCloseService_Impl
         // free to make the necessary transition here, while also setting a timeout so that the toggle is disabled for
         // a small amount of time.
 
-        this.#mobileNavRepository.setIsOpen(targetEndState);
-        this.#mobileNavRepository.setIsToggleDisabled(true);
+        this.#mobileNavRepository.setIsOpen(
+          invocationId,
+
+          targetEndState,
+        );
+
+        this.#mobileNavRepository.setIsToggleDisabled(
+          invocationId,
+
+          true,
+        );
 
         setTimeout(() => {
-          this.#mobileNavRepository.setIsToggleDisabled(false);
+          this.#mobileNavRepository.setIsToggleDisabled(
+            invocationId,
+
+            false,
+          );
         }, this.#toggleTimeoutTimeInMs);
 
         log.addAttribute(
@@ -112,10 +130,10 @@ class MobileNavOpenCloseService_Impl
     log.commit();
   }
 
-  close(): void {
-    const isOpen: IsOpen = this.#mobileNavRepository.getIsOpen();
+  close(invocationId: InvocationId): void {
+    const isOpen: IsOpen = this.#mobileNavRepository.getIsOpen(invocationId);
     const isToggleDisabled: IsToggleDisabled =
-      this.#mobileNavRepository.getIsToggleDisabled();
+      this.#mobileNavRepository.getIsToggleDisabled(invocationId);
 
     const targetEndState: IsOpen = true;
 
@@ -125,6 +143,10 @@ class MobileNavOpenCloseService_Impl
       .addAttribute(
         MobileNavOpenCloseServiceLogKeys_Enum.INSTANCE_ID,
         this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(
+        MobileNavOpenCloseServiceLogKeys_Enum.INVOCATION_ID,
+        invocationId,
       )
       .addAttribute(
         MobileNavOpenCloseServiceLogKeys_Enum.INVOKED_PUBLIC_METHOD,
@@ -138,11 +160,24 @@ class MobileNavOpenCloseService_Impl
         // free to make the necessary transition here, while also setting a timeout so that the toggle is disabled for
         // a small amount of time.
 
-        this.#mobileNavRepository.setIsOpen(targetEndState);
-        this.#mobileNavRepository.setIsToggleDisabled(true);
+        this.#mobileNavRepository.setIsOpen(
+          invocationId,
+
+          targetEndState,
+        );
+
+        this.#mobileNavRepository.setIsToggleDisabled(
+          invocationId,
+
+          true,
+        );
 
         setTimeout(() => {
-          this.#mobileNavRepository.setIsToggleDisabled(false);
+          this.#mobileNavRepository.setIsToggleDisabled(
+            invocationId,
+
+            false,
+          );
         }, this.#toggleTimeoutTimeInMs);
 
         log.addAttribute(
@@ -179,7 +214,5 @@ class MobileNavOpenCloseService_Impl
     log.commit();
   }
 }
-
-// NEED TO ADD LOGGER AND ID INJECTION
 
 export { MobileNavOpenCloseService_Impl };

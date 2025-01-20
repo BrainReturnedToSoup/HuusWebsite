@@ -12,6 +12,7 @@ import {
 import { Logger_Interface } from "../../../../logging/Logger_Interface";
 import { Log_Interface } from "../../../../logging/Log_Interface";
 import { MobileNavSetLinksServiceLogKeys_Enum } from "./MobileNavSetLinksService_Enum";
+import { InvocationId } from "../../../../logging/Logging_types";
 
 export interface InstanceMetaData {
   instanceId: string;
@@ -40,7 +41,11 @@ class MobileNavSetLinksService_Impl
     this.#linksSets = linksSets;
   }
 
-  apply(linksSetId: MobileNavLinksSetId): void {
+  apply(
+    invocationId: InvocationId,
+
+    linksSetId: MobileNavLinksSetId,
+  ): void {
     // based on the link set ID, apply the schema to the repository on the proper member(s)
     // should be efficient since the schema is an object, which is technically a hash map
 
@@ -61,6 +66,10 @@ class MobileNavSetLinksService_Impl
         this.#instanceMetaData.instanceId,
       )
       .addAttribute(
+        MobileNavSetLinksServiceLogKeys_Enum.INVOCATION_ID,
+        invocationId,
+      )
+      .addAttribute(
         MobileNavSetLinksServiceLogKeys_Enum.INVOKED_PUBLIC_METHOD,
         "apply",
       )
@@ -69,12 +78,16 @@ class MobileNavSetLinksService_Impl
         `linksSetId:${linksSetId}`,
       )
       .addAttribute(
-        MobileNavSetLinksServiceLogKeys_Enum.LINKS_SET_CHOSEN,
+        MobileNavSetLinksServiceLogKeys_Enum.CHOSEN_LINKS_SET,
         linksSet,
       )
       .commit();
 
-    this.#mobileNavRespository.setLinksSet(linksSet);
+    this.#mobileNavRespository.setLinksSet(
+      invocationId,
+
+      linksSet,
+    );
   }
 }
 

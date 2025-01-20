@@ -1,7 +1,5 @@
-export enum MobileNavSetLinksServiceLogKeys_Enum {
+export enum FooterNavSetLinksServiceLogKeys_Enum {
   INSTANCE_ID = "instance-id",
-
-  INVOCATION_ID = "invocation-id",
 
   INVOKED_PUBLIC_METHOD = "invoked-public-method",
 

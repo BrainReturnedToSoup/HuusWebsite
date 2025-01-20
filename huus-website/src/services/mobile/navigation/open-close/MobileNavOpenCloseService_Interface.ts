@@ -1,7 +1,9 @@
-export interface MobileNavOpenCloseService_Interface {
-  open(): void;
+import { InvocationId } from "../../../../logging/Logging_types";
 
-  close(): void;
+export interface MobileNavOpenCloseService_Interface {
+  open(invocationId: InvocationId): void;
+
+  close(invocationId: InvocationId): void;
 }
 
 export type ToggleTimeoutTimeInMs = number;

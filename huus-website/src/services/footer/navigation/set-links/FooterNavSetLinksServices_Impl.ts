@@ -11,26 +11,42 @@ import {
 import { FooterNavLinkSetDoesNotExist_Error } from "./_errors/LinkSetDoesNotExist_Error";
 import { Logger_Interface } from "../../../../logging/Logger_Interface";
 import { Log_Interface } from "../../../../logging/Log_Interface";
+import { FooterNavSetLinksServiceLogKeys_Enum } from "./FooterNavSetLinksService_Enum";
+import { InvocationId } from "../../../../logging/Logging_types";
+
+export interface InstanceMetaData {
+  instanceId: string;
+}
 
 class FooterNavSetLinksServices_Impl
   implements FooterNavSetLinksService_Interface
 {
-  #footerRepository: FooterRepository_Interface;
-  #linkSets: FooterNavLinksSets;
+  #instanceMetaData: InstanceMetaData;
   #logger: Logger_Interface<Log_Interface>;
 
+  #footerRepository: FooterRepository_Interface;
+  #linkSets: FooterNavLinksSets;
+
   constructor(
+    instanceMetaData: InstanceMetaData,
+    logger: Logger_Interface<Log_Interface>,
+
     footerRepository: FooterRepository_Interface,
     linkSets: FooterNavLinksSets,
-    logger: Logger_Interface<Log_Interface>,
   ) {
+    this.#instanceMetaData = instanceMetaData;
+    this.#logger = logger;
+
     this.#footerRepository = footerRepository;
     this.#linkSets = linkSets;
-    this.#logger = logger;
   }
 
-  apply(linkSetId: FooterNavLinksSetId): void {
-    if (!(linkSetId in this.#linkSets)) {
+  applyLinksSet(
+    invocationId: InvocationId,
+
+    linksSetId: FooterNavLinksSetId,
+  ): void {
+    if (!(linksSetId in this.#linkSets)) {
       const err = new FooterNavLinkSetDoesNotExist_Error();
 
       // add meta data before throwing
@@ -38,9 +54,33 @@ class FooterNavSetLinksServices_Impl
       throw err;
     }
 
-    const linkSet: FooterNavLinksSet = this.#linkSets[linkSetId];
+    const linksSet: FooterNavLinksSet = this.#linkSets[linksSetId];
 
-    this.#footerRepository.setNavLinksSet(linkSet);
+    this.#logger
+      .createNewLog()
+      .addAttribute(
+        FooterNavSetLinksServiceLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(
+        FooterNavSetLinksServiceLogKeys_Enum.INVOKED_PUBLIC_METHOD,
+        "applyLinksSet",
+      )
+      .addAttribute(
+        FooterNavSetLinksServiceLogKeys_Enum.RECEIVED_ARGS,
+        `linksSetId:${linksSetId}`,
+      )
+      .addAttribute(
+        FooterNavSetLinksServiceLogKeys_Enum.CHOSEN_LINKS_SET,
+        linksSet,
+      )
+      .commit();
+
+    this.#footerRepository.setNavLinksSet(
+      invocationId,
+
+      linksSet,
+    );
   }
 }
 

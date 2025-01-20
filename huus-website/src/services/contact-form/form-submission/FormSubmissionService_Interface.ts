@@ -1,12 +1,18 @@
 import { ContactFormRepository_Interface } from "../../../state/repositories/contact-form/ContactFormRepository_Interface";
-import { ConstraintViolationContainer_Interface } from "../form-fields/constraint-validation/_util/contraint-violation/ConstraintViolationContainer_Interface";
+import { ConstraintViolationContainer_Interface } from "../form-fields/constraint-validation/on-submit/_util/contraint-violation/ConstraintViolationContainer_Interface";
+
+import { InvocationId } from "../../../logging/Logging_types";
+import { Log_Interface } from "../../../logging/Log_Interface";
+import { Logger_Interface } from "../../../logging/Logger_Interface";
+
+import { SubmitId } from "../../../domain-types/contact-form/ContactForm_DomainTypes";
 
 // this service is meant to encapsulate *all* of the logic and
 // side-effects associated with submitting the contact form (i.e. constraint validation, API reqs, state updates)
 // Thus, the API invoked by the React components can be no-arg and void return.
 
 export interface ContactFormSubmissionService_Interface {
-  submitContactForm(): void;
+  submitForm(invocationId: InvocationId): void;
 }
 
 // Lambdas that are meant to act as strategies on 'what to do' at various
@@ -19,32 +25,44 @@ export interface ContactFormSubmissionService_Interface {
 // organized in the order that they are to possibly happen top to bottom
 
 export type OnConstraintViolation_Lambda<E> = (
+  logger: Logger_Interface<Log_Interface>,
+  invocationId: InvocationId,
+
+  submitId: SubmitId,
   constraintViolationContainer: ConstraintViolationContainer_Interface<E>,
   contactFormRepository: ContactFormRepository_Interface,
-  instantiationId: string,
-  submitId: string,
 ) => void;
 
-export type RequestArgsBuilder_Lambda<A> = (
+export type RequestArgsFactory_Lambda<A> = (
+  logger: Logger_Interface<Log_Interface>,
+  invocationId: InvocationId,
+
+  submitId: SubmitId,
   contactFormRepository: ContactFormRepository_Interface,
 ) => A;
 
 export type OnRequestStatusNotOk_Lambda = (
+  logger: Logger_Interface<Log_Interface>,
+  invocationId: InvocationId,
+
+  submitId: SubmitId,
   responseStatus: string | number,
   contactFormRepository: ContactFormRepository_Interface,
-  instantiationId: string,
-  submitId: string,
 ) => void;
 
 export type OnRequestErrorCaught_Lambda = (
+  logger: Logger_Interface<Log_Interface>,
+  invocationId: InvocationId,
+
+  submitId: SubmitId,
   error: Error,
   contactFormRepository: ContactFormRepository_Interface,
-  instantiationId: string,
-  submitId: string,
 ) => void;
 
 export type OnSuccess_Lambda = (
+  logger: Logger_Interface<Log_Interface>,
+  invocationId: InvocationId,
+
+  submitId: SubmitId,
   contactFormRepository: ContactFormRepository_Interface,
-  instantiationId: string,
-  submitId: string,
 ) => void;

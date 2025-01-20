@@ -1,4 +1,7 @@
-import { ContactFormSubmissionService_Impl } from "./FormSubmissionService_Impl";
+import {
+  ContactFormSubmissionService_Impl,
+  InstanceMetaData,
+} from "./FormSubmissionService_Impl";
 
 import { contactFormRepository } from "../../../state/repositories/contact-form/ContactFormRepository_Singleton";
 import { contactFormOnSubmitConstraintValidationService } from "../form-fields/constraint-validation/on-submit/OnSubmitConstraintValidationService_Singleton";
@@ -9,26 +12,33 @@ import {
 } from "../../../APIs/send-email/emailJs/sendEmail_emailJs";
 
 import {
-  requestArgsBuilder,
+  onConstraintViolation,
+  requestArgsFactory,
   onRequestStatusNotOk,
   onRequestErrorCaught,
   onSuccess,
-  onConstraintViolation,
 } from "./FormSubmissionService_Strategies";
 
 import { defaultLogger } from "../../../logging/default/DefaultLogger_Singleton";
 
+const instanceMetaData: InstanceMetaData = {
+  instanceId: "CONTACT-FORM-SUBMISSION-SERVICE-DEFAULT",
+} as const;
+
 const contactFormSubmissionService =
   new ContactFormSubmissionService_Impl<EmailJsArgs>(
+    instanceMetaData,
+    defaultLogger,
+
     contactFormRepository,
     contactFormOnSubmitConstraintValidationService,
     sendEmail_emailJs,
+
     onConstraintViolation,
-    requestArgsBuilder,
+    requestArgsFactory,
     onRequestStatusNotOk,
     onRequestErrorCaught,
     onSuccess,
-    defaultLogger,
   );
 
-export { contactFormSubmissionService };
+export { contactFormSubmissionService, instanceMetaData };

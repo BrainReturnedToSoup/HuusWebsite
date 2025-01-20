@@ -1,3 +1,5 @@
+import { InvocationId } from "../../../logging/Logging_types";
+
 export interface ContactFormResetService_Interface {
-  resetForm(): void;
+  resetForm(invocationId: InvocationId): void;
 }
