@@ -9,13 +9,13 @@ import {
   MobileNavLinksSets,
   MobileNavLinksSetId,
 } from "../../../../domain-types/navigation/mobile/links/Links_DomainTypes";
-import { Logger_Interface } from "../../../../logging/Logger_Interface";
-import { Log_Interface } from "../../../../logging/Log_Interface";
+import { Logger_Interface } from "../../../../logging/logger/Logger_Interface";
+import { Log_Interface } from "../../../../logging/logger/Log_Interface";
 import { MobileNavSetLinksServiceLogKeys_Enum } from "./MobileNavSetLinksService_Enum";
-import { InvocationId } from "../../../../logging/Logging_types";
+import { InstanceId, InvocationId } from "../../../../logging/Logging_types";
 
 export interface InstanceMetaData {
-  instanceId: string;
+  instanceId: InstanceId;
 }
 
 class MobileNavSetLinksService_Impl

@@ -19,7 +19,7 @@ import {
   onSuccess,
 } from "./FormSubmissionService_Strategies";
 
-import { defaultLogger } from "../../../logging/default/DefaultLogger_Singleton";
+import { defaultLogger } from "../../../logging/logger/default/DefaultLogger_Singleton";
 
 const instanceMetaData: InstanceMetaData = {
   instanceId: "CONTACT-FORM-SUBMISSION-SERVICE-DEFAULT",

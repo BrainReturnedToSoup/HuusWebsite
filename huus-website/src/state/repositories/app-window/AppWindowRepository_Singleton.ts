@@ -6,7 +6,7 @@ import {
 import { appStore } from "../../react-redux/store";
 import { appWindowSliceSelectors } from "../../react-redux/slices/app-window/appWindow";
 import { appWindowSliceActions } from "../../react-redux/slices/app-window/appWindow";
-import { defaultLogger } from "../../../logging/default/DefaultLogger_Singleton";
+import { defaultLogger } from "../../../logging/logger/default/DefaultLogger_Singleton";
 
 const instanceMetaData: InstanceMetaData = {
   instanceId: "APP-WINDOW-REPOSITORY-DEFAULT",

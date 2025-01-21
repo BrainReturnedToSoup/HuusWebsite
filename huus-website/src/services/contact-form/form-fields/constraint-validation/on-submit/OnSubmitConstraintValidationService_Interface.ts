@@ -1,5 +1,5 @@
-import { Logger_Interface } from "../../../../../logging/Logger_Interface";
-import { Log_Interface } from "../../../../../logging/Log_Interface";
+import { Logger_Interface } from "../../../../../logging/logger/Logger_Interface";
+import { Log_Interface } from "../../../../../logging/logger/Log_Interface";
 import { InvocationId } from "../../../../../logging/Logging_types";
 
 import { ConstraintViolationContainer_Interface } from "./_util/contraint-violation/ConstraintViolationContainer_Interface";

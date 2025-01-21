@@ -15,7 +15,7 @@ import {
   onSubmitValidateServiceSelection,
   onSubmitValidateMessage,
 } from "./OnSubmitConstraintValidationService_Strategies";
-import { defaultLogger } from "../../../../../logging/default/DefaultLogger_Singleton";
+import { defaultLogger } from "../../../../../logging/logger/default/DefaultLogger_Singleton";
 
 const instanceMetaData: InstanceMetaData = {
   instanceId: "CONTACT-FORM-ON-SUBMIT-CONSTRAINT-VALIDATION-SERVICE-DEFAULT",

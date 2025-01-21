@@ -14,8 +14,8 @@ import { SubscriberDoesNotExist_Error } from "../_errors/SubscriberDoesNotExist_
 import { SubscriberAlreadyExists_Error } from "../_errors/SubscriberAlreadyExists_Error";
 import { AppWindowChangeSources } from "../../react-redux/slices/app-window/appWindow_Enum";
 
-import { Logger_Interface } from "../../../logging/Logger_Interface";
-import { Log_Interface } from "../../../logging/Log_Interface";
+import { Logger_Interface } from "../../../logging/logger/Logger_Interface";
+import { Log_Interface } from "../../../logging/logger/Log_Interface";
 
 import {
   ViewPortWidth,

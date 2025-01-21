@@ -22,13 +22,7 @@ export class Log_Impl implements Log_Interface {
     //... logic to add key value pair to a instance level data structure
 
     if (key in this.#logAttributes) {
-      // error thrown from here not sure exactly yet though
-
-      const error = new LogAttributeAlreadyExists_Error();
-
-      // add meta data potentially
-
-      throw error;
+      throw new LogAttributeAlreadyExists_Error(`attemptedKey:${key}`);
     }
 
     this.#logAttributes[key] = val;
@@ -38,13 +32,9 @@ export class Log_Impl implements Log_Interface {
 
   commit(): void {
     if (this.#commited) {
-      // error thrown from here not sure exactly yet though
-
-      const error = new LogAlreadyCommitted_Error();
-
-      // add meta data potentially
-
-      throw error;
+      throw new LogAlreadyCommitted_Error(
+        `logAttributes:${String(this.#logAttributes)}`,
+      );
     }
 
     this.#commited = true;

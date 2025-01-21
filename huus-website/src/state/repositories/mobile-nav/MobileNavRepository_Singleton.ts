@@ -6,7 +6,7 @@ import {
 import { appStore } from "../../react-redux/store";
 import { mobileNavSliceSelectors } from "../../react-redux/slices/mobileNav";
 import { mobileNavSliceActions } from "../../react-redux/slices/mobileNav";
-import { defaultLogger } from "../../../logging/default/DefaultLogger_Singleton";
+import { defaultLogger } from "../../../logging/logger/default/DefaultLogger_Singleton";
 
 const instanceMetaData: InstanceMetaData = {
   instanceId: "MOBILE-NAV-REPOSITORY-DEFAULT",

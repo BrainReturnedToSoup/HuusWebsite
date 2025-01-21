@@ -7,7 +7,7 @@ import { MobileNavLinksSets } from "../../../../domain-types/navigation/mobile/l
 
 import { mobileNavRepository } from "../../../../state/repositories/mobile-nav/MobileNavRepository_Singleton";
 
-import { defaultLogger } from "../../../../logging/default/DefaultLogger_Singleton";
+import { defaultLogger } from "../../../../logging/logger/default/DefaultLogger_Singleton";
 
 const MOBILE_NAV_LINK_ID = {
   TO_ROOT: "TO_ROOT",

@@ -1,4 +1,7 @@
-import { AppWindowWidthResizeListener_Interface } from "./AppWindowWidthResize_Interface";
+import {
+  AppWindowWidthResizeListener_Interface,
+  WindowListenerEventHandler_Lambda,
+} from "./AppWindowWidthResize_Interface";
 
 import {
   AppWindowRepository_Interface,
@@ -12,37 +15,47 @@ import { AppWindowSliceState } from "../../../react-redux/slices/app-window/appW
 import { AppWindowChangeSources } from "../../../react-redux/slices/app-window/appWindow_Enum";
 
 import { LISTENER_TYPE } from "./AppWindowWidthResize_Interface";
+import { InstanceId, InvocationId } from "../../../../logging/Logging_types";
+import { Logger_Interface } from "../../../../logging/logger/Logger_Interface";
+import { Log_Interface } from "../../../../logging/logger/Log_Interface";
+import { AppWindowWidthResizeListenerLogKeys_Enum } from "./AppWIndowWidthResizeListener_Enum";
+
+export interface InstanceMetaData {
+  instanceId: InstanceId;
+}
 
 class AppWindowWidthResizeListener_Impl
   implements AppWindowWidthResizeListener_Interface
 {
+  #instanceMetaData: InstanceMetaData;
+  #logger: Logger_Interface<Log_Interface>;
+
   #appWindowRepository: AppWindowRepository_Interface;
-
   #appWindowRepositoryStateSubscriptionId: StateChangeSubscriberId | null;
+  #windowListenerEventHandler: WindowListenerEventHandler_Lambda | null;
 
-  // simple flag for keeping state, which its more for predictability and traceability.
-  // in reality, appending listeners to the window in this way, its unique based on the combination
-  // of the type of event, the specific handler callback, and potential options. However, the add or removal
-  // definitions are idempotent, so its hard to ensure that a specific lifecycle is actually happening.
-  // this is where this flag comes in for system correctness rather than actually being a listener failsafe
-  #appWindowStateBinded: boolean;
+  constructor(
+    instanceMetaData: InstanceMetaData,
+    logger: Logger_Interface<Log_Interface>,
 
-  constructor(appWindowRepository: AppWindowRepository_Interface) {
+    appWindowRepository: AppWindowRepository_Interface,
+  ) {
+    this.#instanceMetaData = instanceMetaData;
+    this.#logger = logger;
+
     this.#appWindowRepository = appWindowRepository;
-
-    // need to use local flag since no returned ID, window event listeners have implicit
-    // uniqueness based on combination of the instances' given properties
-    this.#appWindowStateBinded = false;
 
     // this is a custom pub/sub reactive system, which returns an ID on subscription,
     // so the existence of the subscription ID represents true, and of course non-existence means false
     this.#appWindowRepositoryStateSubscriptionId = null;
+
+    this.#windowListenerEventHandler = null;
   }
 
   /* event handler that binds to the given repository */
 
-  #eventHandler_Repository({
-    viewPortWidth: width,
+  #eventHandler_ListeningToRepository({
+    viewPortWidth: newWindowInnerWidth,
     viewPortWidth_lastChangeSource: width_lastChangeSource,
   }: AppWindowSliceState): void {
     // need to add an event change source ID that is stored in the redux as well
@@ -52,87 +65,178 @@ class AppWindowWidthResizeListener_Impl
     if (width_lastChangeSource !== AppWindowChangeSources.LISTENER) {
       // if the last change to the 'width' property in the app window slice was NOT due to this listener itself.
       // if so, then apply that state value to the actual window object.
-      window.resizeTo(width, window.innerHeight); // WILL CAUSE ASSOCIATED EVENT LISTENERS TO FIRE BE CAREFUL
+
+      this.#logger
+        .createNewLog()
+        .addAttribute(
+          AppWindowWidthResizeListenerLogKeys_Enum.INSTANCE_ID,
+          this.#instanceMetaData.instanceId,
+        )
+        .addAttribute(
+          AppWindowWidthResizeListenerLogKeys_Enum.NEW_WINDOW_INNER_WIDTH,
+          newWindowInnerWidth,
+        )
+        .commit();
+
+      window.resizeTo(newWindowInnerWidth, window.innerHeight); // WILL CAUSE ASSOCIATED EVENT LISTENERS TO FIRE BE CAREFUL
     }
   }
 
-  bindListener_Repository(): void {
+  bindListener_Repository(invocationId: InvocationId): void {
     if (this.#appWindowRepositoryStateSubscriptionId !== null) {
-      const err = new ListenerAlreadyBinded_Error();
-
-      // maybe add more stuff to err like meta data or something idk not finalized yet
-
-      throw err;
+      throw new ListenerAlreadyBinded_Error("type:repository");
     }
 
-    const id: StateChangeSubscriberId = crypto.randomUUID();
+    const subscriberId: StateChangeSubscriberId = crypto.randomUUID();
 
     this.#appWindowRepository.subscribeToRepositoryStateChange(
-      id,
-      this.#eventHandler_Repository,
+      invocationId,
+
+      subscriberId,
+      this.#eventHandler_ListeningToRepository,
     );
 
-    this.#appWindowRepositoryStateSubscriptionId = id;
+    this.#appWindowRepositoryStateSubscriptionId = subscriberId;
+
+    this.#logger
+      .createNewLog()
+      .addAttribute(
+        AppWindowWidthResizeListenerLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(
+        AppWindowWidthResizeListenerLogKeys_Enum.INVOCATION_ID,
+        invocationId,
+      )
+      .addAttribute(
+        AppWindowWidthResizeListenerLogKeys_Enum.BINDED_LISTENER,
+        "repository",
+      )
+      .commit();
   }
 
-  unbindListener_Repository(): void {
+  unbindListener_Repository(invocationId: InvocationId): void {
     if (this.#appWindowRepositoryStateSubscriptionId === null) {
-      const err = new ListenerNotBinded_Error();
-
-      // maybe add more stuff to err like meta data or something idk not finalized yet
-
-      throw err;
+      throw new ListenerNotBinded_Error("type:repository");
     }
 
     const id: StateChangeSubscriberId =
       this.#appWindowRepositoryStateSubscriptionId;
 
-    this.#appWindowRepository.unsubscribeFromRepositoryStateChange(id);
+    this.#appWindowRepository.unsubscribeFromRepositoryStateChange(
+      invocationId,
+
+      id,
+    );
 
     this.#appWindowRepositoryStateSubscriptionId = null;
+
+    this.#logger
+      .createNewLog()
+      .addAttribute(
+        AppWindowWidthResizeListenerLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(
+        AppWindowWidthResizeListenerLogKeys_Enum.INVOCATION_ID,
+        invocationId,
+      )
+      .addAttribute(
+        AppWindowWidthResizeListenerLogKeys_Enum.UNBINDED_LISTENER,
+        "repository",
+      )
+      .commit();
   }
 
-  /* general event handler */
+  #eventHandler_ListeningToWindow(invocationId: InvocationId): void {
+    const newWindowInnerWidth: number = window.innerWidth;
 
-  #eventHandler_Window(): void {
-    const newWidth = window.innerWidth;
+    this.#logger
+      .createNewLog()
+      .addAttribute(
+        AppWindowWidthResizeListenerLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(
+        AppWindowWidthResizeListenerLogKeys_Enum.INVOCATION_ID,
+        invocationId,
+      )
+      .addAttribute(
+        AppWindowWidthResizeListenerLogKeys_Enum.NEW_WINDOW_INNER_WIDTH,
+        newWindowInnerWidth,
+      )
+      .commit();
 
     this.#appWindowRepository.setViewPortWidth(
-      newWidth,
+      invocationId,
+
+      newWindowInnerWidth,
       AppWindowChangeSources.LISTENER,
     ); // add setter source eventually like an ID
   }
 
-  bindListener_Target(): void {
-    if (this.#appWindowStateBinded) {
-      const error = new ListenerAlreadyBinded_Error();
-
-      // add additional properties or flags maybe ?
-
-      throw error;
+  bindListener_Target(invocationId: InvocationId): void {
+    if (this.#windowListenerEventHandler) {
+      throw new ListenerAlreadyBinded_Error("type:target");
     }
 
-    // since the repository is also binded,
-    window.addEventListener(LISTENER_TYPE, this.#eventHandler_Window);
+    // reuses the ID as a closure rather than a new ID each time. This works
+    // because the event listener should already fire as it pertains to causality
+    // anyway. This also means that the underlying JIT interpreter can optimized for this reused ID
+    // since it should be a hotspot.
 
-    this.#appWindowStateBinded = true;
+    // declared separately rather than inline in order to reuse the reference when potentially
+    // unbinding the listener.
+    const eventHandler: WindowListenerEventHandler_Lambda = () => {
+      this.#eventHandler_ListeningToWindow(invocationId);
+    };
+
+    window.addEventListener(LISTENER_TYPE, eventHandler);
+
+    this.#windowListenerEventHandler = eventHandler;
+
+    this.#logger
+      .createNewLog()
+      .addAttribute(
+        AppWindowWidthResizeListenerLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(
+        AppWindowWidthResizeListenerLogKeys_Enum.INVOCATION_ID,
+        invocationId,
+      )
+      .addAttribute(
+        AppWindowWidthResizeListenerLogKeys_Enum.BINDED_LISTENER,
+        "target",
+      )
+      .commit();
   }
 
-  unbindListener_Target(): void {
-    if (!this.#appWindowStateBinded) {
-      const error = new ListenerNotBinded_Error();
-
-      // add additional properties or flags maybe ?
-
-      throw error;
+  unbindListener_Target(invocationId: InvocationId): void {
+    if (!this.#windowListenerEventHandler) {
+      throw new ListenerNotBinded_Error("type:target");
     }
 
-    window.removeEventListener(LISTENER_TYPE, this.#eventHandler_Window);
+    window.removeEventListener(LISTENER_TYPE, this.#windowListenerEventHandler);
 
-    this.#appWindowStateBinded = false;
+    this.#windowListenerEventHandler = null;
+
+    this.#logger
+      .createNewLog()
+      .addAttribute(
+        AppWindowWidthResizeListenerLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(
+        AppWindowWidthResizeListenerLogKeys_Enum.INVOCATION_ID,
+        invocationId,
+      )
+      .addAttribute(
+        AppWindowWidthResizeListenerLogKeys_Enum.UNBINDED_LISTENER,
+        "target",
+      )
+      .commit();
   }
 }
-
-// ADD A LOGGER FOR DI IN THE FUTURE
 
 export { AppWindowWidthResizeListener_Impl };

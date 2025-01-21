@@ -4,7 +4,7 @@ import {
 } from "./MobileNavOpenCloseService_Impl";
 
 import { mobileNavRepository } from "../../../../state/repositories/mobile-nav/MobileNavRepository_Singleton";
-import { defaultLogger } from "../../../../logging/default/DefaultLogger_Singleton";
+import { defaultLogger } from "../../../../logging/logger/default/DefaultLogger_Singleton";
 import { ToggleTimeoutTimeInMs } from "./MobileNavOpenCloseService_Interface";
 
 const instanceMetaData: InstanceMetaData = {

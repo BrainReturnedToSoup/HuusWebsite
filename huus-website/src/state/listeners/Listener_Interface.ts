@@ -1,3 +1,4 @@
+import { InvocationId } from "../../logging/Logging_types";
 // will be purely reserved for binding a low level event listener
 // to apply state to the given repository.
 
@@ -14,9 +15,9 @@ export interface Listener_Interface {
 
   // This way, the associated repository is the true single source of truth,
   // so even a proper manual setter will reflect onto the window object itself.
-  bindListener_Repository(): void;
+  bindListener_Repository(invocationId: InvocationId): void;
 
-  unbindListener_Repository(): void;
+  unbindListener_Repository(invocationId: InvocationId): void;
 
   // for binding to the given browser event listener so that
   // its invocations may be applied to the same repository as above.
@@ -28,7 +29,7 @@ export interface Listener_Interface {
   // is being binded directly. All that is known is that this listener is likely the glue between
   // the original state, and the repository state, which the app will use repositories as the single source
   // of truth generally.
-  bindListener_Target(): void;
+  bindListener_Target(invocationId: InvocationId): void;
 
-  unbindListener_Target(): void;
+  unbindListener_Target(invocationId: InvocationId): void;
 }

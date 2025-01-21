@@ -1,5 +1,5 @@
-import { Log_Interface } from "../../../../logging/Log_Interface";
-import { Logger_Interface } from "../../../../logging/Logger_Interface";
+import { Log_Interface } from "../../../../logging/logger/Log_Interface";
+import { Logger_Interface } from "../../../../logging/logger/Logger_Interface";
 import { MobileNavRepository_Interface } from "../../../../state/repositories/mobile-nav/MobileNavRepository_Interface";
 
 import {
@@ -16,10 +16,10 @@ import {
   IsOpen,
   IsToggleDisabled,
 } from "../../../../domain-types/navigation/mobile/open-close/OpenClose_DomainTypes";
-import { InvocationId } from "../../../../logging/Logging_types";
+import { InstanceId, InvocationId } from "../../../../logging/Logging_types";
 
 export interface InstanceMetaData {
-  instanceId: string;
+  instanceId: InstanceId;
 }
 
 class MobileNavOpenCloseService_Impl

@@ -5,9 +5,9 @@ import { ConstraintViolationContainer_Interface } from "./_util/contraint-violat
 import { ContactFormConstraintValidationService_Interface } from "../core/ConstraintValidationService_Interface";
 
 import { ContactFormRepository_Interface } from "../../../../../state/repositories/contact-form/ContactFormRepository_Interface";
-import { Logger_Interface } from "../../../../../logging/Logger_Interface";
-import { Log_Interface } from "../../../../../logging/Log_Interface";
-import { InvocationId } from "../../../../../logging/Logging_types";
+import { Logger_Interface } from "../../../../../logging/logger/Logger_Interface";
+import { Log_Interface } from "../../../../../logging/logger/Log_Interface";
+import { InstanceId, InvocationId } from "../../../../../logging/Logging_types";
 import {
   Email,
   GeneralLocation,
@@ -19,7 +19,7 @@ import { OnSubmitConstraintValidationServiceLogKeys_Enum } from "./OnSubmitConst
 import { OnSubmitConstraintValidation_Lambda } from "./OnSubmitConstraintValidationService_Interface";
 
 export interface InstanceMetaData {
-  instanceId: string;
+  instanceId: InstanceId;
 }
 
 class ContactFormOnSubmitConstraintValidationService_Impl<

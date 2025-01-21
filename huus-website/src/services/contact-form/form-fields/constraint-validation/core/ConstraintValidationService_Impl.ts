@@ -5,10 +5,10 @@ import {
   ServiceSelection,
 } from "../../../../../domain-types/contact-form/ContactForm_DomainTypes";
 
-import { Log_Interface } from "../../../../../logging/Log_Interface";
-import { Logger_Interface } from "../../../../../logging/Logger_Interface";
+import { Log_Interface } from "../../../../../logging/logger/Log_Interface";
+import { Logger_Interface } from "../../../../../logging/logger/Logger_Interface";
 
-import { InvocationId } from "../../../../../logging/Logging_types";
+import { InstanceId, InvocationId } from "../../../../../logging/Logging_types";
 import { ConstraintValidationServiceLogKeys_Enum } from "./ConstraintValidationService_Enum";
 
 import { ContactFormConstraintValidationService_Interface } from "./ConstraintValidationService_Interface";
@@ -26,7 +26,7 @@ export type ConstraintValidation_Lambda = (
 ) => boolean;
 
 export interface InstanceMetaData {
-  instanceId: string;
+  instanceId: InstanceId;
 }
 
 class ContactFormConstraintValidationService_Impl
@@ -63,7 +63,7 @@ class ContactFormConstraintValidationService_Impl
   // This allows the point of origin to add additional attributes if necessary.
   #loggingHelper(
     invocationId: InvocationId,
-    
+
     invokedPublicMethod: string,
     isValid: boolean,
   ): Log_Interface {

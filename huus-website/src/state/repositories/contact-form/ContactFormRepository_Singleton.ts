@@ -6,7 +6,7 @@ import {
 import { appStore } from "../../react-redux/store";
 import { contactFormSliceSelectors } from "../../react-redux/slices/contactForm";
 import { contactFormSliceActions } from "../../react-redux/slices/contactForm";
-import { defaultLogger } from "../../../logging/default/DefaultLogger_Singleton";
+import { defaultLogger } from "../../../logging/logger/default/DefaultLogger_Singleton";
 
 const instanceMetaData: InstanceMetaData = {
   instanceId: "CONTACT-FORM-REPOSITORY-DEFAULT",

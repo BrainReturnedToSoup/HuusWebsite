@@ -14,9 +14,9 @@ import { ContactFormOnSubmitConstraintValidationService_Interface } from "../for
 import { ConstraintViolationContainer_Interface } from "../form-fields/constraint-validation/on-submit/_util/contraint-violation/ConstraintViolationContainer_Interface";
 import { ConstraintViolationContainer_Impl } from "../form-fields/constraint-validation/on-submit/_util/contraint-violation/ConstraintViolationContainer_Impl";
 import { OnSubmitConstraintViolationLabels_Enum } from "../form-fields/constraint-validation/on-submit/_util/contraint-violation/ContraintViolationLabels_Enum";
-import { Logger_Interface } from "../../../logging/Logger_Interface";
-import { Log_Interface } from "../../../logging/Log_Interface";
-import { InvocationId } from "../../../logging/Logging_types";
+import { Logger_Interface } from "../../../logging/logger/Logger_Interface";
+import { Log_Interface } from "../../../logging/logger/Log_Interface";
+import { InstanceId, InvocationId } from "../../../logging/Logging_types";
 import {
   SubmitId,
   SubmitIsPending,
@@ -40,7 +40,7 @@ import { FormSubmissionServiceLogKeys_Enum } from "./FormSubmissionService_Enum"
 */
 
 export interface InstanceMetaData {
-  instanceId: string;
+  instanceId: InstanceId;
 }
 
 class ContactFormSubmissionService_Impl<A>

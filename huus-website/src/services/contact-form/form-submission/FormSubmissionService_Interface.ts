@@ -2,8 +2,8 @@ import { ContactFormRepository_Interface } from "../../../state/repositories/con
 import { ConstraintViolationContainer_Interface } from "../form-fields/constraint-validation/on-submit/_util/contraint-violation/ConstraintViolationContainer_Interface";
 
 import { InvocationId } from "../../../logging/Logging_types";
-import { Log_Interface } from "../../../logging/Log_Interface";
-import { Logger_Interface } from "../../../logging/Logger_Interface";
+import { Log_Interface } from "../../../logging/logger/Log_Interface";
+import { Logger_Interface } from "../../../logging/logger/Logger_Interface";
 
 import { SubmitId } from "../../../domain-types/contact-form/ContactForm_DomainTypes";
 

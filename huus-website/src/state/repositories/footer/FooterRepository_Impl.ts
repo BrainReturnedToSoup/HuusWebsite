@@ -8,8 +8,8 @@ import {
 import { FooterNavLinksSet } from "../../../domain-types/navigation/footer/links/Links_DomainTypes";
 
 import { FooterRepository_Interface } from "./FooterRepository_Interface";
-import { Logger_Interface } from "../../../logging/Logger_Interface";
-import { Log_Interface } from "../../../logging/Log_Interface";
+import { Logger_Interface } from "../../../logging/logger/Logger_Interface";
+import { Log_Interface } from "../../../logging/logger/Log_Interface";
 import { FooterRepositoryLogKeys_Enum } from "./FooterRepository_Enum";
 import { InvocationId } from "../../../logging/Logging_types";
 

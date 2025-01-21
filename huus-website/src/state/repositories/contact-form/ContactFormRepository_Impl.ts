@@ -16,8 +16,8 @@ import {
   SubmitSucceeded,
 } from "../../../domain-types/contact-form/ContactForm_DomainTypes";
 
-import { Log_Interface } from "../../../logging/Log_Interface";
-import { Logger_Interface } from "../../../logging/Logger_Interface";
+import { Log_Interface } from "../../../logging/logger/Log_Interface";
+import { Logger_Interface } from "../../../logging/logger/Logger_Interface";
 
 import {
   ContactFormSliceActions,

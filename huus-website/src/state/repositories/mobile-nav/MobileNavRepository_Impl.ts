@@ -8,8 +8,8 @@ import {
 import { MobileNavLinksSet } from "../../../domain-types/navigation/mobile/links/Links_DomainTypes";
 
 import { MobileNavRepository_Interface } from "./MobileNavRepository_Interface";
-import { Logger_Interface } from "../../../logging/Logger_Interface";
-import { Log_Interface } from "../../../logging/Log_Interface";
+import { Logger_Interface } from "../../../logging/logger/Logger_Interface";
+import { Log_Interface } from "../../../logging/logger/Log_Interface";
 
 import { MobileNavRepositoryLogKeys_Enum } from "./MobileNavRepository_Enum";
 import {

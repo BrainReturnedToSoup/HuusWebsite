@@ -1,10 +1,11 @@
 import { ContactFormResetService_Interface } from "./FormResetService_Interface";
 import { ContactFormRepository_Interface } from "../../../state/repositories/contact-form/ContactFormRepository_Interface";
-import { Logger_Interface } from "../../../logging/Logger_Interface";
-import { Log_Interface } from "../../../logging/Log_Interface";
+import { Logger_Interface } from "../../../logging/logger/Logger_Interface";
+import { Log_Interface } from "../../../logging/logger/Log_Interface";
+import { InstanceId } from "../../../logging/Logging_types";
 
 export interface InstanceMetaData {
-  instanceId: string;
+  instanceId: InstanceId;
 }
 
 class ContactFormResetService_Impl

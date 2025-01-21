@@ -10,7 +10,7 @@ import {
   footerSliceSelectors,
 } from "../../react-redux/slices/footer";
 
-import { defaultLogger } from "../../../logging/default/DefaultLogger_Singleton";
+import { defaultLogger } from "../../../logging/logger/default/DefaultLogger_Singleton";
 
 const instanceMetaData: InstanceMetaData = {
   instanceId: "FOOTER-REPOSITORY-DEFAULT",

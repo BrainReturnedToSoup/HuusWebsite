@@ -7,4 +7,4 @@ export type InvocationId = string;
 /*
     An ID associated with data instantiation, serves a similar purpose to invocation IDs, but of course for data/object instantiation if applicable.
 */
-export type InstantiationId = string;
+export type InstanceId = string;

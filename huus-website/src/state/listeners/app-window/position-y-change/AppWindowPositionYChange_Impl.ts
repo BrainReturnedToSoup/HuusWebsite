@@ -1,4 +1,7 @@
-import { AppWindowPositionYChange_Interface } from "./AppWindowPositionYChange_Interface";
+import {
+  AppWindowPositionYChange_Interface,
+  WindowListenerEventHandler_Lambda,
+} from "./AppWindowPositionYChange_Interface";
 
 import {
   AppWindowRepository_Interface,
@@ -12,36 +15,47 @@ import { ListenerAlreadyBinded_Error } from "../../_errors/ListenerAlreadyBinded
 import { ListenerNotBinded_Error } from "../../_errors/ListenerNotBinded_Error";
 
 import { LISTENER_TYPE } from "./AppWindowPositionYChange_Interface";
+import { InstanceId, InvocationId } from "../../../../logging/Logging_types";
+import { Logger_Interface } from "../../../../logging/logger/Logger_Interface";
+import { Log_Interface } from "../../../../logging/logger/Log_Interface";
+import { AppWindowPositionYChangeListenerLogKeys_Enum } from "./AppWindowPositionYChange_Enum";
+
+export interface InstanceMetaData {
+  instanceId: InstanceId;
+}
 
 class AppWindowPositionYChange_Impl
   implements AppWindowPositionYChange_Interface
 {
+  #instanceMetaData: InstanceMetaData;
+  #logger: Logger_Interface<Log_Interface>;
+
   #appWindowRepository: AppWindowRepository_Interface;
 
   #appWindowRepositoryStateSubscriptionId: StateChangeSubscriberId | null;
 
-  // simple flag for keeping state, which its more for predictability and traceability.
-  // in reality, appending listeners to the window in this way, its unique based on the combination
-  // of the type of event, the specific handler callback, and potential options. However, the add or removal
-  // definitions are idempotent, so its hard to ensure that a specific lifecycle is actually happening.
-  // this is where this flag comes in for system correctness rather than actually being a listener failsafe
-  #appWindowStateBinded: boolean;
+  #windowListenerEventHandler: WindowListenerEventHandler_Lambda | null;
 
-  constructor(appWindowRepository: AppWindowRepository_Interface) {
+  constructor(
+    instanceMetaData: InstanceMetaData,
+    logger: Logger_Interface<Log_Interface>,
+    appWindowRepository: AppWindowRepository_Interface,
+  ) {
+    this.#instanceMetaData = instanceMetaData;
+    this.#logger = logger;
+
     this.#appWindowRepository = appWindowRepository;
-
-    // need to use local flag since no returned ID, window event listeners have implicit
-    // uniqueness based on combination of the instances' given properties
-    this.#appWindowStateBinded = false;
 
     // this is a custom pub/sub reactive system, which returns an ID on subscription,
     // so the existence of the subscription ID represents true, and of course non-existence means false
     this.#appWindowRepositoryStateSubscriptionId = null;
+
+    this.#windowListenerEventHandler = null;
   }
 
   /* event handler that binds to the given repository */
 
-  #eventHandler_Repository({
+  #eventHandler_ListeningToRepository({
     viewPortPositionY: positionY,
     viewPortPositionY_lastChangeSource: positionY_lastChangeSource,
   }: AppWindowSliceState): void {
@@ -52,84 +66,172 @@ class AppWindowPositionYChange_Impl
     if (positionY_lastChangeSource !== AppWindowChangeSources.LISTENER) {
       // if the last change to the 'positionY' property in the app window slice was NOT due to this listener itself.
       // if so, then apply that state value to the actual window object.
+
+      this.#logger
+        .createNewLog()
+        .addAttribute(
+          AppWindowPositionYChangeListenerLogKeys_Enum.INSTANCE_ID,
+          this.#instanceMetaData.instanceId,
+        )
+        .addAttribute(
+          AppWindowPositionYChangeListenerLogKeys_Enum.NEW_WINDOW_POSITION_Y,
+          positionY,
+        )
+        .commit();
+
       window.scrollTo({ top: positionY, left: window.screenLeft }); // WILL CAUSE ASSOCIATED EVENT LISTENERS TO FIRE BE CAREFUL
     }
   }
 
-  bindListener_Repository(): void {
+  bindListener_Repository(invocationId: InvocationId): void {
     if (this.#appWindowRepositoryStateSubscriptionId !== null) {
-      const err = new ListenerAlreadyBinded_Error();
-
-      // maybe add more stuff to err like meta data or something idk not finalized yet
-
-      throw err;
+      throw new ListenerAlreadyBinded_Error("type:repository");
     }
 
-    const id: StateChangeSubscriberId = crypto.randomUUID();
+    const subscriberId: StateChangeSubscriberId = crypto.randomUUID();
+
+    this.#logger
+      .createNewLog()
+      .addAttribute(
+        AppWindowPositionYChangeListenerLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(
+        AppWindowPositionYChangeListenerLogKeys_Enum.INVOCATION_ID,
+        invocationId,
+      )
+      .addAttribute(
+        AppWindowPositionYChangeListenerLogKeys_Enum.BINDED_LISTENER,
+        "repository",
+      )
+      .commit();
 
     this.#appWindowRepository.subscribeToRepositoryStateChange(
-      id,
-      this.#eventHandler_Repository,
+      invocationId,
+
+      subscriberId,
+      this.#eventHandler_ListeningToRepository,
     );
 
-    this.#appWindowRepositoryStateSubscriptionId = id;
+    this.#appWindowRepositoryStateSubscriptionId = subscriberId;
   }
 
-  unbindListener_Repository(): void {
+  unbindListener_Repository(invocationId: InvocationId): void {
     if (this.#appWindowRepositoryStateSubscriptionId === null) {
-      const err = new ListenerNotBinded_Error();
-
-      // maybe add more stuff to err like meta data or something idk not finalized yet
-
-      throw err;
+      throw new ListenerNotBinded_Error("type:repository");
     }
 
-    const id: StateChangeSubscriberId =
+    const subscriberId: StateChangeSubscriberId =
       this.#appWindowRepositoryStateSubscriptionId;
 
-    this.#appWindowRepository.unsubscribeFromRepositoryStateChange(id);
+    this.#logger
+      .createNewLog()
+      .addAttribute(
+        AppWindowPositionYChangeListenerLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(
+        AppWindowPositionYChangeListenerLogKeys_Enum.INVOCATION_ID,
+        invocationId,
+      )
+      .addAttribute(
+        AppWindowPositionYChangeListenerLogKeys_Enum.UNBINDED_LISTENER,
+        "repository",
+      )
+      .commit();
+
+    this.#appWindowRepository.unsubscribeFromRepositoryStateChange(
+      invocationId,
+
+      subscriberId,
+    );
 
     this.#appWindowRepositoryStateSubscriptionId = null;
   }
 
   /* general event handler */
 
-  #eventHandler_Window(): void {
-    const newPositionY: number = window.screenTop;
+  #eventHandler_ListeningToWindow(invocationId: InvocationId): void {
+    const newWindowPositionY: number = window.screenTop;
+
+    this.#logger
+      .createNewLog()
+      .addAttribute(
+        AppWindowPositionYChangeListenerLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(
+        AppWindowPositionYChangeListenerLogKeys_Enum.INVOCATION_ID,
+        invocationId,
+      )
+      .addAttribute(
+        AppWindowPositionYChangeListenerLogKeys_Enum.NEW_WINDOW_POSITION_Y,
+        newWindowPositionY,
+      )
+      .commit();
 
     this.#appWindowRepository.setViewPortPositionY(
-      newPositionY,
+      invocationId,
+
+      newWindowPositionY,
       AppWindowChangeSources.LISTENER,
     ); // add setter source eventually like an ID
   }
 
-  bindListener_Target(): void {
-    if (this.#appWindowStateBinded) {
-      const error = new ListenerAlreadyBinded_Error();
-
-      // add additional properties or flags maybe ?
-
-      throw error;
+  bindListener_Target(invocationId: InvocationId): void {
+    if (this.#windowListenerEventHandler) {
+      throw new ListenerAlreadyBinded_Error("type:target");
     }
 
-    // since the repository is also binded,
-    window.addEventListener(LISTENER_TYPE, this.#eventHandler_Window);
+    this.#logger
+      .createNewLog()
+      .addAttribute(
+        AppWindowPositionYChangeListenerLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(
+        AppWindowPositionYChangeListenerLogKeys_Enum.INVOCATION_ID,
+        invocationId,
+      )
+      .addAttribute(
+        AppWindowPositionYChangeListenerLogKeys_Enum.BINDED_LISTENER,
+        "target",
+      )
+      .commit();
 
-    this.#appWindowStateBinded = true;
+    const eventHandler: WindowListenerEventHandler_Lambda = () => {
+      this.#eventHandler_ListeningToWindow(invocationId);
+    };
+
+    window.addEventListener(LISTENER_TYPE, eventHandler);
+
+    this.#windowListenerEventHandler = eventHandler;
   }
 
-  unbindListener_Target(): void {
-    if (!this.#appWindowStateBinded) {
-      const error = new ListenerNotBinded_Error();
-
-      // add additional properties or flags maybe ?
-
-      throw error;
+  unbindListener_Target(invocationId: InvocationId): void {
+    if (!this.#windowListenerEventHandler) {
+      throw new ListenerNotBinded_Error("type:target");
     }
 
-    window.removeEventListener(LISTENER_TYPE, this.#eventHandler_Window);
+    this.#logger
+      .createNewLog()
+      .addAttribute(
+        AppWindowPositionYChangeListenerLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(
+        AppWindowPositionYChangeListenerLogKeys_Enum.INVOCATION_ID,
+        invocationId,
+      )
+      .addAttribute(
+        AppWindowPositionYChangeListenerLogKeys_Enum.UNBINDED_LISTENER,
+        "target",
+      )
+      .commit();
 
-    this.#appWindowStateBinded = false;
+    window.removeEventListener(LISTENER_TYPE, this.#windowListenerEventHandler);
+
+    this.#windowListenerEventHandler = null;
   }
 }
 

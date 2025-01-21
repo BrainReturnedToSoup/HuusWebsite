@@ -9,13 +9,13 @@ import {
 } from "../../../../domain-types/navigation/footer/links/Links_DomainTypes";
 
 import { FooterNavLinkSetDoesNotExist_Error } from "./_errors/LinkSetDoesNotExist_Error";
-import { Logger_Interface } from "../../../../logging/Logger_Interface";
-import { Log_Interface } from "../../../../logging/Log_Interface";
+import { Logger_Interface } from "../../../../logging/logger/Logger_Interface";
+import { Log_Interface } from "../../../../logging/logger/Log_Interface";
 import { FooterNavSetLinksServiceLogKeys_Enum } from "./FooterNavSetLinksService_Enum";
-import { InvocationId } from "../../../../logging/Logging_types";
+import { InstanceId, InvocationId } from "../../../../logging/Logging_types";
 
 export interface InstanceMetaData {
-  instanceId: string;
+  instanceId: InstanceId;
 }
 
 class FooterNavSetLinksServices_Impl

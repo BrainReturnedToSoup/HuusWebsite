@@ -6,7 +6,7 @@ import {
 import { FooterNavLinksSets } from "../../../../domain-types/navigation/footer/links/Links_DomainTypes";
 
 import { footerRepository } from "../../../../state/repositories/footer/FooterRepository_Singleton";
-import { defaultLogger } from "../../../../logging/default/DefaultLogger_Singleton";
+import { defaultLogger } from "../../../../logging/logger/default/DefaultLogger_Singleton";
 
 const FOOTER_NAV_LINK_ID = {
   TO_ROOT: "TO_ROOT",
