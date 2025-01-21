@@ -8,7 +8,7 @@ import { InvocationId } from "../../logging/Logging_types";
 // potentially have these APIs accept an instantiation ID in the future
 // for that traceability.
 
-export interface Listener_Interface {
+export interface WindowEventListener_Interface {
   // for binding to the given repository that manages a specific
   // on-event state, such as for instance syncing to the window object
   // properties indirectly though a listener defined with this interface.
@@ -29,7 +29,7 @@ export interface Listener_Interface {
   // is being binded directly. All that is known is that this listener is likely the glue between
   // the original state, and the repository state, which the app will use repositories as the single source
   // of truth generally.
-  bindListener_Target(invocationId: InvocationId): void;
+  bindListener_Window(invocationId: InvocationId): void;
 
-  unbindListener_Target(invocationId: InvocationId): void;
+  unbindListener_Window(invocationId: InvocationId): void;
 }

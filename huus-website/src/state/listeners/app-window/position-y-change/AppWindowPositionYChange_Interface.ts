@@ -1,7 +1,7 @@
-import { Listener_Interface } from "../../Listener_Interface";
+import { WindowEventListener_Interface } from "../../WindowEventListener_Interface";
 
 export interface AppWindowPositionYChange_Interface
-  extends Listener_Interface {}
+  extends WindowEventListener_Interface {}
 
 export type WindowListenerEventHandler_Lambda = () => void;
 

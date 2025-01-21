@@ -18,7 +18,7 @@ import { LISTENER_TYPE } from "./AppWindowWidthResize_Interface";
 import { InstanceId, InvocationId } from "../../../../logging/Logging_types";
 import { Logger_Interface } from "../../../../logging/logger/Logger_Interface";
 import { Log_Interface } from "../../../../logging/logger/Log_Interface";
-import { AppWindowWidthResizeListenerLogKeys_Enum } from "./AppWIndowWidthResizeListener_Enum";
+import { AppWindowWidthResizeListenerLogKeys_Enum } from "./AppWindowWidthResizeListener_Enum";
 
 export interface InstanceMetaData {
   instanceId: InstanceId;
@@ -175,7 +175,7 @@ class AppWindowWidthResizeListener_Impl
     ); // add setter source eventually like an ID
   }
 
-  bindListener_Target(invocationId: InvocationId): void {
+  bindListener_Window(invocationId: InvocationId): void {
     if (this.#windowListenerEventHandler) {
       throw new ListenerAlreadyBinded_Error("type:target");
     }
@@ -207,14 +207,14 @@ class AppWindowWidthResizeListener_Impl
       )
       .addAttribute(
         AppWindowWidthResizeListenerLogKeys_Enum.BINDED_LISTENER,
-        "target",
+        "window",
       )
       .commit();
   }
 
-  unbindListener_Target(invocationId: InvocationId): void {
+  unbindListener_Window(invocationId: InvocationId): void {
     if (!this.#windowListenerEventHandler) {
-      throw new ListenerNotBinded_Error("type:target");
+      throw new ListenerNotBinded_Error("type:window");
     }
 
     window.removeEventListener(LISTENER_TYPE, this.#windowListenerEventHandler);
@@ -233,7 +233,7 @@ class AppWindowWidthResizeListener_Impl
       )
       .addAttribute(
         AppWindowWidthResizeListenerLogKeys_Enum.UNBINDED_LISTENER,
-        "target",
+        "window",
       )
       .commit();
   }

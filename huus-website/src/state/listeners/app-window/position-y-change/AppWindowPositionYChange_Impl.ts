@@ -178,7 +178,7 @@ class AppWindowPositionYChange_Impl
     ); // add setter source eventually like an ID
   }
 
-  bindListener_Target(invocationId: InvocationId): void {
+  bindListener_Window(invocationId: InvocationId): void {
     if (this.#windowListenerEventHandler) {
       throw new ListenerAlreadyBinded_Error("type:target");
     }
@@ -195,7 +195,7 @@ class AppWindowPositionYChange_Impl
       )
       .addAttribute(
         AppWindowPositionYChangeListenerLogKeys_Enum.BINDED_LISTENER,
-        "target",
+        "window",
       )
       .commit();
 
@@ -208,9 +208,9 @@ class AppWindowPositionYChange_Impl
     this.#windowListenerEventHandler = eventHandler;
   }
 
-  unbindListener_Target(invocationId: InvocationId): void {
+  unbindListener_Window(invocationId: InvocationId): void {
     if (!this.#windowListenerEventHandler) {
-      throw new ListenerNotBinded_Error("type:target");
+      throw new ListenerNotBinded_Error("type:window");
     }
 
     this.#logger
@@ -225,7 +225,7 @@ class AppWindowPositionYChange_Impl
       )
       .addAttribute(
         AppWindowPositionYChangeListenerLogKeys_Enum.UNBINDED_LISTENER,
-        "target",
+        "window",
       )
       .commit();
 
