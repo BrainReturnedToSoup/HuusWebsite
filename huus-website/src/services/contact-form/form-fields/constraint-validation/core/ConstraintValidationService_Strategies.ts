@@ -1,11 +1,10 @@
-import { Log_Interface } from "../../../../../logging/logger/Log_Interface";
 import { Logger_Interface } from "../../../../../logging/logger/Logger_Interface";
 import { InvocationId } from "../../../../../logging/Logging_types";
 import { ConstraintValidationServiceLogKeys_Enum } from "./ConstraintValidationService_Enum";
 import { ConstraintValidation_Lambda } from "./ConstraintValidationService_Impl";
 
 const validateEmail: ConstraintValidation_Lambda = (
-  logger: Logger_Interface<Log_Interface>,
+  logger: Logger_Interface,
   invocationId: InvocationId,
 
   input: string,
@@ -36,7 +35,7 @@ const validateEmail: ConstraintValidation_Lambda = (
 };
 
 const validateGeneralLocation: ConstraintValidation_Lambda = (
-  logger: Logger_Interface<Log_Interface>,
+  logger: Logger_Interface,
   invocationId: InvocationId,
 
   input: string,
@@ -68,7 +67,7 @@ const validateGeneralLocation: ConstraintValidation_Lambda = (
 };
 
 const validateServiceSelection: ConstraintValidation_Lambda = (
-  logger: Logger_Interface<Log_Interface>,
+  logger: Logger_Interface,
   invocationId: InvocationId,
 
   input: string,
@@ -99,7 +98,7 @@ const validateServiceSelection: ConstraintValidation_Lambda = (
 };
 
 const validateMessage: ConstraintValidation_Lambda = (
-  logger: Logger_Interface<Log_Interface>,
+  logger: Logger_Interface,
   invocationId: InvocationId,
 
   input: string,

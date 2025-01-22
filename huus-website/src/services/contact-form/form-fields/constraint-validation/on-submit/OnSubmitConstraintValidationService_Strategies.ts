@@ -1,5 +1,5 @@
 import { OnSubmitConstraintValidationServiceLogKeys_Enum } from "./OnSubmitConstraintValidationService_Enum";
-import { OnSubmitConstraintValidation_Lambda } from "./OnSubmitConstraintValidationService_Interface";
+import { OnSubmitConstraintValidation_LambdaInterface } from "./OnSubmitConstraintValidationService_Impl";
 
 import { ConstraintViolationContainer_Interface } from "./_util/contraint-violation/ConstraintViolationContainer_Interface";
 import { OnSubmitConstraintViolationLabels_Enum } from "./_util/contraint-violation/ContraintViolationLabels_Enum";
@@ -12,7 +12,7 @@ import { OnSubmitConstraintViolationLabels_Enum } from "./_util/contraint-violat
 // for more complex violation conditions, perhaps even removing certain violations
 // in the case another one supercedes it. You can also test in isolation this way.
 
-const onSubmitValidateEmail: OnSubmitConstraintValidation_Lambda<
+const onSubmitValidateEmail: OnSubmitConstraintValidation_LambdaInterface<
   ConstraintViolationContainer_Interface<OnSubmitConstraintViolationLabels_Enum>
 > = (
   logger,
@@ -40,7 +40,7 @@ const onSubmitValidateEmail: OnSubmitConstraintValidation_Lambda<
   }
 };
 
-const onSubmitValidateGeneralLocation: OnSubmitConstraintValidation_Lambda<
+const onSubmitValidateGeneralLocation: OnSubmitConstraintValidation_LambdaInterface<
   ConstraintViolationContainer_Interface<OnSubmitConstraintViolationLabels_Enum>
 > = (
   logger,
@@ -68,7 +68,7 @@ const onSubmitValidateGeneralLocation: OnSubmitConstraintValidation_Lambda<
   }
 };
 
-const onSubmitValidateServiceSelection: OnSubmitConstraintValidation_Lambda<
+const onSubmitValidateServiceSelection: OnSubmitConstraintValidation_LambdaInterface<
   ConstraintViolationContainer_Interface<OnSubmitConstraintViolationLabels_Enum>
 > = (
   logger,
@@ -96,7 +96,7 @@ const onSubmitValidateServiceSelection: OnSubmitConstraintValidation_Lambda<
   }
 };
 
-const onSubmitValidateMessage: OnSubmitConstraintValidation_Lambda<
+const onSubmitValidateMessage: OnSubmitConstraintValidation_LambdaInterface<
   ConstraintViolationContainer_Interface<OnSubmitConstraintViolationLabels_Enum>
 > = (
   logger,

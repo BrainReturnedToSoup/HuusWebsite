@@ -1,7 +1,7 @@
 import { ContactFormResetService_Interface } from "./FormResetService_Interface";
 import { ContactFormRepository_Interface } from "../../../state/repositories/contact-form/ContactFormRepository_Interface";
 import { Logger_Interface } from "../../../logging/logger/Logger_Interface";
-import { Log_Interface } from "../../../logging/logger/Log_Interface";
+
 import { InstanceId } from "../../../logging/Logging_types";
 
 export interface InstanceMetaData {
@@ -12,13 +12,13 @@ class ContactFormResetService_Impl
   implements ContactFormResetService_Interface
 {
   #instanceMetaData: InstanceMetaData;
-  #logger: Logger_Interface<Log_Interface>;
+  #logger: Logger_Interface;
 
   #contactFormRepository: ContactFormRepository_Interface;
 
   constructor(
     instanceMetaData: InstanceMetaData,
-    logger: Logger_Interface<Log_Interface>,
+    logger: Logger_Interface,
 
     contactFormRepository: ContactFormRepository_Interface,
   ) {

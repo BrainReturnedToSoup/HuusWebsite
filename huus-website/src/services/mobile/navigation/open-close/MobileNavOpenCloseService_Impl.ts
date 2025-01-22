@@ -26,14 +26,14 @@ class MobileNavOpenCloseService_Impl
   implements MobileNavOpenCloseService_Interface
 {
   #instanceMetaData: InstanceMetaData;
-  #logger: Logger_Interface<Log_Interface>;
+  #logger: Logger_Interface;
 
   #mobileNavRepository: MobileNavRepository_Interface;
   #toggleTimeoutTimeInMs: ToggleTimeoutTimeInMs;
 
   constructor(
     instanceMetaData: InstanceMetaData,
-    logger: Logger_Interface<Log_Interface>,
+    logger: Logger_Interface,
 
     mobileNavRepository: MobileNavRepository_Interface,
     toggleTimeoutTimeInMs: ToggleTimeoutTimeInMs,

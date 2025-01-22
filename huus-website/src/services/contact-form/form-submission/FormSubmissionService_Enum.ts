@@ -21,7 +21,7 @@ export enum FormSubmissionServiceLogKeys_Enum {
 
   REQUEST_STATUS = "request-status",
 
-  EMAIL_JS_ARGS = "EMAIL_JS_ARGS",
+  EMAIL_JS_ARGS = "email-js-args",
 
   FORM_ERROR = "form-error",
 

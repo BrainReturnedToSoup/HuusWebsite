@@ -19,7 +19,7 @@ import { ContactFormConstraintValidationService_Interface } from "./ConstraintVa
 // the repository, or adding a lambda to be executed later.
 
 export type ConstraintValidation_Lambda = (
-  logger: Logger_Interface<Log_Interface>,
+  logger: Logger_Interface,
   invocationId: InvocationId,
 
   input: string,
@@ -33,7 +33,7 @@ class ContactFormConstraintValidationService_Impl
   implements ContactFormConstraintValidationService_Interface
 {
   #instanceMetaData: InstanceMetaData;
-  #logger: Logger_Interface<Log_Interface>;
+  #logger: Logger_Interface;
 
   #validateEmailLambda: ConstraintValidation_Lambda;
   #validateGeneralLocationLambda: ConstraintValidation_Lambda;
@@ -42,7 +42,7 @@ class ContactFormConstraintValidationService_Impl
 
   constructor(
     instanceMetaData: InstanceMetaData,
-    logger: Logger_Interface<Log_Interface>,
+    logger: Logger_Interface,
 
     validateEmailLambda: ConstraintValidation_Lambda,
     validateGeneralLocationLambda: ConstraintValidation_Lambda,

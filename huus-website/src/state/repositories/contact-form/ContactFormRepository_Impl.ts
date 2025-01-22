@@ -36,7 +36,7 @@ export interface InstanceMetaData {
 
 class ContactFormRepository_Impl implements ContactFormRepository_Interface {
   #instanceMetaData: InstanceMetaData;
-  #logger: Logger_Interface<Log_Interface>;
+  #logger: Logger_Interface;
 
   #store: AppStore;
   #selectors: ContactFormSliceSelectors;
@@ -44,7 +44,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
 
   constructor(
     instanceMetaData: InstanceMetaData,
-    logger: Logger_Interface<Log_Interface>,
+    logger: Logger_Interface,
 
     store: AppStore,
     selectors: ContactFormSliceSelectors,

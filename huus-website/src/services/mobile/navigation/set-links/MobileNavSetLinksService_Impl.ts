@@ -10,7 +10,7 @@ import {
   MobileNavLinksSetId,
 } from "../../../../domain-types/navigation/mobile/links/Links_DomainTypes";
 import { Logger_Interface } from "../../../../logging/logger/Logger_Interface";
-import { Log_Interface } from "../../../../logging/logger/Log_Interface";
+
 import { MobileNavSetLinksServiceLogKeys_Enum } from "./MobileNavSetLinksService_Enum";
 import { InstanceId, InvocationId } from "../../../../logging/Logging_types";
 
@@ -22,14 +22,14 @@ class MobileNavSetLinksService_Impl
   implements MobileNavSetLinksService_Interface
 {
   #instanceMetaData: InstanceMetaData;
-  #logger: Logger_Interface<Log_Interface>;
+  #logger: Logger_Interface;
 
   #mobileNavRespository: MobileNavRepository_Interface;
   #linksSets: MobileNavLinksSets;
 
   constructor(
     instanceMetaData: InstanceMetaData,
-    logger: Logger_Interface<Log_Interface>,
+    logger: Logger_Interface,
 
     mobileNavRepository: MobileNavRepository_Interface,
     linksSets: MobileNavLinksSets,

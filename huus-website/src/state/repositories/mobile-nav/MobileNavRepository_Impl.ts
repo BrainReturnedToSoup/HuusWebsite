@@ -25,7 +25,7 @@ export interface InstanceMetaData {
 
 class MobileNavRepository_Impl implements MobileNavRepository_Interface {
   #instanceMetaData: InstanceMetaData;
-  #logger: Logger_Interface<Log_Interface>;
+  #logger: Logger_Interface;
 
   #store: AppStore;
   #selectors: MobileNavSliceSelectors;
@@ -33,7 +33,7 @@ class MobileNavRepository_Impl implements MobileNavRepository_Interface {
 
   constructor(
     instanceMetaData: InstanceMetaData,
-    logger: Logger_Interface<Log_Interface>,
+    logger: Logger_Interface,
 
     store: AppStore,
     selectors: MobileNavSliceSelectors,

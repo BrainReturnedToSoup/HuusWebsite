@@ -15,6 +15,7 @@ const instanceMetaData: InstanceMetaData = {
 const mobileNavRepository = new MobileNavRepository_Impl(
   instanceMetaData,
   defaultLogger,
+  
   appStore,
   mobileNavSliceSelectors,
   mobileNavSliceActions,

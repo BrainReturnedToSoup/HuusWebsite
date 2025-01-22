@@ -1,10 +1,10 @@
 import {
-  RequestArgsFactory_Lambda,
-  OnRequestStatusNotOk_Lambda,
-  OnRequestErrorCaught_Lambda,
-  OnSuccess_Lambda,
-  OnConstraintViolation_Lambda,
-} from "./FormSubmissionService_Interface";
+  RequestArgsFactory_LambdaInterface,
+  OnRequestStatusNotOk_LambdaInterface,
+  OnRequestErrorCaught_LambdaInterface,
+  OnSuccess_LambdaInterface,
+  OnConstraintViolation_LambdaInterface,
+} from "./FormSubmissionService_Impl";
 
 import { EmailJsArgs } from "../../../APIs/send-email/emailJs/sendEmail_emailJs";
 import { EmailJsConfig_Enum } from "../../../APIs/send-email/emailJs/Config_Enum";
@@ -12,7 +12,7 @@ import { EmailJsConfig_Enum } from "../../../APIs/send-email/emailJs/Config_Enum
 import { OnSubmitConstraintViolationLabels_Enum } from "../form-fields/constraint-validation/on-submit/_util/contraint-violation/ContraintViolationLabels_Enum";
 import { FormSubmissionServiceLogKeys_Enum } from "./FormSubmissionService_Enum";
 
-const onConstraintViolation: OnConstraintViolation_Lambda<
+const onConstraintViolation: OnConstraintViolation_LambdaInterface<
   OnSubmitConstraintViolationLabels_Enum
 > = (
   logger,
@@ -44,7 +44,7 @@ const onConstraintViolation: OnConstraintViolation_Lambda<
   //  THUS UPDATING THE ASSOCIATED FORM FIELD ERROR STATE
 };
 
-const requestArgsFactory: RequestArgsFactory_Lambda<EmailJsArgs> = (
+const requestArgsFactory: RequestArgsFactory_LambdaInterface<EmailJsArgs> = (
   logger,
   invocationId,
 
@@ -95,7 +95,7 @@ const requestArgsFactory: RequestArgsFactory_Lambda<EmailJsArgs> = (
   return args;
 };
 
-const onRequestErrorCaught: OnRequestErrorCaught_Lambda = (
+const onRequestErrorCaught: OnRequestErrorCaught_LambdaInterface = (
   logger,
   invocationId,
 
@@ -127,7 +127,7 @@ const onRequestErrorCaught: OnRequestErrorCaught_Lambda = (
   contactFormRepository.setFormError(invocationId, formError);
 };
 
-const onRequestStatusNotOk: OnRequestStatusNotOk_Lambda = (
+const onRequestStatusNotOk: OnRequestStatusNotOk_LambdaInterface = (
   logger,
   invocationId,
 
@@ -161,7 +161,7 @@ const onRequestStatusNotOk: OnRequestStatusNotOk_Lambda = (
   contactFormRepository.setFormError(invocationId, formError);
 };
 
-const onSuccess: OnSuccess_Lambda = (
+const onSuccess: OnSuccess_LambdaInterface = (
   logger,
   invocationId,
 

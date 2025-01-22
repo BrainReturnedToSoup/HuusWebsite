@@ -1,12 +1,3 @@
-import {
-  RequestArgsFactory_Lambda,
-  ContactFormSubmissionService_Interface,
-  OnRequestStatusNotOk_Lambda,
-  OnRequestErrorCaught_Lambda,
-  OnSuccess_Lambda,
-  OnConstraintViolation_Lambda,
-} from "./FormSubmissionService_Interface";
-
 import { SendEmailAPIInterface } from "../../../APIs/send-email/sendEmailInterface";
 import { ContactFormRepository_Interface } from "../../../state/repositories/contact-form/ContactFormRepository_Interface";
 import { ContactFormOnSubmitConstraintValidationService_Interface } from "../form-fields/constraint-validation/on-submit/OnSubmitConstraintValidationService_Interface";
@@ -15,7 +6,7 @@ import { ConstraintViolationContainer_Interface } from "../form-fields/constrain
 import { ConstraintViolationContainer_Impl } from "../form-fields/constraint-validation/on-submit/_util/contraint-violation/ConstraintViolationContainer_Impl";
 import { OnSubmitConstraintViolationLabels_Enum } from "../form-fields/constraint-validation/on-submit/_util/contraint-violation/ContraintViolationLabels_Enum";
 import { Logger_Interface } from "../../../logging/logger/Logger_Interface";
-import { Log_Interface } from "../../../logging/logger/Log_Interface";
+
 import { InstanceId, InvocationId } from "../../../logging/Logging_types";
 import {
   SubmitId,
@@ -23,6 +14,54 @@ import {
 } from "../../../domain-types/contact-form/ContactForm_DomainTypes";
 
 import { FormSubmissionServiceLogKeys_Enum } from "./FormSubmissionService_Enum";
+import { ContactFormSubmissionService_Interface } from "./FormSubmissionService_Interface";
+
+export type OnConstraintViolation_LambdaInterface<E> = (
+  logger: Logger_Interface,
+  invocationId: InvocationId,
+
+  submitId: SubmitId,
+  constraintViolationContainer: ConstraintViolationContainer_Interface<E>,
+  contactFormRepository: ContactFormRepository_Interface,
+) => void;
+
+export type RequestArgsFactory_LambdaInterface<A> = (
+  logger: Logger_Interface,
+  invocationId: InvocationId,
+
+  submitId: SubmitId,
+  contactFormRepository: ContactFormRepository_Interface,
+) => A;
+
+export type OnRequestStatusNotOk_LambdaInterface = (
+  logger: Logger_Interface,
+  invocationId: InvocationId,
+
+  submitId: SubmitId,
+  responseStatus: string | number,
+  contactFormRepository: ContactFormRepository_Interface,
+) => void;
+
+export type OnRequestErrorCaught_LambdaInterface = (
+  logger: Logger_Interface,
+  invocationId: InvocationId,
+
+  submitId: SubmitId,
+  error: Error,
+  contactFormRepository: ContactFormRepository_Interface,
+) => void;
+
+export type OnSuccess_LambdaInterface = (
+  logger: Logger_Interface,
+  invocationId: InvocationId,
+
+  submitId: SubmitId,
+  contactFormRepository: ContactFormRepository_Interface,
+) => void;
+
+export interface InstanceMetaData {
+  instanceId: InstanceId;
+}
 
 // make the API call using the supplied binded fetch, and
 // handles a success or a failure by reflecting such into the corresponding
@@ -39,15 +78,11 @@ import { FormSubmissionServiceLogKeys_Enum } from "./FormSubmissionService_Enum"
   so no point to make them generics
 */
 
-export interface InstanceMetaData {
-  instanceId: InstanceId;
-}
-
 class ContactFormSubmissionService_Impl<A>
   implements ContactFormSubmissionService_Interface
 {
   #instanceMetaData: InstanceMetaData;
-  #logger: Logger_Interface<Log_Interface>;
+  #logger: Logger_Interface;
 
   #contactFormRepository: ContactFormRepository_Interface;
 
@@ -62,15 +97,15 @@ class ContactFormSubmissionService_Impl<A>
 
   // strategy lambdas for each stage in the lifecycle of 'submitContactForm'
   // these members are organized from top to bottom in the order they should execute (if applicable of course)
-  #onConstraintViolation: OnConstraintViolation_Lambda<OnSubmitConstraintViolationLabels_Enum>;
-  #requestArgsFactory: RequestArgsFactory_Lambda<A>;
-  #onRequestStatusNotOk: OnRequestStatusNotOk_Lambda;
-  #onRequestErrorCaught: OnRequestErrorCaught_Lambda;
-  #onSuccess: OnSuccess_Lambda;
+  #onConstraintViolation: OnConstraintViolation_LambdaInterface<OnSubmitConstraintViolationLabels_Enum>;
+  #requestArgsFactory: RequestArgsFactory_LambdaInterface<A>;
+  #onRequestStatusNotOk: OnRequestStatusNotOk_LambdaInterface;
+  #onRequestErrorCaught: OnRequestErrorCaught_LambdaInterface;
+  #onSuccess: OnSuccess_LambdaInterface;
 
   constructor(
     instanceMetaData: InstanceMetaData,
-    logger: Logger_Interface<Log_Interface>,
+    logger: Logger_Interface,
 
     contactFormRepository: ContactFormRepository_Interface,
     onSubmitConstraintValidationService: ContactFormOnSubmitConstraintValidationService_Interface<
@@ -79,11 +114,11 @@ class ContactFormSubmissionService_Impl<A>
     >,
     sendEmailAPI: SendEmailAPIInterface<A>,
 
-    onConstraintViolation: OnConstraintViolation_Lambda<OnSubmitConstraintViolationLabels_Enum>,
-    requestArgsFactory: RequestArgsFactory_Lambda<A>,
-    onRequestStatusNotOk: OnRequestStatusNotOk_Lambda,
-    onRequestErrorCaught: OnRequestErrorCaught_Lambda,
-    onSuccess: OnSuccess_Lambda,
+    onConstraintViolation: OnConstraintViolation_LambdaInterface<OnSubmitConstraintViolationLabels_Enum>,
+    requestArgsFactory: RequestArgsFactory_LambdaInterface<A>,
+    onRequestStatusNotOk: OnRequestStatusNotOk_LambdaInterface,
+    onRequestErrorCaught: OnRequestErrorCaught_LambdaInterface,
+    onSuccess: OnSuccess_LambdaInterface,
   ) {
     this.#instanceMetaData = instanceMetaData;
     this.#logger = logger;

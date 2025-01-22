@@ -16,7 +16,13 @@ import {
 } from "../../../../../domain-types/contact-form/ContactForm_DomainTypes";
 import { OnSubmitConstraintValidationServiceLogKeys_Enum } from "./OnSubmitConstraintValidationService_Enum";
 
-import { OnSubmitConstraintValidation_Lambda } from "./OnSubmitConstraintValidationService_Interface";
+export type OnSubmitConstraintValidation_LambdaInterface<T> = (
+  logger: Logger_Interface,
+  invocationId: InvocationId,
+
+  isValid: boolean,
+  container: T,
+) => void;
 
 export interface InstanceMetaData {
   instanceId: InstanceId;
@@ -28,28 +34,28 @@ class ContactFormOnSubmitConstraintValidationService_Impl<
 > implements ContactFormOnSubmitConstraintValidationService_Interface<T, E>
 {
   #instanceMetaData: InstanceMetaData;
-  #logger: Logger_Interface<Log_Interface>;
+  #logger: Logger_Interface;
 
   // the violation container with its internal type
   #contactFormRepository: ContactFormRepository_Interface;
   #inputValidationService: ContactFormConstraintValidationService_Interface;
 
-  #validateEmailLambda: OnSubmitConstraintValidation_Lambda<T>;
-  #validateGeneralLocationLambda: OnSubmitConstraintValidation_Lambda<T>;
-  #validateServiceSelectionLambda: OnSubmitConstraintValidation_Lambda<T>;
-  #validateMessageLambda: OnSubmitConstraintValidation_Lambda<T>;
+  #validateEmailLambda: OnSubmitConstraintValidation_LambdaInterface<T>;
+  #validateGeneralLocationLambda: OnSubmitConstraintValidation_LambdaInterface<T>;
+  #validateServiceSelectionLambda: OnSubmitConstraintValidation_LambdaInterface<T>;
+  #validateMessageLambda: OnSubmitConstraintValidation_LambdaInterface<T>;
 
   constructor(
     instanceMetaData: InstanceMetaData,
-    logger: Logger_Interface<Log_Interface>,
+    logger: Logger_Interface,
 
     contactFormRepository: ContactFormRepository_Interface,
     inputValidationService: ContactFormConstraintValidationService_Interface,
 
-    validateEmailLambda: OnSubmitConstraintValidation_Lambda<T>,
-    validateGeneralLocationLambda: OnSubmitConstraintValidation_Lambda<T>,
-    validateServiceSelectionLambda: OnSubmitConstraintValidation_Lambda<T>,
-    validateMessageLambda: OnSubmitConstraintValidation_Lambda<T>,
+    validateEmailLambda: OnSubmitConstraintValidation_LambdaInterface<T>,
+    validateGeneralLocationLambda: OnSubmitConstraintValidation_LambdaInterface<T>,
+    validateServiceSelectionLambda: OnSubmitConstraintValidation_LambdaInterface<T>,
+    validateMessageLambda: OnSubmitConstraintValidation_LambdaInterface<T>,
   ) {
     this.#instanceMetaData = instanceMetaData;
     this.#logger = logger;

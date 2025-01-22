@@ -9,7 +9,6 @@ import { FooterNavLinksSet } from "../../../domain-types/navigation/footer/links
 
 import { FooterRepository_Interface } from "./FooterRepository_Interface";
 import { Logger_Interface } from "../../../logging/logger/Logger_Interface";
-import { Log_Interface } from "../../../logging/logger/Log_Interface";
 import { FooterRepositoryLogKeys_Enum } from "./FooterRepository_Enum";
 import { InvocationId } from "../../../logging/Logging_types";
 
@@ -19,7 +18,7 @@ export interface InstanceMetaData {
 
 class FooterRepository_Impl implements FooterRepository_Interface {
   #instanceMetaData: InstanceMetaData;
-  #logger: Logger_Interface<Log_Interface>;
+  #logger: Logger_Interface;
 
   #store: AppStore;
   #selectors: FooterSliceSelectors;
@@ -27,7 +26,7 @@ class FooterRepository_Impl implements FooterRepository_Interface {
 
   constructor(
     instanceMetaData: InstanceMetaData,
-    logger: Logger_Interface<Log_Interface>,
+    logger: Logger_Interface,
 
     store: AppStore,
     selectors: FooterSliceSelectors,

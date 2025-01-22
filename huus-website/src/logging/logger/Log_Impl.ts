@@ -1,20 +1,21 @@
 import { LogAlreadyCommitted_Error } from "./_errors/LogAlreadyCommitted_Error";
 import { LogAttributeAlreadyExists_Error } from "./_errors/LogAttributeAlreadyExists_Error";
+import { OnCommit_LambdaInterface } from "./OnCommit_LambdaInterface";
+
 import {
   Log_Interface,
   LogAttributeKey,
   LogAttributes_Interface,
   LogAttributeVal,
-  OnCommit_Lambda,
 } from "./Log_Interface";
 
 export class Log_Impl implements Log_Interface {
-  #onCommit: OnCommit_Lambda;
+  #onCommit: OnCommit_LambdaInterface;
   #commited: boolean = false;
 
   #logAttributes: LogAttributes_Interface = {};
 
-  constructor(onCommit: OnCommit_Lambda) {
+  constructor(onCommit: OnCommit_LambdaInterface) {
     this.#onCommit = onCommit;
   }
 

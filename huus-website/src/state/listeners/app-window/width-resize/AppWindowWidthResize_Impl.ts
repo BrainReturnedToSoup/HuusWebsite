@@ -17,7 +17,7 @@ import { AppWindowChangeSources } from "../../../react-redux/slices/app-window/a
 import { LISTENER_TYPE } from "./AppWindowWidthResize_Interface";
 import { InstanceId, InvocationId } from "../../../../logging/Logging_types";
 import { Logger_Interface } from "../../../../logging/logger/Logger_Interface";
-import { Log_Interface } from "../../../../logging/logger/Log_Interface";
+
 import { AppWindowWidthResizeListenerLogKeys_Enum } from "./AppWindowWidthResizeListener_Enum";
 
 export interface InstanceMetaData {
@@ -28,7 +28,7 @@ class AppWindowWidthResizeListener_Impl
   implements AppWindowWidthResizeListener_Interface
 {
   #instanceMetaData: InstanceMetaData;
-  #logger: Logger_Interface<Log_Interface>;
+  #logger: Logger_Interface;
 
   #appWindowRepository: AppWindowRepository_Interface;
   #appWindowRepositoryStateSubscriptionId: StateChangeSubscriberId | null;
@@ -36,7 +36,7 @@ class AppWindowWidthResizeListener_Impl
 
   constructor(
     instanceMetaData: InstanceMetaData,
-    logger: Logger_Interface<Log_Interface>,
+    logger: Logger_Interface,
 
     appWindowRepository: AppWindowRepository_Interface,
   ) {

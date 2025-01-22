@@ -17,7 +17,7 @@ import { ListenerNotBinded_Error } from "../../_errors/ListenerNotBinded_Error";
 import { LISTENER_TYPE } from "./AppWindowPositionYChange_Interface";
 import { InstanceId, InvocationId } from "../../../../logging/Logging_types";
 import { Logger_Interface } from "../../../../logging/logger/Logger_Interface";
-import { Log_Interface } from "../../../../logging/logger/Log_Interface";
+
 import { AppWindowPositionYChangeListenerLogKeys_Enum } from "./AppWindowPositionYChange_Enum";
 
 export interface InstanceMetaData {
@@ -28,7 +28,7 @@ class AppWindowPositionYChange_Impl
   implements AppWindowPositionYChange_Interface
 {
   #instanceMetaData: InstanceMetaData;
-  #logger: Logger_Interface<Log_Interface>;
+  #logger: Logger_Interface;
 
   #appWindowRepository: AppWindowRepository_Interface;
 
@@ -38,7 +38,7 @@ class AppWindowPositionYChange_Impl
 
   constructor(
     instanceMetaData: InstanceMetaData,
-    logger: Logger_Interface<Log_Interface>,
+    logger: Logger_Interface,
     appWindowRepository: AppWindowRepository_Interface,
   ) {
     this.#instanceMetaData = instanceMetaData;

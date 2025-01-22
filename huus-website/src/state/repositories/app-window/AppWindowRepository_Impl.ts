@@ -32,7 +32,7 @@ export interface InstanceMetaData {
 
 class AppWindowRepository_Impl implements AppWindowRepository_Interface {
   #instanceMetaData: InstanceMetaData;
-  #logger: Logger_Interface<Log_Interface>;
+  #logger: Logger_Interface;
 
   #store: AppStore;
   #selectors: AppWindowSliceSelectors;
@@ -45,7 +45,7 @@ class AppWindowRepository_Impl implements AppWindowRepository_Interface {
 
   constructor(
     instanceMetaData: InstanceMetaData,
-    logger: Logger_Interface<Log_Interface>,
+    logger: Logger_Interface,
 
     store: AppStore,
     selectors: AppWindowSliceSelectors,
@@ -89,10 +89,7 @@ class AppWindowRepository_Impl implements AppWindowRepository_Interface {
         this.#instanceMetaData.instanceId,
       )
       .addAttribute(AppWindowRepositoryLogKeys_Enum.INVOCATION_ID, invocationId)
-      .addAttribute(
-        AppWindowRepositoryLogKeys_Enum.INVOKED_GETTER,
-        "getViewPortWidth",
-      )
+      .addAttribute(AppWindowRepositoryLogKeys_Enum.INVOKED_GETTER, methodName)
       .addAttribute(
         AppWindowRepositoryLogKeys_Enum.OBSERVED_VALUE,
         observedValue,

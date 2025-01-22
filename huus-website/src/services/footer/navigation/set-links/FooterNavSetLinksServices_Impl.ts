@@ -10,7 +10,7 @@ import {
 
 import { FooterNavLinkSetDoesNotExist_Error } from "./_errors/LinkSetDoesNotExist_Error";
 import { Logger_Interface } from "../../../../logging/logger/Logger_Interface";
-import { Log_Interface } from "../../../../logging/logger/Log_Interface";
+
 import { FooterNavSetLinksServiceLogKeys_Enum } from "./FooterNavSetLinksService_Enum";
 import { InstanceId, InvocationId } from "../../../../logging/Logging_types";
 
@@ -22,14 +22,14 @@ class FooterNavSetLinksServices_Impl
   implements FooterNavSetLinksService_Interface
 {
   #instanceMetaData: InstanceMetaData;
-  #logger: Logger_Interface<Log_Interface>;
+  #logger: Logger_Interface;
 
   #footerRepository: FooterRepository_Interface;
   #linkSets: FooterNavLinksSets;
 
   constructor(
     instanceMetaData: InstanceMetaData,
-    logger: Logger_Interface<Log_Interface>,
+    logger: Logger_Interface,
 
     footerRepository: FooterRepository_Interface,
     linkSets: FooterNavLinksSets,
