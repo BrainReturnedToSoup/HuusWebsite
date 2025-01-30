@@ -1,4 +1,4 @@
-import DefaultFooter from "../../../components/common/footer/DefaultFooter";
+import DefaultFooter from "../../../components/core/footer/DefaultFooter";
 
 const navColumns = [
   {

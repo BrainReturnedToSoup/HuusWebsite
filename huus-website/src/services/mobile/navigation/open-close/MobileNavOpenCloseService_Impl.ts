@@ -50,7 +50,7 @@ class MobileNavOpenCloseService_Impl
     const isToggleDisabled: IsToggleDisabled =
       this.#mobileNavRepository.getIsToggleDisabled(invocationId);
 
-    const targetEndState: IsOpen = false;
+    const targetEndState: IsOpen = true;
 
     // base log attributes regardless of success or failure
     const log: Log_Interface = this.#logger
@@ -135,7 +135,7 @@ class MobileNavOpenCloseService_Impl
     const isToggleDisabled: IsToggleDisabled =
       this.#mobileNavRepository.getIsToggleDisabled(invocationId);
 
-    const targetEndState: IsOpen = true;
+    const targetEndState: IsOpen = false;
 
     // base log attributes regardless of success or failure
     const log: Log_Interface = this.#logger

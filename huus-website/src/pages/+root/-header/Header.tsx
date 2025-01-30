@@ -1,4 +1,4 @@
-import DefaultHeader from "../../../components/common/header/DefaultHeader";
+import DefaultHeader from "../../../components/core/header/DefaultHeader";
 
 import rootPageBackdropImage from "../../../assets/main-backdrop-image.jpg";
 

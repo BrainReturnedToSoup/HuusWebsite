@@ -1,7 +1,4 @@
-import {
-  AppWindowPositionYChange_Interface,
-  WindowListenerEventHandler_Lambda,
-} from "./AppWindowPositionYChange_Interface";
+import { AppWindowPositionYChange_Interface } from "./AppWindowPositionYChange_Interface";
 
 import {
   AppWindowRepository_Interface,
@@ -20,6 +17,8 @@ import { Logger_Interface } from "../../../../logging/logger/Logger_Interface";
 
 import { AppWindowPositionYChangeListenerLogKeys_Enum } from "./AppWindowPositionYChange_Enum";
 
+export type WindowListenerEventHandler_LambdaInterface = () => void;
+
 export interface InstanceMetaData {
   instanceId: InstanceId;
 }
@@ -34,7 +33,7 @@ class AppWindowPositionYChange_Impl
 
   #appWindowRepositoryStateSubscriptionId: StateChangeSubscriberId | null;
 
-  #windowListenerEventHandler: WindowListenerEventHandler_Lambda | null;
+  #windowListenerEventHandler: WindowListenerEventHandler_LambdaInterface | null;
 
   constructor(
     instanceMetaData: InstanceMetaData,
@@ -199,7 +198,7 @@ class AppWindowPositionYChange_Impl
       )
       .commit();
 
-    const eventHandler: WindowListenerEventHandler_Lambda = () => {
+    const eventHandler: WindowListenerEventHandler_LambdaInterface = () => {
       this.#eventHandler_ListeningToWindow(invocationId);
     };
 

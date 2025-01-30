@@ -3,6 +3,5 @@ import { WindowEventListener_Interface } from "../../WindowEventListener_Interfa
 export interface AppWindowWidthResizeListener_Interface
   extends WindowEventListener_Interface {}
 
-export type WindowListenerEventHandler_Lambda = () => void;
 
 export const LISTENER_TYPE = "resize";

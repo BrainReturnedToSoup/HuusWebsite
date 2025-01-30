@@ -1,7 +1,4 @@
-import {
-  AppWindowWidthResizeListener_Interface,
-  WindowListenerEventHandler_Lambda,
-} from "./AppWindowWidthResize_Interface";
+import { AppWindowWidthResizeListener_Interface } from "./AppWindowWidthResize_Interface";
 
 import {
   AppWindowRepository_Interface,
@@ -19,6 +16,8 @@ import { InstanceId, InvocationId } from "../../../../logging/Logging_types";
 import { Logger_Interface } from "../../../../logging/logger/Logger_Interface";
 
 import { AppWindowWidthResizeListenerLogKeys_Enum } from "./AppWindowWidthResizeListener_Enum";
+
+export type WindowListenerEventHandler_Lambda = () => void;
 
 export interface InstanceMetaData {
   instanceId: InstanceId;

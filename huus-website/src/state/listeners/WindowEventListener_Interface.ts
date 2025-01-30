@@ -16,7 +16,6 @@ export interface WindowEventListener_Interface {
   // This way, the associated repository is the true single source of truth,
   // so even a proper manual setter will reflect onto the window object itself.
   bindListener_Repository(invocationId: InvocationId): void;
-
   unbindListener_Repository(invocationId: InvocationId): void;
 
   // for binding to the given browser event listener so that
@@ -30,6 +29,5 @@ export interface WindowEventListener_Interface {
   // the original state, and the repository state, which the app will use repositories as the single source
   // of truth generally.
   bindListener_Window(invocationId: InvocationId): void;
-
   unbindListener_Window(invocationId: InvocationId): void;
 }

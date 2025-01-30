@@ -23,5 +23,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/logging/logger/default/DefaultOnCommit_Impl.ts"]
+  "include": ["src", "src/logging/logger/default/DefaultOnCommit_LambdaImpl.ts"]
 }

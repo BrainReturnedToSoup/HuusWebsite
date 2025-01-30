@@ -1,7 +1,7 @@
 import { Options as EmailJSOptions } from "@emailjs/browser/es/types/Options";
 import emailJs from "@emailjs/browser";
 
-import { EmailSendReturn, SendEmailAPIInterface } from "../sendEmailInterface";
+import { EmailSendReturn, SendEmail_Interface } from "../sendEmailInterface";
 import { EmailJsRequestTimedOutError } from "./_errors/emailJsRequestTimeout";
 
 import { EmailJsConfig_Enum } from "./Config_Enum";
@@ -21,7 +21,7 @@ export type EmailJsArgs = {
 
 export type Logger = (message: string) => void;
 
-class SendEmail_EmailJs implements SendEmailAPIInterface<EmailJsArgs> {
+class SendEmail_EmailJs implements SendEmail_Interface<EmailJsArgs> {
   #emailJs: EmailJs;
   #logger: Logger | null;
 

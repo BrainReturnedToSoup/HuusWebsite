@@ -34,11 +34,11 @@ export interface MobileNavLinksSets {
     Should look something like this.
 
     {
-        [linkSetsId]: {
+        [linksSetsId]: {
             ...
-            [linkSetId]: {
+            [linksSetId]: {
                 ...
-                [linkId]: [MobileNavLinkObj]
+                [linkId]: { route: ..., text: ... }
             }
         }
     }

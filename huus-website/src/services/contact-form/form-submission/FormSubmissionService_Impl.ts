@@ -1,4 +1,4 @@
-import { SendEmailAPIInterface } from "../../../APIs/send-email/sendEmailInterface";
+import { SendEmail_Interface } from "../../../APIs/send-email/sendEmailInterface";
 import { ContactFormRepository_Interface } from "../../../state/repositories/contact-form/ContactFormRepository_Interface";
 import { ContactFormOnSubmitConstraintValidationService_Interface } from "../form-fields/constraint-validation/on-submit/OnSubmitConstraintValidationService_Interface";
 
@@ -93,7 +93,7 @@ class ContactFormSubmissionService_Impl<A>
     OnSubmitConstraintViolationLabels_Enum // the specific keywords to use within the given violation container
   >;
 
-  #sendEmailAPI: SendEmailAPIInterface<A>;
+  #sendEmailAPI: SendEmail_Interface<A>;
 
   // strategy lambdas for each stage in the lifecycle of 'submitContactForm'
   // these members are organized from top to bottom in the order they should execute (if applicable of course)
@@ -112,7 +112,7 @@ class ContactFormSubmissionService_Impl<A>
       ConstraintViolationContainer_Interface<OnSubmitConstraintViolationLabels_Enum>,
       OnSubmitConstraintViolationLabels_Enum
     >,
-    sendEmailAPI: SendEmailAPIInterface<A>,
+    sendEmailAPI: SendEmail_Interface<A>,
 
     onConstraintViolation: OnConstraintViolation_LambdaInterface<OnSubmitConstraintViolationLabels_Enum>,
     requestArgsFactory: RequestArgsFactory_LambdaInterface<A>,
