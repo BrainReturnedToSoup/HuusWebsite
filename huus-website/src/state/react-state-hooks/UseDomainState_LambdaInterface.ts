@@ -19,8 +19,8 @@ import { useSelector } from "react-redux";
         createInvocationId: invocationIdFactory_Interface,
 
         someService: SomeService_Interface
-        useGeneralState: UseGeneralState_LambdaInterface
+        useDomainState: UseDomainState_LambdaInterface
     }
 */
 
-export type UseGeneralState_LambdaInterface = typeof useSelector;
+export type UseDomainState_LambdaInterface = typeof useSelector;

@@ -16,7 +16,7 @@ function PricingBox({
   const [localEnquireHovered, setLocalEnquireHovered] = useState(false);
 
   return (
-    <div className="relative min-h-[150px] min-w-[350px]  border-neutral-300 px-4 md:border-l-2">
+    <div className="relative min-h-[150px] min-w-[350px] border-neutral-300 px-4 md:border-l-2">
       <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center">
         <div className="flex">
           <h1
@@ -137,7 +137,9 @@ interface RowGroupProps {
 function RowGroup({ groupTitle, rows }: RowGroupProps) {
   return (
     <>
-      <h1 className="lato-bold text-4xl md:text-3xl md:text-start text-center">{groupTitle}</h1>
+      <h1 className="lato-bold text-center text-4xl md:text-start md:text-3xl">
+        {groupTitle}
+      </h1>
       {rows.map(
         ({
           title,
@@ -164,7 +166,7 @@ function RowGroup({ groupTitle, rows }: RowGroupProps) {
 }
 
 // bundles of the above options that are cheaper, but require some commitment.
-function Bundles({ groupTitle, rows }: RowGroupProps) {
+function ServiceBundles({ groupTitle, rows }: RowGroupProps) {
   return (
     <div className="w-full py-14">
       <RowGroup groupTitle={groupTitle} rows={rows} />
@@ -172,7 +174,7 @@ function Bundles({ groupTitle, rows }: RowGroupProps) {
   );
 }
 
-function Base({ groupTitle, rows }: RowGroupProps) {
+function BaseServices({ groupTitle, rows }: RowGroupProps) {
   return (
     <div className="mb-12 w-full py-14">
       <RowGroup groupTitle={groupTitle} rows={rows} />
@@ -258,11 +260,11 @@ const base = [
   },
 ];
 
-export default function ServiceRows() {
+export default function ServicesList() {
   return (
     <>
-      <Bundles groupTitle={"Bundles"} rows={bundles} />
-      <Base groupTitle={"Base"} rows={base} />
+      <ServiceBundles groupTitle={"Bundles"} rows={bundles} />
+      <BaseServices groupTitle={"Base"} rows={base} />
     </>
   );
 }

@@ -14,7 +14,7 @@ export function ClearAndSubmit({}: ClearAndSubmitProps_Interface) {
         type="submit"
         className="lato-bold min-w-[125px] bg-black px-4 py-2 text-xl text-white"
       >
-        Send
+        Submit
       </button>
     </div>
   );

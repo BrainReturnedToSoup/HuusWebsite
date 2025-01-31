@@ -20,7 +20,7 @@ export default function Services() {
         mobileNavOpenCloseService={mobileNavOpenCloseService}
         mobileNavSetLinksService={mobileNavSetLinksService}
         linkSetId={MOBILE_NAV_LINK_SET_ID.ON_SERVICES_PAGE}
-        useGeneralState={useSelector}
+        useDomainState={useSelector}
         domBodyRepository={domBodyRepository}
       />
 

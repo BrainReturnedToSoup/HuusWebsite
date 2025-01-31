@@ -25,30 +25,35 @@ export function Link({
   const navigate = useNavigate();
 
   return (
-    <a
-      onClick={(event) => {
-        const invocationIdOnNavigate = createInvocationId();
+    <li className="my-6">
+      <a
+        onClick={(event) => {
+          const invocationIdOnNavigate = createInvocationId();
 
-        logger
-          .createNewLog()
-          .addAttribute(
-            MobileNavLinkLogKeys_Enum.INVOCATION_ID,
-            invocationIdOnNavigate,
-          )
-          .addAttribute(
-            MobileNavLinkLogKeys_Enum.INVOCATION_TYPE,
-            "on-click-navigate",
-          )
-          .addAttribute(MobileNavLinkLogKeys_Enum.CURRENT_LINK_ID, linkId)
-          .addAttribute(MobileNavLinkLogKeys_Enum.NAVIGATING_TO, linkData.route)
-          .commit();
+          logger
+            .createNewLog()
+            .addAttribute(
+              MobileNavLinkLogKeys_Enum.INVOCATION_ID,
+              invocationIdOnNavigate,
+            )
+            .addAttribute(
+              MobileNavLinkLogKeys_Enum.INVOCATION_TYPE,
+              "on-click-navigate",
+            )
+            .addAttribute(MobileNavLinkLogKeys_Enum.CURRENT_LINK_ID, linkId)
+            .addAttribute(
+              MobileNavLinkLogKeys_Enum.NAVIGATING_TO,
+              linkData.route,
+            )
+            .commit();
 
-        event.stopPropagation(); // no need to propagate, small easy gain in resource footprint
+          event.stopPropagation(); // no need to propagate, small easy gain in resource footprint
 
-        navigate(linkData.route);
-      }}
-    >
-      {linkData.text}
-    </a>
+          navigate(linkData.route);
+        }}
+      >
+        {linkData.text}
+      </a>
+    </li>
   );
 }

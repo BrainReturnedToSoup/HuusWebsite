@@ -1,13 +1,29 @@
+import { useEffect } from "react";
+
 import { AppStoreRootState } from "../../../state/react-redux/store";
 
 import { MobileNavProps_Interface } from "./MobileNav_Interface";
 import { MobileNavLinksSet } from "../../../domain-types/navigation/mobile/links/Links_DomainTypes";
+import { MobileNavLogKeys_Enum } from "./MobileNav_Enum";
+
+import { Link } from "./Link_Component";
+
+import {
+  DomBodyOverflowX_Enum,
+  DomBodyOverflowY_Enum,
+} from "../../../state/repositories/DOM/DomBodyRepository_Enum";
 
 import xWhiteSVG from "../../../assets/x-white.svg";
-import { MobileNavLogKeys_Enum } from "./MobileNav_Enum";
-import { Link } from "./Link_Component";
-import { useEffect } from "react";
-import { DomBodyOverflowY_Enum } from "../../../state/repositories/DOM/DomBodyRepository_Enum";
+
+import "./MobileNav_Style.css";
+
+/*
+
+  encapsulates all of the related concerns of the mobile nav in a single prop-configurable component, which includes freezing
+  the main page while the mobile nav is open, the main page being slightly blurred when the mobile nav is open, as well
+  as the actual mobile nav widget transition animation being off screen to the right and into frame.
+
+*/
 
 export default function MobileNav({
   logger,
@@ -17,7 +33,7 @@ export default function MobileNav({
   mobileNavSetLinksService,
   linkSetId,
 
-  useGeneralState,
+  useDomainState: useGeneralState,
   domBodyRepository: domRepository,
 }: MobileNavProps_Interface) {
   // these invocations below happen synchronously as per react component lifecycles.
@@ -63,11 +79,23 @@ export default function MobileNav({
 
         DomBodyOverflowY_Enum.HIDDEN,
       );
+
+      domRepository.setOverflowX(
+        onChangeInvocationId,
+
+        DomBodyOverflowX_Enum.HIDDEN,
+      );
     } else {
       domRepository.setOverflowY(
         onChangeInvocationId,
 
         DomBodyOverflowY_Enum.AUTO,
+      );
+
+      domRepository.setOverflowX(
+        onChangeInvocationId,
+
+        DomBodyOverflowX_Enum.AUTO,
       );
     }
 
@@ -79,12 +107,18 @@ export default function MobileNav({
 
         DomBodyOverflowY_Enum.AUTO,
       );
+
+      domRepository.setOverflowX(
+        onChangeInvocationId,
+
+        DomBodyOverflowX_Enum.AUTO,
+      );
     };
   }, [navIsOpen]);
 
   return navIsOpen ? (
     <div
-      className="absolute z-50 flex h-dvh w-dvw justify-end"
+      className="mobile-nav-backdrop-blur-transition absolute z-40 flex h-dvh w-dvw justify-end"
       onClick={() => {
         const userClickedOffInvocationId = createInvocationId();
 
@@ -95,66 +129,68 @@ export default function MobileNav({
         // outermost div is a translucent layer which the mobile nav widget sits within.
       }
 
-      <div
-        className="h-dvh max-w-fit bg-black p-6 sm:p-10"
-        onClick={(event) => {
-          // prevent any clicks within the actual mobile nav from closing it out, only when the user clicks off
+      <div className="mobile-nav-slide-to-left-transition relative flex h-dvh max-w-[275px] grow">
+        <div
+          className="h-full w-full overflow-y-scroll border-l-2 border-white bg-black p-6 pr-2"
+          onClick={(event) => {
+            // prevent any clicks within the actual mobile nav from closing it out, only when the user clicks off
 
-          event.stopPropagation();
-        }}
-      >
-        <div className="mb-12 flex items-center justify-between overflow-y-scroll">
-          <h1 className="lato-bold text-4xl text-white">Navigation</h1>
+            event.stopPropagation();
+          }}
+        >
+          <div className="mb-12 flex items-center justify-between overflow-y-scroll">
+            <h1 className="lato-bold text-3xl text-white">Navigation</h1>
 
-          <button
-            type="button"
-            onClick={(event) => {
-              const invocationIdOnClickClose = createInvocationId();
+            <button
+              type="button"
+              onClick={(event) => {
+                const invocationIdOnClickClose = createInvocationId();
 
-              logger
-                .createNewLog()
-                .addAttribute(
-                  MobileNavLogKeys_Enum.INVOCATION_ID,
-                  invocationIdOnClickClose,
-                )
-                .addAttribute(
-                  MobileNavLogKeys_Enum.INVOCATION_TYPE,
-                  "on-click-close-mobile-nav",
-                )
-                .commit();
+                logger
+                  .createNewLog()
+                  .addAttribute(
+                    MobileNavLogKeys_Enum.INVOCATION_ID,
+                    invocationIdOnClickClose,
+                  )
+                  .addAttribute(
+                    MobileNavLogKeys_Enum.INVOCATION_TYPE,
+                    "on-click-close-mobile-nav",
+                  )
+                  .commit();
 
-              mobileNavOpenCloseService.close(invocationIdOnClickClose);
+                mobileNavOpenCloseService.close(invocationIdOnClickClose);
 
-              event.stopPropagation(); // no need to propagate, small easy gain in resource footprint
-            }}
-          >
-            <img
-              alt="Back"
-              className="max-w-[64px] text-white"
-              src={xWhiteSVG}
-            ></img>
-          </button>
+                event.stopPropagation(); // no need to propagate, small easy gain in resource footprint
+              }}
+            >
+              <img
+                alt="Back"
+                className="aspect-square max-w-[52px] text-white"
+                src={xWhiteSVG}
+              ></img>
+            </button>
+          </div>
+          <ul className="text-2xl text-white">
+            {
+              // the key should be per button, but not to be used for each button text itself.
+              // create a module 'LinkTextMapping' that maps link IDs to text to display within the buttons
+
+              navLinksSet
+                ? Object.entries(navLinksSet).map(([linkId, LinkData]) => {
+                    return (
+                      <Link
+                        key={linkId}
+                        logger={logger}
+                        createInvocationId={createInvocationId}
+                        linkId={linkId}
+                        linkData={LinkData}
+                      />
+                    );
+                  })
+                : null
+            }
+          </ul>
         </div>
-        <ul className="text-2xl text-white">
-          {
-            // the key should be per button, but not to be used for each button text itself.
-            // create a module 'LinkTextMapping' that maps link IDs to text to display within the buttons
-
-            navLinksSet
-              ? Object.entries(navLinksSet).map(([linkId, LinkData]) => {
-                  return (
-                    <Link
-                      key={linkId}
-                      logger={logger}
-                      createInvocationId={createInvocationId}
-                      linkId={linkId}
-                      linkData={LinkData}
-                    />
-                  );
-                })
-              : null
-          }
-        </ul>
       </div>
     </div>
   ) : null;

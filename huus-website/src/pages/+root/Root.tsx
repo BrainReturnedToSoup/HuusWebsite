@@ -23,7 +23,7 @@ export default function Root() {
         mobileNavOpenCloseService={mobileNavOpenCloseService}
         mobileNavSetLinksService={mobileNavSetLinksService}
         linkSetId={MOBILE_NAV_LINK_SET_ID.ON_ROOT_PAGE}
-        useGeneralState={useSelector}
+        useDomainState={useSelector}
         domBodyRepository={domBodyRepository}
       />
 

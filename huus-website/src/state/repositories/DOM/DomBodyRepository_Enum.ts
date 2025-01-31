@@ -27,3 +27,15 @@ export enum DomBodyOverflowY_Enum {
 
   AUTO = "auto",
 }
+
+export enum DomBodyOverflowX_Enum {
+  VISIBLE = "visible",
+
+  HIDDEN = "hidden",
+
+  CLIP = "clip",
+
+  SCROLL = "scroll",
+
+  AUTO = "auto",
+}

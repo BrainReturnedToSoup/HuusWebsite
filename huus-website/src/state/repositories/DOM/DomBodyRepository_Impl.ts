@@ -3,6 +3,7 @@ import { Logger_Interface } from "../../../logging/logger/Logger_Interface";
 import { InstanceId, InvocationId } from "../../../logging/Logging_types";
 
 import {
+  DomBodyOverflowX_Enum,
   DomBodyOverflowY_Enum,
   DomBodyRepositoryLogKeys_Enum,
 } from "./DomBodyRepository_Enum";
@@ -101,6 +102,41 @@ export class DomBodyRepository_Impl implements DomBodyRepository_Interface {
       invocationId,
 
       "setOverflowY",
+      `property:${property}`,
+      property,
+    );
+  }
+
+  getOverflowX(invocationId: InvocationId): DomBodyOverflowX_Enum {
+    const currState = this.#document.body.style.overflowX;
+
+    if (!(currState in DomBodyOverflowX_Enum)) {
+      // throw error here
+      throw Error();
+    }
+
+    this.#loggingHelperForGetters(
+      invocationId,
+
+      "getOverflowX",
+      currState,
+      currState,
+    ).commit();
+
+    return currState as DomBodyOverflowX_Enum;
+  }
+
+  setOverflowX(
+    invocationId: InvocationId,
+
+    property: DomBodyOverflowX_Enum,
+  ): void {
+    this.#document.body.style.overflowX = property;
+
+    this.#loggingHelperForSetters(
+      invocationId,
+
+      "setOverflowX",
       `property:${property}`,
       property,
     );

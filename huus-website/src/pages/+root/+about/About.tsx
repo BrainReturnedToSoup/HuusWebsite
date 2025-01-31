@@ -24,7 +24,7 @@ export default function About() {
         mobileNavOpenCloseService={mobileNavOpenCloseService}
         mobileNavSetLinksService={mobileNavSetLinksService}
         linkSetId={MOBILE_NAV_LINK_SET_ID.ON_ABOUT_PAGE}
-        useGeneralState={useSelector}
+        useDomainState={useSelector}
         domBodyRepository={domBodyRepository}
       />
 

@@ -7,6 +7,7 @@ import { createInvocationId } from "../../../../logging/invocation-id/Invocation
 import { contactFormSubmissionService } from "../../../../services/contact-form/form-submission/FormSubmissionService_Instance";
 import { contactFormResetService } from "../../../../services/contact-form/form-reset/FormResetService_Instance";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default function Main() {
   return (
@@ -17,7 +18,8 @@ export default function Main() {
         createInvocationId={createInvocationId}
         formSubmissionService={contactFormSubmissionService}
         formResetService={contactFormResetService}
-        useGeneralState={useSelector}
+        useDomainState={useSelector}
+        useDomainStateUpdater={useDispatch}
       />
       <BackupEmail />
     </main>

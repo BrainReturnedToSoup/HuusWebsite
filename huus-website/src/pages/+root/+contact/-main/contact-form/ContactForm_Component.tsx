@@ -15,12 +15,17 @@ export default function ContactForm({
 
   formSubmissionService,
   formResetService,
+
+  useDomainState,
+  useDomainStateUpdater,
 }: ContactFormProps_Interface) {
   return (
     <div className="flex w-full max-w-[760px] items-center justify-center">
       <form
         className="w-full border-2 border-neutral-300 p-4 text-xl"
-        onSubmit={() => {
+        onSubmit={(event) => {
+          event.stopPropagation();
+
           const formSubmissionInvocationId = createInvocationId();
 
           logger
@@ -29,6 +34,7 @@ export default function ContactForm({
               ContactFormLogKeys_Enum.INVOCATION_ID,
               formSubmissionInvocationId,
             )
+            .addAttribute(ContactFormLogKeys_Enum.ACTION, "form-submitted")
             .commit();
 
           formSubmissionService.submitForm(formSubmissionInvocationId);
@@ -37,12 +43,18 @@ export default function ContactForm({
         <DisplayedNotes />
         <GeneralErrorMessage />
 
-        <Name />
-        <Email />
-        <GeneralLocation />
-        <ServiceSelection />
-        <Message />
+        <Name useDomainStateUpdater={useDomainStateUpdater} />
+        <Email useDomainStateUpdater={useDomainStateUpdater} />
+        <GeneralLocation useDomainStateUpdater={useDomainStateUpdater} />
 
+        <ServiceSelection />
+
+        <Message useDomainStateUpdater={useDomainStateUpdater} />
+
+        {/*
+            logging and invocation dependencies below purely for the clearing button. The submit event should be caught by the form,
+            which its callback has the invocation ID and logging within it.
+          */}
         <ClearAndSubmit
           logger={logger}
           createInvocationId={createInvocationId}

@@ -1,0 +1,45 @@
+.mobile-nav-backdrop-blur-transition {
+  backdrop-filter: blur(0px);
+
+  -webkit-animation: backdrop-blur-webkit 0.24s forwards;
+  -webkit-animation-delay: 0s;
+
+  animation: backdrop-blur 0.24s forwards;
+  animation-delay: 0s;
+}
+
+@-webkit-keyframes backdrop-blur-webkit {
+  100% {
+    backdrop-filter: blur(1px);
+  }
+}
+
+@keyframes backdrop-blur {
+  100% {
+    backdrop-filter: blur(1px);
+  }
+}
+
+.mobile-nav-slide-to-left-transition {
+  left: 275px;
+
+  -webkit-animation: slide-to-left-webkit 0.24s forwards;
+  -webkit-animation-delay: 0s;
+  -webkit-animation-timing-function: ease-out;
+
+  animation: slide-to-left 0.24s forwards;
+  animation-delay: 0s;
+  animation-timing-function: ease-out;
+}
+
+@-webkit-keyframes slide-to-left-webkit {
+  100% {
+    left: 0px;
+  }
+}
+
+@keyframes slide-to-left {
+  100% {
+    left: 0px;
+  }
+}
