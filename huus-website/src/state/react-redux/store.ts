@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import { appWindowSlice } from "./slices/app-window/appWindow";
 import { mobileNavSlice } from "./slices/mobileNav";
-import { contactFormSlice } from "./slices/contactForm";
+import { contactFormSlice } from "./slices/contact-form/contactForm";
 import { footerSlice } from "./slices/footer";
 
 const appStore = configureStore({

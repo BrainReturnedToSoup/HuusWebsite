@@ -22,7 +22,7 @@ import { Logger_Interface } from "../../../logging/logger/Logger_Interface";
 import {
   ContactFormSliceActions,
   ContactFormSliceSelectors,
-} from "../../react-redux/slices/contactForm";
+} from "../../react-redux/slices/contact-form/contactForm";
 
 import { AppStore } from "../../react-redux/store";
 import { ContactFormRepositoryLogKeys_Enum } from "./ContactFormRepository_Enum";

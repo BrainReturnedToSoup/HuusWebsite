@@ -1,5 +1,6 @@
 export default function loadImage(
   url: string,
+
   timeoutMs: number = 10000,
 ): Promise<string> {
   return new Promise((resolve, reject) => {

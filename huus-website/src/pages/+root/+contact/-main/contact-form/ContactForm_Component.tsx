@@ -16,16 +16,13 @@ export default function ContactForm({
   formSubmissionService,
   formResetService,
 
-  useDomainState,
   useDomainStateUpdater,
 }: ContactFormProps_Interface) {
   return (
     <div className="flex w-full max-w-[760px] items-center justify-center">
       <form
-        className="w-full border-2 border-neutral-300 p-4 text-xl"
-        onSubmit={(event) => {
-          event.stopPropagation();
-
+        className="w-full border-[1px] border-neutral-400 p-4 text-xl"
+        onSubmit={() => {
           const formSubmissionInvocationId = createInvocationId();
 
           logger

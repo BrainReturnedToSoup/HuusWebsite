@@ -1,21 +1,16 @@
 import { AppWindowWidthResizeListener_Interface } from "./AppWindowWidthResize_Interface";
 
-import {
-  AppWindowRepository_Interface,
-  StateChangeSubscriberId,
-} from "../../../repositories/app-window/AppWindowRepository_Interface";
+import { AppWindowRepository_Interface } from "../../../repositories/app-window/AppWindowRepository_Interface";
 
 import { ListenerNotBinded_Error } from "../../_errors/ListenerNotBinded_Error";
 import { ListenerAlreadyBinded_Error } from "../../_errors/ListenerAlreadyBinded_Error";
 
-import { AppWindowSliceState } from "../../../react-redux/slices/app-window/appWindow";
-import { AppWindowChangeSources } from "../../../react-redux/slices/app-window/appWindow_Enum";
-
-import { LISTENER_TYPE } from "./AppWindowWidthResize_Interface";
 import { InstanceId, InvocationId } from "../../../../logging/Logging_types";
 import { Logger_Interface } from "../../../../logging/logger/Logger_Interface";
 
 import { AppWindowWidthResizeListenerLogKeys_Enum } from "./AppWindowWidthResizeListener_Enum";
+
+export const LISTENER_TYPE = "resize";
 
 export type WindowListenerEventHandler_Lambda = () => void;
 
@@ -30,164 +25,67 @@ class AppWindowWidthResizeListener_Impl
   #logger: Logger_Interface;
 
   #appWindowRepository: AppWindowRepository_Interface;
-  #appWindowRepositoryStateSubscriptionId: StateChangeSubscriberId | null;
+  #window: Window;
+
   #windowListenerEventHandler: WindowListenerEventHandler_Lambda | null;
+
+  // represents the sector that the screen width value exists within.
+  // ex: sector 1 = 0-63 if '#rangeSize' is set to 64 meaning 64px
+  #currViewPortWidthRange: number;
+
+  // the size of each range,
+  #rangeSize: number;
 
   constructor(
     instanceMetaData: InstanceMetaData,
     logger: Logger_Interface,
 
     appWindowRepository: AppWindowRepository_Interface,
+    window: Window,
+
+    rangeSize: number,
   ) {
     this.#instanceMetaData = instanceMetaData;
     this.#logger = logger;
 
     this.#appWindowRepository = appWindowRepository;
-
-    // this is a custom pub/sub reactive system, which returns an ID on subscription,
-    // so the existence of the subscription ID represents true, and of course non-existence means false
-    this.#appWindowRepositoryStateSubscriptionId = null;
+    this.#window = window;
 
     this.#windowListenerEventHandler = null;
-  }
 
-  /* event handler that binds to the given repository */
+    this.#rangeSize = rangeSize;
 
-  #eventHandler_ListeningToRepository({
-    viewPortWidth: newWindowInnerWidth,
-    viewPortWidth_lastChangeSource: width_lastChangeSource,
-  }: AppWindowSliceState): void {
-    // need to add an event change source ID that is stored in the redux as well
-    // this way any circular events are exited on the backswing when reading the
-    // change source ID within this handler.
-
-    if (width_lastChangeSource !== AppWindowChangeSources.LISTENER) {
-      // if the last change to the 'width' property in the app window slice was NOT due to this listener itself.
-      // if so, then apply that state value to the actual window object.
-
-      this.#logger
-        .createNewLog()
-        .addAttribute(
-          AppWindowWidthResizeListenerLogKeys_Enum.INSTANCE_ID,
-          this.#instanceMetaData.instanceId,
-        )
-        .addAttribute(
-          AppWindowWidthResizeListenerLogKeys_Enum.NEW_WINDOW_INNER_WIDTH,
-          newWindowInnerWidth,
-        )
-        .commit();
-
-      window.resizeTo(newWindowInnerWidth, window.innerHeight); // WILL CAUSE ASSOCIATED EVENT LISTENERS TO FIRE BE CAREFUL
-    }
-  }
-
-  bindListener_Repository(invocationId: InvocationId): void {
-    if (this.#appWindowRepositoryStateSubscriptionId !== null) {
-      throw new ListenerAlreadyBinded_Error("type:repository");
-    }
-
-    const subscriberId: StateChangeSubscriberId = crypto.randomUUID();
-
-    this.#appWindowRepository.subscribeToRepositoryStateChange(
-      invocationId,
-
-      subscriberId,
-      this.#eventHandler_ListeningToRepository,
+    this.#currViewPortWidthRange = this.#calcNewviewPortWidthRange(
+      this.#window.innerWidth,
     );
-
-    this.#appWindowRepositoryStateSubscriptionId = subscriberId;
-
-    this.#logger
-      .createNewLog()
-      .addAttribute(
-        AppWindowWidthResizeListenerLogKeys_Enum.INSTANCE_ID,
-        this.#instanceMetaData.instanceId,
-      )
-      .addAttribute(
-        AppWindowWidthResizeListenerLogKeys_Enum.INVOCATION_ID,
-        invocationId,
-      )
-      .addAttribute(
-        AppWindowWidthResizeListenerLogKeys_Enum.BINDED_LISTENER,
-        "repository",
-      )
-      .commit();
   }
 
-  unbindListener_Repository(invocationId: InvocationId): void {
-    if (this.#appWindowRepositoryStateSubscriptionId === null) {
-      throw new ListenerNotBinded_Error("type:repository");
-    }
-
-    const id: StateChangeSubscriberId =
-      this.#appWindowRepositoryStateSubscriptionId;
-
-    this.#appWindowRepository.unsubscribeFromRepositoryStateChange(
-      invocationId,
-
-      id,
-    );
-
-    this.#appWindowRepositoryStateSubscriptionId = null;
-
-    this.#logger
-      .createNewLog()
-      .addAttribute(
-        AppWindowWidthResizeListenerLogKeys_Enum.INSTANCE_ID,
-        this.#instanceMetaData.instanceId,
-      )
-      .addAttribute(
-        AppWindowWidthResizeListenerLogKeys_Enum.INVOCATION_ID,
-        invocationId,
-      )
-      .addAttribute(
-        AppWindowWidthResizeListenerLogKeys_Enum.UNBINDED_LISTENER,
-        "repository",
-      )
-      .commit();
+  // returns the new width range the supplied currViewPortWidth represents
+  #calcNewviewPortWidthRange(currViewPortWidth: number): number {
+    return Math.floor(currViewPortWidth / this.#rangeSize);
   }
 
-  #eventHandler_ListeningToWindow(invocationId: InvocationId): void {
-    const newWindowInnerWidth: number = window.innerWidth;
-
-    this.#logger
-      .createNewLog()
-      .addAttribute(
-        AppWindowWidthResizeListenerLogKeys_Enum.INSTANCE_ID,
-        this.#instanceMetaData.instanceId,
-      )
-      .addAttribute(
-        AppWindowWidthResizeListenerLogKeys_Enum.INVOCATION_ID,
-        invocationId,
-      )
-      .addAttribute(
-        AppWindowWidthResizeListenerLogKeys_Enum.NEW_WINDOW_INNER_WIDTH,
-        newWindowInnerWidth,
-      )
-      .commit();
-
-    this.#appWindowRepository.setViewPortWidth(
-      invocationId,
-
-      newWindowInnerWidth,
-      AppWindowChangeSources.LISTENER,
-    ); // add setter source eventually like an ID
-  }
-
-  bindListener_Window(invocationId: InvocationId): void {
+  bindListener(invocationId: InvocationId): void {
     if (this.#windowListenerEventHandler) {
-      throw new ListenerAlreadyBinded_Error("type:target");
+      throw new ListenerAlreadyBinded_Error("type:window");
     }
 
-    // reuses the ID as a closure rather than a new ID each time. This works
-    // because the event listener should already fire as it pertains to causality
-    // anyway. This also means that the underlying JIT interpreter can optimized for this reused ID
-    // since it should be a hotspot.
-
-    // declared separately rather than inline in order to reuse the reference when potentially
-    // unbinding the listener.
+    const classScope = this;
     const eventHandler: WindowListenerEventHandler_Lambda = () => {
-      this.#eventHandler_ListeningToWindow(invocationId);
+      // mechanism used for throttling writes to the repository
+      const newViewPortWidthRange = this.#calcNewviewPortWidthRange.bind(
+        classScope,
+      )(this.#window.innerWidth);
+
+      if (newViewPortWidthRange !== this.#currViewPortWidthRange) {
+        this.#currViewPortWidthRange = newViewPortWidthRange;
+
+        this.#appWindowRepository.setViewPortWidth(
+          invocationId,
+          
+          this.#window.innerWidth,
+        );
+      }
     };
 
     window.addEventListener(LISTENER_TYPE, eventHandler);
@@ -211,7 +109,7 @@ class AppWindowWidthResizeListener_Impl
       .commit();
   }
 
-  unbindListener_Window(invocationId: InvocationId): void {
+  unbindListener(invocationId: InvocationId): void {
     if (!this.#windowListenerEventHandler) {
       throw new ListenerNotBinded_Error("type:window");
     }

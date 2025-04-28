@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppStore } from "../../store";
-import { AppWindowChangeSources } from "./appWindow_Enum";
+
 import {
   ViewPortPositionY,
   ViewPortWidth,
@@ -8,12 +8,8 @@ import {
 
 const initialState = {
   viewPortWidth: window.innerWidth as ViewPortWidth,
-  viewPortWidth_lastChangeSource:
-    AppWindowChangeSources.NONE as AppWindowChangeSources,
 
   viewPortPositionY: window.screenTop as ViewPortPositionY,
-  viewPortPositionY_lastChangeSource:
-    AppWindowChangeSources.NONE as AppWindowChangeSources,
 };
 
 const appWindowSlice = createSlice({
@@ -26,16 +22,8 @@ const appWindowSlice = createSlice({
       state.viewPortWidth = action.payload;
     },
 
-    setViewPortWidth_lastChangeSource: (state, action): void => {
-      state.viewPortWidth_lastChangeSource = action.payload;
-    },
-
     setViewPortPositionY: (state, action): void => {
       state.viewPortPositionY = action.payload;
-    },
-
-    setViewPortPositionY_lastChangeSource: (state, action): void => {
-      state.viewPortPositionY_lastChangeSource = action.payload;
     },
   },
 });

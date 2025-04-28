@@ -1,0 +1,31 @@
+/*
+    add transitions for the navs based on scroll position
+*/
+
+.nav-bar-follow {
+  animation: nav-bar-follow-keyframe 0.2s ease-in-out forwards;
+  will-change: transform position;
+}
+
+@keyframes nav-bar-follow-keyframe {
+  0% {
+    transform: translateY(-96px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.nav-bar-return {
+  animation: nav-bar-return-keyframe 0.1s ease-in-out forwards;
+  will-change: transform position;
+}
+
+@keyframes nav-bar-return-keyframe {
+  0% {
+    transform: translateY(64px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}

@@ -4,8 +4,10 @@ import {
 } from "./ContactFormRepository_Impl";
 
 import { appStore } from "../../react-redux/store";
-import { contactFormSliceSelectors } from "../../react-redux/slices/contactForm";
-import { contactFormSliceActions } from "../../react-redux/slices/contactForm";
+import {
+  contactFormSliceActions,
+  contactFormSliceSelectors,
+} from "../../react-redux/slices/contact-form/contactForm";
 import { defaultLogger } from "../../../logging/logger/default/DefaultLogger_Instance";
 
 const instanceMetaData: InstanceMetaData = {

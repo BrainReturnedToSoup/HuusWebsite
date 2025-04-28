@@ -19,6 +19,8 @@ const appWindowRepository = new AppWindowRepository_Impl(
   appStore,
   appWindowSliceSelectors,
   appWindowSliceActions,
+
+  window,
 );
 
 export { appWindowRepository, instanceMetaData };

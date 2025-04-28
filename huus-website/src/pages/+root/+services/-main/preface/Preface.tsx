@@ -8,7 +8,7 @@ const desc = `Lorem ipsum odor amet, consectetuer adipiscing elit. Vestibulum
 
 export default function Preface() {
   return (
-    <div className="border-b-2 border-neutral-300 flex items-center justify-center">
+    <div className="flex items-center justify-center border-b-[1px] border-neutral-400">
       <DefaultPreface title={title} desc={desc} />
     </div>
   );

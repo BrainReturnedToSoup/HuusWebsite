@@ -4,4 +4,3 @@ export interface AppWindowWidthResizeListener_Interface
   extends WindowEventListener_Interface {}
 
 
-export const LISTENER_TYPE = "resize";

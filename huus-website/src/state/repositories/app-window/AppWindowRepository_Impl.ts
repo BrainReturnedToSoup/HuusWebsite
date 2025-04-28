@@ -8,11 +8,10 @@ import {
   AppWindowSliceActions,
   AppWindowSliceSelectors,
 } from "../../react-redux/slices/app-window/appWindow";
-import { AppStore, AppStoreUnsubscribe } from "../../react-redux/store";
+import { AppStore } from "../../react-redux/store";
 
 import { SubscriberDoesNotExist_Error } from "../_errors/SubscriberDoesNotExist_Error";
 import { SubscriberAlreadyExists_Error } from "../_errors/SubscriberAlreadyExists_Error";
-import { AppWindowChangeSources } from "../../react-redux/slices/app-window/appWindow_Enum";
 
 import { Logger_Interface } from "../../../logging/logger/Logger_Interface";
 import { Log_Interface } from "../../../logging/logger/Log_Interface";
@@ -38,10 +37,9 @@ class AppWindowRepository_Impl implements AppWindowRepository_Interface {
   #selectors: AppWindowSliceSelectors;
   #actions: AppWindowSliceActions;
 
-  #subscribers: Map<StateChangeSubscriberId, StateChangeSubscriber_Lambda>;
+  #window: Window;
 
-  // have it in the back pocket just in case.
-  #storeStateUnsubscribe: AppStoreUnsubscribe;
+  #subscribers: Map<StateChangeSubscriberId, StateChangeSubscriber_Lambda>;
 
   constructor(
     instanceMetaData: InstanceMetaData,
@@ -50,6 +48,8 @@ class AppWindowRepository_Impl implements AppWindowRepository_Interface {
     store: AppStore,
     selectors: AppWindowSliceSelectors,
     actions: AppWindowSliceActions,
+
+    window: Window,
   ) {
     this.#instanceMetaData = instanceMetaData;
     this.#logger = logger;
@@ -58,21 +58,12 @@ class AppWindowRepository_Impl implements AppWindowRepository_Interface {
     this.#selectors = selectors;
     this.#actions = actions;
 
+    this.#window = window;
+
     this.#subscribers = new Map<
       StateChangeSubscriberId,
       StateChangeSubscriber_Lambda
     >();
-
-    // BINDING TO REDUX STORE ON-CHANGE BUT ITS THE WHOLE STORE CHANGING THAT CAUSES THIS TO FIRE. KEEP THAT IN MIND
-    const reduxStateUnsubscribe = this.#store.subscribe(() => {
-      const state = this.#store.getState().appWindow;
-
-      for (const [, subscriberLambda] of this.#subscribers) {
-        subscriberLambda(state);
-      }
-    });
-
-    this.#storeStateUnsubscribe = reduxStateUnsubscribe;
   }
 
   #loggingHelperForGetters(
@@ -100,25 +91,6 @@ class AppWindowRepository_Impl implements AppWindowRepository_Interface {
       );
   }
 
-  #loggingHelperForSetters(
-    invocationId: InvocationId,
-
-    methodName: string,
-    receivedArgs: string,
-    setValue: any,
-  ): Log_Interface {
-    return this.#logger
-      .createNewLog()
-      .addAttribute(
-        AppWindowRepositoryLogKeys_Enum.INSTANCE_ID,
-        this.#instanceMetaData.instanceId,
-      )
-      .addAttribute(AppWindowRepositoryLogKeys_Enum.INVOCATION_ID, invocationId)
-      .addAttribute(AppWindowRepositoryLogKeys_Enum.INVOKED_SETTER, methodName)
-      .addAttribute(AppWindowRepositoryLogKeys_Enum.RECEIVED_ARGS, receivedArgs)
-      .addAttribute(AppWindowRepositoryLogKeys_Enum.SET_VALUE, setValue);
-  }
-
   getViewPortWidth(invocationId: InvocationId): ViewPortWidth {
     const viewPortWidth: ViewPortWidth = this.#selectors.viewPortWidth(
       this.#store,
@@ -134,29 +106,37 @@ class AppWindowRepository_Impl implements AppWindowRepository_Interface {
 
     return viewPortWidth;
   }
+
   setViewPortWidth(
     invocationId: InvocationId,
 
     viewPortWidth: ViewPortWidth,
-    changeSource: AppWindowChangeSources,
   ): void {
     // This essentially ensures that applying a state change involves say more than one
     // member of state within the given store, but done so like a single 'transaction'.
     // This ensures that any associated listeners of state via 'store.subscribe(...)'
     // only receive a single event per domain-centric state transition.
 
-    this.#store.dispatch((dispatch) => {
-      dispatch(this.#actions.setViewPortWidth(viewPortWidth));
-      dispatch(this.#actions.setViewPortWidth_lastChangeSource(changeSource));
-    });
+    this.#window.resizeTo(viewPortWidth, this.#window.innerHeight);
+    this.#store.dispatch(this.#actions.setViewPortWidth(viewPortWidth));
 
-    this.#loggingHelperForSetters(
-      invocationId,
-
-      "setViewPortWidth",
-      `viewPortWidth:${viewPortWidth},changeSource:${changeSource}`,
-      viewPortWidth,
-    ).commit();
+    this.#logger
+      .createNewLog()
+      .addAttribute(
+        AppWindowRepositoryLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(AppWindowRepositoryLogKeys_Enum.INVOCATION_ID, invocationId)
+      .addAttribute(
+        AppWindowRepositoryLogKeys_Enum.INVOKED_SETTER,
+        "setViewPortWidth",
+      )
+      .addAttribute(
+        AppWindowRepositoryLogKeys_Enum.RECEIVED_ARGS,
+        `viewPortWidth:${viewPortWidth}`,
+      )
+      .addAttribute(AppWindowRepositoryLogKeys_Enum.SET_VALUE, viewPortWidth)
+      .commit();
   }
 
   getViewPortPositionY(invocationId: InvocationId): ViewPortPositionY {
@@ -178,27 +158,35 @@ class AppWindowRepository_Impl implements AppWindowRepository_Interface {
     invocationId: InvocationId,
 
     viewPortPositionY: ViewPortPositionY,
-    changeSource: AppWindowChangeSources,
   ): void {
     // This essentially ensures that applying a state change involves say more than one
     // member of state within the given store, but done so like a single 'transaction'.
     // This ensures that any associated listeners of state via 'store.subscribe(...)'
     // only receive a single event per domain-centric state transition.
 
-    this.#store.dispatch((dispatch) => {
-      dispatch(this.#actions.setViewPortPositionY(viewPortPositionY));
-      dispatch(
-        this.#actions.setViewPortPositionY_lastChangeSource(changeSource),
-      );
-    });
+    this.#window.scrollTo(this.#window.scrollX, viewPortPositionY);
+    this.#store.dispatch(this.#actions.setViewPortPositionY(viewPortPositionY));
 
-    this.#loggingHelperForSetters(
-      invocationId,
-
-      "setViewPortPositionY",
-      `viewPortPositionY:${viewPortPositionY},changeSource:${changeSource}`,
-      viewPortPositionY,
-    ).commit();
+    this.#logger
+      .createNewLog()
+      .addAttribute(
+        AppWindowRepositoryLogKeys_Enum.INSTANCE_ID,
+        this.#instanceMetaData.instanceId,
+      )
+      .addAttribute(AppWindowRepositoryLogKeys_Enum.INVOCATION_ID, invocationId)
+      .addAttribute(
+        AppWindowRepositoryLogKeys_Enum.INVOKED_SETTER,
+        "setPositionY",
+      )
+      .addAttribute(
+        AppWindowRepositoryLogKeys_Enum.RECEIVED_ARGS,
+        `viewPortPositionY:${viewPortPositionY}`,
+      )
+      .addAttribute(
+        AppWindowRepositoryLogKeys_Enum.SET_VALUE,
+        viewPortPositionY,
+      )
+      .commit();
   }
 
   subscribeToRepositoryStateChange(

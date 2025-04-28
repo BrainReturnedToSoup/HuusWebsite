@@ -1,4 +1,4 @@
-import DefaultCallToAction from "../../../../../components/util/call-to-action/DefaultCallToAction";
+import { CallToAction as DefaultCallToAction } from "../../../../../components/util/call-to-action/CallToAction_Component";
 
 const title = `Not finding what you are looking for?`;
 
@@ -10,13 +10,11 @@ const redirectButtonText = `Contact me`;
 
 export default function CallToAction() {
   return (
-    <>
-      <DefaultCallToAction
-        title={title}
-        desc={desc}
-        redirectCallback={() => {}}
-        redirectButtonText={redirectButtonText}
-      />
-    </>
+    <DefaultCallToAction
+      title={title}
+      desc={desc}
+      redirectCallback={() => {}}
+      redirectButtonText={redirectButtonText}
+    />
   );
 }

@@ -1,0 +1,23 @@
+/* 
+  have to use special classes that map images, instead of using the src on an img element,
+  because there is a rendering edgecase for rendering based on hover that simply doesn't work
+  right using react useState and conditional rendering. These are applied directly to a button
+  so it should be fine. 
+*/
+.hamburger-menu-image {
+  background-image: url("../../../assets/hamburger-menu-white.svg");
+  background-position: center;
+  background-size: cover;
+}
+
+.hamburger-menu-image:hover {
+  background-image: url("../../../assets/hamburger-menu-black.svg");
+  background-position: center;
+  background-size: cover;
+}
+
+.hamburger-menu-image:active {
+  background-image: url("../../../assets/hamburger-menu-black.svg");
+  background-position: center;
+  background-size: cover;
+}

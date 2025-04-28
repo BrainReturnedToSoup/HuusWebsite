@@ -1,6 +1,5 @@
 import { InvocationId } from "../../../logging/Logging_types";
 import { AppWindowSliceState } from "../../react-redux/slices/app-window/appWindow";
-import { AppWindowChangeSources } from "../../react-redux/slices/app-window/appWindow_Enum";
 
 export type StateChangeSubscriberId = string;
 
@@ -13,16 +12,14 @@ export interface AppWindowRepository_Interface {
   setViewPortWidth(
     invocationId: InvocationId,
 
-    width: number,
-    changeSource: AppWindowChangeSources,
+    viewPortWidth: number,
   ): void;
 
   getViewPortPositionY(invocationId: InvocationId): number;
   setViewPortPositionY(
     invocationId: InvocationId,
 
-    positionY: number,
-    changeSource: AppWindowChangeSources,
+    ScrollPositionY: number,
   ): void;
 
   subscribeToRepositoryStateChange(

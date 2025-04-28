@@ -16,7 +16,7 @@ function PricingBox({
   const [localEnquireHovered, setLocalEnquireHovered] = useState(false);
 
   return (
-    <div className="relative min-h-[150px] min-w-[350px] border-neutral-300 px-4 md:border-l-2">
+    <div className="relative min-h-[150px] min-w-[350px] border-neutral-400 px-4 md:border-l-[1px]">
       <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center">
         <div className="flex">
           <h1
@@ -42,7 +42,7 @@ function PricingBox({
             setEnquireHovered(false);
           }}
           onClick={enquireRedirect}
-          className={`lato-bold w-fit self-end border-b-2 border-t-2 px-2 py-1 transition-colors duration-150 ease-in-out ${localEnquireHovered ? "border-white text-white" : "border-neutral-300"}`}
+          className={`lato-bold w-fit self-end border-x-[1px] px-2 py-1 transition-colors duration-150 ease-in-out ${localEnquireHovered ? "border-white text-white" : "border-neutral-400"}`}
         >
           Enquire
         </button>
@@ -64,12 +64,12 @@ function Keywords({ words, enquireHovered }: KeywordsProps) {
           "px-2 text-sm lato-bold transition-colors duration-150 ease-in-out";
 
         if (index !== words.length - 1) {
-          classString += " border-r-2";
+          classString += " border-r-[1px]";
 
           if (enquireHovered) {
             classString += " border-white";
           } else {
-            classString += " border-neutral-300";
+            classString += " border-neutral-400";
           }
         }
 
@@ -104,7 +104,7 @@ function ServiceRow({
 
   return (
     <div
-      className={`my-12 flex flex-col border-2 border-neutral-300 p-2 transition-colors duration-150 ease-in-out md:flex-row md:border-0 ${enquireHovered ? "bg-black" : ""}`}
+      className={`my-12 flex flex-col border-[1px] border-neutral-400 p-2 transition-colors duration-150 ease-in-out md:flex-row md:border-0 ${enquireHovered ? "bg-black" : ""}`}
     >
       <div className="mr-4 flex grow flex-col justify-center px-4 py-2">
         <h1

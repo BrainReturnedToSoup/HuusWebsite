@@ -9,6 +9,13 @@ const OnCommit_LambdaImpl: OnCommit_LambdaInterface = (
   // inject a method reference of a class instance, and have a full post-processing class instance for
   // logs (filtering, sending off to an observability pipeline, even implementing web workers here, etc.)
 
+  // if (
+  //   "instance-id" in log &&
+  //   log["instance-id"] == "APP-WINDOW-WIDTH-RESIZE-LISTENER-DEFAULT"
+  // ) {
+  //   console.log(log);
+  // }
+
   console.log(log);
 };
 

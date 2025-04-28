@@ -1,17 +1,18 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Root from "./pages/+root/Root";
-import Services from "./pages/+root/+services/Services";
-import Contact from "./pages/+root/+contact/Contact";
+import Root from "./pages/+root/Root_Page";
+import Services from "./pages/+root/+services/Services_Page";
+import Contact from "./pages/+root/+contact/Contact_Page";
 import Media from "./pages/+root/+media/Media";
 import About from "./pages/+root/+about/About";
 
 import Error from "./pages/+error/Error";
 
 import "./App.css";
-import { UseDomainState_LambdaInterface } from "./state/react-state-hooks/UseDomainState_LambdaInterface";
-import { AppStoreRootState } from "./state/react-redux/store";
-import { useEffect } from "react";
+
+// init of certain modules
+import "./state/listeners/app-window/width-resize/AppWindowWidthResize_Instance";
+import "./state/listeners/app-window/position-y-change/AppWindowPositionYChange_Instance"
 
 const router = createBrowserRouter([
   {
