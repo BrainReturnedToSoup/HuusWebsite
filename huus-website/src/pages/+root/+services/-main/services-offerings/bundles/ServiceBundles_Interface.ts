@@ -1,4 +1,4 @@
-import { ServiceRowProps_Interface } from "../service-rows/ServiceRow_Interface";
+import { ServiceRowProps_Interface } from "../service-row/ServiceRow_Interface";
 
 export interface ServiceBundlesProps_Interface {
   groupTitle: string;

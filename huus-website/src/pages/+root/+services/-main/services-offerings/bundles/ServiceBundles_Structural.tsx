@@ -1,4 +1,4 @@
-import { ServiceRow } from "../service-rows/ServiceRow_Structural";
+import { ServiceRow } from "../service-row/ServiceRow_Structural";
 
 import { ServiceBundlesProps_Interface } from "./ServiceBundles_Interface";
 

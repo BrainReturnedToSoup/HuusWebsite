@@ -1,6 +1,6 @@
-import { Summary } from "./summary/Summary";
-import { Selfie } from "./selfie/Selfie";
-import { Details } from "./details/Details";
+import { Summary } from "./summary/Summary_Structural";
+import { Selfie } from "./selfie/Selfie_Structural";
+import { Details } from "./details/Details_Structural";
 
 function Main() {
   return (

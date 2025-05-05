@@ -1,19 +1,13 @@
-function Details() {
-  return (
-    <div className="flex flex-col items-center justify-center pt-14">
-      <h1 className="default-font-bold mb-4 text-2xl">About me</h1>
-      <p className="default-font-regular text-base leading-relaxed">
-        Lorem ipsum odor amet, consectetuer adipiscing elit. Malesuada conubia
+const PARA_ONE = `Lorem ipsum odor amet, consectetuer adipiscing elit. Malesuada conubia
         justo eleifend lacus purus. Phasellus pulvinar mus habitant luctus
         finibus litora. Non lectus fermentum molestie purus metus sollicitudin;
         non platea. Neque ultricies aptent porta maecenas taciti himenaeos.
         Tellus convallis tortor, mus dapibus faucibus egestas. Litora gravida
         hac dui eget molestie. Nascetur varius mollis varius tempus mattis a
         tincidunt curabitur. In nam natoque neque sollicitudin varius vehicula
-        consectetur volutpat.
-        <br></br>
-        <br></br>
-        Pretium efficitur non ad fermentum finibus erat? Dictumst ac ac cursus
+        consectetur volutpat.`;
+
+const PARA_TWO = `Pretium efficitur non ad fermentum finibus erat? Dictumst ac ac cursus
         parturient; porttitor nam est. Posuere imperdiet integer netus class
         natoque nec praesent ullamcorper? Natoque risus libero pulvinar faucibus
         dictumst bibendum felis vestibulum. Habitant ex mi diam, in consequat
@@ -24,9 +18,9 @@ function Details() {
         taciti litora tempor tortor a libero luctus. Congue nascetur suspendisse
         suspendisse dis id vivamus congue montes. Urna egestas suspendisse fames
         nostra gravida natoque in. Id torquent nostra nunc accumsan tempor
-        suscipit vel. Potenti nullam imperdiet risus dictumst eget felis.
-        <br></br>
-        <br></br>
+        suscipit vel. Potenti nullam imperdiet risus dictumst eget felis.`;
+
+const PARA_THREE = `
         Hendrerit tempor facilisis sagittis ex parturient ad risus justo. Aenean
         litora mollis odio mi non id ligula. Nascetur a class dis platea varius
         sit. Curae diam morbi sed dictum iaculis taciti. Efficitur donec mi in
@@ -44,10 +38,23 @@ function Details() {
         sem ut. Fusce molestie tempus quis faucibus efficitur vitae suscipit.
         Convallis ligula condimentum efficitur phasellus nascetur interdum
         imperdiet etiam. Natoque scelerisque justo nostra purus cras sem
-        adipiscing.
+        adipiscing.`;
+
+function Details() {
+  return (
+    <div className="flex flex-col items-center justify-center pt-14">
+      <h1 className="default-font-bold mb-4 text-2xl">About me</h1>
+      <p className="default-font-regular text-base leading-relaxed">
+        {PARA_ONE}
+        <br></br>
+        <br></br>
+        {PARA_TWO}
+        <br></br>
+        <br></br>
+        {PARA_THREE}
       </p>
     </div>
   );
 }
 
-export { Details };
+export { Details, PARA_ONE, PARA_TWO, PARA_THREE };

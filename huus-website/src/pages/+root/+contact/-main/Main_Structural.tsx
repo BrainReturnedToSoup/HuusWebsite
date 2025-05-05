@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 
-import { Preface } from "./preface/Preface_Component";
+import { Preface } from "./preface/Preface_Structural";
 import { ContactForm } from "./contact-form/ContactForm_Structural";
 import { BackupEmail } from "./backup-email/BackupEmail_Structural";
 
@@ -8,6 +8,8 @@ import { defaultLogger } from "../../../../logging/logger/default/DefaultLogger_
 import { createInvocationId } from "../../../../logging/invocation-id/InvocationIdFactory_LambdaImpl";
 import { contactFormSubmissionService } from "../../../../services/contact-form/form-submission/FormSubmissionService_Instance";
 import { contactFormResetService } from "../../../../services/contact-form/form-reset/FormResetService_Instance";
+
+const BACKUP_EMAIL = "random@email.com";
 
 function Main() {
   return (
@@ -20,9 +22,9 @@ function Main() {
         formResetService={contactFormResetService}
         useDomainStateUpdater={useDispatch}
       />
-      <BackupEmail emailAddr={"random@email.com"} />
+      <BackupEmail emailAddr={BACKUP_EMAIL} />
     </main>
   );
 }
 
-export { Main };
+export { Main, BACKUP_EMAIL };

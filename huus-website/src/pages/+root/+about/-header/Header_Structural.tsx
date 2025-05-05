@@ -1,7 +1,9 @@
 import DefaultHeader from "../../../../components/default/header/DefaultHeader_Component";
 
-import { createInvocationId } from "../../../../logging/invocation-id/InvocationIdFactory_LambdaImpl";
+import backdropImage from "../../../../assets/images/about-header-background-image-lg.jpeg";
+
 import { defaultLogger } from "../../../../logging/logger/default/DefaultLogger_Instance";
+import { createInvocationId } from "../../../../logging/invocation-id/InvocationIdFactory_LambdaImpl";
 import { domBodyRepository } from "../../../../state/repositories/DOM/DomBodyRepository_Instance";
 
 import {
@@ -22,9 +24,9 @@ const NAV_BUTTONS = [
     url: DEFAULT_NAV_BUTTON_URL[DEFAULT_NAV_BUTTON_ID.TO_SERVICES],
   },
   {
-    id: DEFAULT_NAV_BUTTON_ID.TO_ABOUT,
-    text: DEFAULT_NAV_BUTTON_TEXT[DEFAULT_NAV_BUTTON_ID.TO_ABOUT],
-    url: DEFAULT_NAV_BUTTON_URL[DEFAULT_NAV_BUTTON_ID.TO_ABOUT],
+    id: DEFAULT_NAV_BUTTON_ID.TO_CONTACT,
+    text: DEFAULT_NAV_BUTTON_TEXT[DEFAULT_NAV_BUTTON_ID.TO_CONTACT],
+    url: DEFAULT_NAV_BUTTON_URL[DEFAULT_NAV_BUTTON_ID.TO_CONTACT],
   },
   {
     id: DEFAULT_NAV_BUTTON_ID.TO_MEDIA,
@@ -35,18 +37,16 @@ const NAV_BUTTONS = [
 
 function Header() {
   return (
-    <>
-      <DefaultHeader
-        logger={defaultLogger}
-        createInvocationId={createInvocationId}
-        heroImageSrc={""}
-        heroImageAlt={""}
-        navButtons={NAV_BUTTONS}
-        domBodyRepository={domBodyRepository}
-        componentUsageSource={"contact-page"}
-      />
-    </>
+    <DefaultHeader
+      logger={defaultLogger}
+      createInvocationId={createInvocationId}
+      heroImageSrc={backdropImage}
+      heroImageAlt={"some pictures of myself"}
+      navButtons={NAV_BUTTONS}
+      domBodyRepository={domBodyRepository}
+      componentUsageSource={"about-page"}
+    />
   );
 }
 
-export { Header };
+export { Header, NAV_BUTTONS };
