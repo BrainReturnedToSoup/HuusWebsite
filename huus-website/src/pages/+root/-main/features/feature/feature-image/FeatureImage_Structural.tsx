@@ -12,7 +12,7 @@ function FeatureImage({
 
   return (
     <div className="relative mb-2 flex aspect-square flex-col sm:min-w-[275px] lg:min-w-[330px]">
-      <h1 className="default-font-bold z-10 flex w-full items-center justify-center bg-black bg-opacity-75 p-4 text-3xl text-white sm:p-2 sm:text-2xl">
+      <h1 className="default-font-bold z-10 flex w-full items-center justify-center bg-black bg-opacity-90 p-4 text-3xl text-white sm:p-2 sm:text-2xl">
         {title}
       </h1>
 

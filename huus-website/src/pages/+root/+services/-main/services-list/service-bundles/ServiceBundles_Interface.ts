@@ -1,1 +1,0 @@
-export interface ServiceBundlesProps_Interface {}

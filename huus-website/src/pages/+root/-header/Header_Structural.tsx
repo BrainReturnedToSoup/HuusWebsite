@@ -14,11 +14,6 @@ import {
 
 const NAV_BUTTONS = [
   {
-    id: DEFAULT_NAV_BUTTON_ID.TO_ABOUT,
-    text: DEFAULT_NAV_BUTTON_TEXT[DEFAULT_NAV_BUTTON_ID.TO_ABOUT],
-    url: DEFAULT_NAV_BUTTON_URL[DEFAULT_NAV_BUTTON_ID.TO_ABOUT],
-  },
-  {
     id: DEFAULT_NAV_BUTTON_ID.TO_SERVICES,
     text: DEFAULT_NAV_BUTTON_TEXT[DEFAULT_NAV_BUTTON_ID.TO_SERVICES],
     url: DEFAULT_NAV_BUTTON_URL[DEFAULT_NAV_BUTTON_ID.TO_SERVICES],
@@ -29,9 +24,9 @@ const NAV_BUTTONS = [
     url: DEFAULT_NAV_BUTTON_URL[DEFAULT_NAV_BUTTON_ID.TO_CONTACT],
   },
   {
-    id: DEFAULT_NAV_BUTTON_ID.TO_LEGAL,
-    text: DEFAULT_NAV_BUTTON_TEXT[DEFAULT_NAV_BUTTON_ID.TO_LEGAL],
-    url: DEFAULT_NAV_BUTTON_URL[DEFAULT_NAV_BUTTON_ID.TO_LEGAL],
+    id: DEFAULT_NAV_BUTTON_ID.TO_ABOUT,
+    text: DEFAULT_NAV_BUTTON_TEXT[DEFAULT_NAV_BUTTON_ID.TO_ABOUT],
+    url: DEFAULT_NAV_BUTTON_URL[DEFAULT_NAV_BUTTON_ID.TO_ABOUT],
   },
   {
     id: DEFAULT_NAV_BUTTON_ID.TO_MEDIA,
@@ -47,11 +42,11 @@ function Header() {
       createInvocationId={createInvocationId}
       navButtons={NAV_BUTTONS}
       heroImageSrc={rootPageBackdropImage}
-      heroImageAlt={""}
+      heroImageAlt={"Man deadlifting"}
       domBodyRepository={domBodyRepository}
       componentUsageSource={"root-page"}
     />
   );
 }
 
-export { Header };
+export { Header, NAV_BUTTONS };

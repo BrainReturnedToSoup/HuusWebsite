@@ -1,6 +1,6 @@
-import Preface from "./preface/Preface_Structural";
-import ServicesList from "./services-list/ServicesList_Structural";
-import CallToAction from "./call-to-action/CallToAction_Structural";
+import { Preface } from "./preface/Preface_Structural";
+import { ServicesList } from "./services-offerings/ServicesOfferings_Structural";
+import { CallToAction } from "./call-to-action/CallToAction_Structural";
 
 function Main() {
   return (

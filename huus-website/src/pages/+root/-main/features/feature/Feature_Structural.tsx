@@ -51,7 +51,7 @@ function Feature({ feature }: FeatureProps_Interface) {
                 onMouseLeave={() => {
                   setIsRedirectButtonHovered(false);
                 }}
-                className={`default-font-bold border-y-[1px] border-white p-2 text-xl transition-colors duration-300 ease-in-out active:bg-white active:text-black ${isFeatureHovered || isRedirectButtonHovered ? "bg-white text-black" : "text-white"}`}
+                className={`default-font-bold border-r-[1px] px-2 py-1 text-xl transition-colors duration-300 ease-in-out active:bg-white active:text-black ${isFeatureHovered ? "border-black" : "border-white"} ${isFeatureHovered || isRedirectButtonHovered ? "bg-white text-black" : "text-white"}`}
               >
                 Learn more
               </button>
@@ -60,7 +60,7 @@ function Feature({ feature }: FeatureProps_Interface) {
         </div>
 
         {/*
-            the redirect button for normal desktops. Exists as a separate component 
+            the redirect button for desktop views. Exists as a separate component utilizing CSS breakpoints in tandem with the button above
           */}
         <div className="w-full items-end justify-end p-2 sm:hidden lg:flex">
           <button
@@ -70,7 +70,7 @@ function Feature({ feature }: FeatureProps_Interface) {
             onMouseLeave={() => {
               setIsRedirectButtonHovered(false);
             }}
-            className={`default-font-bold border-y-[1px] border-white px-3 py-2 text-xl transition-colors duration-300 ease-in-out active:text-black lg:text-base ${isFeatureHovered || isRedirectButtonHovered ? "text-black" : "text-white"} ${isRedirectButtonHovered ? "bg-white" : ""}`}
+            className={`default-font-bold border-r-[1px] px-2 py-1 text-xl transition-colors duration-300 ease-in-out active:text-black lg:text-base ${isFeatureHovered ? "border-black" : "border-white"} ${isFeatureHovered || isRedirectButtonHovered ? "text-black" : "text-white"} ${isRedirectButtonHovered ? "bg-white" : ""}`}
           >
             Learn more
           </button>
