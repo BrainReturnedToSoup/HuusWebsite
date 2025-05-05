@@ -1,4 +1,4 @@
-import { FooterNavLinksSetId } from "../../../../domain-types/navigation/footer/links/Links_DomainTypes";
+import { FooterNavLinksSetId } from "../../../../domain-data-types/navigation/footer/links/Links_DomainTypes";
 import { InvocationId } from "../../../../logging/Logging_types";
 
 export interface FooterNavSetLinksService_Interface {

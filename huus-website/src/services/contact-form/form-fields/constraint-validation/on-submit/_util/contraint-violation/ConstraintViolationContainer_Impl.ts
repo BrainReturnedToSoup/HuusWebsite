@@ -20,6 +20,10 @@ class ConstraintViolationContainer_Impl<T>
   addViolation(violation: T): void {
     // log before using IDs
 
+    // added in order to allow the npm build to work, doesn't work if a reference is unused as of now.
+    this.#instantiationId;
+    this.#submitId;
+
     this.#existingViolations.add(violation);
   }
 
@@ -35,6 +39,8 @@ class ConstraintViolationContainer_Impl<T>
 
     return this.#existingViolations.has(violation);
   }
+
+
 }
 
 export { ConstraintViolationContainer_Impl };

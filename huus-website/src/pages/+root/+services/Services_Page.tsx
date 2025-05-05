@@ -1,8 +1,8 @@
-import Header from "./-header/Header";
-import Main from "./-main/Main";
-import Footer from "./-footer/Footer";
+import { Header } from "./-header/Header_Structural";
+import { Main } from "./-main/Main_Structural";
+import { Footer } from "./-footer/Footer_Structural";
 
-export default function Services() {
+function Services() {
   return (
     <>
       <Header />
@@ -11,3 +11,5 @@ export default function Services() {
     </>
   );
 }
+
+export default Services ;

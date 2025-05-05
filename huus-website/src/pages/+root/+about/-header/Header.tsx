@@ -1,6 +1,6 @@
 import DefaultHeader from "../../../../components/default/header/DefaultHeader_Component";
 
-import backdropImage from "../../../../assets/about-header-background-image-lg.jpeg";
+import backdropImage from "../../../../assets/images/about-header-background-image-lg.jpeg";
 
 import { defaultLogger } from "../../../../logging/logger/default/DefaultLogger_Instance";
 import { createInvocationId } from "../../../../logging/invocation-id/InvocationIdFactory_LambdaImpl";
@@ -40,7 +40,7 @@ const NAV_BUTTONS = [
   },
 ];
 
-export default function Header() {
+function Header() {
   return (
     <DefaultHeader
       logger={defaultLogger}
@@ -53,3 +53,5 @@ export default function Header() {
     />
   );
 }
+
+export { Header };

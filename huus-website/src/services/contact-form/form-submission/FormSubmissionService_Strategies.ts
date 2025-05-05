@@ -26,6 +26,8 @@ const onConstraintViolation: OnConstraintViolation_LambdaInterface<
   // error messages per field.
   // eventually add a log that includes the two IDs along with the error and its data
 
+  contactFormRepository;
+
   logger
     .createNewLog()
     .addAttribute(FormSubmissionServiceLogKeys_Enum.INVOCATION_ID, invocationId)

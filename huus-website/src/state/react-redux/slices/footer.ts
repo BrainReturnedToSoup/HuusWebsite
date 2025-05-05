@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { AppStore } from "../store";
 
-import { FooterNavLinksSet } from "../../../domain-types/navigation/footer/links/Links_DomainTypes";
+import { FooterNavLinksSet } from "../../../domain-data-types/navigation/footer/links/Links_DomainTypes";
 
 const footerSlice = createSlice({
   name: "footer",

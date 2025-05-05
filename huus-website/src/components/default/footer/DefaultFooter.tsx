@@ -1,4 +1,4 @@
-import CopywriteSection from "./copywrite-section/CopywriteSection";
+import { CopywriteSection } from "./copywrite-section/CopywriteSection";
 import { SocialMediaLinks } from "./social-media-links/SocialMediaLinks";
 
 function DefaultFooter() {

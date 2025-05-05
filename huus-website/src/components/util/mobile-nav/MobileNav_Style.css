@@ -5,19 +5,19 @@
   so it should be fine. 
 */
 .hamburger-menu-image {
-  background-image: url("../../../assets/hamburger-menu-white.svg");
+  background-image: url("../../../assets/images/hamburger-menu-white.svg");
   background-position: center;
   background-size: cover;
 }
 
 .hamburger-menu-image:hover {
-  background-image: url("../../../assets/hamburger-menu-black.svg");
+  background-image: url("../../../assets/images/hamburger-menu-black.svg");
   background-position: center;
   background-size: cover;
 }
 
 .hamburger-menu-image:active {
-  background-image: url("../../../assets/hamburger-menu-black.svg");
+  background-image: url("../../../assets/images/hamburger-menu-black.svg");
   background-position: center;
   background-size: cover;
 }

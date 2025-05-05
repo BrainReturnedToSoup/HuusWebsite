@@ -1,18 +1,19 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { lazy } from "react";
 
-import Root from "./pages/+root/Root_Page";
-import Services from "./pages/+root/+services/Services_Page";
-import Contact from "./pages/+root/+contact/Contact_Page";
-import Media from "./pages/+root/+media/Media";
-import About from "./pages/+root/+about/About";
+const Root = lazy(() => import("./pages/+root/Root_Page"));
+const Services = lazy(() => import("./pages/+root/+services/Services_Page"));
+const Contact = lazy(() => import("./pages/+root/+contact/Contact_Page"));
+const Media = lazy(() => import("./pages/+root/+media/Media_Page"));
+const About = lazy(() => import("./pages/+root/+about/About_Page"));
 
-import Error from "./pages/+error/Error";
+const Error = lazy(() => import("./pages/+error/Error_Page"));
 
 import "./App.css";
 
 // init of certain modules
 import "./state/listeners/app-window/width-resize/AppWindowWidthResize_Instance";
-import "./state/listeners/app-window/position-y-change/AppWindowPositionYChange_Instance"
+import "./state/listeners/app-window/position-y-change/AppWindowPositionYChange_Instance";
 
 const router = createBrowserRouter([
   {

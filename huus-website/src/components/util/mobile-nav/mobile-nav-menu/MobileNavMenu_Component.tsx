@@ -3,8 +3,9 @@ import { useEffect, useRef } from "react";
 import { MobileNavMenuProps_Interface } from "./MobileNavMenu_Interface";
 import { MobileNavLogKeys_Enum } from "../MobileNav_Enum";
 
-import xWhiteSVG from "../../../../assets/x-white.svg";
 import { MobileNavButton } from "./mobile-nav-buttons/MobileNavButton_Component";
+
+import xWhiteSVG from "../../../../assets/images/x-white.svg";
 
 import "./MobileNavMenu_Style.css";
 

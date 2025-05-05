@@ -11,7 +11,7 @@ import { InstanceId, InvocationId } from "../../../logging/Logging_types";
 import {
   SubmitId,
   SubmitIsPending,
-} from "../../../domain-types/contact-form/ContactForm_DomainTypes";
+} from "../../../domain-data-types/contact-form/ContactForm_DomainTypes";
 
 import { FormSubmissionServiceLogKeys_Enum } from "./FormSubmissionService_Enum";
 import { ContactFormSubmissionService_Interface } from "./FormSubmissionService_Interface";

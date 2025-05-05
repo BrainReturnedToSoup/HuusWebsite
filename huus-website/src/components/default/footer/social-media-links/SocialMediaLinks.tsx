@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import InstagramIconWhite from "../../../../assets/instagram-white.svg";
-import TikTokIconWhite from "../../../../assets/tiktok-white.svg";
+import InstagramIconWhite from "../../../../assets/images/instagram-white.svg";
+import TikTokIconWhite from "../../../../assets/images/tiktok-white.svg";
 
 import "./SocialMediaLinks_Style.css";
 

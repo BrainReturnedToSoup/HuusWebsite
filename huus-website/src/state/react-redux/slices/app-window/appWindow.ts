@@ -4,7 +4,7 @@ import { AppStore } from "../../store";
 import {
   ViewPortPositionY,
   ViewPortWidth,
-} from "../../../../domain-types/app-window/AppWindow_DomainTypes";
+} from "../../../../domain-data-types/app-window/AppWindow_DomainTypes";
 
 const initialState = {
   viewPortWidth: window.innerWidth as ViewPortWidth,

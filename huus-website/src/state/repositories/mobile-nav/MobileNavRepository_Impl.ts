@@ -5,7 +5,7 @@ import {
   MobileNavSliceActions,
 } from "../../react-redux/slices/mobileNav";
 
-import { MobileNavLinksSet } from "../../../domain-types/navigation/mobile/links/Links_DomainTypes";
+import { MobileNavLinksSet } from "../../../domain-data-types/navigation/mobile/links/Links_DomainTypes";
 
 import { MobileNavRepository_Interface } from "./MobileNavRepository_Interface";
 import { Logger_Interface } from "../../../logging/logger/Logger_Interface";
@@ -15,7 +15,7 @@ import { MobileNavRepositoryLogKeys_Enum } from "./MobileNavRepository_Enum";
 import {
   IsOpen,
   IsToggleDisabled,
-} from "../../../domain-types/navigation/mobile/open-close/OpenClose_DomainTypes";
+} from "../../../domain-data-types/navigation/mobile/open-close/OpenClose_DomainTypes";
 
 import { InvocationId } from "../../../logging/Logging_types";
 

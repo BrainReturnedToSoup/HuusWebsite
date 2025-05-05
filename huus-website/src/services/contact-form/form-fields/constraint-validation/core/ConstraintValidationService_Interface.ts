@@ -7,7 +7,7 @@ import {
   GeneralLocation,
   Message,
   ServiceSelection,
-} from "../../../../../domain-types/contact-form/ContactForm_DomainTypes";
+} from "../../../../../domain-data-types/contact-form/ContactForm_DomainTypes";
 
 import { InvocationId } from "../../../../../logging/Logging_types";
 

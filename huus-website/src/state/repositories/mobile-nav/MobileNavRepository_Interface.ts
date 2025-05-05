@@ -1,4 +1,4 @@
-import { MobileNavLinksSet } from "../../../domain-types/navigation/mobile/links/Links_DomainTypes";
+import { MobileNavLinksSet } from "../../../domain-data-types/navigation/mobile/links/Links_DomainTypes";
 import { InvocationId } from "../../../logging/Logging_types";
 
 // hard coupled to the concerns of the service, so the methods are

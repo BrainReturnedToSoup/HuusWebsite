@@ -2,12 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { AppStore } from "../store";
 
-import { MobileNavLinksSet } from "../../../domain-types/navigation/mobile/links/Links_DomainTypes";
+import { MobileNavLinksSet } from "../../../domain-data-types/navigation/mobile/links/Links_DomainTypes";
 
 import {
   IsOpen,
   IsToggleDisabled,
-} from "../../../domain-types/navigation/mobile/open-close/OpenClose_DomainTypes";
+} from "../../../domain-data-types/navigation/mobile/open-close/OpenClose_DomainTypes";
 
 const mobileNavSlice = createSlice({
   name: "mobileNav",

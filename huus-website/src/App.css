@@ -1,65 +1,87 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-.lato-thin {
-  font-family: "Lato", sans-serif;
-  font-weight: 100;
-  font-style: normal;
+@font-face {
+  font-family: "Lato";
+  src: url("./assets/fonts/lato/Lato-Thin.ttf"),
+    url("./assets/fonts/lato/Lato-ThinItalic.ttf"),
+    url("./assets/fonts/lato/Lato-Regular.ttf"),
+    url("./assets/fonts/lato/Lato-Italic.ttf"),
+    url("./assets/fonts/lato/Lato-LightItalic.ttf"),
+    url("./assets/fonts/lato/Lato-Light.ttf"),
+    url("./assets/fonts/lato/Lato-BoldItalic.ttf"),
+    url("./assets/fonts/lato/Lato-Bold.ttf"),
+    url("./assets/fonts/lato/Lato-BlackItalic.ttf"),
+    url("./assets/fonts/lato/Lato-Black.ttf");
 }
 
-.lato-light {
-  font-family: "Lato", sans-serif;
+@font-face {
+  font-family: "Poppins";
+  src: url("./assets/fonts/poppins/Poppins-Thin.ttf"),
+    url("./assets/fonts/poppins/Poppins-ThinItalic.ttf"),
+    url("./assets/fonts/poppins/Poppins-Regular.ttf"),
+    url("./assets/fonts/poppins/Poppins-Italic.ttf"),
+    url("./assets/fonts/poppins/Poppins-LightItalic.ttf"),
+    url("./assets/fonts/poppins/Poppins-Light.ttf"),
+    url("./assets/fonts/poppins/Poppins-BoldItalic.ttf"),
+    url("./assets/fonts/poppins/Poppins-Bold.ttf"),
+    url("./assets/fonts/poppins/Poppins-BlackItalic.ttf"),
+    url("./assets/fonts/poppins/Poppins-Black.ttf");
+}
+
+.default-font-thin {
+  font-family: "Poppins", sans-serif;
   font-weight: 300;
   font-style: normal;
 }
 
-.lato-regular {
-  font-family: "Lato", sans-serif;
-  font-weight: 400;
+.default-font-light {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
   font-style: normal;
 }
 
-.lato-bold {
-  font-family: "Lato", sans-serif;
+.default-font-regular {
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-style: normal;
 }
 
-.lato-black {
-  font-family: "Lato", sans-serif;
+.default-font-bold {
+  font-family: "Poppins", sans-serif;
   font-weight: 900;
   font-style: normal;
 }
 
-.lato-thin-italic {
-  font-family: "Lato", sans-serif;
-  font-weight: 100;
-  font-style: italic;
+.default-font-max-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: normal;
 }
 
-.lato-light-italic {
-  font-family: "Lato", sans-serif;
+.default-font-thin-italic {
+  font-family: "Poppins", sans-serif;
   font-weight: 300;
   font-style: italic;
 }
 
-.lato-regular-italic {
-  font-family: "Lato", sans-serif;
-  font-weight: 400;
+.default-font-light-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
   font-style: italic;
 }
 
-.lato-bold-italic {
-  font-family: "Lato", sans-serif;
+.default-font-regular-italic {
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
   font-style: italic;
 }
 
-.lato-black-italic {
-  font-family: "Lato", sans-serif;
+.default-font-bold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+.default-font-max-bold-italic {
+  font-family: "Poppins", "Lato", sans-serif;
   font-weight: 900;
   font-style: italic;
 }

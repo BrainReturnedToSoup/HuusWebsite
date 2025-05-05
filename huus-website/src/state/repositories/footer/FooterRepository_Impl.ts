@@ -5,7 +5,7 @@ import {
   FooterSliceSelectors,
 } from "../../react-redux/slices/footer";
 
-import { FooterNavLinksSet } from "../../../domain-types/navigation/footer/links/Links_DomainTypes";
+import { FooterNavLinksSet } from "../../../domain-data-types/navigation/footer/links/Links_DomainTypes";
 
 import { FooterRepository_Interface } from "./FooterRepository_Interface";
 import { Logger_Interface } from "../../../logging/logger/Logger_Interface";

@@ -38,7 +38,7 @@ const NAV_BUTTONS = [
   },
 ];
 
-export default function Header() {
+function Header() {
   return (
     <>
       <DefaultHeader
@@ -53,3 +53,5 @@ export default function Header() {
     </>
   );
 }
+
+export { Header };

@@ -9,7 +9,7 @@ const DESC = `Random description here Random description here Random description
 
 const REDIRECT_BUTTON_TEXT = `Contact me`;
 
-export default function CallToAction() {
+function CallToAction() {
   return (
     <DefaultCallToAction
       title={TITLE}
@@ -19,3 +19,5 @@ export default function CallToAction() {
     />
   );
 }
+
+export { CallToAction, TITLE, DESC, REDIRECT_BUTTON_TEXT };

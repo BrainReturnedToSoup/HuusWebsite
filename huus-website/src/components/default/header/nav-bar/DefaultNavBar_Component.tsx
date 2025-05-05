@@ -1,17 +1,18 @@
-import { NavBarProps_Interface } from "./DefaultNavBar_Interface";
-
-import { DefaultNav } from "./nav/DefaultNav_Component";
-import MobileNav from "../../../util/mobile-nav/MobileNav_Component";
+import { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
 import { AppStoreRootState } from "../../../../state/react-redux/store";
-import { useEffect, useMemo, useRef, useState } from "react";
 
 import "./DefaultNavBar_Style.css";
 
+import { MobileNav } from "../../../util/mobile-nav/MobileNav_Component";
+import { DefaultNav } from "./nav/DefaultNav_Component";
+
+import { NavBarProps_Interface } from "./DefaultNavBar_Interface";
+
 const mobileNavMaxVPWidth: number = 1024; // 1024px, the max limit width for the mobile nav to be presented
 
-const navTransitionFollowLimit: number = 96; // 96px, this value should match the transform starting positions in the corresponding CSS stylesheet "DefaultNavBar_Style.css"
+const navTransitionFollowLimit: number = 128; // 128px, this value should match the transform starting positions in the corresponding CSS stylesheet "DefaultNavBar_Style.css"
 const navTransitionReturnLimit: number = 64; // 64px, which should equal the throttling interval for the view port position Y listener setting into redux. This value should also match the
 
 export function NavBar({
@@ -109,7 +110,7 @@ export function NavBar({
       <div
         className={`left-0 flex w-dvw grow items-center justify-end px-4 lg:px-24 ${navContainerClasses}`}
       >
-        <div className="hidden border-x-[1px] border-white bg-black lg:block">
+        <div className="hidden border-r-[1px] border-white bg-black lg:block">
           <DefaultNav navButtons={navButtons} />
         </div>
 

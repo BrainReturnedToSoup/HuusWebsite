@@ -5,23 +5,28 @@ import { FeatureProps_Interface } from "./Feature_Interface";
 import { FeatureImage } from "./feature-image/FeatureImage_Structural";
 
 function Feature({ feature }: FeatureProps_Interface) {
-  const [sectionHovered, setSectionHoveredState] = useState(false);
-  const [redirectButtonHovered, setRedirectButtonHoveredState] =
-    useState(false);
+  const [isFeatureHovered, setIsFeatureHovered] = useState<boolean>(false);
+  const [isRedirectButtonHovered, setIsRedirectButtonHovered] =
+    useState<boolean>(false);
+
+  // const [isActivelySelected, setActivelySelected] = useState<boolean>(false);
 
   return (
     <div>
       <a
         href={feature.redirect.route}
         onMouseEnter={() => {
-          setSectionHoveredState(true);
+          setIsFeatureHovered(true);
         }}
         onMouseLeave={() => {
-          setSectionHoveredState(false);
+          setIsFeatureHovered(false);
         }}
-        className={`mx-1 my-1 flex flex-col items-center justify-between px-4 py-3 transition-colors duration-300 ease-in-out lg:my-0 lg:h-full lg:max-w-[350px] ${sectionHovered && !redirectButtonHovered ? "bg-white" : ""}`}
+        className={`mx-1 my-1 flex flex-col items-center justify-between px-4 py-3 transition-colors duration-300 ease-in-out active:bg-white lg:my-0 lg:h-full lg:max-w-[350px] ${isFeatureHovered && !isRedirectButtonHovered ? "bg-white" : ""}`}
       >
-        <div className="flex flex-col sm:flex-row lg:block">
+        {/*
+            switches between vertical cards for smartphones, to horizontal cards for tablet-sized screens, and then back to vertical cards for normal desktop
+          */}
+        <div className="block sm:flex sm:flex-row lg:block">
           <FeatureImage
             title={feature.title}
             backgroundImage={feature.backgroundImage}
@@ -29,20 +34,24 @@ function Feature({ feature }: FeatureProps_Interface) {
           />
           <div className="flex flex-col justify-between">
             <p
-              className={`mb-2 p-2 text-xl leading-relaxed transition-colors duration-300 ease-in-out sm:ml-4 md:p-4 lg:ml-0 lg:p-0 lg:text-base ${sectionHovered && !redirectButtonHovered ? "text-black" : "text-white"}`}
+              className={`default-font-bold mb-4 p-2 text-xl leading-relaxed transition-colors duration-300 ease-in-out active:text-black sm:ml-4 md:p-4 lg:ml-0 lg:p-0 lg:text-base ${isFeatureHovered && !isRedirectButtonHovered ? "text-black" : "text-white"}`}
             >
               {feature.desc}
             </p>
 
+            {/*
+              the redirect button for mobile devices. Exists apart of the description container
+              to utilize the parent container 
+            */}
             <div className="hidden items-end justify-end p-2 sm:flex lg:hidden">
               <button
                 onMouseEnter={() => {
-                  setRedirectButtonHoveredState(true);
+                  setIsRedirectButtonHovered(true);
                 }}
                 onMouseLeave={() => {
-                  setRedirectButtonHoveredState(false);
+                  setIsRedirectButtonHovered(false);
                 }}
-                className={`p-2 text-xl underline transition-colors duration-300 ease-in-out ${sectionHovered || redirectButtonHovered ? "bg-white text-black" : "text-white"}`}
+                className={`default-font-bold border-y-[1px] border-white p-2 text-xl transition-colors duration-300 ease-in-out active:bg-white active:text-black ${isFeatureHovered || isRedirectButtonHovered ? "bg-white text-black" : "text-white"}`}
               >
                 Learn more
               </button>
@@ -50,15 +59,18 @@ function Feature({ feature }: FeatureProps_Interface) {
           </div>
         </div>
 
+        {/*
+            the redirect button for normal desktops. Exists as a separate component 
+          */}
         <div className="w-full items-end justify-end p-2 sm:hidden lg:flex">
           <button
             onMouseEnter={() => {
-              setRedirectButtonHoveredState(true);
+              setIsRedirectButtonHovered(true);
             }}
             onMouseLeave={() => {
-              setRedirectButtonHoveredState(false);
+              setIsRedirectButtonHovered(false);
             }}
-            className={`px-3 py-2 text-xl underline transition-colors duration-300 ease-in-out lg:text-base ${sectionHovered || redirectButtonHovered ? "text-black" : "text-white"} ${redirectButtonHovered ? "bg-white" : ""}`}
+            className={`default-font-bold border-y-[1px] border-white px-3 py-2 text-xl transition-colors duration-300 ease-in-out active:text-black lg:text-base ${isFeatureHovered || isRedirectButtonHovered ? "text-black" : "text-white"} ${isRedirectButtonHovered ? "bg-white" : ""}`}
           >
             Learn more
           </button>

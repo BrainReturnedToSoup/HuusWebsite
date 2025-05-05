@@ -3,7 +3,7 @@ import {
   GeneralLocation,
   Message,
   ServiceSelection,
-} from "../../../../../domain-types/contact-form/ContactForm_DomainTypes";
+} from "../../../../../domain-data-types/contact-form/ContactForm_DomainTypes";
 
 import { Log_Interface } from "../../../../../logging/logger/Log_Interface";
 import { Logger_Interface } from "../../../../../logging/logger/Logger_Interface";

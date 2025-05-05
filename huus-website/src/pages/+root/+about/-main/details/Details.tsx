@@ -1,4 +1,4 @@
-export default function Details() {
+function Details() {
   return (
     <div className="flex flex-col items-center justify-center pt-14">
       <h1 className="lato-bold mb-4 text-2xl">About me</h1>
@@ -49,3 +49,5 @@ export default function Details() {
     </div>
   );
 }
+
+export { Details };

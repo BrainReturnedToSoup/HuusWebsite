@@ -1,9 +1,11 @@
 import { DefaultFooter } from "../../../../components/default/footer/DefaultFooter";
 
-export default function Footer() {
+function Footer() {
   return (
     <>
       <DefaultFooter />
     </>
   );
 }
+
+export { Footer };

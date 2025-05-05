@@ -3,7 +3,7 @@ import {
   InstanceMetaData,
 } from "./FooterNavSetLinksServices_Impl";
 
-import { FooterNavLinksSets } from "../../../../domain-types/navigation/footer/links/Links_DomainTypes";
+import { FooterNavLinksSets } from "../../../../domain-data-types/navigation/footer/links/Links_DomainTypes";
 
 import { footerRepository } from "../../../../state/repositories/footer/FooterRepository_Instance";
 import { defaultLogger } from "../../../../logging/logger/default/DefaultLogger_Instance";

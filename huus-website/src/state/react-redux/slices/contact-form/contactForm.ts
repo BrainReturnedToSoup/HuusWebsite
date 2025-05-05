@@ -14,7 +14,7 @@ import {
   SubmitId,
   SubmitIsPending,
   SubmitSucceeded,
-} from "../../../../domain-types/contact-form/ContactForm_DomainTypes";
+} from "../../../../domain-data-types/contact-form/ContactForm_DomainTypes";
 
 import { createSlice } from "@reduxjs/toolkit";
 import { AppStore } from "../../store";

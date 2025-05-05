@@ -69,7 +69,7 @@ export default function DefaultHeader({
           startingStrategy: ({
             logger: fetchInstanceLogger,
             instanceId,
-            context,
+            // context,
             start,
           }) => {
             fetchInstanceLogger
@@ -103,7 +103,11 @@ export default function DefaultHeader({
 
     // should not be null up to this point.
     transientComponentState.current.fetchImageInstance!.setHandlerOnSuccess(
-      ({ logger: fetchInstanceLogger, instanceId, context }) => {
+      ({
+        logger: fetchInstanceLogger,
+        instanceId,
+        //  context
+      }) => {
         fetchInstanceLogger
           .createNewLog()
           .addAttribute(
@@ -126,7 +130,13 @@ export default function DefaultHeader({
       },
     );
     transientComponentState.current.fetchImageInstance!.setHandlerOnFailure(
-      ({ logger: fetchInstanceLogger, instanceId, context, retry, exit }) => {
+      ({
+        logger: fetchInstanceLogger,
+        instanceId,
+        // context,
+        // retry,
+        exit,
+      }) => {
         exit(); // exit out of the image fetching attempt rather than retrying a new attempt.
 
         fetchInstanceLogger
@@ -151,7 +161,11 @@ export default function DefaultHeader({
       },
     );
     transientComponentState.current.fetchImageInstance!.setHandlerOnAbort(
-      ({ logger: fetchInstanceLogger, instanceId, context }) => {
+      ({
+        logger: fetchInstanceLogger,
+        instanceId,
+        // context
+      }) => {
         fetchInstanceLogger
           .createNewLog()
           .addAttribute(

@@ -1,8 +1,8 @@
-import Summary from "./summary/Summary";
-import Selfie from "./selfie/Selfie";
-import Details from "./details/Details";
+import { Summary } from "./summary/Summary";
+import { Selfie } from "./selfie/Selfie";
+import { Details } from "./details/Details";
 
-export default function Main() {
+function Main() {
   return (
     <main className="flex items-center justify-center px-4 py-4 md:py-14">
       <div className="max-w-[875px] grow px-4 py-14">
@@ -20,3 +20,5 @@ export default function Main() {
     </main>
   );
 }
+
+export { Main };

@@ -19,7 +19,7 @@ import "./MobileNav_Style.css";
 
 */
 
-export default function MobileNav({
+function MobileNav({
   logger,
   createInvocationId,
 
@@ -100,7 +100,7 @@ export default function MobileNav({
 
           setNavIsOpen(true);
         }}
-        className={`hamburger-menu-image z-20 flex aspect-square w-16 items-center justify-center border-x-[1px] border-white bg-black p-2 text-sm text-white transition-colors duration-150 ease-in-out hover:border-black hover:bg-white hover:text-black active:border-black active:bg-white active:text-black`}
+        className={`hamburger-menu-image z-20 flex aspect-square w-16 items-center justify-center border-r-[1px] border-white bg-black p-2 text-sm text-white transition-colors duration-150 ease-in-out hover:border-black hover:bg-white hover:text-black active:border-black active:bg-white active:text-black`}
         aria-label="Nav menu button"
       ></button>
 
@@ -118,3 +118,5 @@ export default function MobileNav({
     </>
   );
 }
+
+export { MobileNav };

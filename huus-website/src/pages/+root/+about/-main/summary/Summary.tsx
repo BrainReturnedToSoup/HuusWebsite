@@ -1,4 +1,4 @@
-export default function Summary() {
+function Summary() {
   return (
     <div className="flex max-w-[550px] flex-col items-center px-4 py-2 ">
       <h1 className="lato-bold mb-4 text-xl">The mission</h1>
@@ -10,3 +10,5 @@ export default function Summary() {
     </div>
   );
 }
+
+export { Summary }

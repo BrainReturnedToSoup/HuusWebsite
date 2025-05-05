@@ -16,7 +16,7 @@ import {
   SubmitId,
   SubmitIsPending,
   SubmitSucceeded,
-} from "../../../domain-types/contact-form/ContactForm_DomainTypes";
+} from "../../../domain-data-types/contact-form/ContactForm_DomainTypes";
 
 export interface ContactFormRepository_Interface {
   getFirstName(invocationId: InvocationId): FirstName;

@@ -1,8 +1,8 @@
-import Header from "./-header/Header";
-import Main from "./-main/Main";
-import Footer from "./-footer/Footer";
+import { Header } from "./-header/Header_Structural";
+import { Main } from "./-main/Main_Structural";
+import { Footer } from "./-footer/Footer_Structural";
 
-export default function Root() {
+function Root() {
   return (
     <>
       <Header />
@@ -11,6 +11,8 @@ export default function Root() {
     </>
   );
 }
+
+export default Root;
 
 //GUTTER PADDING CLASSES TO USE FOR CONSISTENCY
 //px-6 sm:px-10 lg:px-14 xl:px-20

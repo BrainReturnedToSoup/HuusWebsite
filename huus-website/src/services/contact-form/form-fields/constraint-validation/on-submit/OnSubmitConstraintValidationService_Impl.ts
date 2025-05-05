@@ -13,7 +13,7 @@ import {
   GeneralLocation,
   Message,
   ServiceSelection,
-} from "../../../../../domain-types/contact-form/ContactForm_DomainTypes";
+} from "../../../../../domain-data-types/contact-form/ContactForm_DomainTypes";
 import { OnSubmitConstraintValidationServiceLogKeys_Enum } from "./OnSubmitConstraintValidationService_Enum";
 
 export type OnSubmitConstraintValidation_LambdaInterface<T> = (
