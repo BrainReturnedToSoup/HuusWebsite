@@ -5,8 +5,6 @@ import {
   MobileNavSliceActions,
 } from "../../react-redux/slices/mobileNav";
 
-import { MobileNavLinksSet } from "../../../domain-data-types/navigation/mobile/links/Links_DomainTypes";
-
 import { MobileNavRepository_Interface } from "./MobileNavRepository_Interface";
 import { Logger_Interface } from "../../../logging/logger/Logger_Interface";
 import { Log_Interface } from "../../../logging/logger/Log_Interface";
@@ -148,38 +146,6 @@ class MobileNavRepository_Impl implements MobileNavRepository_Interface {
       "setIsToggleDisabled",
       `isDisabled:${isDisabled}`,
       isDisabled,
-    ).commit();
-  }
-
-  getLinksSet(invocationId: InvocationId): MobileNavLinksSet | null {
-    const mobileNavLinkSet: MobileNavLinksSet | null = this.#selectors.linksSet(
-      this.#store,
-    );
-
-    this.#loggingHelperForGetters(
-      invocationId,
-
-      "getLinksSet",
-      mobileNavLinkSet,
-      mobileNavLinkSet,
-    ).commit();
-
-    return mobileNavLinkSet;
-  }
-
-  setLinksSet(
-    invocationId: InvocationId,
-
-    linksSet: MobileNavLinksSet,
-  ): void {
-    this.#store.dispatch(this.#actions.linksSet(linksSet));
-
-    this.#loggingHelperForSetters(
-      invocationId,
-
-      "setLinksSet",
-      `linksSet:${linksSet}`,
-      linksSet,
     ).commit();
   }
 }

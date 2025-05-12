@@ -1,3 +1,1 @@
-export interface GeneralErrorMessageProps_Interface {
-    
-}
+export interface GeneralErrorMessageProps_Interface {}

@@ -1,9 +1,6 @@
-export interface NavButton {
+export interface DefaultNavButtonProps_Interface {
   id: string;
   text: string;
   url: string;
-}
-
-export interface DefaultNavButtonProps_Interface {
-  navButton: NavButton;
+  index: number;
 }

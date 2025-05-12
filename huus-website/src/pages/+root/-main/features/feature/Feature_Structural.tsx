@@ -70,7 +70,7 @@ function Feature({ feature }: FeatureProps_Interface) {
             onMouseLeave={() => {
               setIsRedirectButtonHovered(false);
             }}
-            className={`default-font-bold border-r-[1px] px-2 py-1 text-xl transition-colors duration-300 ease-in-out active:text-black lg:text-base ${isFeatureHovered ? "border-black" : "border-white"} ${isFeatureHovered || isRedirectButtonHovered ? "text-black" : "text-white"} ${isRedirectButtonHovered ? "bg-white" : ""}`}
+            className={`default-font-bold border-r-[1px] px-2 py-1 text-xl underline decoration-transparent transition-colors duration-300 ease-in-out hover:decoration-black active:text-black lg:text-base ${isFeatureHovered ? "border-black" : "border-white"} ${isFeatureHovered || isRedirectButtonHovered ? "text-black" : "text-white"} ${isRedirectButtonHovered ? "bg-white" : ""}`}
           >
             Learn more
           </button>

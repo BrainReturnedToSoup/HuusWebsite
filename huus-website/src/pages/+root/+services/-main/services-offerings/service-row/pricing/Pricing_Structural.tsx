@@ -37,7 +37,7 @@ function Pricing({
             setIsEnquireHovered(false);
           }}
           onClick={enquireOnClick}
-          className={`default-font-bold w-fit self-end border-r-[1px] px-2 py-1 transition-colors duration-150 ease-in-out ${isLocalEnquireHovered ? "border-white text-white" : "border-neutral-400"}`}
+          className={`default-font-bold w-fit self-end border-r-[1px] border-r-neutral-400 px-2 py-1 underline decoration-transparent transition-colors duration-150 ease-in-out hover:border-r-white hover:text-white hover:decoration-white`}
         >
           Enquire
         </button>
