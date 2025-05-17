@@ -1,8 +1,5 @@
 import { OnSubmitConstraintValidationServiceLogKeys_Enum } from "./OnSubmitConstraintValidationService_Enum";
-import { OnSubmitConstraintValidation_LambdaInterface } from "./OnSubmitConstraintValidationService_Impl";
-
-import { ConstraintViolationContainer_Interface } from "./_util/contraint-violation/ConstraintViolationContainer_Interface";
-import { OnSubmitConstraintViolationLabels_Enum } from "./_util/contraint-violation/ContraintViolationLabels_Enum";
+import { OnSubmitConstraintValidationPostHandler_LambdaInterface } from "./OnSubmitConstraintValidationService_Impl";
 
 // these lambdas are largely for adding specific enumerations
 // to the supplied container basically. Can't otherwise configure that
@@ -11,122 +8,115 @@ import { OnSubmitConstraintViolationLabels_Enum } from "./_util/contraint-violat
 // Also, since this is done via a strategy, its fairly easy to extend such
 // for more complex violation conditions, perhaps even removing certain violations
 // in the case another one supercedes it. You can also test in isolation this way.
+const postHandleFirstName: OnSubmitConstraintValidationPostHandler_LambdaInterface =
+  (
+    logger,
+    invocationId,
 
-const onSubmitValidateEmail: OnSubmitConstraintValidation_LambdaInterface<
-  ConstraintViolationContainer_Interface<OnSubmitConstraintViolationLabels_Enum>
-> = (
-  logger,
-  invocationId,
+    isValid,
+    contactFormRepository,
+  ): void => {
+    if (!isValid) {
+      const errorMessage = "Please enter your first name";
 
-  isValid,
-  container,
-): void => {
-  if (!isValid) {
-    const violation = OnSubmitConstraintViolationLabels_Enum.EMAIL;
-
-    logger
-      .createNewLog()
-      .addAttribute(
-        OnSubmitConstraintValidationServiceLogKeys_Enum.INVOCATION_ID,
+      contactFormRepository.setFirstNameError(
         invocationId,
-      )
-      .addAttribute(
-        OnSubmitConstraintValidationServiceLogKeys_Enum.CONSTRAINT_VIOLATION_ADDED,
-        violation,
-      )
-      .commit();
 
-    container.addViolation(violation);
-  }
-};
+        errorMessage,
+      );
+    } else {
+      contactFormRepository.setFirstNameError(invocationId, "");
+    }
+  };
 
-const onSubmitValidateGeneralLocation: OnSubmitConstraintValidation_LambdaInterface<
-  ConstraintViolationContainer_Interface<OnSubmitConstraintViolationLabels_Enum>
-> = (
-  logger,
-  invocationId,
+const postHandleLastName: OnSubmitConstraintValidationPostHandler_LambdaInterface =
+  (
+    logger,
+    invocationId,
 
-  isValid,
-  container,
-): void => {
-  if (!isValid) {
-    const violation = OnSubmitConstraintViolationLabels_Enum.GENERAL_LOCATION;
+    isValid,
+    contactFormRepository,
+  ): void => {
+    if (!isValid) {
+      const errorMessage = "Please enter your last name";
 
-    logger
-      .createNewLog()
-      .addAttribute(
-        OnSubmitConstraintValidationServiceLogKeys_Enum.INVOCATION_ID,
+      contactFormRepository.setLastNameError(
         invocationId,
-      )
-      .addAttribute(
-        OnSubmitConstraintValidationServiceLogKeys_Enum.CONSTRAINT_VIOLATION_ADDED,
-        violation,
-      )
-      .commit();
 
-    container.addViolation(violation);
-  }
-};
+        errorMessage,
+      );
+    } else {
+      contactFormRepository.setLastNameError(invocationId, "");
+    }
+  };
 
-const onSubmitValidateServiceSelection: OnSubmitConstraintValidation_LambdaInterface<
-  ConstraintViolationContainer_Interface<OnSubmitConstraintViolationLabels_Enum>
-> = (
-  logger,
-  invocationId,
+const postHandleEmail: OnSubmitConstraintValidationPostHandler_LambdaInterface =
+  (
+    logger,
+    invocationId,
 
-  isValid,
-  container,
-): void => {
-  if (!isValid) {
-    const violation = OnSubmitConstraintViolationLabels_Enum.SERVICE_SELECTION;
+    isValid,
+    contactFormRepository,
+  ): void => {
+    if (!isValid) {
+      const errorMessage = "Please enter a valid email";
 
-    logger
-      .createNewLog()
-      .addAttribute(
-        OnSubmitConstraintValidationServiceLogKeys_Enum.INVOCATION_ID,
+      contactFormRepository.setEmailError(
         invocationId,
-      )
-      .addAttribute(
-        OnSubmitConstraintValidationServiceLogKeys_Enum.CONSTRAINT_VIOLATION_ADDED,
-        violation,
-      )
-      .commit();
 
-    container.addViolation(violation);
-  }
-};
+        errorMessage,
+      );
+    } else {
+      contactFormRepository.setEmailError(invocationId, "");
+    }
+  };
 
-const onSubmitValidateMessage: OnSubmitConstraintValidation_LambdaInterface<
-  ConstraintViolationContainer_Interface<OnSubmitConstraintViolationLabels_Enum>
-> = (
-  logger,
-  invocationId,
+const postHandleServiceSelection: OnSubmitConstraintValidationPostHandler_LambdaInterface =
+  (
+    logger,
+    invocationId,
 
-  isValid,
-  container,
-): void => {
-  if (!isValid) {
-    const violation = OnSubmitConstraintViolationLabels_Enum.MESSAGE;
+    isValid,
+    contactFormRepository,
+  ): void => {
+    if (!isValid) {
+      const errorMessage = "Please select a valid option";
 
-    logger
-      .createNewLog()
-      .addAttribute(
-        OnSubmitConstraintValidationServiceLogKeys_Enum.INVOCATION_ID,
+      contactFormRepository.setServiceSelectionError(
         invocationId,
-      )
-      .addAttribute(
-        OnSubmitConstraintValidationServiceLogKeys_Enum.CONSTRAINT_VIOLATION_ADDED,
-        violation,
-      )
-      .commit();
 
-    container.addViolation(violation);
-  }
-};
+        errorMessage,
+      );
+    } else {
+      contactFormRepository.setServiceSelectionError(invocationId, "");
+    }
+  };
+
+const postHandleMessage: OnSubmitConstraintValidationPostHandler_LambdaInterface =
+  (
+    logger,
+    invocationId,
+
+    isValid,
+    contactFormRepository,
+  ): void => {
+    if (!isValid) {
+      const errorMessage = "Please enter a valid message";
+
+      contactFormRepository.setMessageError(
+        invocationId,
+
+        errorMessage,
+      );
+    } else {
+      contactFormRepository.setMessageError(invocationId, "");
+    }
+  };
 
 export {
-  onSubmitValidateEmail,
-  onSubmitValidateGeneralLocation,
-  onSubmitValidateMessage,
-  onSubmitValidateServiceSelection,
+  postHandleFirstName,
+  postHandleLastName,
+  postHandleEmail,
+  postHandleMessage,
+  postHandleServiceSelection,
 };

@@ -2,23 +2,19 @@
     -Form field
 */
 export type FirstName = string;
+export type FirstNameError = string;
 
 /*
     -Form field
 */
 export type LastName = string;
+export type LastNameError = string;
 
 /*
     -Form field
 */
 export type Email = string;
 export type EmailError = string;
-
-/*
-    -Form field
-*/
-export type GeneralLocation = string;
-export type GeneralLocationError = string;
 
 /*
     -Form field
@@ -45,7 +41,7 @@ export type SubmitSucceeded = boolean;
 /*
     -form general error, but could be extended beyond being a string
 */
-export type FormError = string;
+export type GeneralFormError = string;
 
 /*
     -form state flag for both form fields and submission button

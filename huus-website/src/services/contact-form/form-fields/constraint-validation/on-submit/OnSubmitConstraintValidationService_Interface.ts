@@ -1,6 +1,5 @@
 import { InvocationId } from "../../../../../logging/Logging_types";
 
-import { ConstraintViolationContainer_Interface } from "./_util/contraint-violation/ConstraintViolationContainer_Interface";
 
 /*
   This differs from the regular input validation, ideally wrapping around such. The premise is that this 
@@ -10,13 +9,6 @@ import { ConstraintViolationContainer_Interface } from "./_util/contraint-violat
   to state as an additional method.
 */
 
-export interface ContactFormOnSubmitConstraintValidationService_Interface<
-  T extends ConstraintViolationContainer_Interface<E>,
-  E,
-> {
-  validateInputs(
-    invocationId: InvocationId,
-
-    container: T,
-  ): void;
+export interface ContactFormOnSubmitConstraintValidationService_Interface {
+  allFieldsAreValid(invocationId: InvocationId): boolean;
 }

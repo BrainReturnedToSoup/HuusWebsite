@@ -31,3 +31,9 @@ export interface ServiceOffering {
 export interface ServiceOfferings {
   [id: ServiceOfferingId]: ServiceOffering;
 }
+
+export type ServiceOfferingsSetLabel = string;
+
+export interface ServiceOfferingsSet {
+  [label: ServiceOfferingsSetLabel]: ServiceOfferings;
+}

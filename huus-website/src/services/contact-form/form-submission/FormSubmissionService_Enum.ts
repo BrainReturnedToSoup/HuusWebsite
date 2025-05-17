@@ -23,7 +23,7 @@ export enum FormSubmissionServiceLogKeys_Enum {
 
   EMAIL_JS_ARGS = "email-js-args",
 
-  FORM_ERROR = "form-error",
+  GENERAL_FORM_ERROR = "general-form-error",
 
   NEW_SUBMIT_ID = "new-submit-id",
 

@@ -4,11 +4,11 @@ import {
   Email,
   EmailError,
   FirstName,
-  FormError,
-  GeneralLocation,
-  GeneralLocationError,
+  FirstNameError,
+  GeneralFormError,
   InputsDisabled,
   LastName,
+  LastNameError,
   Message,
   MessageError,
   ServiceSelection,
@@ -26,8 +26,21 @@ export interface ContactFormRepository_Interface {
     firstName: FirstName,
   ): void;
 
+  getFirstNameError(invocationId: InvocationId): FirstNameError;
+  setFirstNameError(
+    invocationId: InvocationId,
+
+    firstNameError: FirstNameError,
+  ): void;
+
   getLastName(invocationId: InvocationId): LastName;
   setLastName(invocationId: InvocationId, lastName: LastName): void;
+
+  getLastNameError(invocationId: InvocationId): LastNameError;
+  setLastNameError(
+    invocationId: InvocationId,
+    lastNameError: LastNameError,
+  ): void;
 
   getEmail(invocationId: InvocationId): Email;
   setEmail(
@@ -40,19 +53,6 @@ export interface ContactFormRepository_Interface {
     invocationId: InvocationId,
 
     emailError: EmailError,
-  ): void;
-
-  getGeneralLocation(invocationId: InvocationId): GeneralLocation;
-  setGeneralLocation(
-    invocationId: InvocationId,
-
-    generalLocation: GeneralLocation,
-  ): void;
-  getGeneralLocationError(invocationId: InvocationId): GeneralLocationError;
-  setGeneralLocationError(
-    invocationId: InvocationId,
-
-    errorMessage: GeneralLocationError,
   ): void;
 
   getServiceSelection(invocationId: InvocationId): ServiceSelection;
@@ -95,11 +95,11 @@ export interface ContactFormRepository_Interface {
     submitSucceeded: SubmitSucceeded,
   ): void;
 
-  getFormError(invocationId: InvocationId): FormError;
-  setFormError(
+  getFormError(invocationId: InvocationId): GeneralFormError;
+  setGeneralFormError(
     invocationId: InvocationId,
 
-    formError: FormError,
+    formError: GeneralFormError,
   ): void;
 
   getInputsDisabled(invocationId: InvocationId): InputsDisabled;

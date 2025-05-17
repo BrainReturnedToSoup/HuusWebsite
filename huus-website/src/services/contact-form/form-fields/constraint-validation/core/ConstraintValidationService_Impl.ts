@@ -1,6 +1,7 @@
 import {
   Email,
-  GeneralLocation,
+  FirstName,
+  LastName,
   Message,
   ServiceSelection,
 } from "../../../../../domain-data-types/contact-form/ContactForm_DomainTypes";
@@ -13,18 +14,6 @@ import { ConstraintValidationServiceLogKeys_Enum } from "./ConstraintValidationS
 
 import { ContactFormConstraintValidationService_Interface } from "./ConstraintValidationService_Interface";
 
-// LET ERRORS THROW TO TOP. ERRORS IN THIS SCOPE MEAN SOME BAD CODE ALTOGETHER.
-
-// will be responsible for either directly invoking some type of state change to
-// the repository, or adding a lambda to be executed later.
-
-export type ConstraintValidation_Lambda = (
-  logger: Logger_Interface,
-  invocationId: InvocationId,
-
-  input: string,
-) => boolean;
-
 export interface InstanceMetaData {
   instanceId: InstanceId;
 }
@@ -35,27 +24,9 @@ class ContactFormConstraintValidationService_Impl
   #instanceMetaData: InstanceMetaData;
   #logger: Logger_Interface;
 
-  #validateEmailLambda: ConstraintValidation_Lambda;
-  #validateGeneralLocationLambda: ConstraintValidation_Lambda;
-  #validateServiceSelectionLambda: ConstraintValidation_Lambda;
-  #validateMessage: ConstraintValidation_Lambda;
-
-  constructor(
-    instanceMetaData: InstanceMetaData,
-    logger: Logger_Interface,
-
-    validateEmailLambda: ConstraintValidation_Lambda,
-    validateGeneralLocationLambda: ConstraintValidation_Lambda,
-    validateServiceSelectionLambda: ConstraintValidation_Lambda,
-    validateMessage: ConstraintValidation_Lambda,
-  ) {
+  constructor(instanceMetaData: InstanceMetaData, logger: Logger_Interface) {
     this.#instanceMetaData = instanceMetaData;
     this.#logger = logger;
-
-    this.#validateEmailLambda = validateEmailLambda;
-    this.#validateGeneralLocationLambda = validateGeneralLocationLambda;
-    this.#validateServiceSelectionLambda = validateServiceSelectionLambda;
-    this.#validateMessage = validateMessage;
   }
 
   // simple helper to reduce repetition on certain logging patterns considered more standard in the
@@ -84,40 +55,36 @@ class ContactFormConstraintValidationService_Impl
       .addAttribute(ConstraintValidationServiceLogKeys_Enum.IS_VALID, isValid);
   }
 
+  validateFirstName(invocationId: InvocationId, input: FirstName): boolean {
+    const isValid = input.trim().length !== 0;
+
+    this.#loggingHelper(invocationId, "validateFirstName", isValid).commit();
+
+    return isValid;
+  }
+
+  validateLastName(invocationId: InvocationId, input: LastName): boolean {
+    const isValid = input.trim().length !== 0;
+
+    this.#loggingHelper(invocationId, "validateLastName", isValid).commit();
+
+    return isValid;
+  }
+
   validateEmail(
     invocationId: InvocationId,
 
     input: Email,
   ): boolean {
-    const isValid = this.#validateEmailLambda(
-      this.#logger,
-      invocationId,
+    // RFC 5322 compliant
+    const emailRegex: RegExp =
+      /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
 
-      input,
-    );
+    const matches: boolean = emailRegex.test(input);
+
+    const isValid = matches;
 
     this.#loggingHelper(invocationId, "validateEmail", isValid).commit();
-
-    return isValid;
-  }
-
-  validateGeneralLocation(
-    invocationId: InvocationId,
-
-    input: GeneralLocation,
-  ): boolean {
-    const isValid = this.#validateGeneralLocationLambda(
-      this.#logger,
-      invocationId,
-
-      input,
-    );
-
-    this.#loggingHelper(
-      invocationId,
-      "validateGeneralLocation",
-      isValid,
-    ).commit();
 
     return isValid;
   }
@@ -127,12 +94,11 @@ class ContactFormConstraintValidationService_Impl
 
     input: ServiceSelection,
   ): boolean {
-    const isValid = this.#validateServiceSelectionLambda(
-      this.#logger,
-      invocationId,
+    // can't be empty
+    // going to have such attempt to match a set of pre-defined services
+    // but that will be implemented later
 
-      input,
-    );
+    const isValid: boolean = input.length !== 0 && input.trim().length !== 0;
 
     this.#loggingHelper(
       invocationId,
@@ -148,12 +114,10 @@ class ContactFormConstraintValidationService_Impl
 
     input: Message,
   ): boolean {
-    const isValid = this.#validateMessage(
-      this.#logger,
-      invocationId,
+    // can't be empty
+    // may add something like 'min length must be atleast 20' or something but for now this works
 
-      input,
-    );
+    const isValid: boolean = input.length !== 0 && input.trim().length !== 0;
 
     this.#loggingHelper(invocationId, "validateMessage", isValid).commit();
 

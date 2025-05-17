@@ -4,8 +4,8 @@ import {
 } from "./MobileNavRepository_Impl";
 
 import { appStore } from "../../react-redux/store";
-import { mobileNavSliceSelectors } from "../../react-redux/slices/mobileNav";
-import { mobileNavSliceActions } from "../../react-redux/slices/mobileNav";
+import { mobileNavSliceSelectors } from "../../react-redux/slices/mobile-nav/mobileNav";
+import { mobileNavSliceActions } from "../../react-redux/slices/mobile-nav/mobileNav";
 import { defaultLogger } from "../../../logging/logger/default/DefaultLogger_Instance";
 
 const instanceMetaData: InstanceMetaData = {

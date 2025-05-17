@@ -1,89 +1,143 @@
-@import url('https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-
 @font-face {
-  font-family: "Lato";
-  src: url("./assets/fonts/lato/Lato-Thin.ttf"),
-    url("./assets/fonts/lato/Lato-ThinItalic.ttf"),
-    url("./assets/fonts/lato/Lato-Regular.ttf"),
-    url("./assets/fonts/lato/Lato-Italic.ttf"),
-    url("./assets/fonts/lato/Lato-LightItalic.ttf"),
-    url("./assets/fonts/lato/Lato-Light.ttf"),
-    url("./assets/fonts/lato/Lato-BoldItalic.ttf"),
-    url("./assets/fonts/lato/Lato-Bold.ttf"),
-    url("./assets/fonts/lato/Lato-BlackItalic.ttf"),
-    url("./assets/fonts/lato/Lato-Black.ttf");
+  font-family: "Funnel Sans";
+  src: url("./assets/fonts/funnel/FunnelSans-Light.ttf");
+  font-weight: 300;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: "Poppins";
-  src: url("./assets/fonts/poppins/Poppins-Thin.ttf"),
-    url("./assets/fonts/poppins/Poppins-ThinItalic.ttf"),
-    url("./assets/fonts/poppins/Poppins-Regular.ttf"),
-    url("./assets/fonts/poppins/Poppins-Italic.ttf"),
-    url("./assets/fonts/poppins/Poppins-LightItalic.ttf"),
-    url("./assets/fonts/poppins/Poppins-Light.ttf"),
-    url("./assets/fonts/poppins/Poppins-BoldItalic.ttf"),
-    url("./assets/fonts/poppins/Poppins-Bold.ttf"),
-    url("./assets/fonts/poppins/Poppins-BlackItalic.ttf"),
-    url("./assets/fonts/poppins/Poppins-Black.ttf");
+  font-family: "Funnel Sans";
+  src: url("./assets/fonts/funnel/FunnelSans-LightItalic.ttf");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Funnel Sans";
+  src: url("./assets/fonts/funnel/FunnelSans-Regular.ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Funnel Sans";
+  src: url("./assets/fonts/funnel/FunnelSans-Italic.ttf");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Funnel Sans";
+  src: url("./assets/fonts/funnel/FunnelSans-Medium.ttf");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Funnel Sans";
+  src: url("./assets/fonts/funnel/FunnelSans-MediumItalic.ttf");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Funnel Sans";
+  src: url("./assets/fonts/funnel/FunnelSans-SemiBold.ttf");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Funnel Sans";
+  src: url("./assets/fonts/funnel/FunnelSans-SemiBoldItalic.ttf");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Funnel Sans";
+  src: url("./assets/fonts/funnel/FunnelSans-Bold.ttf");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Funnel Sans";
+  src: url("./assets/fonts/funnel/FunnelSans-BoldItalic.ttf");
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Funnel Sans";
+  src: url("./assets/fonts/funnel/FunnelSans-ExtraBold.ttf");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Funnel Sans";
+  src: url("./assets/fonts/funnel/FunnelSans-ExtraBoldItalic.ttf");
+  font-weight: 800;
+  font-style: italic;
 }
 
 .default-font-thin {
-  font-family: "Funnel", sans-serif;
+  font-family: "Funnel Sans", sans-serif;
   font-weight: 300;
   font-style: normal;
 }
 
 .default-font-light {
-  font-family: "Funnel", sans-serif;
-  font-weight: 400;
+  font-family: "Funnel Sans", sans-serif;
+  font-weight: 300;
   font-style: normal;
 }
 
 .default-font-regular {
-  font-family: "Funnel", sans-serif;
-  font-weight: 500;
+  font-family: "Funnel Sans", sans-serif;
+  font-weight: 300;
   font-style: normal;
 }
 
 .default-font-bold {
-  font-family: "Funnel", sans-serif;
-  font-weight: 500;
+  font-family: "Funnel Sans", sans-serif;
+  font-weight: 400;
   font-style: normal;
 }
 
 .default-font-max-bold {
-  font-family: "Funnel", sans-serif;
-  font-weight: 900;
+  font-family: "Funnel Sans", sans-serif;
+  font-weight: 500;
   font-style: normal;
 }
 
 .default-font-thin-italic {
-  font-family: "Funnel", sans-serif;
+  font-family: "Funnel Sans", sans-serif;
   font-weight: 300;
   font-style: italic;
 }
 
 .default-font-light-italic {
-  font-family: "Funnel", sans-serif;
-  font-weight: 500;
+  font-family: "Funnel Sans", sans-serif;
+  font-weight: 300;
   font-style: italic;
 }
 
 .default-font-regular-italic {
-  font-family: "Funnel", sans-serif;
-  font-weight: 700;
+  font-family: "Funnel Sans", sans-serif;
+  font-weight: 300;
   font-style: italic;
 }
 
 .default-font-bold-italic {
-  font-family: "Funnel", sans-serif;
-  font-weight: 900;
+  font-family: "Funnel Sans", sans-serif;
+  font-weight: 400;
   font-style: italic;
 }
 
 .default-font-max-bold-italic {
-  font-family: "Funnel", "Lato", sans-serif;
-  font-weight: 900;
+  font-family: "Funnel Sans", sans-serif;
+  font-weight: 500;
   font-style: italic;
 }

@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { AppStore } from "../store";
+import { AppStore } from "../../store";
 
 import {
   IsOpen,
   IsToggleDisabled,
-} from "../../../domain-data-types/navigation/mobile/open-close/OpenClose_DomainTypes";
+} from "../../../../domain-data-types/navigation/mobile/open-close/OpenClose_DomainTypes";
 
 const mobileNavSlice = createSlice({
   name: "mobileNav",
@@ -27,11 +27,11 @@ const mobileNavSlice = createSlice({
 });
 
 const selectors = {
-  isOpen: (store: AppStore): boolean => {
+  isOpen: (store: AppStore): IsOpen => {
     return store.getState().mobileNav.isOpen;
   },
 
-  isToggleDisabled: (store: AppStore): boolean => {
+  isToggleDisabled: (store: AppStore): IsOpen => {
     return store.getState().mobileNav.isToggleDisabled;
   },
 };

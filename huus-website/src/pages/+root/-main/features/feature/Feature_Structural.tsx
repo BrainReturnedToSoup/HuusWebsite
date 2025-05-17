@@ -34,7 +34,7 @@ function Feature({ feature }: FeatureProps_Interface) {
           />
           <div className="flex flex-col justify-between">
             <p
-              className={`default-font-bold mb-4 p-2 text-xl leading-relaxed transition-colors duration-300 ease-in-out active:text-black sm:ml-4 md:p-4 lg:ml-0 lg:p-0 lg:text-base ${isFeatureHovered && !isRedirectButtonHovered ? "text-black" : "text-white"}`}
+              className={`default-font-regular mb-4 p-2 text-xl leading-relaxed transition-colors duration-300 ease-in-out active:text-black sm:ml-4 md:p-4 lg:ml-0 lg:p-0 lg:text-base ${isFeatureHovered && !isRedirectButtonHovered ? "text-black" : "text-white"}`}
             >
               {feature.desc}
             </p>

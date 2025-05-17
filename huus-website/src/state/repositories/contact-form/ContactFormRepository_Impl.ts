@@ -2,11 +2,11 @@ import {
   Email,
   EmailError,
   FirstName,
-  FormError,
-  GeneralLocation,
-  GeneralLocationError,
+  FirstNameError,
+  GeneralFormError,
   InputsDisabled,
   LastName,
+  LastNameError,
   Message,
   MessageError,
   ServiceSelection,
@@ -147,6 +147,37 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
     ).commit();
   }
 
+  getFirstNameError(invocationId: InvocationId): FirstNameError {
+    const firstNameError: FirstNameError = this.#selectors.firstNameError(
+      this.#store,
+    );
+
+    this.#loggingHelperForGetters(
+      invocationId,
+
+      "getFirstNameError",
+      firstNameError,
+      firstNameError,
+    ).commit();
+
+    return firstNameError;
+  }
+
+  setFirstNameError(
+    invocationId: InvocationId,
+    firstNameError: FirstNameError,
+  ): void {
+    this.#store.dispatch(this.#actions.firstNameError(firstNameError));
+
+    this.#loggingHelperForSetters(
+      invocationId,
+
+      "setFirstNameError",
+      `firstNameError:${firstNameError}`,
+      firstNameError,
+    ).commit();
+  }
+
   getLastName(invocationId: InvocationId): LastName {
     const lastName: LastName = this.#selectors.lastName(this.#store);
 
@@ -174,6 +205,37 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
       "setLastName",
       `lastName:${lastName}`,
       lastName,
+    ).commit();
+  }
+
+  getLastNameError(invocationId: InvocationId): LastNameError {
+    const lastNameError: LastNameError = this.#selectors.firstNameError(
+      this.#store,
+    );
+
+    this.#loggingHelperForGetters(
+      invocationId,
+
+      "getLastNameError",
+      lastNameError,
+      lastNameError,
+    ).commit();
+
+    return lastNameError;
+  }
+
+  setLastNameError(
+    invocationId: InvocationId,
+    lastNameError: LastNameError,
+  ): void {
+    this.#store.dispatch(this.#actions.lastNameError(lastNameError));
+
+    this.#loggingHelperForSetters(
+      invocationId,
+
+      "setLastNameError",
+      `lastNameError:${lastNameError}`,
+      lastNameError,
     ).commit();
   }
 
@@ -234,71 +296,6 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
       "setEmailError",
       `emailError:${emailError}`,
       emailError,
-    ).commit();
-  }
-
-  getGeneralLocation(invocationId: InvocationId): GeneralLocation {
-    const generalLocation: GeneralLocation = this.#selectors.generalLocation(
-      this.#store,
-    );
-
-    this.#loggingHelperForGetters(
-      invocationId,
-
-      "getGeneralLocation",
-      generalLocation,
-      generalLocation,
-    ).commit();
-
-    return generalLocation;
-  }
-
-  setGeneralLocation(
-    invocationId: InvocationId,
-
-    generalLocation: GeneralLocation,
-  ): void {
-    this.#store.dispatch(this.#actions.generalLocation(generalLocation));
-
-    this.#loggingHelperForSetters(
-      invocationId,
-
-      "setGeneralLocation",
-      `generalLocation:${generalLocation}`,
-      generalLocation,
-    ).commit();
-  }
-
-  getGeneralLocationError(invocationId: InvocationId): GeneralLocationError {
-    const generalLocationError: GeneralLocationError =
-      this.#selectors.generalLocationError(this.#store);
-
-    this.#loggingHelperForGetters(
-      invocationId,
-
-      "getGeneralLocationError",
-      generalLocationError,
-      generalLocationError,
-    );
-
-    return generalLocationError;
-  }
-
-  setGeneralLocationError(
-    invocationId: InvocationId,
-
-    generalLocationError: GeneralLocationError,
-  ): void {
-    this.#store.dispatch(
-      this.#actions.generalLocationError(generalLocationError),
-    );
-
-    this.#loggingHelperForSetters(
-      invocationId,
-
-      "setGeneralLocationError",
-      `generalLocationError:${generalLocationError}`,
-      generalLocationError,
     ).commit();
   }
 
@@ -493,8 +490,10 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
     ).commit();
   }
 
-  getFormError(invocationId: InvocationId): FormError {
-    const formError: FormError = this.#selectors.formError(this.#store);
+  getFormError(invocationId: InvocationId): GeneralFormError {
+    const formError: GeneralFormError = this.#selectors.generalFormError(
+      this.#store,
+    );
 
     this.#loggingHelperForGetters(
       invocationId,
@@ -507,12 +506,12 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
     return formError;
   }
 
-  setFormError(
+  setGeneralFormError(
     invocationId: InvocationId,
 
-    formError: FormError,
+    formError: GeneralFormError,
   ): void {
-    this.#store.dispatch(this.#actions.formError(formError));
+    this.#store.dispatch(this.#actions.generalFormError(formError));
 
     this.#loggingHelperForSetters(
       invocationId,

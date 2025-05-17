@@ -4,7 +4,6 @@ import { ContactFormProps_Interface } from "./ContactForm_Interface";
 import { DisplayedNotes } from "./displayed-notes/DisplayedNotes_Structural";
 import { Email } from "./email-field/Email_Structural";
 import { GeneralErrorMessage } from "./general-error-message/GeneralErrorMessage_Structural";
-import { GeneralLocation } from "./general-location-field/GeneralLocation_Structural";
 import { Message } from "./message-field/Message_Structural";
 import { Name } from "./name-field/Name_Structural";
 import { ServiceSelection } from "./service-selection-field/ServiceSelection_Structural";
@@ -22,7 +21,9 @@ function ContactForm({
     <div className="flex w-full max-w-[760px] items-center justify-center">
       <form
         className="w-full border-[1px] border-neutral-400 p-4 text-xl"
-        onSubmit={() => {
+        onSubmit={(e) => {
+          e.preventDefault();
+
           const formSubmissionInvocationId = createInvocationId();
 
           logger
@@ -42,7 +43,6 @@ function ContactForm({
 
         <Name useDomainStateUpdater={useDomainStateUpdater} />
         <Email useDomainStateUpdater={useDomainStateUpdater} />
-        <GeneralLocation useDomainStateUpdater={useDomainStateUpdater} />
 
         <ServiceSelection />
 

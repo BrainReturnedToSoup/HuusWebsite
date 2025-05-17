@@ -6,13 +6,10 @@ import {
 import { contactFormRepository } from "../../../state/repositories/contact-form/ContactFormRepository_Instance";
 import { contactFormOnSubmitConstraintValidationService } from "../form-fields/constraint-validation/on-submit/OnSubmitConstraintValidationService_Instance";
 
-import {
-  EmailJsArgs,
-  sendEmail_emailJs,
-} from "../../../APIs/send-email/emailJs/sendEmail_emailJs";
+import { EmailJsArgs } from "../../../APIs/send-email/emailJs/SendEmail_Impl";
+import { sendEmail_EmailJs } from "../../../APIs/send-email/emailJs/SendEmail_Instance";
 
 import {
-  onConstraintViolation,
   requestArgsFactory,
   onRequestStatusNotOk,
   onRequestErrorCaught,
@@ -32,9 +29,8 @@ const contactFormSubmissionService =
 
     contactFormRepository,
     contactFormOnSubmitConstraintValidationService,
-    sendEmail_emailJs,
+    sendEmail_EmailJs,
 
-    onConstraintViolation,
     requestArgsFactory,
     onRequestStatusNotOk,
     onRequestErrorCaught,

@@ -2,11 +2,11 @@ import {
   Email,
   EmailError,
   FirstName,
-  FormError,
-  GeneralLocation,
-  GeneralLocationError,
+  FirstNameError,
+  GeneralFormError,
   InputsDisabled,
   LastName,
+  LastNameError,
   Message,
   MessageError,
   ServiceSelection,
@@ -26,24 +26,24 @@ const contactFormSlice = createSlice({
     // per form field. Can't use nested objects, because that messes with how
     // redux perceives state changes.
     firstName: "" as FirstName,
+    firstNameError: "valid error" as FirstNameError,
+
     lastName: "" as LastName,
+    lastNameError: "valid error" as LastNameError,
 
     email: "" as Email,
-    emailError: "" as EmailError,
-
-    generalLocation: "" as GeneralLocation,
-    generalLocationError: "" as GeneralLocationError,
+    emailError: "valid error" as EmailError,
 
     serviceSelection: "" as ServiceSelection,
-    serviceSelectionError: "" as ServiceSelectionError,
+    serviceSelectionError: "valid error" as ServiceSelectionError,
 
     message: "" as Message,
-    messageError: "" as MessageError,
+    messageError: "valid error" as MessageError,
 
     // top-level state of the form.
     submitIsPending: false as SubmitIsPending,
     submitSucceeded: false as SubmitSucceeded,
-    formError: "" as FormError,
+    generalFormError: "" as GeneralFormError,
     inputsDisabled: false as InputsDisabled,
     submitId: crypto.randomUUID() as SubmitId,
   },
@@ -52,8 +52,15 @@ const contactFormSlice = createSlice({
     firstName: (state, action): void => {
       state.firstName = String(action.payload);
     },
+    firstNameError: (state, action): void => {
+      state.firstNameError = String(action.payload);
+    },
+
     lastName: (state, action): void => {
       state.lastName = String(action.payload);
+    },
+    lastNameError: (state, action): void => {
+      state.lastNameError = String(action.payload);
     },
 
     email: (state, action): void => {
@@ -61,13 +68,6 @@ const contactFormSlice = createSlice({
     },
     emailError: (state, action): void => {
       state.emailError = String(action.payload);
-    },
-
-    generalLocation: (state, action): void => {
-      state.generalLocation = String(action.payload);
-    },
-    generalLocationError: (state, action): void => {
-      state.generalLocationError = String(action.payload);
     },
 
     serviceSelection: (state, action): void => {
@@ -90,8 +90,8 @@ const contactFormSlice = createSlice({
     submitSucceeded: (state, action): void => {
       state.submitSucceeded = action.payload;
     },
-    formError: (state, action): void => {
-      state.formError = String(action.payload);
+    generalFormError: (state, action): void => {
+      state.generalFormError = String(action.payload);
     },
     inputsDisabled: (state, action): void => {
       state.inputsDisabled = action.payload;
@@ -107,8 +107,15 @@ const selectors = {
   firstName: (store: AppStore): string => {
     return store.getState().contactForm.firstName;
   },
+  firstNameError: (store: AppStore): string => {
+    return store.getState().contactForm.firstNameError;
+  },
+
   lastName: (store: AppStore): string => {
     return store.getState().contactForm.lastName;
+  },
+  lastNameError: (store: AppStore): string => {
+    return store.getState().contactForm.lastNameError;
   },
 
   email: (store: AppStore): string => {
@@ -116,13 +123,6 @@ const selectors = {
   },
   emailError: (store: AppStore): string => {
     return store.getState().contactForm.emailError;
-  },
-
-  generalLocation: (store: AppStore): string => {
-    return store.getState().contactForm.generalLocation;
-  },
-  generalLocationError: (store: AppStore): string => {
-    return store.getState().contactForm.generalLocationError;
   },
 
   serviceSelection: (store: AppStore): string => {
@@ -145,8 +145,8 @@ const selectors = {
   submitSucceeded: (store: AppStore): boolean => {
     return store.getState().contactForm.submitSucceeded;
   },
-  formError: (store: AppStore): string => {
-    return store.getState().contactForm.formError;
+  generalFormError: (store: AppStore): string => {
+    return store.getState().contactForm.generalFormError;
   },
   inputsDisabled: (store: AppStore): boolean => {
     return store.getState().contactForm.inputsDisabled;

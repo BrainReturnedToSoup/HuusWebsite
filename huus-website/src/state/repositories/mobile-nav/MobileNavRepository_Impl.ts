@@ -3,7 +3,7 @@ import { AppStore } from "../../react-redux/store";
 import {
   MobileNavSliceSelectors,
   MobileNavSliceActions,
-} from "../../react-redux/slices/mobileNav";
+} from "../../react-redux/slices/mobile-nav/mobileNav";
 
 import { MobileNavRepository_Interface } from "./MobileNavRepository_Interface";
 import { Logger_Interface } from "../../../logging/logger/Logger_Interface";

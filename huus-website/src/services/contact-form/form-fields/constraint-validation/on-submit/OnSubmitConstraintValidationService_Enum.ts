@@ -12,8 +12,4 @@ export enum OnSubmitConstraintValidationServiceLogKeys_Enum {
   RECEIVED_ARGS = "received-args",
 
   IS_VALID = "is-valid",
-
-  FINAL_CONTAINER_STATE = "final-container-state",
-
-  CONSTRAINT_VIOLATION_ADDED = "constraint-violation-added",
 }

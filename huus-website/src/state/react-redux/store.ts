@@ -1,16 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import { appWindowSlice } from "./slices/app-window/appWindow";
-import { mobileNavSlice } from "./slices/mobileNav";
+import { mobileNavSlice } from "./slices/mobile-nav/mobileNav";
 import { contactFormSlice } from "./slices/contact-form/contactForm";
-import { footerSlice } from "./slices/footer";
+import { serviceOfferingsSetsSlice } from "./slices/service-offerings/serviceOfferings";
 
 const appStore = configureStore({
   reducer: {
     appWindow: appWindowSlice.reducer,
     mobileNav: mobileNavSlice.reducer,
     contactForm: contactFormSlice.reducer,
-    footer: footerSlice.reducer,
+    serviceOfferingsSetsSlice: serviceOfferingsSetsSlice.reducer,
   },
 });
 

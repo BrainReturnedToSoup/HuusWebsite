@@ -3,48 +3,12 @@ import {
   OnRequestStatusNotOk_LambdaInterface,
   OnRequestErrorCaught_LambdaInterface,
   OnSuccess_LambdaInterface,
-  OnConstraintViolation_LambdaInterface,
 } from "./FormSubmissionService_Impl";
 
-import { EmailJsArgs } from "../../../APIs/send-email/emailJs/sendEmail_emailJs";
-import { EmailJsConfig_Enum } from "../../../APIs/send-email/emailJs/Config_Enum";
+import { EmailJsArgs } from "../../../APIs/send-email/emailJs/SendEmail_Impl";
+import { EmailJsConfig_Enum } from "../../../APIs/send-email/emailJs/SendEmail_Enum";
 
-import { OnSubmitConstraintViolationLabels_Enum } from "../form-fields/constraint-validation/on-submit/_util/contraint-violation/ContraintViolationLabels_Enum";
 import { FormSubmissionServiceLogKeys_Enum } from "./FormSubmissionService_Enum";
-
-const onConstraintViolation: OnConstraintViolation_LambdaInterface<
-  OnSubmitConstraintViolationLabels_Enum
-> = (
-  logger,
-  invocationId,
-
-  submitId,
-  constraintViolationContainer,
-  contactFormRepository,
-): void => {
-  // basically go through each individual constraint violation that is present, and apply the
-  // error messages per field.
-  // eventually add a log that includes the two IDs along with the error and its data
-
-  contactFormRepository;
-
-  logger
-    .createNewLog()
-    .addAttribute(FormSubmissionServiceLogKeys_Enum.INVOCATION_ID, invocationId)
-    .addAttribute(FormSubmissionServiceLogKeys_Enum.SUBMIT_ID, submitId)
-    .addAttribute(
-      FormSubmissionServiceLogKeys_Enum.INVOKED_LAMBDA,
-      "onConstraintViolation",
-    )
-    .addAttribute(
-      FormSubmissionServiceLogKeys_Enum.CONSTRAINT_VIOLATIONS,
-      constraintViolationContainer.toString(),
-    )
-    .commit();
-
-  // ****** NEED TO ADD LOGIC RELATED TO REFERENCING EACH VIOLATION AND
-  //  THUS UPDATING THE ASSOCIATED FORM FIELD ERROR STATE
-};
 
 const requestArgsFactory: RequestArgsFactory_LambdaInterface<EmailJsArgs> = (
   logger,
@@ -68,8 +32,7 @@ const requestArgsFactory: RequestArgsFactory_LambdaInterface<EmailJsArgs> = (
       inquiryId: contactFormRepository.getSubmitId(invocationId), // ID for submission idempotency
 
       email: contactFormRepository.getEmail(invocationId),
-      name: `${contactFormRepository.getFirstName(invocationId)} ${contactFormRepository.getLastName(invocationId)}`,
-      generalLocation: contactFormRepository.getGeneralLocation(invocationId),
+      name: `${contactFormRepository.getFirstName(invocationId)}:${contactFormRepository.getLastName(invocationId)}`,
 
       selectedService: contactFormRepository.getServiceSelection(invocationId),
       serviceId: "TO BE ADDED", // meant as a more stable ID per unique service. This will come in handy with the no-code admin dashboard providing a means to define services
@@ -112,7 +75,7 @@ const onRequestErrorCaught: OnRequestErrorCaught_LambdaInterface = (
 
   // ***** STILL NEED TO FIGURE OUT WHAT ERRORS ARE POSSIBLE GIVEN THE INVOCATION SCOPE
 
-  const formError: string = "";
+  const generalFormError: string = "";
 
   logger
     .createNewLog()
@@ -123,10 +86,10 @@ const onRequestErrorCaught: OnRequestErrorCaught_LambdaInterface = (
       "onRequestErrorCaught",
     )
     .addAttribute(FormSubmissionServiceLogKeys_Enum.REQUEST_ERROR, error)
-    .addAttribute(FormSubmissionServiceLogKeys_Enum.FORM_ERROR, formError)
+    .addAttribute(FormSubmissionServiceLogKeys_Enum.GENERAL_FORM_ERROR, generalFormError)
     .commit();
 
-  contactFormRepository.setFormError(invocationId, formError);
+  contactFormRepository.setGeneralFormError(invocationId, generalFormError);
 };
 
 const onRequestStatusNotOk: OnRequestStatusNotOk_LambdaInterface = (
@@ -143,7 +106,7 @@ const onRequestStatusNotOk: OnRequestStatusNotOk_LambdaInterface = (
 
   // eventually add a log that includes the two IDs along with the request status
 
-  const formError: string = "";
+  const generalFormError: string = "";
 
   logger
     .createNewLog()
@@ -157,10 +120,10 @@ const onRequestStatusNotOk: OnRequestStatusNotOk_LambdaInterface = (
       FormSubmissionServiceLogKeys_Enum.REQUEST_STATUS,
       requestStatus,
     )
-    .addAttribute(FormSubmissionServiceLogKeys_Enum.FORM_ERROR, formError)
+    .addAttribute(FormSubmissionServiceLogKeys_Enum.GENERAL_FORM_ERROR, generalFormError)
     .commit();
 
-  contactFormRepository.setFormError(invocationId, formError);
+  contactFormRepository.setGeneralFormError(invocationId, generalFormError);
 };
 
 const onSuccess: OnSuccess_LambdaInterface = (
@@ -205,7 +168,6 @@ const onSuccess: OnSuccess_LambdaInterface = (
 };
 
 export {
-  onConstraintViolation,
   requestArgsFactory,
   onRequestStatusNotOk,
   onRequestErrorCaught,

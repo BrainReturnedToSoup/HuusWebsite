@@ -3,8 +3,9 @@
 // but also still be reusable.
 
 import {
+  FirstName,
+  LastName,
   Email,
-  GeneralLocation,
   Message,
   ServiceSelection,
 } from "../../../../../domain-data-types/contact-form/ContactForm_DomainTypes";
@@ -15,16 +16,22 @@ import { InvocationId } from "../../../../../logging/Logging_types";
 // you can use regex or comparators or whatever
 
 export interface ContactFormConstraintValidationService_Interface {
+  validateFirstName(
+    invocationId: InvocationId,
+
+    input: FirstName,
+  ): boolean;
+
+  validateLastName(
+    invocationId: InvocationId,
+
+    input: LastName,
+  ): boolean;
+
   validateEmail(
     invocationId: InvocationId,
 
     input: Email,
-  ): boolean;
-
-  validateGeneralLocation(
-    invocationId: InvocationId,
-
-    input: GeneralLocation,
   ): boolean;
 
   validateServiceSelection(
