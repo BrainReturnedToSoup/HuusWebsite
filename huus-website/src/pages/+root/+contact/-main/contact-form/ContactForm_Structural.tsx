@@ -14,8 +14,6 @@ function ContactForm({
 
   formSubmissionService,
   formResetService,
-
-  useDomainStateUpdater,
 }: ContactFormProps_Interface) {
   return (
     <div className="flex w-full max-w-[760px] items-center justify-center">
@@ -41,12 +39,12 @@ function ContactForm({
         <DisplayedNotes />
         <GeneralErrorMessage />
 
-        <Name useDomainStateUpdater={useDomainStateUpdater} />
-        <Email useDomainStateUpdater={useDomainStateUpdater} />
+        <Name />
+        <Email />
 
         <ServiceSelection />
 
-        <Message useDomainStateUpdater={useDomainStateUpdater} />
+        <Message />
 
         {/*
             logging and invocation dependencies below purely for the clearing button. The submit event should be caught by the form,
