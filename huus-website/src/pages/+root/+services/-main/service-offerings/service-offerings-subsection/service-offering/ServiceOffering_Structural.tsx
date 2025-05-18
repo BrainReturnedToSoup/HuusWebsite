@@ -1,18 +1,18 @@
 import { useState } from "react";
 
-import { ServiceRowProps_Interface } from "./ServiceRow_Interface";
+import { ServiceOfferingProps_Interface } from "./ServiceOffering_Interface";
 
 import { Keywords } from "./keywords/Keywords_Structural";
 import { Pricing } from "./pricing/Pricing_Structural";
 
-function ServiceRow({
+function ServiceOffering({
   title,
   keywords,
   description,
   price,
-  quantifier,
+  priceQuantifier,
   enquireOnClick,
-}: ServiceRowProps_Interface) {
+}: ServiceOfferingProps_Interface) {
   const [isEnquireHovered, setIsEnquireHovered] = useState(false);
 
   return (
@@ -25,7 +25,7 @@ function ServiceRow({
         >
           {title}
         </h1>
-        <Keywords words={keywords} isEnquireHovered={isEnquireHovered} />
+        <Keywords keywords={keywords} isEnquireHovered={isEnquireHovered} />
         <p
           className={`default-font-regular mb-4 leading-loose transition-colors duration-150 ease-in-out ${isEnquireHovered ? "text-white" : ""}`}
         >
@@ -35,7 +35,7 @@ function ServiceRow({
 
       <Pricing
         price={price}
-        quantifier={quantifier}
+        priceQuantifier={priceQuantifier}
         setIsEnquireHovered={setIsEnquireHovered}
         enquireOnClick={enquireOnClick}
       />
@@ -43,4 +43,4 @@ function ServiceRow({
   );
 }
 
-export { ServiceRow };
+export { ServiceOffering };

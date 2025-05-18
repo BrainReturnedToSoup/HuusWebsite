@@ -2,12 +2,12 @@ import { AppStore } from "../../react-redux/store";
 
 import { Logger_Interface } from "../../../logging/logger/Logger_Interface";
 
-import { ServiceOfferingsSet } from "../../../domain-data-types/service-offerings/ServiceOfferings_DomainDataTypes";
+import { ServiceOfferingsSubsections } from "../../../domain-data-types/service-offerings/ServiceOfferings_DomainDataTypes";
 import { InvocationId } from "../../../logging/Logging_types";
 
 import {
-  ServiceOfferingsSetsSliceActions,
-  ServiceOfferingsSetsSliceSelectors,
+  ServiceOfferingsSliceActions,
+  ServiceOfferingsSliceSelectors,
 } from "../../react-redux/slices/service-offerings/serviceOfferings";
 
 import { ServiceOfferingsRepository_Interface } from "./ServiceOfferingsRepository_Interface";
@@ -25,16 +25,16 @@ class ServiceOfferingsRepository_Impl
   #logger: Logger_Interface;
 
   #store: AppStore;
-  #selectors: ServiceOfferingsSetsSliceSelectors;
-  #actions: ServiceOfferingsSetsSliceActions;
+  #selectors: ServiceOfferingsSliceSelectors;
+  #actions: ServiceOfferingsSliceActions;
 
   constructor(
     instanceMetaData: InstanceMetaData,
     logger: Logger_Interface,
 
     store: AppStore,
-    selectors: ServiceOfferingsSetsSliceSelectors,
-    actions: ServiceOfferingsSetsSliceActions,
+    selectors: ServiceOfferingsSliceSelectors,
+    actions: ServiceOfferingsSliceActions,
   ) {
     this.#instanceMetaData = instanceMetaData;
     this.#logger = logger;
@@ -44,10 +44,11 @@ class ServiceOfferingsRepository_Impl
     this.#actions = actions;
   }
 
-  getServiceOfferingsSets(correlationId: InvocationId): ServiceOfferingsSet[] {
-    const sets: ServiceOfferingsSet[] = this.#selectors.getServiceOfferingsSets(
-      this.#store,
-    );
+  getServiceOfferingsSubsections(
+    correlationId: InvocationId,
+  ): ServiceOfferingsSubsections {
+    const subsections: ServiceOfferingsSubsections =
+      this.#selectors.getServiceOfferingsSubsections(this.#store);
 
     this.#logger
       .createNewLog()
@@ -61,22 +62,28 @@ class ServiceOfferingsRepository_Impl
       )
       .addAttribute(
         ServiceOfferingsRepositoryLogKeys_Enum.INVOKED_GETTER,
-        "getServiceOfferingsSets",
+        "getServiceOfferings",
       )
-      .addAttribute(ServiceOfferingsRepositoryLogKeys_Enum.OBSERVED_VALUE, sets)
-      .addAttribute(ServiceOfferingsRepositoryLogKeys_Enum.RETURNED_VALUE, sets)
+      .addAttribute(
+        ServiceOfferingsRepositoryLogKeys_Enum.OBSERVED_VALUE,
+        subsections,
+      )
+      .addAttribute(
+        ServiceOfferingsRepositoryLogKeys_Enum.RETURNED_VALUE,
+        subsections,
+      )
       .commit();
 
-    return sets;
+    return subsections;
   }
 
-  setServiceOfferingsSets(
+  setServiceOfferingsSubsections(
     correlationId: InvocationId,
 
-    serviceOfferingsSets: ServiceOfferingsSet[],
+    serviceOfferingsSubsections: ServiceOfferingsSubsections,
   ): void {
     this.#store.dispatch(
-      this.#actions.setServiceOfferingsSets(serviceOfferingsSets),
+      this.#actions.setServiceOfferingsSubsections(serviceOfferingsSubsections),
     );
 
     this.#logger
@@ -91,15 +98,15 @@ class ServiceOfferingsRepository_Impl
       )
       .addAttribute(
         ServiceOfferingsRepositoryLogKeys_Enum.INVOKED_SETTER,
-        "setServiceOfferingsSets()",
+        "setServiceOfferings()",
       )
       .addAttribute(
         ServiceOfferingsRepositoryLogKeys_Enum.RECEIVED_ARGS,
-        `serviceOfferingsSets=${serviceOfferingsSets}`,
+        `serviceOfferingsSubsections=${serviceOfferingsSubsections}`,
       )
       .addAttribute(
         ServiceOfferingsRepositoryLogKeys_Enum.SET_VALUE,
-        serviceOfferingsSets,
+        serviceOfferingsSubsections,
       )
       .commit();
   }

@@ -1,6 +1,6 @@
 import { KeywordsProps_Interface } from "./Keywords_Interface";
 
-function Keywords({ words, isEnquireHovered }: KeywordsProps_Interface) {
+function Keywords({ keywords: words, isEnquireHovered }: KeywordsProps_Interface) {
   return (
     <div className="mb-5 flex items-center">
       {words.map((word, index) => {

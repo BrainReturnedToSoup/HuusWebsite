@@ -1,10 +1,10 @@
-import { ServiceRow } from "../service-row/ServiceRow_Structural";
+import { ServiceOffering } from "../service-offerings-subsection/service-offering/ServiceOffering_Structural";
 
-import { ServiceBundlesProps_Interface } from "./ServiceBundles_Interface";
+import { BaseServicesProps_Interface } from "./BaseServices_Interface";
 
-function ServiceBundles({ groupTitle, rows }: ServiceBundlesProps_Interface) {
+function BaseServices({ groupTitle, rows }: BaseServicesProps_Interface) {
   return (
-    <div className="w-full py-14">
+    <div className="mb-12 w-full py-14">
       <h1 className="default-font-bold text-center text-4xl md:text-start md:text-3xl">
         {groupTitle}
       </h1>
@@ -15,10 +15,10 @@ function ServiceBundles({ groupTitle, rows }: ServiceBundlesProps_Interface) {
           description,
           price,
           quantifier,
-          enquireOnClick,
+          enquireOnClick: enquireOnClick,
         }) => {
           return (
-            <ServiceRow
+            <ServiceOffering
               title={title}
               keywords={keywords}
               description={description}
@@ -33,4 +33,4 @@ function ServiceBundles({ groupTitle, rows }: ServiceBundlesProps_Interface) {
   );
 }
 
-export { ServiceBundles };
+export { BaseServices };

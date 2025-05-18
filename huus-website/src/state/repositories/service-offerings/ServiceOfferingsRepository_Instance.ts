@@ -3,8 +3,8 @@ import { ServiceOfferingsRepository_Impl } from "./ServiceOfferingsRepository_Im
 import { appStore } from "../../react-redux/store";
 
 import {
-  serviceOfferingsSetsSliceSelectors,
-  serviceOfferingsSetsSliceActions,
+  serviceOfferingsSliceSelectors,
+  serviceOfferingsSliceActions,
 } from "../../react-redux/slices/service-offerings/serviceOfferings";
 
 import { defaultLogger } from "../../../logging/logger/default/DefaultLogger_Instance";
@@ -20,8 +20,8 @@ const serviceOfferingsRepository = new ServiceOfferingsRepository_Impl(
   defaultLogger,
 
   appStore,
-  serviceOfferingsSetsSliceSelectors,
-  serviceOfferingsSetsSliceActions,
+  serviceOfferingsSliceSelectors,
+  serviceOfferingsSliceActions,
 );
 
 export { serviceOfferingsRepository, instanceMetaData };

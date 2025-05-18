@@ -2,39 +2,131 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { AppStore } from "../../store";
 
-import { ServiceOfferingsSet } from "../../../../domain-data-types/service-offerings/ServiceOfferings_DomainDataTypes";
+import { ServiceOfferingsSubsections } from "../../../../domain-data-types/service-offerings/ServiceOfferings_DomainDataTypes";
 
-const serviceOfferingsSetsSlice = createSlice({
-  name: "serviceOfferingsSets",
+const staticConfig: ServiceOfferingsSubsections = [
+  {
+    title: "Base",
+    serviceOfferings: [
+      {
+        id: "0",
+        title: "Random Service",
+        keywords: ["Beginner", "Zero-commitment"],
+        description: `Lorem ipsum odor amet, consectetuer adipiscing elit. Est ultricies
+                parturient facilisis viverra, in senectus posuere. Donec sem
+                sollicitudin malesuada torquent nostra pulvinar. Venenatis vehicula
+                class libero duis sapien sit. Adipiscing massa gravida neque habitant
+                nisl egestas nec.`,
+        price: "$24.99",
+        priceQuantifier: "Per session",
+        enquireOnClick: () => {},
+      },
+      {
+        id: "1",
+        title: "Random Service",
+        keywords: ["Beginner", "Zero-commitment"],
+        description: `Lorem ipsum odor amet, consectetuer adipiscing elit. Est ultricies
+                parturient facilisis viverra, in senectus posuere. Donec sem
+                sollicitudin malesuada torquent nostra pulvinar. Venenatis vehicula
+                class libero duis sapien sit. Adipiscing massa gravida neque habitant
+                nisl egestas nec.`,
+        price: "$24.99",
+        priceQuantifier: "Per session",
+        enquireOnClick: () => {},
+      },
+      {
+        id: "2",
+        title: "Random Service",
+        keywords: ["Beginner", "Zero-commitment"],
+        description: `Lorem ipsum odor amet, consectetuer adipiscing elit. Est ultricies
+                parturient facilisis viverra, in senectus posuere. Donec sem
+                sollicitudin malesuada torquent nostra pulvinar. Venenatis vehicula
+                class libero duis sapien sit. Adipiscing massa gravida neque habitant
+                nisl egestas nec.`,
+        price: "$24.99",
+        priceQuantifier: "Per session",
+        enquireOnClick: () => {},
+      },
+      {
+        id: "3",
+        title: "Random Service",
+        keywords: ["Beginner", "Zero-commitment"],
+        description: `Lorem ipsum odor amet, consectetuer adipiscing elit. Est ultricies
+                parturient facilisis viverra, in senectus posuere. Donec sem
+                sollicitudin malesuada torquent nostra pulvinar. Venenatis vehicula
+                class libero duis sapien sit. Adipiscing massa gravida neque habitant
+                nisl egestas nec.`,
+        price: "$24.99",
+        priceQuantifier: "Per session",
+        enquireOnClick: () => {},
+      },
+    ],
+  },
+  {
+    title: "Bundles",
+    serviceOfferings: [
+      {
+        id: "4",
+        title: "Random Service",
+        keywords: ["Intermediate", "End-to-end", "Commitment"],
+        description: `Lorem ipsum odor amet, consectetuer adipiscing elit. Est ultricies
+                parturient facilisis viverra, in senectus posuere. Donec sem
+                sollicitudin malesuada torquent nostra pulvinar. Venenatis vehicula
+                class libero duis sapien sit. Adipiscing massa gravida neque habitant
+                nisl egestas nec.`,
+        price: "$24.99",
+        priceQuantifier: "Per bundle",
+        enquireOnClick: () => {},
+      },
+      {
+        id: "5",
+        title: "Random Service",
+        keywords: ["Intermediate", "End-to-end", "Commitment"],
+        description: `Lorem ipsum odor amet, consectetuer adipiscing elit. Est ultricies
+                parturient facilisis viverra, in senectus posuere. Donec sem
+                sollicitudin malesuada torquent nostra pulvinar. Venenatis vehicula
+                class libero duis sapien sit. Adipiscing massa gravida neque habitant
+                nisl egestas nec.`,
+        price: "$24.99",
+        priceQuantifier: "Per bundle",
+        enquireOnClick: () => {},
+      },
+    ],
+  },
+];
+
+const serviceOfferingsSlice = createSlice({
+  name: "serviceOfferings",
 
   initialState: {
-    serviceOfferingsSets: [] as ServiceOfferingsSet[],
+    serviceOfferingsSubsections: staticConfig as ServiceOfferingsSubsections,
   },
 
   reducers: {
-    setServiceOfferingsSets: (state, action): void => {
-      state.serviceOfferingsSets = action.payload;
+    setServiceOfferingsSubsections: (state, action): void => {
+      state.serviceOfferingsSubsections = action.payload;
     },
   },
 });
 
 const selectors = {
-  getServiceOfferingsSets: (store: AppStore): ServiceOfferingsSet[] => {
-    return store.getState().serviceOfferingsSetsSlice.serviceOfferingsSets;
+  getServiceOfferingsSubsections: (
+    store: AppStore,
+  ): ServiceOfferingsSubsections => {
+    return store.getState().serviceOfferingsSlice.serviceOfferingsSubsections;
   },
 };
 
-const serviceOfferingsSetsSliceActions = serviceOfferingsSetsSlice.actions;
-const serviceOfferingsSetsSliceSelectors = selectors;
+const serviceOfferingsSliceActions = serviceOfferingsSlice.actions;
+const serviceOfferingsSliceSelectors = selectors;
 
-export type ServiceOfferingsSetsSlice = typeof serviceOfferingsSetsSlice;
-export type ServiceOfferingsSetsSliceActions =
-  typeof serviceOfferingsSetsSliceActions;
-export type ServiceOfferingsSetsSliceSelectors =
-  typeof serviceOfferingsSetsSliceSelectors;
+export type ServiceOfferingsSlice = typeof serviceOfferingsSlice;
+export type ServiceOfferingsSliceActions = typeof serviceOfferingsSliceActions;
+export type ServiceOfferingsSliceSelectors =
+  typeof serviceOfferingsSliceSelectors;
 
 export {
-  serviceOfferingsSetsSlice,
-  serviceOfferingsSetsSliceActions,
-  serviceOfferingsSetsSliceSelectors,
+  serviceOfferingsSlice,
+  serviceOfferingsSliceActions,
+  serviceOfferingsSliceSelectors,
 };

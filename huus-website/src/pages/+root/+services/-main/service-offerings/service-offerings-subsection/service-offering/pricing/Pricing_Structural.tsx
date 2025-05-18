@@ -4,9 +4,9 @@ import { PricingProps_Interface } from "./Pricing_Interface";
 
 function Pricing({
   price,
-  quantifier,
-  setIsEnquireHovered,
+  priceQuantifier,
   enquireOnClick,
+  setIsEnquireHovered,
 }: PricingProps_Interface) {
   const [isLocalEnquireHovered, setIsLocalEnquireHovered] = useState(false);
 
@@ -22,7 +22,7 @@ function Pricing({
           <h2
             className={`default-font-bold pl-2 pt-1 text-sm transition-colors duration-150 ease-in-out ${isLocalEnquireHovered ? "text-white" : ""}`}
           >
-            {quantifier}
+            {priceQuantifier}
           </h2>
         </div>
       </div>

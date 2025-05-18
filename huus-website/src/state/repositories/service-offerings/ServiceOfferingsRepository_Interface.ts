@@ -1,11 +1,13 @@
-import { ServiceOfferingsSet } from "../../../domain-data-types/service-offerings/ServiceOfferings_DomainDataTypes";
+import { ServiceOfferingsSubsections } from "../../../domain-data-types/service-offerings/ServiceOfferings_DomainDataTypes";
 import { InvocationId } from "../../../logging/Logging_types";
 
 export interface ServiceOfferingsRepository_Interface {
-  getServiceOfferingsSets(correlationId: InvocationId): ServiceOfferingsSet[];
-  setServiceOfferingsSets(
+  getServiceOfferingsSubsections(
+    correlationId: InvocationId,
+  ): ServiceOfferingsSubsections;
+  setServiceOfferingsSubsections(
     correlationId: InvocationId,
 
-    serviceOfferingsSet: ServiceOfferingsSet[],
+    serviceOfferingsSubsections: ServiceOfferingsSubsections,
   ): void;
 }

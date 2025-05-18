@@ -19,6 +19,8 @@ export type ServiceOfferingPrice = string;
 // for instance, 'per bundle' within '$24.99 per bundle'
 export type ServiceOfferingPriceQuantifier = string;
 
+export type ServiceOfferingEnquireOnClick = () => void;
+
 export interface ServiceOffering {
   id: ServiceOfferingId;
   title: ServiceOfferingTitle;
@@ -26,14 +28,16 @@ export interface ServiceOffering {
   description: ServiceOfferingDescription;
   price: ServiceOfferingPrice;
   priceQuantifier: ServiceOfferingPriceQuantifier;
+  enquireOnClick: ServiceOfferingEnquireOnClick;
 }
 
-export interface ServiceOfferings {
-  [id: ServiceOfferingId]: ServiceOffering;
+export type ServiceOfferings = ServiceOffering[];
+
+export type ServiceOfferingsSubsectionTitle = string;
+
+export interface ServiceOfferingsSubsection {
+  title: ServiceOfferingsSubsectionTitle;
+  serviceOfferings: ServiceOfferings;
 }
 
-export type ServiceOfferingsSetLabel = string;
-
-export interface ServiceOfferingsSet {
-  [label: ServiceOfferingsSetLabel]: ServiceOfferings;
-}
+export type ServiceOfferingsSubsections = ServiceOfferingsSubsection[];
