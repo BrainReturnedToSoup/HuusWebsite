@@ -1,4 +1,4 @@
-import { OnSubmitConstraintValidationServiceLogKeys_Enum } from "./OnSubmitConstraintValidationService_Enum";
+// import { OnSubmitConstraintValidationServiceLogKeys_Enum } from "./OnSubmitConstraintValidationService_Enum";
 import { OnSubmitConstraintValidationPostHandler_LambdaInterface } from "./OnSubmitConstraintValidationService_Impl";
 
 // these lambdas are largely for adding specific enumerations
@@ -16,6 +16,8 @@ const postHandleFirstName: OnSubmitConstraintValidationPostHandler_LambdaInterfa
     isValid,
     contactFormRepository,
   ): void => {
+    logger;
+
     if (!isValid) {
       const errorMessage = "Please enter your first name";
 
@@ -37,6 +39,8 @@ const postHandleLastName: OnSubmitConstraintValidationPostHandler_LambdaInterfac
     isValid,
     contactFormRepository,
   ): void => {
+    logger;
+
     if (!isValid) {
       const errorMessage = "Please enter your last name";
 
@@ -58,6 +62,8 @@ const postHandleEmail: OnSubmitConstraintValidationPostHandler_LambdaInterface =
     isValid,
     contactFormRepository,
   ): void => {
+    logger;
+
     if (!isValid) {
       const errorMessage = "Please enter a valid email";
 
@@ -79,6 +85,8 @@ const postHandleServiceSelection: OnSubmitConstraintValidationPostHandler_Lambda
     isValid,
     contactFormRepository,
   ): void => {
+    logger;
+
     if (!isValid) {
       const errorMessage = "Please select a valid option";
 
@@ -100,6 +108,8 @@ const postHandleMessage: OnSubmitConstraintValidationPostHandler_LambdaInterface
     isValid,
     contactFormRepository,
   ): void => {
+    logger;
+
     if (!isValid) {
       const errorMessage = "Please enter a valid message";
 

@@ -9,9 +9,11 @@ import { MobileNavButton } from "./mobile-nav-menu/mobile-nav-buttons/MobileNavB
 export interface MobileNavProps_Interface {
   logger: Logger_Interface;
   createInvocationId: InvocationIdFactory_LambdaInterface;
-  
   componentUsageSource: string;
+  
   domBodyRepository: DomBodyRepository_Interface;
+  viewPortWidth: number;
+  viewPortWidthLimit: number;
 
   mobileNavButtons: MobileNavButton[];
 }

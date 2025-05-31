@@ -1,0 +1,47 @@
+.contact-form-gemp-backdrop-blur {
+  backdrop-filter: blur(0px);
+
+  will-change: backdrop-filter;
+
+  -webkit-animation: backdrop-blur-webkit 0.15s forwards;
+  -webkit-animation-delay: 0s;
+
+  animation: backdrop-blur 0.15s forwards;
+  animation-delay: 0s;
+}
+
+@-webkit-keyframes backdrop-blur-webkit {
+  100% {
+    backdrop-filter: blur(2px);
+  }
+}
+
+@keyframes backdrop-blur {
+  100% {
+    backdrop-filter: blur(2px);
+  }
+}
+
+.contact-form-gemp-opacity {
+  opacity: 0;
+
+  will-change: opacity;
+
+  -webkit-animation: opacity-webkit 0.15s forwards;
+  -webkit-animation-delay: 0s;
+
+  animation: opacity 0.15s forwards;
+  animation-delay: 0s;
+}
+
+@-webkit-keyframes opacity-webkit {
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes opacity {
+  100% {
+    opacity: 1;
+  }
+}

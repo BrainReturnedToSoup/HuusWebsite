@@ -1,7 +1,9 @@
+import { Link } from "react-router-dom";
+
 import { DefaultNavButtonProps_Interface } from "./DefaultNavButton_Interface";
 
 function DefaultNavButton({
- // id,
+  // id,
   text,
   url,
   index,
@@ -19,9 +21,9 @@ function DefaultNavButton({
 
   return (
     <li className="h-[55px]">
-      <a href={url} className={appliedLinkStyle}>
+      <Link to={url} className={appliedLinkStyle}>
         {text}
-      </a>
+      </Link>
     </li>
   );
 }

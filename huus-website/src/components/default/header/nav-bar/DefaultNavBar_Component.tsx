@@ -10,7 +10,7 @@ import { DefaultNav } from "./nav/DefaultNav_Component";
 
 import { NavBarProps_Interface } from "./DefaultNavBar_Interface";
 
-const mobileNavMaxVPWidth: number = 1024; // 1024px, the max limit width for the mobile nav to be presented
+const mobileNavMaxVPWidthLimit: number = 1024; // 1024px, the max limit width for the mobile nav to be presented
 
 const navTransitionFollowLimit: number = 128; // 128px, this value should match the transform starting positions in the corresponding CSS stylesheet "DefaultNavBar_Style.css"
 const navTransitionReturnLimit: number = 64; // 64px, which should equal the throttling interval for the view port position Y listener setting into redux. This value should also match the
@@ -31,13 +31,12 @@ export function NavBar({
     (state: AppStoreRootState) => state.appWindow.viewPortWidth,
   );
 
-  const [mobileNavDisplayed, setMobileNavDisplayed] = useState<boolean>(false);
+  const [mobileNavIsPriority, setMobileNavIsPriority] =
+    useState<boolean>(false);
   useEffect(() => {
-    const isDisplayed = viewPortWidth < mobileNavMaxVPWidth;
+    const isPriority = viewPortWidth < mobileNavMaxVPWidthLimit;
 
-    if (isDisplayed !== mobileNavDisplayed) {
-      setMobileNavDisplayed(isDisplayed);
-    }
+    if (isPriority !== mobileNavIsPriority) setMobileNavIsPriority(isPriority);
   }, [viewPortWidth]);
 
   // for calculating whether the current view port position Y (the scroll position basically) necessitates a follow animation.
@@ -50,26 +49,20 @@ export function NavBar({
   // DO NOT USE 'useRef' HERE. 'useState' MAY CAUSE RERENDERS, BUT THE STATE LIFECYCLES ARE SERIALIZED AND PREDICTABLE THIS WAY.
   // MAKES IT PREDICTABLE GIVEN THE STATE MACHINE BEING APPLIED HERE.
   const [navFollows, setNavFollows] = useState<boolean>(false);
-  const [navFollowsRenderCounter, setNavFollowsRenderCounter] =
+  const [componentRenderCounter, setComponentRenderCounter] =
     useState<number>(0);
 
   useEffect(() => {
-    if (navFollowsRenderCounter == 2) {
-      const follows = viewPortPositionY > navTransitionFollowLimit;
+    if (componentRenderCounter == 2) {
+      const shouldFollow = viewPortPositionY > navTransitionFollowLimit;
 
-      console.log(viewPortPositionY);
-
-      if (follows !== navFollows) {
-        setNavFollows(follows);
-      }
+      if (shouldFollow !== navFollows) setNavFollows(shouldFollow);
     } else {
-      setNavFollowsRenderCounter((prev) => prev + 1);
+      setComponentRenderCounter((prev) => prev + 1);
     }
-  }, [viewPortPositionY]);
 
-  // used to determine when the nav bar should return back to the top of the screen
-  // after following the user using a pseudo-sticky behavior (couldn't use regular sticky here, scrollable parent scoping wasn't ideal)
-  useEffect(() => {
+    // used to determine when the nav bar should return back to the top of the screen
+    // after following the user using a pseudo-sticky behavior (couldn't use regular sticky here, scrollable parent scoping wasn't ideal)
     const navShouldReturn = viewPortPositionY < navTransitionReturnLimit;
 
     if (navShouldReturn && navFollows) {
@@ -85,19 +78,19 @@ export function NavBar({
 
   // DO NOT USE 'useRef' HERE. 'useState' MAY CAUSE RERENDERS, BUT THE STATE LIFECYCLES ARE SERIALIZED AND PREDICTABLE THIS WAY.
   // MAKES IT PREDICTABLE GIVEN THE STATE MACHINE BEING APPLIED HERE.
-  const [navContainerClasses, setNavContainerClasses] =
-    useState<string>("absolute");
   const [noReturnAnimationRenderCounter, setNoReturnAnimationRenderCounter] =
     useState<number>(0);
+  const [navContainerStyleClasses, setNavContainerStyleClasses] =
+    useState<string>("absolute");
 
   useEffect(() => {
     if (noReturnAnimationRenderCounter < 2)
       setNoReturnAnimationRenderCounter(noReturnAnimationRenderCounter + 1);
 
     if (navFollows) {
-      setNavContainerClasses("nav-bar-follow fixed");
+      setNavContainerStyleClasses("nav-bar-follow fixed");
     } else if (noReturnAnimationRenderCounter === 2) {
-      setNavContainerClasses("nav-bar-return absolute");
+      setNavContainerStyleClasses("nav-bar-return absolute");
     }
   }, [navFollows]);
 
@@ -108,32 +101,25 @@ export function NavBar({
       </div>
 
       <div
-        className={`left-0 flex w-dvw grow items-center justify-end px-4 lg:px-24 ${navContainerClasses}`}
+        className={`left-0 flex w-dvw grow items-center justify-end px-4 lg:px-24 ${navContainerStyleClasses}`}
       >
         <div className="hidden border-r-[1px] border-white bg-black lg:block">
           <DefaultNav navButtons={navButtons} />
         </div>
 
-        {
-          // need to render the mobile nav using redux state, because there is an edgecase
-          // where if you change the view width while the mobile nav is open while otherwise using CSS
-          // breakpoints will cause the component to not render, but its still technically mounted and thus
-          // the overflow changes to the body element aren't reverted. Rendering is via the 'mobileNavPriority' local
-          // state to micro-optimize on the renders, because using the viewport width hook directly will cause a lot of re-renders
-          // even if you do throttle.
-
-          mobileNavDisplayed ? (
-            <div className={`flex items-center justify-center bg-black`}>
-              <MobileNav
-                logger={logger}
-                createInvocationId={createInvocationId}
-                mobileNavButtons={navButtons}
-                domBodyRepository={domBodyRepository}
-                componentUsageSource={componentUsageSource}
-              />
-            </div>
-          ) : null
-        }
+        <div
+          className={`flex items-center justify-center bg-black lg:hidden ${mobileNavIsPriority ? "block" : "hidden"}`}
+        >
+          <MobileNav
+            logger={logger}
+            createInvocationId={createInvocationId}
+            componentUsageSource={componentUsageSource}
+            domBodyRepository={domBodyRepository}
+            viewPortWidth={viewPortWidth}
+            viewPortWidthLimit={1024} // should match the breakpoint for 'lg:hidden' in the parent container
+            mobileNavButtons={navButtons}
+          />
+        </div>
       </div>
     </div>
   );

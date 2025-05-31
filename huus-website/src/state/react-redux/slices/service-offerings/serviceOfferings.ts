@@ -19,7 +19,7 @@ const staticConfig: ServiceOfferingsSubsections = [
                 nisl egestas nec.`,
         price: "$24.99",
         priceQuantifier: "Per session",
-        enquireOnClick: () => {},
+        navigateToOnEnquire: "/contact",
       },
       {
         id: "1",
@@ -32,7 +32,7 @@ const staticConfig: ServiceOfferingsSubsections = [
                 nisl egestas nec.`,
         price: "$24.99",
         priceQuantifier: "Per session",
-        enquireOnClick: () => {},
+        navigateToOnEnquire: "/contact",
       },
       {
         id: "2",
@@ -45,7 +45,7 @@ const staticConfig: ServiceOfferingsSubsections = [
                 nisl egestas nec.`,
         price: "$24.99",
         priceQuantifier: "Per session",
-        enquireOnClick: () => {},
+        navigateToOnEnquire: "/contact",
       },
       {
         id: "3",
@@ -58,7 +58,7 @@ const staticConfig: ServiceOfferingsSubsections = [
                 nisl egestas nec.`,
         price: "$24.99",
         priceQuantifier: "Per session",
-        enquireOnClick: () => {},
+        navigateToOnEnquire: "/contact",
       },
     ],
   },
@@ -76,7 +76,7 @@ const staticConfig: ServiceOfferingsSubsections = [
                 nisl egestas nec.`,
         price: "$24.99",
         priceQuantifier: "Per bundle",
-        enquireOnClick: () => {},
+        navigateToOnEnquire: "/contact",
       },
       {
         id: "5",
@@ -89,7 +89,7 @@ const staticConfig: ServiceOfferingsSubsections = [
                 nisl egestas nec.`,
         price: "$24.99",
         priceQuantifier: "Per bundle",
-        enquireOnClick: () => {},
+        navigateToOnEnquire: "/contact",
       },
     ],
   },

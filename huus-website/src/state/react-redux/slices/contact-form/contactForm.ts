@@ -26,132 +26,133 @@ const contactFormSlice = createSlice({
     // per form field. Can't use nested objects, because that messes with how
     // redux perceives state changes.
     firstName: "" as FirstName,
-    firstNameError: "valid error" as FirstNameError,
+    firstNameError: "" as FirstNameError,
 
     lastName: "" as LastName,
-    lastNameError: "valid error" as LastNameError,
+    lastNameError: "" as LastNameError,
 
     email: "" as Email,
-    emailError: "valid error" as EmailError,
+    emailError: "" as EmailError,
 
     serviceSelection: "" as ServiceSelection,
-    serviceSelectionError: "valid error" as ServiceSelectionError,
+    serviceSelectionError: "" as ServiceSelectionError,
 
     message: "" as Message,
-    messageError: "valid error" as MessageError,
+    messageError: "" as MessageError,
 
     // top-level state of the form.
+    generalFormError: "" as GeneralFormError,
     submitIsPending: false as SubmitIsPending,
     submitSucceeded: false as SubmitSucceeded,
-    generalFormError: "" as GeneralFormError,
     inputsDisabled: false as InputsDisabled,
     submitId: crypto.randomUUID() as SubmitId,
   },
 
   reducers: {
-    firstName: (state, action): void => {
+    setFirstName: (state, action): void => {
       state.firstName = String(action.payload);
     },
-    firstNameError: (state, action): void => {
+    setFirstNameError: (state, action): void => {
       state.firstNameError = String(action.payload);
     },
 
-    lastName: (state, action): void => {
+    setLastName: (state, action): void => {
       state.lastName = String(action.payload);
     },
-    lastNameError: (state, action): void => {
+    setLastNameError: (state, action): void => {
       state.lastNameError = String(action.payload);
     },
 
-    email: (state, action): void => {
+    setEmail: (state, action): void => {
       state.email = String(action.payload);
     },
-    emailError: (state, action): void => {
+    setEmailError: (state, action): void => {
       state.emailError = String(action.payload);
     },
 
-    serviceSelection: (state, action): void => {
+    setServiceSelection: (state, action): void => {
       state.serviceSelection = String(action.payload);
     },
-    serviceSelectionError: (state, action): void => {
+    setServiceSelectionError: (state, action): void => {
       state.serviceSelectionError = String(action.payload);
     },
 
-    message: (state, action): void => {
+    setMessage: (state, action): void => {
       state.message = String(action.payload);
     },
-    messageError: (state, action): void => {
+    setMessageError: (state, action): void => {
       state.messageError = String(action.payload);
     },
 
-    submitIsPending: (state, action): void => {
-      state.submitIsPending = action.payload;
-    },
-    submitSucceeded: (state, action): void => {
-      state.submitSucceeded = action.payload;
-    },
-    generalFormError: (state, action): void => {
+    setGeneralFormError: (state, action): void => {
       state.generalFormError = String(action.payload);
     },
-    inputsDisabled: (state, action): void => {
+    setSubmitIsPending: (state, action): void => {
+      state.submitIsPending = action.payload;
+    },
+    setSubmitSucceeded: (state, action): void => {
+      state.submitSucceeded = action.payload;
+    },
+    setInputsDisabled: (state, action): void => {
       state.inputsDisabled = action.payload;
     },
 
-    submitId: (state, action): void => {
+    setSubmitId: (state, action): void => {
       state.submitId = action.payload;
     },
   },
 });
 
 const selectors = {
-  firstName: (store: AppStore): string => {
+  getFirstName: (store: AppStore): string => {
     return store.getState().contactForm.firstName;
   },
-  firstNameError: (store: AppStore): string => {
+  getFirstNameError: (store: AppStore): string => {
     return store.getState().contactForm.firstNameError;
   },
 
-  lastName: (store: AppStore): string => {
+  getLastName: (store: AppStore): string => {
     return store.getState().contactForm.lastName;
   },
-  lastNameError: (store: AppStore): string => {
+  getLastNameError: (store: AppStore): string => {
     return store.getState().contactForm.lastNameError;
   },
 
-  email: (store: AppStore): string => {
+  getEmail: (store: AppStore): string => {
     return store.getState().contactForm.email;
   },
-  emailError: (store: AppStore): string => {
+  getEmailError: (store: AppStore): string => {
     return store.getState().contactForm.emailError;
   },
 
-  serviceSelection: (store: AppStore): string => {
+  getServiceSelection: (store: AppStore): string => {
     return store.getState().contactForm.serviceSelection;
   },
-  serviceSelectionError: (store: AppStore): string => {
+  getServiceSelectionError: (store: AppStore): string => {
     return store.getState().contactForm.serviceSelectionError;
   },
 
-  message: (store: AppStore): string => {
+  getMessage: (store: AppStore): string => {
     return store.getState().contactForm.message;
   },
-  messageError: (store: AppStore): string => {
+  getMessageError: (store: AppStore): string => {
     return store.getState().contactForm.messageError;
   },
 
-  submitIsPending: (store: AppStore): boolean => {
-    return store.getState().contactForm.submitIsPending;
-  },
-  submitSucceeded: (store: AppStore): boolean => {
-    return store.getState().contactForm.submitSucceeded;
-  },
-  generalFormError: (store: AppStore): string => {
+  getGeneralFormError: (store: AppStore): string => {
     return store.getState().contactForm.generalFormError;
   },
-  inputsDisabled: (store: AppStore): boolean => {
+  getSubmitIsPending: (store: AppStore): boolean => {
+    return store.getState().contactForm.submitIsPending;
+  },
+  getSubmitSucceeded: (store: AppStore): boolean => {
+    return store.getState().contactForm.submitSucceeded;
+  },
+  getInputsDisabled: (store: AppStore): boolean => {
     return store.getState().contactForm.inputsDisabled;
   },
-  submitId: (store: AppStore): string => {
+
+  getSubmitId: (store: AppStore): string => {
     return store.getState().contactForm.submitId;
   },
 };

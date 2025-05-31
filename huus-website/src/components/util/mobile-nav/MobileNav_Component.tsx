@@ -22,9 +22,11 @@ import "./MobileNav_Style.css";
 function MobileNav({
   logger,
   createInvocationId,
+  componentUsageSource,
 
   domBodyRepository,
-  componentUsageSource,
+  viewPortWidth,
+  viewPortWidthLimit,
 
   mobileNavButtons,
 }: MobileNavProps_Interface) {
@@ -32,6 +34,8 @@ function MobileNav({
   // this over using useEffect, so that there isn't a window where the component is mounted
   // but the 'isOpen' state is still true.
 
+  const [mobileNavIsPriority, setMobileNavIsPriority] =
+    useState<Boolean>(false);
   const [navIsOpen, setNavIsOpen] = useState<Boolean>(false);
 
   // to prevent scrolling in the body component, you apply 'overflow hidden' when the nav is open,
@@ -39,10 +43,23 @@ function MobileNav({
   // in this component, because in the end, the top level body state is global as per vanilla Web APIs, so you
   // don't need to declare it elsewhere. This also allows better encapsulation overall, as well as prevents unnecessary rerenders
   // from useEffect calls otherwise in a top level parent component.
+
+  useEffect(() => {
+    const isPriority = viewPortWidth <= viewPortWidthLimit;
+
+    if (isPriority !== mobileNavIsPriority) {
+      if (isPriority) {
+        setMobileNavIsPriority(true);
+      } else {
+        setMobileNavIsPriority(false);
+      }
+    }
+  });
+
   useEffect(() => {
     const componentLifecycleId = createInvocationId();
 
-    if (navIsOpen) {
+    if (navIsOpen && mobileNavIsPriority) {
       domBodyRepository.setOverflowY(
         componentLifecycleId,
 
@@ -81,7 +98,7 @@ function MobileNav({
         DomBodyOverflowX_Enum.AUTO,
       );
     };
-  }, [navIsOpen]);
+  }, [navIsOpen, mobileNavIsPriority]);
 
   return (
     <>
@@ -104,7 +121,9 @@ function MobileNav({
         aria-label="Nav menu button"
       ></button>
 
-      {navIsOpen ? (
+      <div
+        className={`${navIsOpen && mobileNavIsPriority ? "block" : "hidden"}`}
+      >
         <MobileNavMenu
           logger={logger}
           createInvocationId={createInvocationId}
@@ -114,7 +133,7 @@ function MobileNav({
             setNavIsOpen(false);
           }}
         />
-      ) : null}
+      </div>
     </>
   );
 }

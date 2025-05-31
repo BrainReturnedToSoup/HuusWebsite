@@ -12,17 +12,7 @@ function ServiceOfferingsSubsection({
         {subsectionTitle}
       </h1>
       {serviceOfferings.map((offering) => {
-        return (
-          <ServiceOffering
-            key={offering.id}
-            title={offering.title}
-            keywords={offering.keywords}
-            description={offering.description}
-            price={offering.price}
-            priceQuantifier={offering.priceQuantifier}
-            enquireOnClick={offering.enquireOnClick}
-          />
-        );
+        return <ServiceOffering key={offering.id} {...offering} />;
       })}
     </div>
   );

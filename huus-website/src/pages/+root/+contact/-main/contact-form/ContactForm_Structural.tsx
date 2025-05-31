@@ -1,9 +1,11 @@
+import { defaultLogger } from "../../../../../logging/logger/default/DefaultLogger_Instance";
+import { domBodyRepository } from "../../../../../state/repositories/DOM/DomBodyRepository_Instance";
 import { ClearAndSubmit } from "./clear-and-submit/ClearAndSubmit_Structural";
 import { ContactFormLogKeys_Enum } from "./ContactForm_Enum";
 import { ContactFormProps_Interface } from "./ContactForm_Interface";
 import { DisplayedNotes } from "./displayed-notes/DisplayedNotes_Structural";
 import { Email } from "./email-field/Email_Structural";
-import { GeneralErrorMessage } from "./general-error-message/GeneralErrorMessage_Structural";
+import { GeneralErrorMessagePopup } from "./general-error-message-pop-up/GeneralErrorMessagePopup_Structural";
 import { Message } from "./message-field/Message_Structural";
 import { Name } from "./name-field/Name_Structural";
 import { ServiceSelection } from "./service-selection-field/ServiceSelection_Structural";
@@ -37,7 +39,6 @@ function ContactForm({
         }}
       >
         <DisplayedNotes />
-        <GeneralErrorMessage />
 
         <Name />
         <Email />
@@ -56,6 +57,12 @@ function ContactForm({
           formResetService={formResetService}
         />
       </form>
+      <GeneralErrorMessagePopup
+        logger={defaultLogger}
+        createInvocationId={createInvocationId}
+        componentUsageSource={"general-contact-form"}
+        domBodyRepository={domBodyRepository}
+      />
     </div>
   );
 }
@@ -74,7 +81,6 @@ export { ContactForm };
 //
 //  -individual's email
 //
-//  -general location (not exact)
 //
 //  -selected service (drop down)
 //

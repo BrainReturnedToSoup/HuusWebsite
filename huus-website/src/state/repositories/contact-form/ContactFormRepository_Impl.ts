@@ -118,7 +118,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
   }
 
   getFirstName(invocationId: InvocationId): FirstName {
-    const firstName: FirstName = this.#selectors.firstName(this.#store);
+    const firstName: FirstName = this.#selectors.getFirstName(this.#store);
 
     this.#loggingHelperForGetters(
       invocationId,
@@ -136,7 +136,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
 
     firstName: FirstName,
   ): void {
-    this.#store.dispatch(this.#actions.firstName(firstName));
+    this.#store.dispatch(this.#actions.setFirstName(firstName));
 
     this.#loggingHelperForSetters(
       invocationId,
@@ -148,7 +148,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
   }
 
   getFirstNameError(invocationId: InvocationId): FirstNameError {
-    const firstNameError: FirstNameError = this.#selectors.firstNameError(
+    const firstNameError: FirstNameError = this.#selectors.getFirstNameError(
       this.#store,
     );
 
@@ -167,7 +167,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
     invocationId: InvocationId,
     firstNameError: FirstNameError,
   ): void {
-    this.#store.dispatch(this.#actions.firstNameError(firstNameError));
+    this.#store.dispatch(this.#actions.setFirstNameError(firstNameError));
 
     this.#loggingHelperForSetters(
       invocationId,
@@ -179,7 +179,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
   }
 
   getLastName(invocationId: InvocationId): LastName {
-    const lastName: LastName = this.#selectors.lastName(this.#store);
+    const lastName: LastName = this.#selectors.getLastName(this.#store);
 
     this.#loggingHelperForGetters(
       invocationId,
@@ -197,7 +197,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
 
     lastName: LastName,
   ): void {
-    this.#store.dispatch(this.#actions.lastName(lastName));
+    this.#store.dispatch(this.#actions.setLastName(lastName));
 
     this.#loggingHelperForSetters(
       invocationId,
@@ -209,7 +209,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
   }
 
   getLastNameError(invocationId: InvocationId): LastNameError {
-    const lastNameError: LastNameError = this.#selectors.firstNameError(
+    const lastNameError: LastNameError = this.#selectors.getFirstNameError(
       this.#store,
     );
 
@@ -228,7 +228,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
     invocationId: InvocationId,
     lastNameError: LastNameError,
   ): void {
-    this.#store.dispatch(this.#actions.lastNameError(lastNameError));
+    this.#store.dispatch(this.#actions.setLastNameError(lastNameError));
 
     this.#loggingHelperForSetters(
       invocationId,
@@ -240,7 +240,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
   }
 
   getEmail(invocationId: InvocationId): Email {
-    const email: Email = this.#selectors.email(this.#store);
+    const email: Email = this.#selectors.getEmail(this.#store);
 
     this.#loggingHelperForGetters(
       invocationId,
@@ -258,7 +258,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
 
     email: Email,
   ): void {
-    this.#store.dispatch(this.#actions.email(email));
+    this.#store.dispatch(this.#actions.setEmail(email));
 
     this.#loggingHelperForSetters(
       invocationId,
@@ -270,7 +270,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
   }
 
   getEmailError(invocationId: InvocationId): EmailError {
-    const emailError: EmailError = this.#selectors.emailError(this.#store);
+    const emailError: EmailError = this.#selectors.getEmailError(this.#store);
 
     this.#loggingHelperForGetters(
       invocationId,
@@ -288,7 +288,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
 
     emailError: EmailError,
   ): void {
-    this.#store.dispatch(this.#actions.emailError(emailError));
+    this.#store.dispatch(this.#actions.setEmailError(emailError));
 
     this.#loggingHelperForSetters(
       invocationId,
@@ -300,7 +300,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
   }
 
   getServiceSelection(invocationId: InvocationId): ServiceSelection {
-    const serviceSelection: ServiceSelection = this.#selectors.serviceSelection(
+    const serviceSelection: ServiceSelection = this.#selectors.getServiceSelection(
       this.#store,
     );
 
@@ -320,7 +320,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
 
     serviceSelection: ServiceSelection,
   ): void {
-    this.#store.dispatch(this.#actions.serviceSelection(serviceSelection));
+    this.#store.dispatch(this.#actions.setServiceSelection(serviceSelection));
 
     this.#loggingHelperForSetters(
       invocationId,
@@ -333,7 +333,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
 
   getServiceSelectionError(invocationId: InvocationId): ServiceSelectionError {
     const serviceSelectionError: ServiceSelectionError =
-      this.#selectors.serviceSelectionError(this.#store);
+      this.#selectors.getServiceSelectionError(this.#store);
 
     this.#loggingHelperForGetters(
       invocationId,
@@ -352,7 +352,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
     serviceSelectionError: ServiceSelectionError,
   ): void {
     this.#store.dispatch(
-      this.#actions.serviceSelectionError(serviceSelectionError),
+      this.#actions.setServiceSelectionError(serviceSelectionError),
     );
 
     this.#loggingHelperForSetters(
@@ -365,7 +365,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
   }
 
   getMessage(invocationId: InvocationId): Message {
-    const message: Message = this.#selectors.message(this.#store);
+    const message: Message = this.#selectors.getMessage(this.#store);
 
     this.#loggingHelperForGetters(
       invocationId,
@@ -383,7 +383,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
 
     message: Message,
   ): void {
-    this.#store.dispatch(this.#actions.message(message));
+    this.#store.dispatch(this.#actions.setMessage(message));
 
     this.#loggingHelperForSetters(
       invocationId,
@@ -395,7 +395,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
   }
 
   getMessageError(invocationId: InvocationId): MessageError {
-    const messageError: MessageError = this.#selectors.messageError(
+    const messageError: MessageError = this.#selectors.getMessageError(
       this.#store,
     );
 
@@ -415,7 +415,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
 
     messageError: MessageError,
   ): void {
-    this.#store.dispatch(this.#actions.messageError(messageError));
+    this.#store.dispatch(this.#actions.setMessageError(messageError));
 
     this.#loggingHelperForSetters(
       invocationId,
@@ -427,7 +427,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
   }
 
   getSubmitIsPending(invocationId: InvocationId): SubmitIsPending {
-    const submitIsPending: SubmitIsPending = this.#selectors.submitIsPending(
+    const submitIsPending: SubmitIsPending = this.#selectors.getSubmitIsPending(
       this.#store,
     );
 
@@ -447,7 +447,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
 
     submitIsPending: SubmitIsPending,
   ): void {
-    this.#store.dispatch(this.#actions.submitIsPending(submitIsPending));
+    this.#store.dispatch(this.#actions.setSubmitIsPending(submitIsPending));
 
     this.#loggingHelperForSetters(
       invocationId,
@@ -459,7 +459,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
   }
 
   getSubmitSucceeded(invocationId: InvocationId): SubmitSucceeded {
-    const submitSucceeded: SubmitSucceeded = this.#selectors.submitSucceeded(
+    const submitSucceeded: SubmitSucceeded = this.#selectors.getSubmitSucceeded(
       this.#store,
     );
 
@@ -479,7 +479,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
 
     submitSucceeded: boolean,
   ): void {
-    this.#store.dispatch(this.#actions.submitSucceeded(submitSucceeded));
+    this.#store.dispatch(this.#actions.setSubmitSucceeded(submitSucceeded));
 
     this.#loggingHelperForSetters(
       invocationId,
@@ -491,7 +491,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
   }
 
   getFormError(invocationId: InvocationId): GeneralFormError {
-    const formError: GeneralFormError = this.#selectors.generalFormError(
+    const formError: GeneralFormError = this.#selectors.getGeneralFormError(
       this.#store,
     );
 
@@ -511,7 +511,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
 
     formError: GeneralFormError,
   ): void {
-    this.#store.dispatch(this.#actions.generalFormError(formError));
+    this.#store.dispatch(this.#actions.setGeneralFormError(formError));
 
     this.#loggingHelperForSetters(
       invocationId,
@@ -523,7 +523,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
   }
 
   getInputsDisabled(invocationId: InvocationId): InputsDisabled {
-    const inputsDisabled: InputsDisabled = this.#selectors.inputsDisabled(
+    const inputsDisabled: InputsDisabled = this.#selectors.getInputsDisabled(
       this.#store,
     );
 
@@ -543,7 +543,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
 
     inputsDisabled: InputsDisabled,
   ): void {
-    this.#store.dispatch(this.#actions.inputsDisabled(inputsDisabled));
+    this.#store.dispatch(this.#actions.setInputsDisabled(inputsDisabled));
 
     this.#loggingHelperForSetters(
       invocationId,
@@ -555,7 +555,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
   }
 
   getSubmitId(invocationId: InvocationId): SubmitId {
-    const submitId: SubmitId = this.#selectors.submitId(this.#store);
+    const submitId: SubmitId = this.#selectors.getSubmitId(this.#store);
 
     this.#loggingHelperForGetters(
       invocationId,
@@ -573,7 +573,7 @@ class ContactFormRepository_Impl implements ContactFormRepository_Interface {
 
     submitId: SubmitId,
   ): void {
-    this.#store.dispatch(this.#actions.submitId(submitId));
+    this.#store.dispatch(this.#actions.setSubmitId(submitId));
 
     this.#loggingHelperForSetters(
       invocationId,

@@ -1,5 +1,3 @@
-import { useDispatch } from "react-redux";
-
 import { Preface } from "./preface/Preface_Structural";
 import { ContactForm } from "./contact-form/ContactForm_Structural";
 import { BackupEmail } from "./backup-email/BackupEmail_Structural";
@@ -20,7 +18,6 @@ function Main() {
         createInvocationId={createInvocationId}
         formSubmissionService={contactFormSubmissionService}
         formResetService={contactFormResetService}
-        useDomainStateUpdater={useDispatch}
       />
       <BackupEmail emailAddr={BACKUP_EMAIL} />
     </main>

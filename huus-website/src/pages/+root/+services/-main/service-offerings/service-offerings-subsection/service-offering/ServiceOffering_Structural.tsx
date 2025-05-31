@@ -6,12 +6,13 @@ import { Keywords } from "./keywords/Keywords_Structural";
 import { Pricing } from "./pricing/Pricing_Structural";
 
 function ServiceOffering({
+  id,
   title,
   keywords,
   description,
   price,
   priceQuantifier,
-  enquireOnClick,
+  navigateToOnEnquire,
 }: ServiceOfferingProps_Interface) {
   const [isEnquireHovered, setIsEnquireHovered] = useState(false);
 
@@ -34,10 +35,13 @@ function ServiceOffering({
       </div>
 
       <Pricing
+        offeringId={id}
         price={price}
         priceQuantifier={priceQuantifier}
-        setIsEnquireHovered={setIsEnquireHovered}
-        enquireOnClick={enquireOnClick}
+        navigateToOnEnquire={navigateToOnEnquire}
+        setIsEnquireHovered={(isHovered: boolean) =>
+          setIsEnquireHovered(isHovered)
+        }
       />
     </div>
   );

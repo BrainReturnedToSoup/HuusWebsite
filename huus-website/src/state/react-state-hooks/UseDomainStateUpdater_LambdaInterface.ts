@@ -1,3 +1,3 @@
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 
-export type UseDomainStateUpdater_LambdaInterface = typeof useDispatch;
+// export type UseDomainStateUpdater_LambdaInterface = typeof useDispatch;

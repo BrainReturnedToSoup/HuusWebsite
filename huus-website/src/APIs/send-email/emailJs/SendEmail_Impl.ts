@@ -22,6 +22,8 @@ class SendEmail_EmailJsImpl implements SendEmail_Interface<EmailJsArgs> {
   constructor(emailJs: EmailJs_Interface, logger: Logger_Interface) {
     this.#emailJs = emailJs;
     this.#logger = logger;
+
+    this.#logger
   }
 
   sendWithTimeout(
@@ -95,10 +97,13 @@ class SendEmail_EmailJsImpl implements SendEmail_Interface<EmailJsArgs> {
     instantiationId: string,
     submitId: string,
   ): Promise<EmailSendResponse> {
+    instantiationId;
+    submitId;
+
     return new Promise((resolve, reject) => {
       // return a promise instead, so that the working apps aren't worrying about email JS concerns directly
 
-      const started = new Date();
+      // const started = new Date();
 
       // if (this.#logger)
       //   this.#logger(
@@ -114,7 +119,7 @@ class SendEmail_EmailJsImpl implements SendEmail_Interface<EmailJsArgs> {
         )
         .then(
           (res) => {
-            const ended = new Date();
+            // const ended = new Date();
 
             // if (this.#logger)
             //   this.#logger(
@@ -126,7 +131,7 @@ class SendEmail_EmailJsImpl implements SendEmail_Interface<EmailJsArgs> {
             resolve({ status: res.status, message: res.text });
           },
           (error) => {
-            const ended = new Date();
+            // const ended = new Date();
 
             // if (this.#logger)
             //   this.#logger(

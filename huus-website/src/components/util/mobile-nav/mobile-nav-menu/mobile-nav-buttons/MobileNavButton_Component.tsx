@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { MobileNavButtonLogKeys_Enum } from "./MobileNavButton_Enum";
 import { MobileNavButtonProps_Interface } from "./MobileNavButton_Interface";
 
@@ -9,7 +10,7 @@ export function MobileNavButton({
 }: MobileNavButtonProps_Interface) {
   return (
     <li className="my-6">
-      <a
+      <Link
         onClick={(event) => {
           event.stopPropagation();
 
@@ -35,10 +36,10 @@ export function MobileNavButton({
             )
             .commit();
         }}
-        href={navButtonInfo.url}
+        to={navButtonInfo.url}
       >
         {navButtonInfo.text}
-      </a>
+      </Link>
     </li>
   );
 }

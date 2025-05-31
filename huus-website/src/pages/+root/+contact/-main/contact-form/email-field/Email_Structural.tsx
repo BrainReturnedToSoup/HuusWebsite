@@ -1,11 +1,24 @@
+import { useDispatch } from "react-redux";
+
 import { EmailProps_Interface } from "./Email_Interface";
 
 import { useSelector } from "react-redux";
 import { AppStoreRootState } from "../../../../../../state/react-redux/store";
+import {
+  Email as Email_Type,
+  EmailError,
+} from "../../../../../../domain-data-types/contact-form/ContactForm_DomainTypes";
+import { contactFormSliceActions } from "../../../../../../state/react-redux/slices/contact-form/contactForm";
 
 export function Email({}: EmailProps_Interface) {
-  const emailError: string = useSelector(
+  const dispatch = useDispatch();
+
+  const emailError: EmailError = useSelector(
     (state: AppStoreRootState) => state.contactForm.emailError,
+  );
+
+  const email: Email_Type = useSelector(
+    (state: AppStoreRootState) => state.contactForm.email,
   );
 
   return (
@@ -28,6 +41,10 @@ export function Email({}: EmailProps_Interface) {
       <input
         id="contact-form-email"
         type="email"
+        value={email}
+        onChange={(e) =>
+          dispatch(contactFormSliceActions.setEmail(e.target.value))
+        }
         placeholder="Example: email@example.com"
         className={`default-font-bold border-[1px] ${emailError ? "border-red-500" : "border-transparent"} bg-neutral-100 px-2 py-2 text-base`}
       />
